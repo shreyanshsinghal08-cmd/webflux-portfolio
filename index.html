@@ -116,7 +116,7 @@
         .nav-actions { display: flex; gap: 1rem; align-items: center; }
         .theme-toggle {
             background: none; border: 2px solid var(--border); width: 40px; height: 40px;
-            border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center;
+            border-radius: 12px; cursor: pointer; display: flex; align-items: center; justify-content: center;
             color: var(--text); transition: var(--transition); font-size: 1rem;
         }
         .theme-toggle:hover { border-color: #dc2626; color: #dc2626; transform: rotate(180deg); }
@@ -143,12 +143,12 @@
         .hero::before {
             content: ''; position: absolute; top: -50%; right: -20%; width: 800px; height: 800px;
             background: radial-gradient(circle, rgba(220, 38, 38, 0.15) 0%, transparent 70%);
-            border-radius: 50%; animation: float 20s infinite ease-in-out;
+            border-radius: 12px; animation: float 20s infinite ease-in-out;
         }
         .hero::after {
             content: ''; position: absolute; bottom: -30%; left: -10%; width: 600px; height: 600px;
             background: radial-gradient(circle, rgba(245, 158, 11, 0.08) 0%, transparent 70%);
-            border-radius: 50%; animation: float 25s infinite ease-in-out reverse;
+            border-radius: 12px; animation: float 25s infinite ease-in-out reverse;
         }
         @keyframes float {
             0%, 100% { transform: translate(0, 0) scale(1); }
@@ -252,7 +252,7 @@
         .testimonial-stars { color: #dc2626; margin-bottom: 1rem; font-size: 0.875rem; }
         .testimonial-text { color: #f1f5f9; font-size: 1rem; line-height: 1.7; margin-bottom: 1.5rem; font-style: italic; }
         .testimonial-author { display: flex; align-items: center; gap: 1rem; }
-        .author-avatar { width: 50px; height: 50px; border-radius: 50%; background: linear-gradient(135deg, #dc2626, #f59e0b); display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; font-size: 1.1rem; }
+        .author-avatar { width: 50px; height: 50px; border-radius: 12px; background: linear-gradient(135deg, #dc2626, #f59e0b); display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; font-size: 1.1rem; }
         .author-info h4 { font-size: 1rem; color: #f1f5f9; margin-bottom: 0.25rem; }
         .author-info p { font-size: 0.875rem; color: #94a3b8; }
 
@@ -291,7 +291,7 @@
         .contact-method h4 { font-size: 1rem; margin-bottom: 0.25rem; color: #f1f5f9; transition: var(--transition); }
         .contact-method p { font-size: 0.9rem; color: #94a3b8; transition: var(--transition); }
         .social-links { display: flex; gap: 1rem; }
-        .social-link { width: 45px; height: 45px; border-radius: 50%; background: var(--bg-alt); display: flex; align-items: center; justify-content: center; color: var(--text); text-decoration: none; transition: var(--transition); font-size: 1.1rem; }
+        .social-link { width: 45px; height: 45px; border-radius: 12px; background: var(--bg-alt); display: flex; align-items: center; justify-content: center; color: var(--text); text-decoration: none; transition: var(--transition); font-size: 1.1rem; }
         .social-link:hover { background: #dc2626; color: white; transform: translateY(-3px); }
         .contact-form { background: #141414; border: 1px solid #262626; padding: 2.5rem; border-radius: 20px; border: 1px solid var(--border); box-shadow: var(--shadow); }
         .form-group { margin-bottom: 1.5rem; }
@@ -307,7 +307,7 @@
         .footer-brand .logo { color: white; margin-bottom: 1rem; }
         .footer-brand p { color: #94a3b8; font-size: 0.9rem; line-height: 1.7; margin-bottom: 1.5rem; }
         .footer-social { display: flex; gap: 0.75rem; }
-        .footer-social a { width: 40px; height: 40px; border-radius: 50%; background: #141414; border: 1px solid #262626; display: flex; align-items: center; justify-content: center; color: white; text-decoration: none; transition: var(--transition); }
+        .footer-social a { width: 40px; height: 40px; border-radius: 12px; background: #141414; border: 1px solid #262626; display: flex; align-items: center; justify-content: center; color: white; text-decoration: none; transition: var(--transition); }
         .footer-social a:hover { background: #dc2626; transform: translateY(-3px); }
         .footer-links h4 { font-size: 1.1rem; margin-bottom: 1.5rem; color: white; }
         .footer-links ul { list-style: none; }
@@ -320,7 +320,7 @@
         /* Floating WhatsApp */
         .whatsapp-float {
             position: fixed; bottom: 30px; right: 30px; width: 60px; height: 60px;
-            background: linear-gradient(135deg, #dc2626, #b91c1c); color: white; border-radius: 50%; display: flex;
+            background: linear-gradient(135deg, #dc2626, #b91c1c); color: white; border-radius: 12px; display: flex;
             align-items: center; justify-content: center; font-size: 1.75rem;
             box-shadow: 0 4px 20px rgba(220, 38, 38, 0.4); cursor: pointer;
             z-index: 999; transition: var(--transition); text-decoration: none;
@@ -389,7 +389,7 @@
         }
         .about { padding:5rem 0; }
         .about-content { display: flex; gap: 3rem; align-item:ceter; }
-        .about-image img { width: 300px; height: 300px; border-radius: 50%; object-fit cover; object-position: topcenter; border: 4pxsolid #dc2626; }
+        .about-image img { width: 300px; height: 300px; border-radius: 12px; object-fit cover; object-position: topcenter; border: 4pxsolid #dc2626; }
         .about-text h2 { font-size: 2rem; color: #f1f5f9; margin-bottom:0.5; }
         .about-text h3 { color: #dc2626; margin-bottom: 1rem; font-size: 1.2rem; }
         .abot-text p { color: #94a3b8; margin-bottom: 1rem; }
@@ -572,7 +572,7 @@
      <h3>ShreyanshSinghal</h3>
     <p>Hi,I'm shreyansh - a passionate web designer from Rajsthan,India. I specialize in building modern, fast, and SEO-optimized websites for school, coaching institutes, and businesses.</p>
     <p>With 50+ projects delivered, Ibring your vision to life with clean design and powerful performance.</p>
-    <a> href="https://wa.me/918302589297" class="btn btn-primary">Let's Talk</a>
+    <a href="https://wa.me/918302589297" class="btn btn-primary">Let's Talk</a>
 </div>
 </div>
 </div>
