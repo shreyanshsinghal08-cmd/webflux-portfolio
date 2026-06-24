@@ -1,0 +1,1278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FitLife Pro — Transform Your Body</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-deep: #060608;
+            --bg-surface: #0e0e12;
+            --bg-card: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(0, 255, 136, 0.12);
+            --glass-bg: rgba(255, 255, 255, 0.04);
+            --neon: #00ff88;
+            --neon-dim: #00cc6a;
+            --neon-glow: rgba(0, 255, 136, 0.4);
+            --neon-glow-strong: rgba(0, 255, 136, 0.7);
+            --text-primary: #f0f0f0;
+            --text-secondary: #9a9aaa;
+            --text-muted: #555568;
+            --accent-warm: #ff6b35;
+            --font-display: 'Orbitron', sans-serif;
+            --font-body: 'Outfit', sans-serif;
+        }
+
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--bg-deep);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* ========== NOISE OVERLAY ========== */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+            opacity: 0.03;
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        /* ========== AMBIENT GLOBS ========== */
+        .ambient-glow {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(120px);
+            pointer-events: none;
+            z-index: 0;
+        }
+        .ambient-glow.g1 {
+            width: 500px; height: 500px;
+            background: rgba(0, 255, 136, 0.06);
+            top: -150px; left: -100px;
+        }
+        .ambient-glow.g2 {
+            width: 400px; height: 400px;
+            background: rgba(0, 120, 255, 0.04);
+            bottom: 20%; right: -100px;
+        }
+        .ambient-glow.g3 {
+            width: 350px; height: 350px;
+            background: rgba(0, 255, 136, 0.04);
+            top: 50%; left: 30%;
+        }
+
+        /* ========== NAVBAR ========== */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 1.2rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(6, 6, 8, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+            transition: background 0.3s ease;
+        }
+        .nav-logo {
+            font-family: var(--font-display);
+            font-size: 1.4rem;
+            font-weight: 900;
+            color: var(--neon);
+            text-decoration: none;
+            letter-spacing: 2px;
+            text-shadow: 0 0 20px var(--neon-glow);
+        }
+        .nav-logo span {
+            color: var(--text-primary);
+            font-weight: 400;
+        }
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            transition: color 0.3s ease, text-shadow 0.3s ease;
+            position: relative;
+        }
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--neon);
+            transition: width 0.3s ease;
+        }
+        .nav-links a:hover {
+            color: var(--neon);
+            text-shadow: 0 0 12px var(--neon-glow);
+        }
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 4px;
+        }
+        .hamburger span {
+            width: 26px;
+            height: 2px;
+            background: var(--neon);
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+
+        /* ========== HERO ========== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            padding: 6rem 2rem 4rem;
+            overflow: hidden;
+        }
+        .hero-bg-grid {
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(0, 255, 136, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 136, 0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+            mask-image: radial-gradient(ellipse 70% 60% at 50% 50%, black 20%, transparent 70%);
+            -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 50%, black 20%, transparent 70%);
+        }
+        .hero-content {
+            text-align: center;
+            position: relative;
+            z-index: 2;
+            max-width: 900px;
+        }
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1.2rem;
+            border: 1px solid var(--glass-border);
+            border-radius: 50px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: var(--neon);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 2rem;
+            animation: fadeInDown 0.8s ease forwards;
+            opacity: 0;
+        }
+        .hero-badge::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--neon);
+            box-shadow: 0 0 8px var(--neon-glow-strong);
+            animation: pulse-dot 2s ease-in-out infinite;
+        }
+        @keyframes pulse-dot {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(0.7); }
+        }
+        .hero h1 {
+            font-family: var(--font-display);
+            font-size: clamp(2.8rem, 7vw, 5.5rem);
+            font-weight: 900;
+            line-height: 1.05;
+            letter-spacing: -1px;
+            margin-bottom: 1.5rem;
+            animation: fadeInUp 0.8s ease 0.2s forwards;
+            opacity: 0;
+        }
+        .hero h1 .highlight {
+            background: linear-gradient(135deg, var(--neon) 0%, #00ccff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            position: relative;
+        }
+        .hero h1 .highlight::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--neon), transparent);
+            border-radius: 2px;
+        }
+        .hero-sub {
+            font-size: clamp(1rem, 2.5vw, 1.25rem);
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto 2.5rem;
+            font-weight: 300;
+            line-height: 1.7;
+            animation: fadeInUp 0.8s ease 0.4s forwards;
+            opacity: 0;
+        }
+        .hero-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: fadeInUp 0.8s ease 0.6s forwards;
+            opacity: 0;
+        }
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 1rem 2.4rem;
+            background: var(--neon);
+            color: var(--bg-deep);
+            font-family: var(--font-body);
+            font-size: 1rem;
+            font-weight: 700;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            text-decoration: none;
+            letter-spacing: 0.5px;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 0 30px var(--neon-glow), 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, transparent 40%, rgba(255,255,255,0.2) 50%, transparent 60%);
+            transform: translateX(-100%);
+            transition: transform 0.6s ease;
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px) scale(1.03);
+            box-shadow: 0 0 50px var(--neon-glow-strong), 0 8px 30px rgba(0, 0, 0, 0.4);
+        }
+        .btn-primary:hover::before {
+            transform: translateX(100%);
+        }
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 1rem 2.4rem;
+            background: transparent;
+            color: var(--text-primary);
+            font-family: var(--font-body);
+            font-size: 1rem;
+            font-weight: 500;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 12px;
+            cursor: pointer;
+            text-decoration: none;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+        }
+        .btn-secondary:hover {
+            border-color: var(--neon);
+            color: var(--neon);
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.1);
+            transform: translateY(-2px);
+        }
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin-top: 4rem;
+            animation: fadeInUp 0.8s ease 0.8s forwards;
+            opacity: 0;
+        }
+        .hero-stat {
+            text-align: center;
+        }
+        .hero-stat .number {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--neon);
+            text-shadow: 0 0 20px var(--neon-glow);
+        }
+        .hero-stat .label {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 0.3rem;
+        }
+
+        /* ========== SECTIONS ========== */
+        section {
+            position: relative;
+            z-index: 1;
+            padding: 6rem 2rem;
+        }
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+        .section-tag {
+            font-family: var(--font-display);
+            font-size: 0.75rem;
+            color: var(--neon);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+            display: block;
+        }
+        .section-title {
+            font-family: var(--font-display);
+            font-size: clamp(1.8rem, 4vw, 3rem);
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            margin-bottom: 1rem;
+        }
+        .section-subtitle {
+            font-size: 1.05rem;
+            color: var(--text-secondary);
+            max-width: 550px;
+            margin: 0 auto;
+            font-weight: 300;
+        }
+
+        /* ========== GLASS CARD ========== */
+        .glass-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 2.5rem;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
+            transform-style: preserve-3d;
+            perspective: 1000px;
+        }
+        .glass-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(0, 255, 136, 0.3), transparent);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+        .glass-card:hover::before {
+            opacity: 1;
+        }
+        .glass-card:hover {
+            transform: translateY(-8px) rotateX(2deg) rotateY(-1deg);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4), 0 0 40px rgba(0, 255, 136, 0.06);
+            border-color: rgba(0, 255, 136, 0.25);
+        }
+
+        /* ========== FEATURES ========== */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .feature-card {
+            text-align: center;
+            padding: 3rem 2rem;
+        }
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 2rem;
+            font-size: 2rem;
+            position: relative;
+            background: linear-gradient(135deg, rgba(0, 255, 136, 0.1), rgba(0, 255, 136, 0.02));
+            border: 1px solid rgba(0, 255, 136, 0.15);
+        }
+        .feature-icon::after {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            border-radius: 22px;
+            background: linear-gradient(135deg, rgba(0, 255, 136, 0.2), transparent);
+            z-index: -1;
+            filter: blur(10px);
+        }
+        .feature-card h3 {
+            font-family: var(--font-display);
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            letter-spacing: 0.5px;
+        }
+        .feature-card p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            font-weight: 300;
+            line-height: 1.7;
+        }
+
+        /* ========== PRICING ========== */
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            max-width: 1100px;
+            margin: 0 auto;
+            align-items: center;
+        }
+        .pricing-card {
+            padding: 3rem 2.5rem;
+            text-align: center;
+            position: relative;
+        }
+        .pricing-card.featured {
+            border-color: rgba(0, 255, 136, 0.4);
+            background: rgba(0, 255, 136, 0.04);
+            transform: scale(1.05);
+            box-shadow: 0 0 60px rgba(0, 255, 136, 0.08);
+        }
+        .pricing-card.featured:hover {
+            transform: scale(1.05) translateY(-8px) rotateX(2deg);
+        }
+        .pricing-card.featured::before {
+            opacity: 1;
+        }
+        .pricing-badge {
+            display: inline-block;
+            padding: 0.3rem 1rem;
+            background: var(--neon);
+            color: var(--bg-deep);
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            border-radius: 50px;
+            margin-bottom: 1.5rem;
+        }
+        .pricing-name {
+            font-family: var(--font-display);
+            font-size: 1rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+        }
+        .pricing-price {
+            font-family: var(--font-display);
+            font-size: 3.2rem;
+            font-weight: 900;
+            margin-bottom: 0.3rem;
+        }
+        .pricing-price .currency {
+            font-size: 1.5rem;
+            font-weight: 400;
+            color: var(--text-secondary);
+            vertical-align: top;
+            margin-right: 2px;
+        }
+        .pricing-price .period {
+            font-size: 0.9rem;
+            font-weight: 400;
+            color: var(--text-muted);
+        }
+        .pricing-desc {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+        }
+        .pricing-features {
+            list-style: none;
+            margin-bottom: 2.5rem;
+            text-align: left;
+        }
+        .pricing-features li {
+            padding: 0.6rem 0;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+        }
+        .pricing-features li::before {
+            content: '✓';
+            color: var(--neon);
+            font-weight: 700;
+            font-size: 0.8rem;
+            text-shadow: 0 0 8px var(--neon-glow);
+        }
+        .pricing-features li.disabled {
+            opacity: 0.35;
+        }
+        .pricing-features li.disabled::before {
+            content: '—';
+            color: var(--text-muted);
+            text-shadow: none;
+        }
+        .btn-pricing {
+            width: 100%;
+            padding: 1rem;
+            font-family: var(--font-body);
+            font-size: 0.95rem;
+            font-weight: 600;
+            border-radius: 12px;
+            cursor: pointer;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: transparent;
+            color: var(--text-primary);
+        }
+        .btn-pricing:hover {
+            border-color: var(--neon);
+            color: var(--neon);
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.15);
+        }
+        .btn-pricing.featured-btn {
+            background: var(--neon);
+            color: var(--bg-deep);
+            border-color: var(--neon);
+            box-shadow: 0 0 30px var(--neon-glow);
+        }
+        .btn-pricing.featured-btn:hover {
+            box-shadow: 0 0 50px var(--neon-glow-strong);
+            transform: translateY(-2px);
+        }
+
+        /* ========== TESTIMONIALS ========== */
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .testimonial-card {
+            padding: 2.5rem;
+        }
+        .testimonial-stars {
+            color: #ffba08;
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+            margin-bottom: 1.5rem;
+        }
+        .testimonial-text {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            font-weight: 300;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+            font-style: italic;
+        }
+        .testimonial-text::before {
+            content: '"';
+            font-family: var(--font-display);
+            font-size: 3rem;
+            color: var(--neon);
+            opacity: 0.3;
+            line-height: 0;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .testimonial-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: 1rem;
+            color: var(--bg-deep);
+            flex-shrink: 0;
+        }
+        .testimonial-avatar.a1 {
+            background: linear-gradient(135deg, var(--neon), #00ccff);
+        }
+        .testimonial-avatar.a2 {
+            background: linear-gradient(135deg, #ff6b35, #ffba08);
+        }
+        .testimonial-avatar.a3 {
+            background: linear-gradient(135deg, #a855f7, #6366f1);
+        }
+        .testimonial-name {
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+        .testimonial-role {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        /* ========== CONTACT ========== */
+        .contact-wrapper {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+        }
+        .form-group {
+            position: relative;
+        }
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem 1.4rem;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            color: var(--text-primary);
+            font-family: var(--font-body);
+            font-size: 0.95rem;
+            font-weight: 400;
+            outline: none;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: var(--text-muted);
+        }
+        .form-group input:focus,
+        .form-group textarea:focus {
+            border-color: var(--neon);
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.08);
+            background: rgba(0, 255, 136, 0.02);
+        }
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.2rem;
+        }
+        .btn-submit {
+            padding: 1.1rem 2rem;
+            background: var(--neon);
+            color: var(--bg-deep);
+            font-family: var(--font-body);
+            font-size: 1rem;
+            font-weight: 700;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 30px var(--neon-glow);
+            position: relative;
+            overflow: hidden;
+            margin-top: 0.5rem;
+        }
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 50px var(--neon-glow-strong), 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        /* ========== FOOTER ========== */
+        footer {
+            position: relative;
+            z-index: 1;
+            border-top: 1px solid rgba(255, 255, 255, 0.04);
+            padding: 3rem 2rem 2rem;
+        }
+        .footer-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+        .footer-brand .nav-logo {
+            font-size: 1.2rem;
+        }
+        .footer-brand p {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            margin-top: 0.5rem;
+            max-width: 300px;
+        }
+        .footer-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+        .footer-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: color 0.3s ease;
+        }
+        .footer-links a:hover {
+            color: var(--neon);
+        }
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 2rem auto 0;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.04);
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+        }
+
+        /* ========== SCROLL ANIMATIONS ========== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .reveal-delay-1 { transition-delay: 0.1s; }
+        .reveal-delay-2 { transition-delay: 0.2s; }
+        .reveal-delay-3 { transition-delay: 0.3s; }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ========== FLOATING PARTICLES ========== */
+        .particles {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: var(--neon);
+            border-radius: 50%;
+            opacity: 0;
+            animation: float-particle linear infinite;
+        }
+        @keyframes float-particle {
+            0% { opacity: 0; transform: translateY(100vh) scale(0); }
+            10% { opacity: 0.6; }
+            90% { opacity: 0.6; }
+            100% { opacity: 0; transform: translateY(-10vh) scale(1); }
+        }
+
+        /* ========== RESPONSIVE ========== */
+        @media (max-width: 992px) {
+            .features-grid,
+            .pricing-grid,
+            .testimonials-grid {
+                grid-template-columns: 1fr;
+                max-width: 500px;
+            }
+            .pricing-card.featured {
+                transform: scale(1);
+            }
+            .pricing-card.featured:hover {
+                transform: translateY(-8px) rotateX(2deg);
+            }
+            .hero-stats {
+                gap: 2rem;
+            }
+        }
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                flex-direction: column;
+                background: rgba(6, 6, 8, 0.95);
+                backdrop-filter: blur(20px);
+                padding: 1.5rem 2rem;
+                gap: 1rem;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+            }
+            .nav-links.open {
+                display: flex;
+            }
+            .hamburger {
+                display: flex;
+            }
+            .hamburger.active span:nth-child(1) {
+                transform: rotate(45deg) translate(5px, 5px);
+            }
+            .hamburger.active span:nth-child(2) {
+                opacity: 0;
+            }
+            .hamburger.active span:nth-child(3) {
+                transform: rotate(-45deg) translate(5px, -5px);
+            }
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            .hero-stats {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+            .footer-inner {
+                flex-direction: column;
+                text-align: center;
+            }
+            .footer-brand p {
+                max-width: 100%;
+            }
+            section {
+                padding: 4rem 1.2rem;
+            }
+        }
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            .hero-actions {
+                flex-direction: column;
+                align-items: center;
+            }
+            .btn-primary, .btn-secondary {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Ambient Glow Orbs -->
+    <div class="ambient-glow g1"></div>
+    <div class="ambient-glow g2"></div>
+    <div class="ambient-glow g3"></div>
+
+    <!-- Floating Particles -->
+    <div class="particles" id="particles"></div>
+
+    <!-- ========== NAVBAR ========== -->
+    <nav>
+        <a href="#" class="nav-logo">FIT<span>LIFE</span> PRO</a>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#features">Features</a></li>
+            <li><a href="#pricing">Pricing</a></li>
+            <li><a href="#testimonials">Testimonials</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+        <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </nav>
+
+    <!-- ========== HERO ========== -->
+    <section class="hero" id="hero">
+        <div class="hero-bg-grid"></div>
+        <div class="hero-content">
+            <div class="hero-badge">Now Available — 2024 Edition</div>
+            <h1>Transform Your<br><span class="highlight">Body & Mind</span></h1>
+            <p class="hero-sub">AI-powered workout plans, personalized nutrition, and real-time coaching — all in one platform. Start your fitness journey today.</p>
+            <div class="hero-actions">
+                <a href="#pricing" class="btn-primary">
+                    Start Free Trial
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </a>
+                <a href="#features" class="btn-secondary">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                    See How It Works
+                </a>
+            </div>
+            <div class="hero-stats">
+                <div class="hero-stat">
+                    <div class="number" data-target="50000">0</div>
+                    <div class="label">Active Users</div>
+                </div>
+                <div class="hero-stat">
+                    <div class="number" data-target="150">0</div>
+                    <div class="label">Expert Coaches</div>
+                </div>
+                <div class="hero-stat">
+                    <div class="number" data-target="98">0</div>
+                    <div class="label">% Success Rate</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== FEATURES ========== -->
+    <section id="features">
+        <div class="section-header reveal">
+            <span class="section-tag">Why FitLife Pro</span>
+            <h2 class="section-title">Everything You Need</h2>
+            <p class="section-subtitle">Three pillars of fitness, one powerful platform designed to get results.</p>
+        </div>
+        <div class="features-grid">
+            <div class="glass-card feature-card reveal reveal-delay-1">
+                <div class="feature-icon">
+                    <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="var(--neon)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M6.5 6.5h11M6.5 17.5h11M2 12h3m14 0h3M6 6.5V4m0 16v-2.5M18 6.5V4m0 16v-2.5M6 12a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm12 0a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/>
+                    </svg>
+                </div>
+                <h3>Workout Plans</h3>
+                <p>AI-generated workout routines tailored to your goals, fitness level, and schedule. Over 500+ exercises with video guides.</p>
+            </div>
+            <div class="glass-card feature-card reveal reveal-delay-2">
+                <div class="feature-icon">
+                    <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="var(--neon)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M18 8h1a4 4 0 0 1 0 8h-1M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/>
+                    </svg>
+                </div>
+                <h3>Diet Guide</h3>
+                <p>Personalized meal plans calibrated to your macros. Track calories, get recipes, and sync with your workouts seamlessly.</p>
+            </div>
+            <div class="glass-card feature-card reveal reveal-delay-3">
+                <div class="feature-icon">
+                    <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="var(--neon)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                    </svg>
+                </div>
+                <h3>Live Coaching</h3>
+                <p>Connect with certified coaches in real-time. Get form corrections, motivation, and accountability whenever you need it.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== PRICING ========== -->
+    <section id="pricing">
+        <div class="section-header reveal">
+            <span class="section-tag">Pricing</span>
+            <h2 class="section-title">Choose Your Plan</h2>
+            <p class="section-subtitle">No hidden fees. Cancel anytime. Start with a 7-day free trial.</p>
+        </div>
+        <div class="pricing-grid">
+            <div class="glass-card pricing-card reveal reveal-delay-1">
+                <div class="pricing-name">Basic</div>
+                <div class="pricing-price"><span class="currency">₹</span>999<span class="period">/mo</span></div>
+                <p class="pricing-desc">Great for beginners</p>
+                <ul class="pricing-features">
+                    <li>AI Workout Plans</li>
+                    <li>Basic Diet Tracking</li>
+                    <li>Exercise Library</li>
+                    <li>Progress Dashboard</li>
+                    <li class="disabled">Live Coaching</li>
+                    <li class="disabled">Priority Support</li>
+                </ul>
+                <button class="btn-pricing">Get Started</button>
+            </div>
+            <div class="glass-card pricing-card featured reveal reveal-delay-2">
+                <div class="pricing-badge">Most Popular</div>
+                <div class="pricing-name">Pro</div>
+                <div class="pricing-price"><span class="currency">₹</span>1999<span class="period">/mo</span></div>
+                <p class="pricing-desc">For serious athletes</p>
+                <ul class="pricing-features">
+                    <li>AI Workout Plans</li>
+                    <li>Full Diet Guide + Recipes</li>
+                    <li>Exercise Library + Videos</li>
+                    <li>Advanced Analytics</li>
+                    <li>Weekly Live Coaching</li>
+                    <li class="disabled">24/7 Priority Support</li>
+                </ul>
+                <button class="btn-pricing featured-btn">Get Started</button>
+            </div>
+            <div class="glass-card pricing-card reveal reveal-delay-3">
+                <div class="pricing-name">Elite</div>
+                <div class="pricing-price"><span class="currency">₹</span>2999<span class="period">/mo</span></div>
+                <p class="pricing-desc">Ultimate transformation</p>
+                <ul class="pricing-features">
+                    <li>AI Workout Plans</li>
+                    <li>Full Diet Guide + Recipes</li>
+                    <li>Exercise Library + Videos</li>
+                    <li>Advanced Analytics + Reports</li>
+                    <li>Daily Live Coaching</li>
+                    <li>24/7 Priority Support</li>
+                </ul>
+                <button class="btn-pricing">Get Started</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== TESTIMONIALS ========== -->
+    <section id="testimonials">
+        <div class="section-header reveal">
+            <span class="section-tag">Testimonials</span>
+            <h2 class="section-title">Real People, Real Results</h2>
+            <p class="section-subtitle">See what our community has to say about their FitLife Pro experience.</p>
+        </div>
+        <div class="testimonials-grid">
+            <div class="glass-card testimonial-card reveal reveal-delay-1">
+                <div class="testimonial-stars">★ ★ ★ ★ ★</div>
+                <p class="testimonial-text">FitLife Pro completely changed my approach to fitness. The AI-generated plans adapted to my schedule perfectly. I lost 12kg in 4 months without ever feeling overwhelmed.</p>
+                <div class="testimonial-author">
+                    <div class="testimonial-avatar a1">RK</div>
+                    <div>
+                        <div class="testimonial-name">Rahul Kumar</div>
+                        <div class="testimonial-role">Software Engineer, Mumbai</div>
+                    </div>
+                </div>
+            </div>
+            <div class="glass-card testimonial-card reveal reveal-delay-2">
+                <div class="testimonial-stars">★ ★ ★ ★ ★</div>
+                <p class="testimonial-text">The live coaching feature is a game-changer. Having a real expert correct my form during deadlifts prevented what could have been a serious injury. Worth every rupee.</p>
+                <div class="testimonial-author">
+                    <div class="testimonial-avatar a2">PS</div>
+                    <div>
+                        <div class="testimonial-name">Priya Sharma</div>
+                        <div class="testimonial-role">Marketing Lead, Delhi</div>
+                    </div>
+                </div>
+            </div>
+            <div class="glass-card testimonial-card reveal reveal-delay-3">
+                <div class="testimonial-stars">★ ★ ★ ★ ★</div>
+                <p class="testimonial-text">I've tried every fitness app out there. FitLife Pro is the only one that actually understands Indian dietary habits. The meal plans with dal, roti, and sabzi? Genius.</p>
+                <div class="testimonial-author">
+                    <div class="testimonial-avatar a3">AJ</div>
+                    <div>
+                        <div class="testimonial-name">Arjun Joshi</div>
+                        <div class="testimonial-role">Freelancer, Bangalore</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== CONTACT ========== -->
+    <section id="contact">
+        <div class="section-header reveal">
+            <span class="section-tag">Get In Touch</span>
+            <h2 class="section-title">Start Your Journey</h2>
+            <p class="section-subtitle">Drop us a message and our team will reach out within 24 hours.</p>
+        </div>
+        <div class="contact-wrapper reveal">
+            <form class="contact-form glass-card" id="contactForm" onsubmit="handleSubmit(event)">
+                <div class="form-row">
+                    <div class="form-group">
+                        <input type="text" placeholder="Your Name" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="tel" placeholder="Phone Number" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <input type="email" placeholder="Email Address" required>
+                </div>
+                <div class="form-group">
+                    <input type="text" placeholder="Your Goal (e.g., Weight Loss, Muscle Gain)">
+                </div>
+                <button type="submit" class="btn-submit">
+                    Send Message
+                    <svg style="display:inline;vertical-align:middle;margin-left:6px;" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <!-- ========== FOOTER ========== -->
+    <footer>
+        <div class="footer-inner">
+            <div class="footer-brand">
+                <a href="#" class="nav-logo">FIT<span>LIFE</span> PRO</a>
+                <p>Empowering your fitness journey with AI-driven plans and expert coaching since 2020.</p>
+            </div>
+            <ul class="footer-links">
+                <li><a href="#features">Features</a></li>
+                <li><a href="#pricing">Pricing</a></li>
+                <li><a href="#testimonials">Reviews</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+        <div class="footer-bottom">
+            &copy; 2024 FitLife Pro. All rights reserved. Built with sweat and code.
+        </div>
+    </footer>
+
+    <!-- ========== JAVASCRIPT ========== -->
+    <script>
+        // --- Hamburger Menu ---
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('navLinks');
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navLinks.classList.toggle('open');
+        });
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                navLinks.classList.remove('open');
+            });
+        });
+
+        // --- Scroll Reveal ---
+        const revealElements = document.querySelectorAll('.reveal');
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    revealObserver.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.15,
+            rootMargin: '0px 0px -40px 0px'
+        });
+        revealElements.forEach(el => revealObserver.observe(el));
+
+        // --- Counter Animation ---
+        function animateCounters() {
+            const counters = document.querySelectorAll('.hero-stat .number');
+            counters.forEach(counter => {
+                const target = parseInt(counter.getAttribute('data-target'));
+                const duration = 2000;
+                const start = performance.now();
+
+                function update(currentTime) {
+                    const elapsed = currentTime - start;
+                    const progress = Math.min(elapsed / duration, 1);
+                    const eased = 1 - Math.pow(1 - progress, 3);
+                    const current = Math.floor(eased * target);
+
+                    if (target >= 1000) {
+                        counter.textContent = (current / 1000).toFixed(0) + 'K+';
+                    } else {
+                        counter.textContent = current + (target === 98 ? '%' : '+');
+                    }
+
+                    if (progress < 1) {
+                        requestAnimationFrame(update);
+                    }
+                }
+                requestAnimationFrame(update);
+            });
+        }
+
+        // Trigger counters when hero is visible
+        const heroSection = document.querySelector('.hero');
+        const heroObserver = new IntersectionObserver((entries) => {
+            if (entries[0].isIntersecting) {
+                animateCounters();
+                heroObserver.unobserve(heroSection);
+            }
+        }, { threshold: 0.5 });
+        heroObserver.observe(heroSection);
+
+        // --- 3D Card Tilt ---
+        document.querySelectorAll('.glass-card').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                const rotateX = ((y - centerY) / centerY) * -6;
+                const rotateY = ((x - centerX) / centerX) * 6;
+                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-8px)`;
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = '';
+            });
+        });
+
+        // --- Floating Particles ---
+        const particlesContainer = document.getElementById('particles');
+        for (let i = 0; i < 30; i++) {
+            const particle = document.createElement('div');
+            particle.classList.add('particle');
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.animationDuration = (Math.random() * 15 + 10) + 's';
+            particle.style.animationDelay = (Math.random() * 10) + 's';
+            particle.style.width = (Math.random() * 2 + 1) + 'px';
+            particle.style.height = particle.style.width;
+            particlesContainer.appendChild(particle);
+        }
+
+        // --- Form Submit ---
+        function handleSubmit(e) {
+            e.preventDefault();
+            const btn = e.target.querySelector('.btn-submit');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '✓ Message Sent!';
+            btn.style.background = '#00cc6a';
+            setTimeout(() => {
+                btn.innerHTML = originalText;
+                btn.style.background = '';
+                e.target.reset();
+            }, 2500);
+        }
+
+        // --- Navbar scroll effect ---
+        let lastScroll = 0;
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            const scrollY = window.scrollY;
+            if (scrollY > 80) {
+                nav.style.background = 'rgba(6, 6, 8, 0.92)';
+                nav.style.boxShadow = '0 2px 30px rgba(0,0,0,0.3)';
+            } else {
+                nav.style.background = 'rgba(6, 6, 8, 0.7)';
+                nav.style.boxShadow = 'none';
+            }
+            lastScroll = scrollY;
+        });
+    </script>
+</body>
+</html>
