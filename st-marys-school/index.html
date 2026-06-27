@@ -1,0 +1,1181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>St. Mary's High School — Excellence in Education Since 1985</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  /* ============ RESET & BASE ============ */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --blue: #1a3a6b;
+    --blue-dark: #0f2447;
+    --blue-light: #2d5aa0;
+    --blue-pale: #e8eef9;
+    --gold: #FFD700;
+    --gold-dark: #d4af37;
+    --gold-light: #fff3b0;
+    --white: #ffffff;
+    --off-white: #f8fafc;
+    --text: #1e293b;
+    --text-muted: #64748b;
+    --border: rgba(26, 58, 107, 0.12);
+    --shadow-sm: 0 4px 14px rgba(26, 58, 107, 0.08);
+    --shadow-md: 0 12px 32px rgba(26, 58, 107, 0.12);
+    --shadow-lg: 0 24px 60px rgba(26, 58, 107, 0.18);
+    --radius: 14px;
+  }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Inter', sans-serif;
+    color: var(--text);
+    background: var(--white);
+    line-height: 1.6;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3, h4 { font-family: 'Playfair Display', serif; line-height: 1.2; color: var(--blue-dark); }
+  a { color: inherit; text-decoration: none; }
+  img { max-width: 100%; display: block; }
+  .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+
+  /* ============ NAVBAR ============ */
+  .navbar {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    padding: 16px 0;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    transition: all 0.3s ease;
+  }
+  .navbar.scrolled { padding: 10px 0; box-shadow: var(--shadow-sm); }
+  .nav-inner { display: flex; align-items: center; justify-content: space-between; }
+  .logo { display: flex; align-items: center; gap: 12px; }
+  .logo-crest {
+    width: 48px; height: 48px;
+    background: linear-gradient(135deg, var(--blue), var(--blue-dark));
+    border-radius: 50%;
+    display: grid; place-items: center;
+    color: var(--gold);
+    font-family: 'Playfair Display', serif;
+    font-weight: 700; font-size: 1.4rem;
+    box-shadow: 0 4px 14px rgba(26, 58, 107, 0.3);
+    position: relative;
+    border: 2px solid var(--gold);
+  }
+  .logo-text { display: flex; flex-direction: column; line-height: 1.1; }
+  .logo-text .name {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700; font-size: 1.15rem; color: var(--blue-dark);
+  }
+  .logo-text .tagline { font-size: 0.7rem; color: var(--gold-dark); font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; }
+  .nav-links { display: flex; gap: 28px; list-style: none; align-items: center; }
+  .nav-links a {
+    font-size: 0.92rem; font-weight: 500; color: var(--blue-dark);
+    position: relative; transition: color 0.3s;
+  }
+  .nav-links a::after {
+    content: ''; position: absolute; left: 0; bottom: -6px;
+    width: 0; height: 2px; background: var(--gold);
+    transition: width 0.3s;
+  }
+  .nav-links a:hover { color: var(--blue-light); }
+  .nav-links a:hover::after { width: 100%; }
+  .nav-cta {
+    padding: 10px 22px; border-radius: 50px;
+    background: var(--gold); color: var(--blue-dark);
+    font-weight: 600; font-size: 0.88rem;
+    box-shadow: 0 4px 14px rgba(255, 215, 0, 0.4);
+    transition: all 0.3s;
+  }
+  .nav-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(255, 215, 0, 0.5); background: var(--gold-dark); color: var(--white); }
+  .menu-toggle { display: none; background: none; border: none; color: var(--blue-dark); cursor: pointer; font-size: 1.5rem; }
+
+  /* ============ HERO ============ */
+  .hero {
+    min-height: 100vh; position: relative;
+    display: flex; align-items: center;
+    padding: 120px 0 80px; overflow: hidden;
+    background: linear-gradient(135deg, var(--blue-dark) 0%, var(--blue) 50%, var(--blue-light) 100%);
+  }
+  .hero::before {
+    content: ''; position: absolute; inset: 0;
+    background-image:
+      radial-gradient(circle at 20% 30%, rgba(255, 215, 0, 0.08) 0%, transparent 40%),
+      radial-gradient(circle at 80% 70%, rgba(255, 255, 255, 0.06) 0%, transparent 40%);
+  }
+  .hero-pattern {
+    position: absolute; inset: 0; opacity: 0.04;
+    background-image:
+      repeating-linear-gradient(45deg, transparent, transparent 35px, rgba(255,255,255,0.5) 35px, rgba(255,255,255,0.5) 36px),
+      repeating-linear-gradient(-45deg, transparent, transparent 35px, rgba(255,255,255,0.5) 35px, rgba(255,255,255,0.5) 36px);
+  }
+  .hero-grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 60px; align-items: center; position: relative; z-index: 2; }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 8px 18px; border-radius: 50px;
+    background: rgba(255, 215, 0, 0.15);
+    border: 1px solid rgba(255, 215, 0, 0.4);
+    color: var(--gold); font-size: 0.85rem; font-weight: 600;
+    margin-bottom: 24px; backdrop-filter: blur(10px);
+  }
+  .hero-badge .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--gold); box-shadow: 0 0 10px var(--gold); animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
+  .hero h1 {
+    font-size: clamp(2.5rem, 5.5vw, 4.2rem);
+    font-weight: 700; margin-bottom: 24px; color: var(--white);
+    letter-spacing: -0.02em;
+  }
+  .hero h1 .gold { color: var(--gold); font-style: italic; }
+  .hero > .container > .hero-grid > div > p {
+    font-size: 1.15rem; color: rgba(255, 255, 255, 0.85);
+    max-width: 540px; margin-bottom: 36px;
+  }
+  .hero-cta { display: flex; gap: 16px; flex-wrap: wrap; }
+  .btn {
+    padding: 14px 30px; border-radius: 50px;
+    font-weight: 600; font-size: 0.95rem;
+    display: inline-flex; align-items: center; gap: 8px;
+    cursor: pointer; border: none; transition: all 0.3s;
+    font-family: inherit;
+  }
+  .btn-gold {
+    background: var(--gold); color: var(--blue-dark);
+    box-shadow: 0 4px 20px rgba(255, 215, 0, 0.4);
+  }
+  .btn-gold:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(255, 215, 0, 0.6); background: var(--gold-dark); color: var(--white); }
+  .btn-outline {
+    background: transparent; color: var(--white);
+    border: 2px solid rgba(255, 255, 255, 0.4);
+  }
+  .btn-outline:hover { background: rgba(255, 255, 255, 0.1); border-color: var(--white); }
+  .hero-stats {
+    display: flex; gap: 40px; margin-top: 50px; padding-top: 30px;
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+  }
+  .hero-stats .stat-num { font-family: 'Playfair Display', serif; font-size: 2.2rem; font-weight: 700; color: var(--gold); }
+  .hero-stats .stat-label { font-size: 0.85rem; color: rgba(255, 255, 255, 0.75); }
+  .hero-visual {
+    position: relative; aspect-ratio: 4/5; max-width: 480px; margin-left: auto;
+  }
+  .hero-card {
+    position: absolute; border-radius: var(--radius);
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(20px); padding: 22px;
+    box-shadow: var(--shadow-lg);
+  }
+  .hero-card-1 { top: 0; left: 0; width: 220px; animation: float 6s ease-in-out infinite; }
+  .hero-card-2 { bottom: 10%; right: 0; width: 240px; animation: float 7s ease-in-out infinite 1s; }
+  .hero-card-3 { top: 40%; right: 15%; width: 180px; animation: float 8s ease-in-out infinite 2s; }
+  @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
+  .hero-card .icon {
+    width: 44px; height: 44px; border-radius: 12px;
+    background: var(--gold); display: grid; place-items: center;
+    margin-bottom: 12px; font-size: 1.3rem;
+    box-shadow: 0 4px 14px rgba(255, 215, 0, 0.3);
+  }
+  .hero-card h4 { font-family: 'Inter', sans-serif; font-size: 0.95rem; margin-bottom: 4px; color: var(--white); font-weight: 600; }
+  .hero-card p { font-size: 0.8rem; color: rgba(255, 255, 255, 0.7); margin: 0; }
+
+  /* ============ SECTION HEADER ============ */
+  section { padding: 100px 0; position: relative; }
+  .section-head { text-align: center; max-width: 700px; margin: 0 auto 60px; }
+  .section-tag {
+    display: inline-block; padding: 6px 16px; border-radius: 50px;
+    background: var(--blue-pale);
+    color: var(--blue); font-size: 0.78rem; font-weight: 700;
+    letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 16px;
+  }
+  .section-head h2 {
+    font-size: clamp(2rem, 4vw, 2.8rem); margin-bottom: 16px;
+  }
+  .section-head h2 .gold { color: var(--gold-dark); font-style: italic; }
+  .section-head p { color: var(--text-muted); font-size: 1.05rem; }
+
+  /* ============ ABOUT ============ */
+  .about { background: var(--off-white); }
+  .about-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 60px; align-items: center; }
+  .about-visual {
+    position: relative; aspect-ratio: 1;
+    border-radius: var(--radius); overflow: hidden;
+    background: linear-gradient(135deg, var(--blue), var(--blue-dark));
+    box-shadow: var(--shadow-lg);
+  }
+  .about-visual::before {
+    content: ''; position: absolute; inset: 0;
+    background-image:
+      radial-gradient(circle at 30% 30%, rgba(255, 215, 0, 0.2), transparent 50%),
+      radial-gradient(circle at 70% 70%, rgba(255, 255, 255, 0.1), transparent 50%);
+  }
+  .about-visual .crest-large {
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+    width: 200px; height: 200px;
+    border: 3px solid var(--gold);
+    border-radius: 50%;
+    display: grid; place-items: center;
+    font-family: 'Playfair Display', serif;
+    font-size: 4rem; font-weight: 700;
+    color: var(--gold);
+  }
+  .about-visual .crest-large::before {
+    content: ''; position: absolute; inset: 12px;
+    border: 1px solid rgba(255, 215, 0, 0.4);
+    border-radius: 50%;
+  }
+  .about-visual .year-badge {
+    position: absolute; bottom: 30px; left: 30px;
+    padding: 14px 22px; border-radius: 12px;
+    background: var(--gold); color: var(--blue-dark);
+    font-family: 'Playfair Display', serif;
+    font-weight: 700; font-size: 1.1rem;
+    box-shadow: var(--shadow-md);
+  }
+  .about-content h2 { font-size: clamp(2rem, 3.5vw, 2.6rem); margin-bottom: 20px; }
+  .about-content h2 .gold { color: var(--gold-dark); font-style: italic; }
+  .about-content > p { color: var(--text-muted); margin-bottom: 30px; font-size: 1.05rem; }
+  .vmv-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 30px; }
+  .vmv-card {
+    padding: 24px 18px; border-radius: var(--radius);
+    background: var(--white); border: 1px solid var(--border);
+    box-shadow: var(--shadow-sm);
+    transition: all 0.3s;
+  }
+  .vmv-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-md); border-color: var(--gold); }
+  .vmv-card .icon {
+    width: 42px; height: 42px; border-radius: 10px;
+    background: var(--blue-pale); color: var(--blue);
+    display: grid; place-items: center;
+    margin-bottom: 12px; font-size: 1.2rem;
+  }
+  .vmv-card h4 { font-family: 'Inter', sans-serif; font-size: 0.95rem; margin-bottom: 6px; color: var(--blue-dark); }
+  .vmv-card p { font-size: 0.82rem; color: var(--text-muted); }
+
+  /* ============ FEATURES ============ */
+  .features-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px;
+  }
+  .feature-card {
+    padding: 36px 28px; border-radius: var(--radius);
+    background: var(--white); border: 1px solid var(--border);
+    box-shadow: var(--shadow-sm);
+    transition: all 0.4s ease; position: relative; overflow: hidden;
+  }
+  .feature-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px;
+    background: linear-gradient(90deg, var(--blue), var(--gold));
+    transform: scaleX(0); transform-origin: left;
+    transition: transform 0.4s;
+  }
+  .feature-card:hover { transform: translateY(-8px); box-shadow: var(--shadow-lg); }
+  .feature-card:hover::before { transform: scaleX(1); }
+  .feature-icon {
+    width: 64px; height: 64px; border-radius: 16px;
+    background: linear-gradient(135deg, var(--blue), var(--blue-dark));
+    display: grid; place-items: center;
+    margin-bottom: 22px; font-size: 1.8rem;
+    box-shadow: 0 8px 20px rgba(26, 58, 107, 0.25);
+    color: var(--gold);
+  }
+  .feature-card h3 { font-size: 1.3rem; margin-bottom: 12px; }
+  .feature-card p { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 18px; }
+  .feature-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+  .feature-list li {
+    font-size: 0.88rem; color: var(--text);
+    display: flex; align-items: center; gap: 8px;
+  }
+  .feature-list li::before {
+    content: '✓'; color: var(--gold-dark); font-weight: 700;
+  }
+
+  /* ============ ACADEMICS ============ */
+  .academics { background: var(--blue-dark); color: var(--white); position: relative; overflow: hidden; }
+  .academics::before {
+    content: ''; position: absolute; inset: 0;
+    background-image:
+      radial-gradient(circle at 10% 20%, rgba(255, 215, 0, 0.08), transparent 40%),
+      radial-gradient(circle at 90% 80%, rgba(255, 255, 255, 0.05), transparent 40%);
+  }
+  .academics .section-tag { background: rgba(255, 215, 0, 0.15); color: var(--gold); }
+  .academics .section-head h2 { color: var(--white); }
+  .academics .section-head p { color: rgba(255, 255, 255, 0.75); }
+  .academics-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px;
+    position: relative; z-index: 2;
+  }
+  .academic-card {
+    padding: 36px 30px; border-radius: var(--radius);
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    transition: all 0.4s;
+  }
+  .academic-card:hover { transform: translateY(-8px); background: rgba(255, 255, 255, 0.08); border-color: var(--gold); }
+  .academic-level {
+    display: inline-block; padding: 6px 14px; border-radius: 50px;
+    background: var(--gold); color: var(--blue-dark);
+    font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em;
+    text-transform: uppercase; margin-bottom: 18px;
+  }
+  .academic-card h3 { color: var(--white); font-size: 1.6rem; margin-bottom: 8px; }
+  .academic-card .grades { color: var(--gold); font-size: 0.95rem; font-weight: 600; margin-bottom: 20px; }
+  .academic-card p { color: rgba(255, 255, 255, 0.75); font-size: 0.95rem; margin-bottom: 22px; }
+  .subjects { list-style: none; display: flex; flex-wrap: wrap; gap: 8px; }
+  .subjects li {
+    padding: 6px 12px; border-radius: 50px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    font-size: 0.82rem; color: rgba(255, 255, 255, 0.9);
+  }
+
+  /* ============ ACHIEVEMENTS ============ */
+  .achievements { background: var(--off-white); }
+  .achievements-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px;
+    margin-bottom: 50px;
+  }
+  .achievement-card {
+    padding: 32px 24px; border-radius: var(--radius);
+    background: var(--white); border: 1px solid var(--border);
+    box-shadow: var(--shadow-sm);
+    text-align: center; transition: all 0.3s;
+    position: relative; overflow: hidden;
+  }
+  .achievement-card::before {
+    content: ''; position: absolute; top: -50%; left: -50%;
+    width: 200%; height: 200%;
+    background: radial-gradient(circle, rgba(255, 215, 0, 0.15), transparent 60%);
+    opacity: 0; transition: opacity 0.4s;
+  }
+  .achievement-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-md); }
+  .achievement-card:hover::before { opacity: 1; }
+  .achievement-icon {
+    width: 64px; height: 64px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+    display: grid; place-items: center;
+    margin: 0 auto 16px; font-size: 1.8rem;
+    box-shadow: 0 8px 20px rgba(255, 215, 0, 0.3);
+    position: relative; z-index: 1;
+  }
+  .achievement-card .num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.4rem; font-weight: 700;
+    color: var(--blue-dark); margin-bottom: 4px;
+    position: relative; z-index: 1;
+  }
+  .achievement-card .label { font-size: 0.9rem; color: var(--text-muted); position: relative; z-index: 1; }
+  .trophy-showcase {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;
+  }
+  .trophy-card {
+    padding: 24px; border-radius: var(--radius);
+    background: linear-gradient(135deg, var(--blue), var(--blue-dark));
+    color: var(--white); position: relative; overflow: hidden;
+    display: flex; gap: 18px; align-items: center;
+  }
+  .trophy-card::before {
+    content: ''; position: absolute; top: -30%; right: -30%;
+    width: 200px; height: 200px;
+    background: radial-gradient(circle, rgba(255, 215, 0, 0.2), transparent 70%);
+  }
+  .trophy-card .trophy-icon {
+    width: 56px; height: 56px; border-radius: 14px;
+    background: var(--gold); display: grid; place-items: center;
+    font-size: 1.6rem; flex-shrink: 0;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
+  }
+  .trophy-card h4 { font-family: 'Inter', sans-serif; font-size: 1rem; margin-bottom: 4px; color: var(--white); }
+  .trophy-card p { font-size: 0.85rem; color: rgba(255, 255, 255, 0.75); }
+
+  /* ============ ADMISSIONS ============ */
+  .admissions-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start; }
+  .process-steps { display: flex; flex-direction: column; gap: 20px; }
+  .step {
+    display: flex; gap: 20px; align-items: flex-start;
+    padding: 22px; border-radius: var(--radius);
+    background: var(--white); border: 1px solid var(--border);
+    box-shadow: var(--shadow-sm);
+    transition: all 0.3s;
+  }
+  .step:hover { transform: translateX(6px); border-color: var(--gold); box-shadow: var(--shadow-md); }
+  .step-num {
+    width: 48px; height: 48px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--blue), var(--blue-dark));
+    color: var(--gold); display: grid; place-items: center;
+    font-family: 'Playfair Display', serif; font-weight: 700; font-size: 1.2rem;
+    flex-shrink: 0;
+    box-shadow: 0 4px 12px rgba(26, 58, 107, 0.25);
+  }
+  .step h4 { font-family: 'Inter', sans-serif; font-size: 1.05rem; margin-bottom: 4px; color: var(--blue-dark); }
+  .step p { font-size: 0.9rem; color: var(--text-muted); }
+  .fee-structure {
+    padding: 32px; border-radius: var(--radius);
+    background: linear-gradient(135deg, var(--blue), var(--blue-dark));
+    color: var(--white); position: relative; overflow: hidden;
+  }
+  .fee-structure::before {
+    content: ''; position: absolute; top: -50%; right: -50%;
+    width: 300px; height: 300px;
+    background: radial-gradient(circle, rgba(255, 215, 0, 0.15), transparent 70%);
+  }
+  .fee-structure h3 { color: var(--white); font-size: 1.6rem; margin-bottom: 6px; position: relative; }
+  .fee-structure > p { color: rgba(255, 255, 255, 0.75); margin-bottom: 24px; position: relative; }
+  .fee-table { width: 100%; border-collapse: collapse; position: relative; }
+  .fee-table tr { border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
+  .fee-table td { padding: 14px 8px; font-size: 0.95rem; }
+  .fee-table td:first-child { color: rgba(255, 255, 255, 0.85); }
+  .fee-table td:last-child { text-align: right; font-weight: 600; color: var(--gold); }
+  .fee-cta {
+    margin-top: 24px; width: 100%; justify-content: center;
+    position: relative;
+  }
+
+  /* ============ GALLERY ============ */
+  .gallery { background: var(--off-white); }
+  .gallery-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;
+  }
+  .gallery-card {
+    aspect-ratio: 4/3; border-radius: var(--radius);
+    overflow: hidden; position: relative;
+    box-shadow: var(--shadow-sm);
+    transition: all 0.4s;
+    cursor: pointer;
+  }
+  .gallery-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); }
+  .gallery-card .bg {
+    position: absolute; inset: 0;
+    transition: transform 0.6s;
+  }
+  .gallery-card:hover .bg { transform: scale(1.08); }
+  .gallery-card .overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(180deg, transparent 40%, rgba(15, 36, 71, 0.9) 100%);
+    display: flex; flex-direction: column; justify-content: flex-end;
+    padding: 24px;
+  }
+  .gallery-card .tag {
+    position: absolute; top: 16px; left: 16px;
+    padding: 5px 12px; border-radius: 50px;
+    background: var(--gold); color: var(--blue-dark);
+    font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .gallery-card h4 { color: var(--white); font-size: 1.15rem; margin-bottom: 4px; }
+  .gallery-card p { color: rgba(255, 255, 255, 0.8); font-size: 0.85rem; }
+  .g1 .bg { background: linear-gradient(135deg, #1a3a6b 0%, #2d5aa0 50%, #4a7bc8 100%); }
+  .g1 .bg::after { content: '🏫'; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 5rem; opacity: 0.3; }
+  .g2 .bg { background: linear-gradient(135deg, #2d5aa0 0%, #1a3a6b 100%); }
+  .g2 .bg::after { content: '⚽'; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 5rem; opacity: 0.3; }
+  .g3 .bg { background: linear-gradient(135deg, #0f2447 0%, #1a3a6b 50%, #2d5aa0 100%); }
+  .g3 .bg::after { content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 5rem; opacity: 0.3; }
+  .g4 .bg { background: linear-gradient(135deg, #4a7bc8 0%, #1a3a6b 100%); }
+  .g4 .bg::after { content: '📚'; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 5rem; opacity: 0.3; }
+  .g5 .bg { background: linear-gradient(135deg, #1a3a6b 0%, #0f2447 100%); }
+  .g5 .bg::after { content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 5rem; opacity: 0.3; }
+  .g6 .bg { background: linear-gradient(135deg, #2d5aa0 0%, #4a7bc8 50%, #1a3a6b 100%); }
+  .g6 .bg::after { content: '🎓'; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 5rem; opacity: 0.3; }
+
+  /* ============ CONTACT ============ */
+  .contact-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 60px; align-items: start; }
+  .contact-info h2 { font-size: clamp(2rem, 3.5vw, 2.6rem); margin-bottom: 16px; }
+  .contact-info h2 .gold { color: var(--gold-dark); font-style: italic; }
+  .contact-info > p { color: var(--text-muted); margin-bottom: 30px; }
+  .contact-list { list-style: none; display: flex; flex-direction: column; gap: 16px; }
+  .contact-list li {
+    display: flex; align-items: center; gap: 16px;
+    padding: 18px; border-radius: 12px;
+    background: var(--white); border: 1px solid var(--border);
+    box-shadow: var(--shadow-sm);
+    transition: all 0.3s;
+  }
+  .contact-list li:hover { border-color: var(--gold); box-shadow: var(--shadow-md); }
+  .contact-list .icon {
+    width: 44px; height: 44px; border-radius: 12px;
+    background: linear-gradient(135deg, var(--blue), var(--blue-dark));
+    display: grid; place-items: center;
+    flex-shrink: 0; font-size: 1.1rem; color: var(--gold);
+  }
+  .contact-list .label { font-size: 0.78rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; }
+  .contact-list .value { font-weight: 500; color: var(--blue-dark); }
+  .contact-form {
+    padding: 36px; border-radius: var(--radius);
+    background: var(--white); border: 1px solid var(--border);
+    box-shadow: var(--shadow-md);
+  }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .form-group { margin-bottom: 18px; }
+  .form-group label { display: block; font-size: 0.88rem; margin-bottom: 8px; font-weight: 600; color: var(--blue-dark); }
+  .form-group input, .form-group textarea, .form-group select {
+    width: 100%; padding: 13px 16px; border-radius: 10px;
+    background: var(--off-white); border: 1px solid var(--border);
+    color: var(--text); font-family: inherit; font-size: 0.95rem;
+    transition: all 0.3s;
+  }
+  .form-group input:focus, .form-group textarea:focus, .form-group select:focus {
+    outline: none; border-color: var(--blue);
+    background: var(--white);
+    box-shadow: 0 0 0 3px rgba(26, 58, 107, 0.1);
+  }
+  .form-group textarea { resize: vertical; min-height: 120px; }
+  .form-submit { width: 100%; justify-content: center; background: var(--blue); color: var(--white); }
+  .form-submit:hover { background: var(--blue-dark); }
+
+  /* ============ FOOTER ============ */
+  footer {
+    padding: 60px 0 30px;
+    background: var(--blue-dark);
+    color: var(--white);
+    position: relative; overflow: hidden;
+  }
+  footer::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px;
+    background: linear-gradient(90deg, var(--gold), var(--blue-light), var(--gold));
+  }
+  .footer-grid {
+    display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 40px;
+    margin-bottom: 40px;
+  }
+  .footer-col h4 { font-family: 'Inter', sans-serif; font-size: 1rem; margin-bottom: 18px; color: var(--gold); font-weight: 600; }
+  .footer-col p, .footer-col a { color: rgba(255, 255, 255, 0.75); font-size: 0.9rem; }
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .footer-col a { transition: color 0.3s; }
+  .footer-col a:hover { color: var(--gold); }
+  .footer-brand p { margin: 16px 0; max-width: 320px; }
+  .socials { display: flex; gap: 12px; margin-top: 20px; }
+  .socials a {
+    width: 40px; height: 40px; border-radius: 10px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    display: grid; place-items: center;
+    transition: all 0.3s; font-size: 1rem;
+  }
+  .socials a:hover { background: var(--gold); color: var(--blue-dark); transform: translateY(-3px); border-color: var(--gold); }
+  .footer-bottom {
+    padding-top: 24px; border-top: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex; justify-content: space-between; align-items: center;
+    color: rgba(255, 255, 255, 0.6); font-size: 0.85rem; flex-wrap: wrap; gap: 12px;
+  }
+
+  /* ============ ANIMATIONS ============ */
+  .reveal { opacity: 0; transform: translateY(40px); transition: opacity 0.8s ease, transform 0.8s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.3s; }
+  .reveal-delay-4 { transition-delay: 0.4s; }
+
+  /* ============ RESPONSIVE ============ */
+  @media (max-width: 900px) {
+    .hero-grid, .about-grid, .admissions-grid, .contact-grid { grid-template-columns: 1fr; gap: 40px; }
+    .hero-visual { max-width: 380px; margin: 0 auto; }
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+    .nav-links { display: none; position: absolute; top: 100%; left: 0; right: 0;
+      flex-direction: column; background: var(--white);
+      padding: 20px; border-bottom: 1px solid var(--border); gap: 16px;
+      box-shadow: var(--shadow-md); }
+    .nav-links.open { display: flex; }
+    .menu-toggle { display: block; }
+    .nav-cta { display: none; }
+    .vmv-grid { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 600px) {
+    section { padding: 70px 0; }
+    .hero { padding: 100px 0 60px; }
+    .hero-stats { gap: 24px; flex-wrap: wrap; }
+    .footer-grid { grid-template-columns: 1fr; }
+    .footer-bottom { flex-direction: column; text-align: center; }
+    .contact-form { padding: 24px; }
+    .form-row { grid-template-columns: 1fr; }
+    .fee-structure { padding: 24px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ NAVBAR ============ -->
+<nav class="navbar" id="navbar">
+  <div class="container nav-inner">
+    <a href="#" class="logo">
+      <div class="logo-crest">SM</div>
+      <div class="logo-text">
+        <span class="name">St. Mary's High School</span>
+        <span class="tagline">Est. 1985 • Excellence in Education</span>
+      </div>
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#about">About</a></li>
+      <li><a href="#features">Features</a></li>
+      <li><a href="#academics">Academics</a></li>
+      <li><a href="#achievements">Achievements</a></li>
+      <li><a href="#admissions">Admissions</a></li>
+      <li><a href="#gallery">Gallery</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a href="#admissions" class="nav-cta">Apply Now</a>
+    <button class="menu-toggle" id="menuToggle">☰</button>
+  </div>
+</nav>
+
+<!-- ============ HERO ============ -->
+<section class="hero" id="home">
+  <div class="hero-pattern"></div>
+  <div class="container hero-grid">
+    <div>
+      <div class="hero-badge reveal">
+        <span class="dot"></span>
+        <span>Admissions Open for 2026-27</span>
+      </div>
+      <h1 class="reveal reveal-delay-1">Excellence in <span class="gold">Education</span> Since 1985</h1>
+      <p class="reveal reveal-delay-2">Nurturing young minds with knowledge, character, and values for over four decades. Join a legacy of academic excellence and holistic development.</p>
+      <div class="hero-cta reveal reveal-delay-3">
+        <a href="#admissions" class="btn btn-gold">Apply for Admission →</a>
+        <a href="#about" class="btn btn-outline">▶ Explore Our School</a>
+      </div>
+      <div class="hero-stats reveal reveal-delay-4">
+        <div>
+          <div class="stat-num" data-count="40">0</div>
+          <div class="stat-label">Years of Legacy</div>
+        </div>
+        <div>
+          <div class="stat-num" data-count="2500">0</div>
+          <div class="stat-label">Happy Students</div>
+        </div>
+        <div>
+          <div class="stat-num" data-count="150">0</div>
+          <div class="stat-label">Expert Teachers</div>
+        </div>
+        <div>
+          <div class="stat-num" data-count="98">0</div>
+          <div class="stat-label">% Pass Rate</div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-visual reveal">
+      <div class="hero-card hero-card-1">
+        <div class="icon">🏆</div>
+        <h4>Award Winning</h4>
+        <p>Best School 2025</p>
+      </div>
+      <div class="hero-card hero-card-2">
+        <div class="icon">📖</div>
+        <h4>Smart Learning</h4>
+        <p>Digital classrooms</p>
+      </div>
+      <div class="hero-card hero-card-3">
+        <div class="icon">🌟</div>
+        <h4>Holistic Growth</h4>
+        <p>Mind, body & soul</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ABOUT ============ -->
+<section class="about" id="about">
+  <div class="container about-grid">
+    <div class="about-visual reveal">
+      <div class="crest-large">SM</div>
+      <div class="year-badge">Est. 1985</div>
+    </div>
+    <div class="about-content">
+      <span class="section-tag reveal">About Our School</span>
+      <h2 class="reveal reveal-delay-1">A Legacy of <span class="gold">Learning</span> & Character</h2>
+      <p class="reveal reveal-delay-2">For over 40 years, St. Mary's High School has been a beacon of educational excellence, shaping future leaders through rigorous academics, character development, and a commitment to values that last a lifetime.</p>
+      <div class="vmv-grid">
+        <div class="vmv-card reveal reveal-delay-1">
+          <div class="icon">🎯</div>
+          <h4>Our Vision</h4>
+          <p>To be a world-class institution nurturing enlightened, ethical citizens.</p>
+        </div>
+        <div class="vmv-card reveal reveal-delay-2">
+          <div class="icon">🚀</div>
+          <h4>Our Mission</h4>
+          <p>Empowering students with knowledge, skills, and values for lifelong success.</p>
+        </div>
+        <div class="vmv-card reveal reveal-delay-3">
+          <div class="icon">💎</div>
+          <h4>Our Values</h4>
+          <p>Integrity, excellence, respect, compassion, and lifelong learning.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FEATURES ============ -->
+<section id="features">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="section-tag">Why Choose Us</span>
+      <h2>World-Class <span class="gold">Facilities</span></h2>
+      <p>Our campus is equipped with modern infrastructure designed to inspire learning and foster growth at every level.</p>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card reveal reveal-delay-1">
+        <div class="feature-icon">💻</div>
+        <h3>Smart Classrooms</h3>
+        <p>Technology-enabled learning spaces with interactive boards and digital resources.</p>
+        <ul class="feature-list">
+          <li>Interactive smart boards</li>
+          <li>High-speed Wi-Fi campus</li>
+          <li>Digital library access</li>
+        </ul>
+      </div>
+      <div class="feature-card reveal reveal-delay-2">
+        <div class="feature-icon"></div>
+        <h3>Sports Facilities</h3>
+        <p>Expansive grounds and indoor courts for comprehensive physical development.</p>
+        <ul class="feature-list">
+          <li>Olympic-size swimming pool</li>
+          <li>Indoor & outdoor courts</li>
+          <li>Professional coaching staff</li>
+        </ul>
+      </div>
+      <div class="feature-card reveal reveal-delay-3">
+        <div class="feature-icon">🔬</div>
+        <h3>Science Labs</h3>
+        <p>State-of-the-art laboratories for hands-on experimentation and discovery.</p>
+        <ul class="feature-list">
+          <li>Physics, Chemistry & Bio labs</li>
+          <li>Computer science lab</li>
+          <li>Robotics & STEM center</li>
+        </ul>
+      </div>
+      <div class="feature-card reveal reveal-delay-4">
+        <div class="feature-icon">📚</div>
+        <h3>Library</h3>
+        <p>A vast repository of knowledge with over 25,000 books and digital resources.</p>
+        <ul class="feature-list">
+          <li>25,000+ books & journals</li>
+          <li>Digital e-library access</li>
+          <li>Quiet study zones</li>
+        </ul>
+      </div>
+    </div>
+    </div>
+</section>
+
+<!-- ============ ACADEMICS ============ -->
+<section class="academics" id="academics">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="section-tag">Academic Programs</span>
+      <h2>Comprehensive <span class="gold">Curriculum</span></h2>
+      <p>From foundational learning to specialized streams, our academic programs are designed to prepare students for success at every stage.</p>
+    </div>
+    <div class="academics-grid">
+      <div class="academic-card reveal reveal-delay-1">
+        <span class="academic-level">Foundation</span>
+        <h3>Primary School</h3>
+        <div class="grades">Grades 1 – 5</div>
+        <p>Building strong foundations through play-based and experiential learning that sparks curiosity.</p>
+        <ul class="subjects">
+          <li>English</li><li>Mathematics</li><li>Science</li>
+          <li>Social Studies</li><li>Art</li><li>Music</li>
+        </ul>
+      </div>
+      <div class="academic-card reveal reveal-delay-2">
+        <span class="academic-level">Intermediate</span>
+        <h3>Secondary School</h3>
+        <div class="grades">Grades 6 – 10</div>
+        <p>Developing critical thinking and subject mastery with a balanced curriculum and co-curricular activities.</p>
+        <ul class="subjects">
+          <li>English</li><li>Math</li><li>Science</li>
+          <li>Social Science</li><li>Hindi</li><li>Computer</li>
+          <li>Physical Ed.</li>
+        </ul>
+      </div>
+      <div class="academic-card reveal reveal-delay-3">
+        <span class="academic-level">Advanced</span>
+        <h3>Senior Secondary</h3>
+        <div class="grades">Grades 11 – 12</div>
+        <p>Specialized streams preparing students for competitive exams and higher education excellence.</p>
+        <ul class="subjects">
+          <li>Science (PCM/PCB)</li>
+          <li>Commerce</li><li>Humanities</li>
+          <li>Computer Science</li>
+          <li>Economics</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ACHIEVEMENTS ============ -->
+<section class="achievements" id="achievements">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="section-tag">Our Pride</span>
+      <h2>Achievements & <span class="gold">Accolades</span></h2>
+      <p>Decades of excellence reflected in the accomplishments of our students and institution.</p>
+    </div>
+    <div class="achievements-grid">
+      <div class="achievement-card reveal reveal-delay-1">
+        <div class="achievement-icon">🏆</div>
+        <div class="num" data-count="120">0</div>
+        <div class="label">Trophies Won</div>
+      </div>
+      <div class="achievement-card reveal reveal-delay-2">
+        <div class="achievement-icon">🥇</div>
+        <div class="num" data-count="85">0</div>
+        <div class="label">Gold Medals</div>
+      </div>
+      <div class="achievement-card reveal reveal-delay-3">
+        <div class="achievement-icon">🎖️</div>
+        <div class="num" data-count="45">0</div>
+        <div class="label">State Ranks</div>
+      </div>
+      <div class="achievement-card reveal reveal-delay-4">
+        <div class="achievement-icon">⭐</div>
+        <div class="num" data-count="15">0</div>
+        <div class="label">National Awards</div>
+      </div>
+    </div>
+    <div class="trophy-showcase">
+      <div class="trophy-card reveal reveal-delay-1">
+        <div class="trophy-icon">🏆</div>
+        <div>
+          <h4>Best School Award 2025</h4>
+          <p>Recognized by the State Education Board for academic excellence</p>
+        </div>
+      </div>
+      <div class="trophy-card reveal reveal-delay-2">
+        <div class="trophy-icon">🥇</div>
+        <div>
+          <h4>National Science Olympiad</h4>
+          <p>12 students secured top 10 ranks in the national competition</p>
+        </div>
+      </div>
+      <div class="trophy-card reveal reveal-delay-3">
+        <div class="trophy-icon">🎓</div>
+        <div>
+          <h4>98% Board Results</h4>
+          <p>Highest pass percentage in the district for 5 consecutive years</p>
+        </div>
+      </div>
+      <div class="trophy-card reveal reveal-delay-4">
+        <div class="trophy-icon">⚽</div>
+        <div>
+          <h4>Inter-School Champions</h4>
+          <p>Winners of the Regional Sports Championship 2025</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ADMISSIONS ============ -->
+<section id="admissions">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="section-tag">Join Our Family</span>
+      <h2>Admissions <span class="gold">Open 2026-27</span></h2>
+      <p>Begin your child's journey towards excellence. Our admission process is simple, transparent, and welcoming.</p>
+    </div>
+    <div class="admissions-grid">
+      <div>
+        <h3 style="font-size: 1.5rem; margin-bottom: 24px;">Admission Process</h3>
+        <div class="process-steps">
+          <div class="step reveal reveal-delay-1">
+            <div class="step-num">1</div>
+            <div>
+              <h4>Online Application</h4>
+              <p>Fill out the online application form with student details and documents.</p>
+            </div>
+          </div>
+          <div class="step reveal reveal-delay-2">
+            <div class="step-num">2</div>
+            <div>
+              <h4>Entrance Assessment</h4>
+              <p>Age-appropriate assessment to understand the student's learning level.</p>
+            </div>
+          </div>
+          <div class="step reveal reveal-delay-3">
+            <div class="step-num">3</div>
+            <div>
+              <h4>Interaction & Interview</h4>
+              <p>Meet with our counselors and principal for a friendly interaction.</p>
+            </div>
+          </div>
+          <div class="step reveal reveal-delay-4">
+            <div class="step-num">4</div>
+            <div>
+              <h4>Admission Confirmation</h4>
+              <p>Receive offer letter and complete fee payment to confirm the seat.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="fee-structure reveal">
+          <h3>Fee Structure</h3>
+          <p>Annual fee breakdown for the academic year 2026-27</p>
+          <table class="fee-table">
+            <tr><td>Primary (1-5)</td><td>$1,200 / year</td></tr>
+            <tr><td>Middle (6-8)</td><td>$1,500 / year</td></tr>
+            <tr><td>Secondary (9-10)</td><td>$1,800 / year</td></tr>
+            <tr><td>Senior Secondary (11-12)</td><td>$2,200 / year</td></tr>
+            <tr><td>Admission Fee (One-time)</td><td>$500</td></tr>
+            <tr><td>Annual Activities Fee</td><td>$300</td></tr>
+          </table>
+          <a href="#contact" class="btn btn-gold fee-cta">Apply Now →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ GALLERY ============ -->
+<section class="gallery" id="gallery">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="section-tag">Life at St. Mary's</span>
+      <h2>Campus <span class="gold">Gallery</span></h2>
+      <p>A glimpse into the vibrant life, events, and facilities that make our school a second home.</p>
+    </div>
+    <div class="gallery-grid">
+      <div class="gallery-card g1 reveal reveal-delay-1">
+        <div class="bg"></div>
+        <span class="tag">Campus</span>
+        <div class="overlay">
+          <h4>Main Building</h4>
+          <p>Our iconic heritage campus</p>
+        </div>
+      </div>
+      <div class="gallery-card g2 reveal reveal-delay-2">
+        <div class="bg"></div>
+        <span class="tag">Sports</span>
+        <div class="overlay">
+          <h4>Annual Sports Day</h4>
+          <p>Champions in action</p>
+        </div>
+      </div>
+      <div class="gallery-card g3 reveal reveal-delay-3">
+        <div class="bg"></div>
+        <span class="tag">Science</span>
+        <div class="overlay">
+          <h4>Science Exhibition</h4>
+          <p>Innovation and discovery</p>
+        </div>
+      </div>
+      <div class="gallery-card g4 reveal reveal-delay-1">
+        <div class="bg"></div>
+        <span class="tag">Library</span>
+        <div class="overlay">
+          <h4>Central Library</h4>
+          <p>25,000+ books & resources</p>
+        </div>
+      </div>
+      <div class="gallery-card g5 reveal reveal-delay-2">
+        <div class="bg"></div>
+        <span class="tag">Culture</span>
+        <div class="overlay">
+          <h4>Cultural Fest</h4>
+          <p>Celebrating arts & talent</p>
+        </div>
+      </div>
+      <div class="gallery-card g6 reveal reveal-delay-3">
+        <div class="bg"></div>
+        <span class="tag">Graduation</span>
+        <div class="overlay">
+          <h4>Graduation Day</h4>
+          <p>Celebrating our achievers</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONTACT ============ -->
+<section id="contact">
+  <div class="container contact-grid">
+    <div class="contact-info">
+      <span class="section-tag reveal">Get In Touch</span>
+      <h2 class="reveal reveal-delay-1">We'd Love to <span class="gold">Hear</span> From You</h2>
+      <p class="reveal reveal-delay-2">Have questions about admissions, academics, or campus life? Our team is here to help.</p>
+      <ul class="contact-list">
+        <li class="reveal reveal-delay-1">
+          <div class="icon">📍</div>
+          <div>
+            <div class="label">Visit Us</div>
+            <div class="value">123 Education Lane, Greenfield, CA 93927</div>
+          </div>
+        </li>
+        <li class="reveal reveal-delay-2">
+          <div class="icon">📞</div>
+          <div>
+            <div class="label">Call Us</div>
+            <div class="value">+1 (555) 123-4567</div>
+          </div>
+        </li>
+        <li class="reveal reveal-delay-3">
+          <div class="icon">️</div>
+          <div>
+            <div class="label">Email Us</div>
+            <div class="value">admissions@stmaryshigh.edu</div>
+          </div>
+        </li>
+        <li class="reveal reveal-delay-4">
+          <div class="icon">🕐</div>
+          <div>
+            <div class="label">Office Hours</div>
+            <div class="value">Mon – Fri: 8:00 AM – 4:00 PM</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <form class="contact-form reveal" id="contactForm" onsubmit="return handleSubmit(event)">
+      <div class="form-row">
+        <div class="form-group">
+          <label for="parentName">Parent's Name</label>
+          <input type="text" id="parentName" placeholder="John Smith" required />
+        </div>
+        <div class="form-group">
+          <label for="studentName">Student's Name</label>
+          <input type="text" id="studentName" placeholder="Emma Smith" required />
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" placeholder="john@example.com" required />
+        </div>
+        <div class="form-group">
+          <label for="phone">Phone Number</label>
+          <input type="tel" id="phone" placeholder="+1 (555) 000-0000" required />
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="grade">Applying For Grade</label>
+        <select id="grade" required>
+          <option value="">Select grade...</option>
+          <option>Grade 1 – 5 (Primary)</option>
+          <option>Grade 6 – 8 (Middle)</option>
+          <option>Grade 9 – 10 (Secondary)</option>
+          <option>Grade 11 – 12 (Senior Secondary)</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="message">Your Message</label>
+        <textarea id="message" placeholder="Tell us about your child and any questions you have..." required></textarea>
+      </div>
+      <button type="submit" class="btn form-submit">Submit Application →</button>
+    </form>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-col footer-brand">
+        <a href="#" class="logo">
+          <div class="logo-crest">SM</div>
+          <div class="logo-text">
+            <span class="name" style="color: var(--white);">St. Mary's High School</span>
+            <span class="tagline">Est. 1985</span>
+          </div>
+        </a>
+        <p>Nurturing minds, building character, and inspiring excellence since 1985. A legacy of learning that shapes tomorrow's leaders.</p>
+        <div class="socials">
+          <a href="#" aria-label="Facebook">f</a>
+          <a href="#" aria-label="Twitter">𝕏</a>
+          <a href="#" aria-label="Instagram"></a>
+          <a href="#" aria-label="YouTube">▶</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="#about">About Us</a></li>
+          <li><a href="#academics">Academics</a></li>
+          <li><a href="#admissions">Admissions</a></li>
+          <li><a href="#gallery">Gallery</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Academics</h4>
+        <ul>
+          <li><a href="#">Primary School</a></li>
+          <li><a href="#">Secondary School</a></li>
+          <li><a href="#">Senior Secondary</a></li>
+          <li><a href="#">Examinations</a></li>
+          <li><a href="#">Results</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Resources</h4>
+        <ul>
+          <li><a href="#">Student Portal</a></li>
+          <li><a href="#">Parent Login</a></li>
+          <li><a href="#">School Calendar</a></li>
+          <li><a href="#">News & Events</a></li>
+          <li><a href="#">Careers</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div>© 2026 St. Mary's High School. All rights reserved.</div>
+      <div>Privacy Policy • Terms of Service</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Navbar scroll effect
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 50);
+  });
+
+  // Mobile menu
+  const menuToggle = document.getElementById('menuToggle');
+  const navLinks = document.getElementById('navLinks');
+  menuToggle.addEventListener('click', () => navLinks.classList.toggle('open'));
+  navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
+
+  // Reveal on scroll
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // Counter animation
+  const countObserver = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const el = e.target;
+        const target = parseInt(el.dataset.count);
+        let current = 0;
+        const duration = 1500;
+        const step = target / (duration / 16);
+        const timer = setInterval(() => {
+          current += step;
+          if (current >= target) { current = target; clearInterval(timer); }
+          el.textContent = Math.floor(current) + (target >= 100 ? '+' : target === 98 ? '%' : '+');
+        }, 16);
+        countObserver.unobserve(el);
+      }
+    });
+  }, { threshold: 0.5 });
+  document.querySelectorAll('[data-count]').forEach(el => countObserver.observe(el));
+
+  // Form handler
+  function handleSubmit(e) {
+    e.preventDefault();
+    const btn = e.target.querySelector('button');
+    const original = btn.innerHTML;
+    btn.innerHTML = '✓ Application Submitted!';
+    btn.style.background = 'linear-gradient(135deg, #d4af37, #b8941f)';
+    e.target.reset();
+    setTimeout(() => { btn.innerHTML = original; btn.style.background = ''; }, 3500);
+    return false;
+  }
+</script>
+</body>
+</html>
