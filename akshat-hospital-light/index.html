@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Akshat Ayurvedic & Multi-Speciality Hospital | Gangapur City</title>
+<meta name="description" content="Akshat Ayurvedic & Multi-Speciality Hospital, Gangapur City. Traditional Ayurvedic healing powered by modern clinical precision. Panchakarma, 24/7 Emergency, Lab & Pharmacy." />
+<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ivory:#fcfbf7;
+    --sage-deep:#0f766e;
+    --sage:#14b8a6;
+    --gold:#c8a250;
+  }
+  html{scroll-behavior:smooth;}
+  body{font-family:'Inter',sans-serif;background:var(--ivory);color:#334155;}
+  .font-serif-elegant{font-family:'Cormorant Garamond',serif;}
+  .soft-shadow{box-shadow:0 10px 40px -12px rgba(15,118,110,.18),0 2px 8px -2px rgba(0,0,0,.04);}
+  .soft-shadow-lg{box-shadow:0 24px 60px -20px rgba(15,118,110,.28),0 4px 12px -4px rgba(0,0,0,.05);}
+  .card-hover{transition:transform .4s cubic-bezier(.16,1,.3,1),box-shadow .4s ease;}
+  .card-hover:hover{transform:translateY(-8px);box-shadow:0 30px 70px -20px rgba(15,118,110,.35);}
+  .gold-line{background:linear-gradient(90deg,transparent,var(--gold),transparent);}
+  .leaf-bg{background-image:radial-gradient(circle at 15% 20%,rgba(20,184,166,.07),transparent 40%),radial-gradient(circle at 85% 75%,rgba(200,162,80,.08),transparent 45%);}
+  .fade-in{opacity:0;transform:translateY(30px);transition:opacity .8s ease,transform .8s cubic-bezier(.16,1,.3,1);}
+  .fade-in.visible{opacity:1;transform:translateY(0);}
+  .pulse-ring{animation:pulseRing 2s ease-out infinite;}
+  @keyframes pulseRing{0%{box-shadow:0 0 0 0 rgba(20,184,166,.4);}70%{box-shadow:0 0 0 14px rgba(20,184,166,0);}100%{box-shadow:0 0 0 0 rgba(20,184,166,0);}}
+  ::selection{background:rgba(20,184,166,.2);}
+</style>
+</head>
+<body class="antialiased leaf-bg">
+
+  <!-- Announcement Bar -->
+  <div class="bg-teal-700 text-white text-xs sm:text-sm">
+    <div class="max-w-7xl mx-auto px-4 py-2.5 flex items-center justify-center gap-2 text-center flex-wrap">
+      <svg class="w-4 h-4 text-amber-300 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a2 2 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+      <span class="font-medium tracking-wide">Ashirwad Marriage Home Ke Samne, Gangapur City</span>
+      <span class="hidden sm:inline text-amber-300">|</span>
+      <span class="font-semibold text-amber-200 flex items-center gap-1.5">
+        <span class="relative flex h-2 w-2"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-300 opacity-75"></span><span class="relative inline-flex rounded-full h-2 w-2 bg-amber-300"></span></span>
+        24/7 Emergency Service
+      </span>
+    </div>
+  </div>
+
+  <!-- Navbar -->
+  <header class="sticky top-0 z-50 bg-[#fcfbf7]/85 backdrop-blur-md border-b border-teal-900/5">
+    <nav class="max-w-7xl mx-auto px-4 sm:px-6 py-3.5 flex items-center justify-between">
+      <a href="#home" class="flex items-center gap-3">
+        <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-teal-600 to-teal-700 flex items-center justify-center text-white soft-shadow">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+        </div>
+        <div class="leading-tight">
+          <div class="font-serif-elegant text-lg sm:text-xl font-bold text-teal-800">Akshat Ayurvedic</div>
+          <div class="text-[10px] sm:text-xs tracking-[0.2em] text-amber-600 font-medium uppercase">Multi-Speciality Hospital</div>
+        </div>
+      </a>
+      <div class="hidden lg:flex items-center gap-8 text-sm font-medium text-slate-600">
+        <a href="#doctors" class="hover:text-teal-700 transition">Doctors</a>
+        <a href="#treatments" class="hover:text-teal-700 transition">Treatments</a>
+        <a href="#panchakarma" class="hover:text-teal-700 transition">Panchakarma</a>
+        <a href="#booking" class="hover:text-teal-700 transition">Book Now</a>
+      </div>
+      <a href="tel:7732857879" class="inline-flex items-center gap-2 bg-teal-700 hover:bg-teal-800 text-white text-sm font-semibold px-4 sm:px-5 py-2.5 rounded-full transition soft-shadow">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
+        <span class="hidden sm:inline">Call Now</span>
+      </a>
+    </nav>
+  </header>
+
+  <!-- Hero -->
+  <section id="home" class="relative overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-b from-teal-50/60 via-transparent to-transparent"></div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-16 sm:py-24 grid lg:grid-cols-2 gap-12 items-center relative">
+      <div class="fade-in">
+        <span class="inline-flex items-center gap-2 bg-white text-teal-700 text-xs font-semibold px-4 py-1.5 rounded-full soft-shadow mb-6 border border-teal-100">
+          <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
+          Trusted Care in Gangapur City
+        </span>
+        <h1 class="font-serif-elegant text-4xl sm:text-5xl lg:text-6xl font-bold text-teal-900 leading-[1.1] mb-5">
+          Akshat Ayurvedic &amp; <span class="text-teal-600">Multi-Speciality</span> Hospital
+        </h1>
+        <p class="text-lg sm:text-xl text-slate-600 font-light mb-8 max-w-xl leading-relaxed">
+          Traditional Ayurvedic Healing Powered by Modern Clinical Precision.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4">
+          <a href="#booking" class="inline-flex items-center justify-center gap-2 bg-teal-700 hover:bg-teal-800 text-white font-semibold px-7 py-4 rounded-full transition soft-shadow-lg">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+            Book OPD Appointment
+          </a>
+          <a href="#emergency" class="inline-flex items-center justify-center gap-2 bg-white hover:bg-amber-50 text-teal-800 font-semibold px-7 py-4 rounded-full transition soft-shadow border border-amber-200">
+            <svg class="w-5 h-5 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+            Emergency Contacts
+          </a>
+        </div>
+        <div class="flex flex-wrap gap-x-8 gap-y-3 mt-10 text-sm text-slate-500">
+          <div class="flex items-center gap-2"><svg class="w-5 h-5 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg> Certified Doctors</div>
+          <div class="flex items-center gap-2"><svg class="w-5 h-5 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg> 24/7 Availability</div>
+          <div class="flex items-center gap-2"><svg class="w-5 h-5 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1"></path></svg> Modern Facility</div>
+        </div>
+      </div>
+      <div class="fade-in relative">
+        <div class="relative rounded-3xl overflow-hidden soft-shadow-lg">
+          <img src="https://images.unsplash.com/photo-1584515933487-779824d29309?auto=format&fit=crop&w=900&q=80" alt="Ayurvedic healing and modern care" class="w-full h-[420px] object-cover">
+          <div class="absolute inset-0 bg-gradient-to-t from-teal-900/40 to-transparent"></div>
+        </div>
+        <div class="absolute -bottom-6 -left-6 bg-white rounded-2xl p-5 soft-shadow-lg border border-teal-50 hidden sm:block">
+          <div class="flex items-center gap-4">
+            <div class="w-12 h-12 rounded-xl bg-amber-100 flex items-center justify-center text-amber-600">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
+            </div>
+            <div>
+              <div class="font-serif-elegant text-2xl font-bold text-teal-800">15+ Years</div>
+              <div class="text-xs text-slate-500">of Trusted Healing</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Doctors -->
+  <section id="doctors" class="py-20 sm:py-24">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+      <div class="text-center max-w-2xl mx-auto mb-14 fade-in">
+        <span class="text-amber-600 text-sm font-semibold tracking-[0.25em] uppercase">Our Specialists</span>
+        <h2 class="font-serif-elegant text-4xl sm:text-5xl font-bold text-teal-900 mt-3 mb-4">Meet Our Expert Doctors</h2>
+        <div class="w-24 h-0.5 gold-line mx-auto"></div>
+      </div>
+      <div class="grid md:grid-cols-3 gap-8">
+
+        <!-- Doctor 1 -->
+        <div class="bg-white rounded-3xl p-7 soft-shadow card-hover border border-teal-50 fade-in">
+          <div class="flex items-center justify-between mb-5">
+            <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-teal-500 to-teal-700 flex items-center justify-center text-white text-2xl font-serif-elegant font-bold">AS</div>
+            <span class="text-[11px] font-semibold text-teal-700 bg-teal-50 px-3 py-1.5 rounded-full">Ayurveda</span>
+          </div>
+          <h3 class="text-xl font-bold text-slate-800 font-serif-elegant">Dr. Ajay Sharma</h3>
+          <p class="text-sm text-slate-500 mt-1 mb-4">Ayurvedic Specialist &amp; Panchakarma Consultant</p>
+          <div class="flex flex-wrap gap-2 mb-6">
+            <span class="text-[11px] bg-amber-50 text-amber-700 px-2.5 py-1 rounded-full">Panchakarma</span>
+            <span class="text-[11px] bg-amber-50 text-amber-700 px-2.5 py-1 rounded-full">Herbal Detox</span>
+          </div>
+          <a href="tel:8432127462" class="flex items-center justify-center gap-2 w-full bg-teal-700 hover:bg-teal-800 text-white font-semibold py-3 rounded-xl transition">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
+            84321 27462
+          </a>
+        </div>
+
+        <!-- Doctor 2 -->
+        <div class="bg-white rounded-3xl p-7 soft-shadow card-hover border border-teal-50 fade-in">
+          <div class="flex items-center justify-between mb-5">
+            <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-amber-400 to-amber-600 flex items-center justify-center text-white text-2xl font-serif-elegant font-bold">KV</div>
+            <span class="text-[11px] font-semibold text-amber-700 bg-amber-50 px-3 py-1.5 rounded-full">Critical Care</span>
+          </div>
+          <h3 class="text-xl font-bold text-slate-800 font-serif-elegant">Dr. K.K. Vaishnav</h3>
+          <p class="text-sm text-slate-500 mt-1 mb-4">General Physician &amp; Critical Care</p>
+          <div class="flex flex-wrap gap-2 mb-6">
+            <span class="text-[11px] bg-teal-50 text-teal-700 px-2.5 py-1 rounded-full">Emergency</span>
+            <span class="text-[11px] bg-teal-50 text-teal-700 px-2.5 py-1 rounded-full">ICU Care</span>
+          </div>
+          <a href="tel:7732857879" class="flex items-center justify-center gap-2 w-full bg-teal-700 hover:bg-teal-800 text-white font-semibold py-3 rounded-xl transition">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
+            77328 57879
+          </a>
+        </div>
+
+        <!-- Doctor 3 -->
+        <div class="bg-white rounded-3xl p-7 soft-shadow card-hover border border-teal-50 fade-in">
+          <div class="flex items-center justify-between mb-5">
+            <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-teal-600 to-teal-900 flex items-center justify-center text-white text-2xl font-serif-elegant font-bold">AK</div>
+            <span class="text-[11px] font-semibold text-teal-700 bg-teal-50 px-3 py-1.5 rounded-full">Surgery</span>
+          </div>
+          <h3 class="text-xl font-bold text-slate-800 font-serif-elegant">Dr. Asif Khan</h3>
+          <p class="text-sm text-slate-500 mt-1 mb-4">Surgeon &amp; Multi-Speciality Consultant</p>
+          <div class="flex flex-wrap gap-2 mb-6">
+            <span class="text-[11px] bg-amber-50 text-amber-700 px-2.5 py-1 rounded-full">General Surgery</span>
+            <span class="text-[11px] bg-amber-50 text-amber-700 px-2.5 py-1 rounded-full">Consultation</span>
+          </div>
+          <a href="tel:9587617207" class="flex items-center justify-center gap-2 w-full bg-teal-700 hover:bg-teal-800 text-white font-semibold py-3 rounded-xl transition">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
+            95876 17207
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Panchakarma & Treatments -->
+  <section id="panchakarma" class="py-20 sm:py-24 bg-gradient-to-b from-teal-50/50 to-transparent">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+      <div class="grid lg:grid-cols-2 gap-14 items-center">
+        <div class="fade-in">
+          <span class="text-amber-600 text-sm font-semibold tracking-[0.25em] uppercase">Healing Traditions</span>
+          <h2 id="treatments" class="font-serif-elegant text-4xl sm:text-5xl font-bold text-teal-900 mt-3 mb-5">Panchakarma &amp; Treatment Highlights</h2>
+          <p class="text-slate-600 font-light leading-relaxed mb-8 max-w-lg">
+            Experience authentic Ayurvedic detoxification and rejuvenation therapies, complemented by round-the-clock diagnostic and pharmacy support for complete, holistic care.
+          </p>
+          <div class="rounded-2xl overflow-hidden soft-shadow-lg">
+            <img src="https://images.unsplash.com/photo-1600334129128-685c5582fd35?auto=format&fit=crop&w=900&q=80" alt="Panchakarma therapy" class="w-full h-64 object-cover">
+          </div>
+        </div>
+        <div class="grid sm:grid-cols-2 gap-5">
+          <div class="bg-white rounded-2xl p-6 soft-shadow card-hover border border-teal-50 fade-in">
+            <div class="w-12 h-12 rounded-xl bg-teal-100 flex items-center justify-center text-teal-700 mb-4">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
+            </div>
+            <h3 class="font-bold text-slate-800 mb-1.5">Herbal Detox</h3>
+            <p class="text-sm text-slate-500 leading-relaxed">Natural cleansing therapies to purify body &amp; mind through classical Panchakarma.</p>
+          </div>
+          <div class="bg-white rounded-2xl p-6 soft-shadow card-hover border border-teal-50 fade-in">
+            <div class="w-12 h-12 rounded-xl bg-amber-100 flex items-center justify-center text-amber-600 mb-4">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path></svg>
+            </div>
+            <h3 class="font-bold text-slate-800 mb-1.5">Joint Pain Relief</h3>
+            <p class="text-sm text-slate-500 leading-relaxed">Specialized treatments for arthritis, back &amp; joint pain with lasting relief.</p>
+          </div>
+          <div class="bg-white rounded-2xl p-6 soft-shadow card-hover border border-teal-50 fade-in">
+            <div class="w-12 h-12 rounded-xl bg-teal-100 flex items-center justify-center text-teal-700 mb-4">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
+            </div>
+            <h3 class="font-bold text-slate-800 mb-1.5">Chronic Care</h3>
+            <p class="text-sm text-slate-500 leading-relaxed">Holistic management of chronic ailments with tailored Ayurvedic protocols.</p>
+          </div>
+          <div class="bg-white rounded-2xl p-6 soft-shadow card-hover border border-teal-50 fade-in">
+            <div class="w-12 h-12 rounded-xl bg-amber-100 flex items-center justify-center text-amber-600 mb-4">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
+            </div>
+            <h3 class="font-bold text-slate-800 mb-1.5">24/7 Lab &amp; Pharmacy</h3>
+            <p class="text-sm text-slate-500 leading-relaxed">Round-the-clock diagnostics and in-house pharmacy for uninterrupted care.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Booking + Emergency -->
+  <section id="booking" class="py-20 sm:py-24">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 grid lg:grid-cols-2 gap-10">
+
+      <!-- Booking Form -->
+      <div class="bg-white rounded-3xl p-8 sm:p-10 soft-shadow-lg border border-teal-50 fade-in">
+        <span class="text-amber-600 text-sm font-semibold tracking-[0.25em] uppercase">Quick Booking</span>
+        <h2 class="font-serif-elegant text-3xl sm:text-4xl font-bold text-teal-900 mt-2 mb-6">Book Your OPD Appointment</h2>
+        <form id="bookingForm" class="space-y-5">
+          <div>
+            <label class="block text-sm font-medium text-slate-600 mb-1.5">Full Name</label>
+            <input required type="text" placeholder="Your name" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-teal-500 focus:ring-2 focus:ring-teal-100 outline-none transition bg-[#fcfbf7]/40">
+          </div>
+          <div class="grid sm:grid-cols-2 gap-5">
+            <div>
+              <label class="block text-sm font-medium text-slate-600 mb-1.5">Phone Number</label>
+              <input required type="tel" placeholder="Mobile no." class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-teal-500 focus:ring-2 focus:ring-teal-100 outline-none transition bg-[#fcfbf7]/40">
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-slate-600 mb-1.5">Preferred Date</label>
+              <input required type="date" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-teal-500 focus:ring-2 focus:ring-teal-100 outline-none transition bg-[#fcfbf7]/40">
+            </div>
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-slate-600 mb-1.5">Consult With</label>
+            <select class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-teal-500 focus:ring-2 focus:ring-teal-100 outline-none transition bg-[#fcfbf7]/40">
+              <option>Dr. Ajay Sharma — Ayurveda &amp; Panchakarma</option>
+              <option>Dr. K.K. Vaishnav — General &amp; Critical Care</option>
+              <option>Dr. Asif Khan — Surgery &amp; Multi-Speciality</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-slate-600 mb-1.5">Message (optional)</label>
+            <textarea rows="3" placeholder="Describe your concern..." class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-teal-500 focus:ring-2 focus:ring-teal-100 outline-none transition bg-[#fcfbf7]/40 resize-none"></textarea>
+          </div>
+          <button type="submit" class="w-full bg-teal-700 hover:bg-teal-800 text-white font-semibold py-4 rounded-xl transition soft-shadow flex items-center justify-center gap-2">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+            Confirm Appointment
+          </button>
+          <p id="formMsg" class="hidden text-center text-sm text-teal-700 font-medium bg-teal-50 py-3 rounded-xl">✓ Thank you! Our team will call you shortly to confirm your appointment.</p>
+        </form>
+      </div>
+
+      <!-- Emergency / Tap to Call -->
+      <div id="emergency" class="fade-in">
+        <div class="bg-gradient-to-br from-teal-700 to-teal-900 rounded-3xl p-8 sm:p-10 text-white soft-shadow-lg mb-6">
+          <div class="flex items-center gap-3 mb-2">
+            <span class="relative flex h-3 w-3"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-300 opacity-75"></span><span class="relative inline-flex rounded-full h-3 w-3 bg-amber-300"></span></span>
+            <span class="text-sm font-semibold text-amber-200 tracking-wide uppercase">24/7 Emergency</span>
+          </div>
+          <h2 class="font-serif-elegant text-3xl font-bold mb-2">Direct Tap-to-Call</h2>
+          <p class="text-teal-100 font-light text-sm">Reach our doctors instantly — anytime, day or night.</p>
+        </div>
+
+        <div class="space-y-4">
+          <a href="tel:8432127462" class="flex items-center justify-between bg-white rounded-2xl p-5 soft-shadow card-hover border border-teal-50 group">
+            <div class="flex items-center gap-4">
+              <div class="w-12 h-12 rounded-full bg-teal-100 flex items-center justify-center text-teal-700 pulse-ring">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
+              </div>
+              <div>
+                <div class="font-semibold text-slate-800">Dr. Ajay Sharma</div>
+                <div class="text-xs text-slate-500">Ayurveda &amp; Panchakarma</div>
+              </div>
+            </div>
+            <div class="text-teal-700 font-bold group-hover:translate-x-1 transition">84321 27462</div>
+          </a>
+
+          <a href="tel:7732857879" class="flex items-center justify-between bg-white rounded-2xl p-5 soft-shadow card-hover border border-teal-50 group">
+            <div class="flex items-center gap-4">
+              <div class="w-12 h-12 rounded-full bg-amber-100 flex items-center justify-center text-amber-600 pulse-ring">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
+              </div>
+              <div>
+                <div class="font-semibold text-slate-800">Dr. K.K. Vaishnav</div>
+                <div class="text-xs text-slate-500">General &amp; Critical Care</div>
+              </div>
+            </div>
+            <div class="text-teal-700 font-bold group-hover:translate-x-1 transition">77328 57879</div>
+          </a>
+
+          <a href="tel:9587617207" class="flex items-center justify-between bg-white rounded-2xl p-5 soft-shadow card-hover border border-teal-50 group">
+            <div class="flex items-center gap-4">
+              <div class="w-12 h-12 rounded-full bg-teal-100 flex items-center justify-center text-teal-700 pulse-ring">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
+              </div>
+              <div>
+                <div class="font-semibold text-slate-800">Dr. Asif Khan</div>
+                <div class="text-xs text-slate-500">Surgery &amp; Multi-Speciality</div>
+              </div>
+            </div>
+            <div class="text-teal-700 font-bold group-hover:translate-x-1 transition">95876 17207</div>
+          </a>
+        </div>
+
+        <div class="mt-6 flex items-center gap-3 bg-amber-50 rounded-2xl p-5 border border-amber-100">
+          <svg class="w-6 h-6 text-amber-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a2 2 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+          <p class="text-sm text-slate-600"><span class="font-semibold text-slate-800">Location:</span> Ashirwad Marriage Home Ke Samne, Gangapur City</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-teal-900 text-teal-100">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-14">
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-10">
+        <div>
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-11 h-11 rounded-xl bg-white/10 flex items-center justify-center text-amber-300">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+            </div>
+            <div class="font-serif-elegant text-xl font-bold text-white">Akshat Ayurvedic</div>
+          </div>
+          <p class="text-sm text-teal-200/80 leading-relaxed max-w-xs">Traditional Ayurvedic healing powered by modern clinical precision. Your trusted multi-speciality hospital in Gangapur City.</p>
+        </div>
+        <div>
+          <h4 class="font-semibold text-white mb-4">Quick Links</h4>
+          <ul class="space-y-2.5 text-sm text-teal-200/80">
+            <li><a href="#doctors" class="hover:text-amber-300 transition">Our Doctors</a></li>
+            <li><a href="#panchakarma" class="hover:text-amber-300 transition">Panchakarma</a></li>
+            <li><a href="#treatments" class="hover:text-amber-300 transition">Treatments</a></li>
+            <li><a href="#booking" class="hover:text-amber-300 transition">Book Appointment</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-semibold text-white mb-4">Contact &amp; Emergency</h4>
+          <ul class="space-y-2.5 text-sm text-teal-200/80">
+            <li class="flex items-start gap-2"><svg class="w-4 h-4 mt-0.5 text-amber-300 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a2 2 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg> Ashirwad Marriage Home Ke Samne, Gangapur City</li>
+            <li><a href="tel:8432127462" class="hover:text-amber-300 transition">📞 84321 27462</a></li>
+            <li><a href="tel:7732857879" class="hover:text-amber-300 transition">📞 77328 57879</a></li>
+            <li><a href="tel:9587617207" class="hover:text-amber-300 transition">📞 95876 17207</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="border-t border-white/10 mt-12 pt-6 text-center text-sm text-teal-300/70">
+        © 2026 Akshat Ayurvedic &amp; Multi-Speciality Hospital. All rights reserved.<br class="sm:hidden">
+        <span class="text-amber-300/90 font-medium"> Powered by WebFlux Design &amp; Health AI Network</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Scroll reveal
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('visible'); io.unobserve(e.target);} });
+    },{threshold:.12});
+    document.querySelectorAll('.fade-in').forEach((el,i)=>{ el.style.transitionDelay=(i%3*0.08)+'s'; io.observe(el); });
+
+    // Form
+    document.getElementById('bookingForm').addEventListener('submit', function(e){
+      e.preventDefault();
+      const msg = document.getElementById('formMsg');
+      msg.classList.remove('hidden');
+      this.reset();
+      setTimeout(()=>msg.classList.add('hidden'), 6000);
+    });
+  </script>
+</body>
+</html>
