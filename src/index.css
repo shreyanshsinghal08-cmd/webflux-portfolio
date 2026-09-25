@@ -1,0 +1,382 @@
+@import "tailwindcss";
+
+:root {
+  --obsidian: #08090a;
+  --charcoal: #121417;
+  --charcoal-2: #181b1f;
+  --charcoal-3: #22262b;
+  --graphite: #2c3138;
+  --ash: #8b929c;
+  --mist: #c9ced6;
+  --ivory: #f4f1ea;
+  --gold: #d4af37;
+  --amber: #e5a93c;
+  --gold-soft: rgba(212, 175, 55, 0.14);
+  --gold-glow: rgba(229, 169, 60, 0.45);
+  --glass: rgba(255, 255, 255, 0.035);
+  --glass-strong: rgba(255, 255, 255, 0.06);
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --font-display: "Playfair Display", Georgia, serif;
+  --font-body: "Inter", system-ui, -apple-system, sans-serif;
+}
+
+@theme {
+  --color-obsidian: #08090a;
+  --color-charcoal: #121417;
+  --color-charcoal-2: #181b1f;
+  --color-charcoal-3: #22262b;
+  --color-graphite: #2c3138;
+  --color-ash: #8b929c;
+  --color-mist: #c9ced6;
+  --color-ivory: #f4f1ea;
+  --color-gold: #d4af37;
+  --color-amber: #e5a93c;
+  --font-display: "Playfair Display", Georgia, serif;
+  --font-body: "Inter", system-ui, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  margin: 0;
+  background: var(--obsidian);
+  color: var(--ivory);
+  font-family: var(--font-body);
+  overflow-x: hidden;
+}
+
+::selection {
+  background: var(--gold);
+  color: var(--obsidian);
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--obsidian);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--graphite);
+  border-radius: 8px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--gold);
+}
+
+/* ---------- Glassmorphism ---------- */
+.glass {
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(18px) saturate(140%);
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+}
+
+.glass-strong {
+  background: var(--glass-strong);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(24px) saturate(160%);
+  -webkit-backdrop-filter: blur(24px) saturate(160%);
+}
+
+.glass-card {
+  position: relative;
+  background: linear-gradient(
+    160deg,
+    rgba(255, 255, 255, 0.055) 0%,
+    rgba(255, 255, 255, 0.015) 100%
+  );
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  transition:
+    transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.4s ease,
+    box-shadow 0.5s ease;
+}
+
+.glass-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(
+    140deg,
+    rgba(212, 175, 55, 0.55),
+    transparent 40%,
+    transparent 60%,
+    rgba(229, 169, 60, 0.25)
+  );
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  pointer-events: none;
+}
+
+.glass-card:hover {
+  transform: translateY(-6px);
+  box-shadow:
+    0 30px 60px -20px rgba(0, 0, 0, 0.7),
+    0 0 40px -10px var(--gold-glow);
+}
+
+.glass-card:hover::before {
+  opacity: 1;
+}
+
+/* ---------- Gold text ---------- */
+.text-gold-gradient {
+  background: linear-gradient(120deg, #f2d27a 0%, var(--gold) 40%, var(--amber) 70%, #f5d78a 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* ---------- Buttons ---------- */
+.btn-gold {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background: linear-gradient(135deg, var(--gold), var(--amber));
+  color: var(--obsidian);
+  font-weight: 600;
+  border-radius: 999px;
+  overflow: hidden;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.4s ease;
+  box-shadow: 0 0 0 0 rgba(229, 169, 60, 0);
+}
+
+.btn-gold::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    110deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.45) 50%,
+    transparent 70%
+  );
+  transform: translateX(-120%);
+  transition: transform 0.7s ease;
+}
+
+.btn-gold:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 10px 30px -8px var(--gold-glow),
+    0 0 28px -4px var(--gold-glow);
+}
+
+.btn-gold:hover::after {
+  transform: translateX(120%);
+}
+
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--ivory);
+  font-weight: 500;
+  backdrop-filter: blur(10px);
+  transition:
+    border-color 0.3s ease,
+    background 0.3s ease,
+    transform 0.3s ease,
+    color 0.3s ease;
+}
+
+.btn-ghost:hover {
+  border-color: var(--gold);
+  color: var(--gold);
+  background: var(--gold-soft);
+  transform: translateY(-2px);
+}
+
+/* ---------- Grid backdrop ---------- */
+.grid-fade {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+  background-size: 64px 64px;
+  -webkit-mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%);
+  mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%);
+}
+
+/* ---------- Animations ---------- */
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse-ring {
+  0% {
+    transform: scale(0.85);
+    opacity: 0.9;
+  }
+  100% {
+    transform: scale(1.8);
+    opacity: 0;
+  }
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes shimmer-line {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.anim-fade-up {
+  animation: fade-up 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.delay-1 {
+  animation-delay: 0.12s;
+}
+.delay-2 {
+  animation-delay: 0.24s;
+}
+.delay-3 {
+  animation-delay: 0.36s;
+}
+.delay-4 {
+  animation-delay: 0.48s;
+}
+.delay-5 {
+  animation-delay: 0.6s;
+}
+
+.pulse-ring::before,
+.pulse-ring::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 999px;
+  border: 1px solid var(--gold);
+  animation: pulse-ring 2.4s ease-out infinite;
+}
+.pulse-ring::after {
+  animation-delay: 1.2s;
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.marquee-track {
+  animation: marquee 30s linear infinite;
+}
+
+.marquee-track:hover {
+  animation-play-state: paused;
+}
+
+.gold-line {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold) 30%, var(--amber) 70%, transparent);
+  background-size: 200% 100%;
+  animation: shimmer-line 4s linear infinite;
+}
+
+/* Scroll reveal */
+.reveal {
+  opacity: 0;
+  transform: translateY(32px);
+  transition:
+    opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Form inputs */
+.input-glass {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 14px;
+  color: var(--ivory);
+  padding: 0.9rem 1.1rem;
+  font-size: 0.95rem;
+  outline: none;
+  transition:
+    border-color 0.3s ease,
+    box-shadow 0.3s ease,
+    background 0.3s ease;
+}
+
+.input-glass::placeholder {
+  color: rgba(139, 146, 156, 0.7);
+}
+
+.input-glass:focus {
+  border-color: var(--gold);
+  background: rgba(212, 175, 55, 0.04);
+  box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.12);
+}
+
+select.input-glass option {
+  background: var(--charcoal-2);
+  color: var(--ivory);
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
