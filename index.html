@@ -399,6 +399,26 @@
     </style>
 <!--<base target="_blank">--><base href="." target="_blank">
 <body>
+    <!-- Authentication modal: Google sign-in + Phone number verification -->
+    <div id="authModal" style="position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.6);z-index:2000;">
+        <div style="background:#0f1724;color:var(--text);border-radius:12px;padding:2rem;max-width:420px;width:95%;box-shadow:0 10px 40px rgba(0,0,0,0.6);">
+            <h3 style="margin-bottom:1rem;">Welcome — Sign in to continue</h3>
+            <div id="authStatus" style="display:none;margin-bottom:0.75rem;padding:0.65rem 0.8rem;border-radius:8px;font-size:0.9rem;background:rgba(148,163,184,0.12);color:#e2e8f0;"> </div>
+            <div style="display:flex;flex-direction:column;gap:0.75rem;">
+                <button id="googleSignIn" class="btn btn-primary" style="width:100%;"><i class="fab fa-google"></i> Continue with Google</button>
+                <div style="text-align:center;color:#94a3b8;margin:0.5rem 0;">or</div>
+                <form id="phoneForm" style="display:grid;grid-template-columns:1fr auto;gap:0.5rem;align-items:center;">
+                    <input id="phoneInput" type="tel" placeholder="+91 80000 00000" style="padding:0.75rem;border-radius:8px;border:2px solid var(--border);background:transparent;color:var(--text);" required>
+                    <button type="submit" class="btn btn-outline">Send Code</button>
+                </form>
+                <form id="codeForm" style="display:none;gap:0.5rem;">
+                    <input id="codeInput" type="text" placeholder="Enter verification code" style="padding:0.75rem;border-radius:8px;border:2px solid var(--border);background:transparent;color:var(--text);width:100%">
+                    <button id="verifyBtn" type="submit" class="btn btn-primary" style="width:100%;">Verify</button>
+                </form>
+                <button id="skipAuth" class="btn btn-outline" style="width:100%;">Continue as Guest</button>
+            </div>
+        </div>
+    </div>
     <nav class="navbar" id="navbar">
         <div class="nav-container">
             <a href="#" class="logo"><i class="fas fa-code"></i> WebFlux</a>
@@ -692,6 +712,120 @@
     </a>
 
     <script>
+        // --- Authentication client logic ---
+        const authModal = document.getElementById('authModal');
+        const authStatus = document.getElementById('authStatus');
+        const googleSignIn = document.getElementById('googleSignIn');
+        const phoneForm = document.getElementById('phoneForm');
+        const phoneInput = document.getElementById('phoneInput');
+        const codeForm = document.getElementById('codeForm');
+        const codeInput = document.getElementById('codeInput');
+        const verifyBtn = document.getElementById('verifyBtn');
+        const skipAuth = document.getElementById('skipAuth');
+
+        function setAuthStatus(message, isError = false) {
+            if (!authStatus) return;
+            authStatus.textContent = message || ' ';
+            authStatus.style.display = message ? 'block' : 'none';
+            authStatus.style.background = isError ? 'rgba(239,68,68,0.12)' : 'rgba(148,163,184,0.12)';
+            authStatus.style.color = isError ? '#fecaca' : '#e2e8f0';
+        }
+
+        function hideAuthModal() {
+            authModal.style.display = 'none';
+        }
+
+        function onAuthSuccess(user) {
+            const safeUser = user || { method: 'guest' };
+            localStorage.setItem('signedIn', JSON.stringify(safeUser));
+            hideAuthModal();
+            setAuthStatus('');
+        }
+
+        async function refreshAuthSession() {
+            try {
+                const res = await fetch('/auth/session', { credentials: 'same-origin' });
+                const data = await res.json();
+                if (data && data.ok && data.user) {
+                    onAuthSuccess(data.user);
+                    return true;
+                }
+            } catch (err) {
+                console.warn('No active auth session found.', err);
+            }
+            return false;
+        }
+
+        googleSignIn.addEventListener('click', () => {
+            setAuthStatus('Redirecting to Google login...');
+            window.location.href = '/auth/google';
+        });
+
+        phoneForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const phone = phoneInput.value.trim();
+            if (!phone) return setAuthStatus('Enter a phone number to continue.', true);
+            try {
+                const res = await fetch('/auth/send-code', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    credentials: 'same-origin',
+                    body: JSON.stringify({ phone })
+                });
+                const json = await res.json();
+                if (json.ok) {
+                    if (json.demoCode) {
+                        setAuthStatus(`Demo OTP sent: ${json.demoCode}`);
+                    } else {
+                        setAuthStatus('Verification code sent successfully.');
+                    }
+                    phoneForm.style.display = 'none';
+                    codeForm.style.display = 'grid';
+                    codeInput.focus();
+                } else {
+                    setAuthStatus(json.error || 'Failed to send code.', true);
+                }
+            } catch (err) {
+                setAuthStatus('Network error. Please try again.', true);
+            }
+        });
+
+        codeForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const code = codeInput.value.trim();
+            const phone = phoneInput.value.trim();
+            if (!code) return setAuthStatus('Enter the verification code.', true);
+            try {
+                const res = await fetch('/auth/verify-code', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    credentials: 'same-origin',
+                    body: JSON.stringify({ phone, code })
+                });
+                const json = await res.json();
+                if (json.ok) {
+                    onAuthSuccess({ method: 'phone', phone });
+                } else {
+                    setAuthStatus(json.error || 'Invalid code.', true);
+                }
+            } catch (err) {
+                setAuthStatus('Network error. Please try again.', true);
+            }
+        });
+
+        skipAuth.addEventListener('click', () => onAuthSuccess({ method: 'guest' }));
+
+        try {
+            const existing = localStorage.getItem('signedIn');
+            if (existing) {
+                hideAuthModal();
+            } else {
+                refreshAuthSession();
+            }
+        } catch (e) {
+            refreshAuthSession();
+        }
+
         // Theme Toggle
         const themeToggle = document.getElementById('themeToggle');
         const html = document.documentElement;
