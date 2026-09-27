@@ -1,0 +1,1661 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shankar Lal | @dubai._viibe - Luxury Media Kit & Sponsorship Portal</title>
+    <meta name="description" content="Official Luxury Media Kit & Sponsorship Portal for Shankar Lal (@dubai._viibe). Partner with Dubai's premier luxury, culture, and lifestyle creator.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;800;900&family=Montserrat:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        :root {
+            --obsidian: #08080a;
+            --obsidian-surface: #0e0e13;
+            --obsidian-card: rgba(18, 18, 24, 0.55);
+            --obsidian-card-hover: rgba(28, 28, 38, 0.7);
+            
+            --gold-primary: #d4af37;
+            --gold-light: #f7e8a4;
+            --gold-dark: #aa820a;
+            --gold-glow: rgba(212, 175, 55, 0.35);
+            --gold-glow-subtle: rgba(212, 175, 55, 0.12);
+            --gold-border: rgba(212, 175, 55, 0.22);
+            --gold-border-hover: rgba(212, 175, 55, 0.55);
+
+            --text-pure: #ffffff;
+            --text-silver: #e2e2e8;
+            --text-muted: #9a9aa5;
+            --text-dim: #6e6e78;
+
+            --glass-blur: blur(20px);
+            --shadow-luxury: 0 15px 35px rgba(0, 0, 0, 0.7);
+            --shadow-gold: 0 10px 30px rgba(212, 175, 55, 0.25);
+            --radius-card: 20px;
+            --transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            background-color: var(--obsidian);
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--obsidian);
+            color: var(--text-silver);
+            line-height: 1.6;
+            overflow-x: hidden;
+            position: relative;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Ambient Luxury Gold Orbs */
+        .ambient-glow {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+        .glow-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            transform: translate3d(0, 0, 0);
+            will-change: transform;
+        }
+        .glow-1 {
+            top: -150px;
+            right: -100px;
+            width: 700px;
+            height: 700px;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.12) 0%, transparent 65%);
+        }
+        .glow-2 {
+            top: 45%;
+            left: -180px;
+            width: 650px;
+            height: 650px;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.08) 0%, transparent 70%);
+        }
+        .glow-3 {
+            bottom: -150px;
+            right: 15%;
+            width: 750px;
+            height: 750px;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.09) 0%, transparent 65%);
+        }
+
+        /* Subtle Geometric Silk Grid */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 50% 50%, rgba(212, 175, 55, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Typography Presets */
+        h1, h2, h3, .font-serif {
+            font-family: 'Cinzel', serif;
+            letter-spacing: 0.5px;
+        }
+
+        .gold-gradient-text {
+            background: linear-gradient(135deg, #fff7d6 0%, #d4af37 50%, #aa820a 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: inline-block;
+        }
+
+        .silver-gradient-text {
+            background: linear-gradient(135deg, #ffffff 0%, #b8b8c2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 7px; }
+        ::-webkit-scrollbar-track { background: var(--obsidian); }
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, #d4af37, #5c470a);
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover { background: #d4af37; }
+
+        /* Container */
+        .container {
+            max-width: 1240px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(8, 8, 10, 0.85);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border-bottom: 1px solid var(--gold-border);
+            transition: var(--transition);
+        }
+        .nav-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.2rem 0;
+        }
+        .brand-logo {
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+        }
+        .brand-title {
+            font-family: 'Cinzel', serif;
+            font-size: 1.45rem;
+            font-weight: 800;
+            letter-spacing: 2px;
+            color: var(--text-pure);
+        }
+        .brand-sub {
+            font-size: 0.65rem;
+            font-weight: 600;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--gold-primary);
+        }
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2.2rem;
+            align-items: center;
+        }
+        .nav-link {
+            text-decoration: none;
+            color: var(--text-silver);
+            font-size: 0.88rem;
+            font-weight: 500;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: var(--transition);
+            position: relative;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: linear-gradient(90deg, #d4af37, #fff);
+            transition: var(--transition);
+        }
+        .nav-link:hover {
+            color: var(--gold-light);
+        }
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* Buttons */
+        .btn-luxury {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.7rem;
+            padding: 0.95rem 2rem;
+            font-size: 0.85rem;
+            font-weight: 700;
+            font-family: 'Cinzel', serif;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            text-decoration: none;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            border: none;
+        }
+        .btn-gold {
+            background: linear-gradient(135deg, #d4af37 0%, #b8911c 50%, #8c6a08 100%);
+            color: #08080a;
+            box-shadow: 0 5px 25px rgba(212, 175, 55, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .btn-gold:hover {
+            transform: translateY(-2px) translateZ(0);
+            box-shadow: 0 10px 35px rgba(212, 175, 55, 0.65), 0 0 20px rgba(255, 247, 214, 0.4);
+            color: #000000;
+        }
+        .btn-outline-gold {
+            background: rgba(18, 18, 24, 0.5);
+            color: var(--gold-light);
+            border: 1px solid var(--gold-border);
+            backdrop-filter: blur(12px);
+        }
+        .btn-outline-gold:hover {
+            border-color: var(--gold-primary);
+            background: rgba(212, 175, 55, 0.12);
+            color: #ffffff;
+            transform: translateY(-2px) translateZ(0);
+            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.25);
+        }
+        .mobile-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--gold-primary);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Section Header */
+        .section-header {
+            text-align: center;
+            max-width: 780px;
+            margin: 0 auto 4.5rem;
+        }
+        .section-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 0.4rem 1.2rem;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            background: rgba(212, 175, 55, 0.08);
+            border: 1px solid var(--gold-border);
+            color: var(--gold-light);
+            margin-bottom: 1.2rem;
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.1);
+        }
+        .section-title {
+            font-size: 2.6rem;
+            margin-bottom: 1rem;
+            color: #ffffff;
+            line-height: 1.2;
+        }
+        .section-desc {
+            color: var(--text-muted);
+            font-size: 1.05rem;
+            line-height: 1.7;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 10.5rem 0 6rem;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1.15fr 0.85fr;
+            gap: 4.5rem;
+            align-items: center;
+        }
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 0.45rem 1.3rem;
+            border-radius: 50px;
+            background: rgba(212, 175, 55, 0.1);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            color: var(--gold-light);
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 1.8rem;
+        }
+        .hero-badge i {
+            color: var(--gold-primary);
+        }
+        .hero h1 {
+            font-size: 3.5rem;
+            line-height: 1.15;
+            color: #ffffff;
+            margin-bottom: 1.5rem;
+            font-weight: 800;
+        }
+        .hero p.lead {
+            font-size: 1.12rem;
+            color: var(--text-muted);
+            margin-bottom: 2.4rem;
+            line-height: 1.8;
+            max-width: 580px;
+        }
+        .hero-actions {
+            display: flex;
+            gap: 1.2rem;
+            flex-wrap: wrap;
+            margin-bottom: 3.5rem;
+        }
+
+        /* Creator Spotlight Card */
+        .creator-spotlight {
+            background: var(--obsidian-card);
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            border: 1px solid var(--gold-border);
+            border-radius: 24px;
+            padding: 2.5rem;
+            position: relative;
+            box-shadow: var(--shadow-luxury), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            overflow: hidden;
+            transition: var(--transition);
+        }
+        .creator-spotlight::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #d4af37, transparent);
+        }
+        .creator-spotlight:hover {
+            border-color: var(--gold-primary);
+            box-shadow: 0 20px 45px rgba(0, 0, 0, 0.8), 0 0 30px rgba(212, 175, 55, 0.25);
+            transform: translateY(-5px);
+        }
+        .creator-avatar-wrap {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        .creator-avatar {
+            width: 84px;
+            height: 84px;
+            border-radius: 50%;
+            border: 2px solid var(--gold-primary);
+            padding: 4px;
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.4), transparent);
+            box-shadow: 0 0 25px rgba(212, 175, 55, 0.35);
+            object-fit: cover;
+        }
+        .creator-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 0.25rem;
+        }
+        .creator-handle {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: 0.95rem;
+            color: var(--gold-light);
+            font-weight: 600;
+            text-decoration: none;
+            letter-spacing: 0.5px;
+        }
+        .creator-handle i.fa-circle-check {
+            color: #0ea5e9;
+            font-size: 0.9rem;
+        }
+        .creator-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+            margin-bottom: 2rem;
+        }
+        .tag-pill {
+            font-size: 0.75rem;
+            padding: 0.35rem 0.9rem;
+            border-radius: 50px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            color: var(--text-silver);
+            letter-spacing: 0.5px;
+        }
+
+        /* Hero Stats Row */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.2rem;
+        }
+        .stat-card {
+            background: rgba(12, 12, 16, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 14px;
+            padding: 1.2rem;
+            transition: var(--transition);
+        }
+        .stat-card:hover {
+            border-color: var(--gold-border);
+            background: rgba(212, 175, 55, 0.06);
+        }
+        .stat-value {
+            font-family: 'Cinzel', serif;
+            font-size: 1.85rem;
+            font-weight: 800;
+            color: var(--gold-light);
+            line-height: 1;
+            margin-bottom: 0.35rem;
+        }
+        .stat-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Section Spacing */
+        section {
+            padding: 6.5rem 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Growth Benefits (3-Column Grid) */
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2.2rem;
+        }
+        .benefit-card {
+            background: var(--obsidian-card);
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: var(--shadow-luxury);
+            border-radius: var(--radius-card);
+            padding: 2.8rem 2.2rem;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            will-change: transform;
+        }
+        .benefit-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #d4af37, transparent);
+            opacity: 0;
+            transition: var(--transition);
+        }
+        .benefit-card:hover {
+            transform: translateY(-8px) translateZ(0);
+            border-color: var(--gold-border-hover);
+            box-shadow: 0 20px 45px rgba(0, 0, 0, 0.8), 0 0 25px var(--gold-glow-subtle);
+        }
+        .benefit-card:hover::before {
+            opacity: 1;
+        }
+        .benefit-icon {
+            width: 66px;
+            height: 66px;
+            border-radius: 16px;
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.15), rgba(212, 175, 55, 0.04));
+            border: 1px solid var(--gold-border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.7rem;
+            color: var(--gold-light);
+            margin-bottom: 1.8rem;
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.15);
+            transition: var(--transition);
+        }
+        .benefit-card:hover .benefit-icon {
+            transform: scale(1.08) rotate(4deg);
+            border-color: var(--gold-primary);
+            box-shadow: 0 0 25px rgba(212, 175, 55, 0.4);
+            color: #ffffff;
+        }
+        .benefit-card h3 {
+            font-size: 1.35rem;
+            color: #ffffff;
+            margin-bottom: 0.9rem;
+            line-height: 1.3;
+        }
+        .benefit-card p {
+            color: var(--text-muted);
+            font-size: 0.96rem;
+            line-height: 1.7;
+        }
+
+        /* Sponsorship Packages (6 Glass Cards) */
+        .packages-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-bottom: 3.5rem;
+        }
+        .package-card {
+            background: var(--obsidian-card);
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: var(--shadow-luxury);
+            border-radius: var(--radius-card);
+            padding: 2.6rem 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            transition: var(--transition);
+            will-change: transform;
+        }
+        .package-card:hover {
+            transform: translateY(-8px) translateZ(0);
+            border-color: var(--gold-border-hover);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.85), 0 0 30px rgba(212, 175, 55, 0.2);
+        }
+
+        /* Highlighted Pro Package */
+        .package-card.highlighted {
+            border: 1px solid var(--gold-primary);
+            background: linear-gradient(rgba(14, 14, 18, 0.8), rgba(14, 14, 18, 0.8)) padding-box,
+                        linear-gradient(135deg, #f7e8a4 0%, #d4af37 50%, #8c6a08 100%) border-box;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 35px rgba(212, 175, 55, 0.35);
+            transform: scale(1.03);
+            z-index: 2;
+        }
+        .package-card.highlighted:hover {
+            transform: scale(1.03) translateY(-8px) translateZ(0);
+            box-shadow: 0 30px 65px rgba(0, 0, 0, 0.9), 0 0 45px rgba(212, 175, 55, 0.5);
+        }
+        .package-badge-popular {
+            position: absolute;
+            top: -14px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, #f7e8a4, #d4af37);
+            color: #08080a;
+            padding: 0.38rem 1.4rem;
+            border-radius: 50px;
+            font-size: 0.72rem;
+            font-weight: 800;
+            font-family: 'Cinzel', serif;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.55);
+            white-space: nowrap;
+        }
+
+        .package-tier {
+            font-size: 1.45rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 0.4rem;
+        }
+        .package-tagline {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 1.8rem;
+            min-height: 40px;
+        }
+        .package-price-wrap {
+            margin-bottom: 2rem;
+            padding-bottom: 1.8rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .package-price {
+            font-family: 'Cinzel', serif;
+            font-size: 3rem;
+            font-weight: 900;
+            color: var(--gold-light);
+            line-height: 1;
+        }
+        .package-currency {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--gold-primary);
+            margin-left: 0.4rem;
+            letter-spacing: 1px;
+        }
+
+        .package-features {
+            list-style: none;
+            margin-bottom: 2.2rem;
+            flex-grow: 1;
+        }
+        .package-features li {
+            font-size: 0.9rem;
+            color: var(--text-silver);
+            padding: 0.65rem 0;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            line-height: 1.5;
+        }
+        .package-features li i {
+            color: var(--gold-primary);
+            font-size: 0.85rem;
+            margin-top: 0.25rem;
+            flex-shrink: 0;
+        }
+
+        /* Mandatory Audit Requirement Badge */
+        .audit-requirement-banner {
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.12) 0%, rgba(14, 14, 18, 0.85) 100%);
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            border: 1px solid var(--gold-primary);
+            border-radius: 18px;
+            padding: 1.8rem 2.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), 0 0 25px rgba(212, 175, 55, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        .audit-requirement-banner::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(180deg, #f7e8a4, #aa820a);
+        }
+        .audit-info {
+            display: flex;
+            align-items: center;
+            gap: 1.4rem;
+        }
+        .audit-icon-wrap {
+            width: 58px;
+            height: 58px;
+            border-radius: 14px;
+            background: rgba(212, 175, 55, 0.15);
+            border: 1px solid var(--gold-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.6rem;
+            color: var(--gold-light);
+            flex-shrink: 0;
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
+        }
+        .audit-title {
+            font-family: 'Cinzel', serif;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 0.3rem;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+        .audit-tag {
+            background: var(--gold-primary);
+            color: #08080a;
+            font-size: 0.72rem;
+            font-weight: 800;
+            font-family: 'Montserrat', sans-serif;
+            padding: 0.15rem 0.6rem;
+            border-radius: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .audit-desc {
+            color: var(--text-muted);
+            font-size: 0.92rem;
+            max-width: 680px;
+            line-height: 1.6;
+        }
+        .audit-price-pill {
+            background: rgba(0, 0, 0, 0.6);
+            border: 1px solid var(--gold-border);
+            padding: 0.8rem 1.6rem;
+            border-radius: 12px;
+            text-align: center;
+            flex-shrink: 0;
+        }
+        .audit-price-val {
+            font-family: 'Cinzel', serif;
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--gold-light);
+            line-height: 1;
+        }
+        .audit-price-sub {
+            font-size: 0.72rem;
+            color: var(--text-dim);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 0.2rem;
+        }
+
+        /* Booking Section */
+        .booking-section {
+            background: linear-gradient(180deg, transparent 0%, rgba(14, 14, 18, 0.6) 100%);
+        }
+        .booking-wrap {
+            display: grid;
+            grid-template-columns: 0.9fr 1.1fr;
+            gap: 4rem;
+            background: var(--obsidian-card);
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            border: 1px solid var(--gold-border);
+            box-shadow: var(--shadow-luxury);
+            border-radius: 24px;
+            padding: 3.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+        .booking-wrap::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #d4af37, transparent);
+        }
+        .booking-details h3 {
+            font-size: 2rem;
+            color: #ffffff;
+            margin-bottom: 1rem;
+        }
+        .booking-details p {
+            color: var(--text-muted);
+            font-size: 0.98rem;
+            line-height: 1.75;
+            margin-bottom: 2.2rem;
+        }
+        .booking-perks {
+            list-style: none;
+            margin-bottom: 2.5rem;
+        }
+        .booking-perks li {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.8rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            color: var(--text-silver);
+            font-size: 0.94rem;
+        }
+        .booking-perks li i {
+            color: var(--gold-primary);
+            font-size: 1rem;
+        }
+
+        .booking-direct-contact {
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(212, 175, 55, 0.15);
+            border-radius: 14px;
+            padding: 1.4rem;
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+        }
+        .direct-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            background: #25d366;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            box-shadow: 0 0 15px rgba(37, 211, 102, 0.4);
+        }
+
+        /* Form Controls */
+        .form-group {
+            margin-bottom: 1.4rem;
+        }
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: var(--gold-light);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .form-control {
+            width: 100%;
+            background: rgba(8, 8, 10, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 12px;
+            padding: 0.95rem 1.2rem;
+            color: #ffffff;
+            font-family: inherit;
+            font-size: 0.95rem;
+            transition: var(--transition);
+        }
+        .form-control:focus {
+            outline: none;
+            border-color: var(--gold-primary);
+            background: rgba(14, 14, 18, 0.95);
+            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.15), 0 0 20px rgba(212, 175, 55, 0.2);
+        }
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.2rem;
+        }
+        textarea.form-control {
+            resize: vertical;
+            min-height: 110px;
+        }
+
+        /* Pricing Summary Box inside Form */
+        .order-summary-box {
+            background: rgba(212, 175, 55, 0.05);
+            border: 1px dashed var(--gold-border);
+            border-radius: 14px;
+            padding: 1.2rem 1.5rem;
+            margin-bottom: 1.8rem;
+        }
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.88rem;
+            color: var(--text-muted);
+            margin-bottom: 0.45rem;
+        }
+        .summary-row.total-row {
+            border-top: 1px solid rgba(212, 175, 55, 0.2);
+            padding-top: 0.6rem;
+            margin-top: 0.6rem;
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: #ffffff;
+        }
+        .summary-row.total-row span:last-child {
+            color: var(--gold-light);
+            font-family: 'Cinzel', serif;
+            font-size: 1.35rem;
+        }
+
+        /* Footer */
+        .footer {
+            background: #050507;
+            border-top: 1px solid var(--gold-border);
+            padding: 4.5rem 0 2.5rem;
+            position: relative;
+            z-index: 1;
+        }
+        .footer-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+            padding-bottom: 2.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            margin-bottom: 2rem;
+        }
+        .footer-socials {
+            display: flex;
+            gap: 1rem;
+        }
+        .social-btn {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            background: rgba(18, 18, 24, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-silver);
+            text-decoration: none;
+            transition: var(--transition);
+            font-size: 1.15rem;
+        }
+        .social-btn:hover {
+            color: var(--gold-primary);
+            border-color: var(--gold-primary);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.25);
+        }
+        .footer-copy {
+            text-align: center;
+            color: var(--text-dim);
+            font-size: 0.85rem;
+        }
+
+        /* Mobile Drawer */
+        .mobile-drawer {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 80%;
+            max-width: 380px;
+            height: 100vh;
+            background: rgba(10, 10, 14, 0.98);
+            backdrop-filter: blur(25px);
+            border-left: 1px solid var(--gold-border);
+            z-index: 1001;
+            padding: 3rem 2rem;
+            transition: var(--transition);
+        }
+        .mobile-drawer.active {
+            right: 0;
+        }
+        .drawer-close {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            background: none;
+            border: none;
+            color: var(--gold-primary);
+            font-size: 1.6rem;
+            cursor: pointer;
+        }
+        .drawer-menu {
+            list-style: none;
+            margin-top: 3rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.8rem;
+        }
+        .drawer-menu a {
+            color: #ffffff;
+            text-decoration: none;
+            font-family: 'Cinzel', serif;
+            font-size: 1.25rem;
+            letter-spacing: 1px;
+            transition: var(--transition);
+        }
+        .drawer-menu a:hover {
+            color: var(--gold-primary);
+            padding-left: 8px;
+        }
+        .drawer-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.85);
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+        }
+        .drawer-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* WhatsApp Floating Trigger */
+        .wa-float {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 62px;
+            height: 62px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #25d366, #128c7e);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.9rem;
+            box-shadow: 0 10px 30px rgba(37, 211, 102, 0.4), 0 0 20px rgba(212, 175, 55, 0.3);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            text-decoration: none;
+            z-index: 999;
+            transition: var(--transition);
+            animation: pulse-gold 2.5s infinite;
+        }
+        .wa-float:hover {
+            transform: scale(1.1) translateZ(0);
+            box-shadow: 0 15px 40px rgba(37, 211, 102, 0.6);
+        }
+        @keyframes pulse-gold {
+            0% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.6); }
+            70% { box-shadow: 0 0 0 18px rgba(212, 175, 55, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0); }
+        }
+
+        /* Responsive Breakpoints */
+        @media (max-width: 1024px) {
+            .hero-grid {
+                grid-template-columns: 1fr;
+                gap: 3.5rem;
+                text-align: center;
+            }
+            .hero p.lead {
+                margin-left: auto;
+                margin-right: auto;
+            }
+            .hero-actions {
+                justify-content: center;
+            }
+            .creator-avatar-wrap {
+                justify-content: center;
+            }
+            .creator-tags {
+                justify-content: center;
+            }
+            .packages-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .package-card.highlighted {
+                transform: none;
+            }
+            .package-card.highlighted:hover {
+                transform: translateY(-8px);
+            }
+            .booking-wrap {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+                padding: 2.5rem;
+            }
+            .audit-requirement-banner {
+                flex-direction: column;
+                text-align: center;
+                align-items: center;
+            }
+            .audit-info {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-menu { display: none; }
+            .mobile-toggle { display: block; }
+            .hero { padding: 8rem 0 4rem; }
+            .hero h1 { font-size: 2.4rem; }
+            .section-title { font-size: 2rem; }
+            .benefits-grid { grid-template-columns: 1fr; }
+            .packages-grid { grid-template-columns: 1fr; }
+            .form-row { grid-template-columns: 1fr; }
+            .stats-grid { grid-template-columns: 1fr 1fr; }
+            .footer-inner { flex-direction: column; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Ambient Luxury Gold Lights -->
+    <div class="ambient-glow">
+        <div class="glow-orb glow-1"></div>
+        <div class="glow-orb glow-2"></div>
+        <div class="glow-orb glow-3"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container nav-inner">
+            <a href="#" class="brand-logo">
+                <span class="brand-title">SHANKAR LAL</span>
+                <span class="brand-sub">Dubai Luxury Creator</span>
+            </a>
+            <ul class="nav-menu">
+                <li><a href="#overview" class="nav-link">Overview</a></li>
+                <li><a href="#benefits" class="nav-link">Audience ROI</a></li>
+                <li><a href="#packages" class="nav-link">Sponsorships</a></li>
+                <li><a href="#booking" class="nav-link">Book Now</a></li>
+            </ul>
+            <div style="display: flex; align-items: center; gap: 1rem;">
+                <a href="#booking" class="btn-luxury btn-gold" style="padding: 0.75rem 1.6rem; font-size: 0.8rem;">Book Portal</a>
+                <button class="mobile-toggle" id="mobileMenuBtn" aria-label="Open Navigation"><i class="fas fa-bars"></i></button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Drawer -->
+    <div class="drawer-overlay" id="drawerOverlay"></div>
+    <div class="mobile-drawer" id="mobileDrawer">
+        <button class="drawer-close" id="drawerClose"><i class="fas fa-times"></i></button>
+        <ul class="drawer-menu">
+            <li><a href="#overview" onclick="closeDrawer()">Overview</a></li>
+            <li><a href="#benefits" onclick="closeDrawer()">Audience ROI</a></li>
+            <li><a href="#packages" onclick="closeDrawer()">Packages</a></li>
+            <li><a href="#booking" onclick="closeDrawer()">Book Sponsorship</a></li>
+        </ul>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero" id="overview">
+        <div class="container">
+            <div class="hero-grid">
+                <div class="hero-content">
+                    <div class="hero-badge">
+                        <i class="fas fa-crown"></i> Official Media Kit &bull; Dubai, UAE
+                    </div>
+                    <h1>Elevate Your Brand in the <span class="gold-gradient-text">City of Gold</span></h1>
+                    <p class="lead">
+                        Connecting elite hospitality, luxury automobiles, fashion, and lifestyle brands with high-intent GCC consumers through high-velocity editorial visual storytelling.
+                    </p>
+                    <div class="hero-actions">
+                        <a href="#packages" class="btn-luxury btn-gold">
+                            <i class="fas fa-gem"></i> View Packages
+                        </a>
+                        <a href="https://wa.me/971500000000?text=Hello%20Shankar%20Lal%20(@dubai._viibe),%20I%20am%20interested%20in%20a%20luxury%20brand%20sponsorship." target="_blank" class="btn-luxury btn-outline-gold">
+                            <i class="fab fa-whatsapp"></i> Quick Inquiry
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Creator Spotlight Card -->
+                <div class="creator-spotlight">
+                    <div class="creator-avatar-wrap">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&q=80" alt="Shankar Lal - Dubai Creator" class="creator-avatar">
+                        <div>
+                            <div class="creator-name">Shankar Lal</div>
+                            <a href="https://instagram.com/dubai._viibe" target="_blank" class="creator-handle">
+                                @dubai._viibe <i class="fas fa-circle-check"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="creator-tags">
+                        <span class="tag-pill"><i class="fas fa-hotel"></i> Luxury Hospitality</span>
+                        <span class="tag-pill"><i class="fas fa-car"></i> Supercars & Lifestyle</span>
+                        <span class="tag-pill"><i class="fas fa-compass"></i> Dubai Culture</span>
+                        <span class="tag-pill"><i class="fas fa-camera"></i> 4K Visuals</span>
+                    </div>
+
+                    <!-- Verified Stats -->
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-value">49.1K</div>
+                            <div class="stat-label">Active Followers</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value">84%</div>
+                            <div class="stat-label">GCC &amp; UAE Audience</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value">3.2M+</div>
+                            <div class="stat-label">Monthly Impressions</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value">6.8%</div>
+                            <div class="stat-label">Avg Engagement Rate</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Growth Benefits (3-Column Grid) -->
+    <section id="benefits">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag"><i class="fas fa-chart-line"></i> Measurable Growth</span>
+                <h2 class="section-title">Engineered for <span class="gold-gradient-text">Brand ROI</span></h2>
+                <p class="section-desc">
+                    Every collaboration is precision-crafted to maximize organic resonance, viral algorithmic discoverability, and high-conversion client acquisition across the United Arab Emirates.
+                </p>
+            </div>
+
+            <div class="benefits-grid">
+                <!-- Benefit 1 -->
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3>Algorithmic Velocity &amp; Reach</h3>
+                    <p>
+                        High-retention 4K cinematic Reels designed to trigger Instagram's explore feed and local Dubai recommendation algorithms, multiplying exposure beyond standard follower baselines.
+                    </p>
+                </div>
+
+                <!-- Benefit 2 -->
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-bullseye"></i>
+                    </div>
+                    <h3>Targeted GCC High-Net-Worth Demographics</h3>
+                    <p>
+                        Direct penetration into affluent UAE, Saudi Arabia, and Qatar consumers who actively seek premium dining, luxury properties, elite automotive experiences, and five-star leisure.
+                    </p>
+                </div>
+
+                <!-- Benefit 3 -->
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-tags"></i>
+                    </div>
+                    <h3>Active Collaborative Tagging</h3>
+                    <p>
+                        Leverage Instagram's Co-Author Collaborator posting to instantly share viewership across both accounts, driving authentic follower growth, tagged link clicks, and direct inquiry conversions.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sponsorship Packages (6 Glass Cards) -->
+    <section id="packages">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag"><i class="fas fa-gem"></i> Curated Tiers</span>
+                <h2 class="section-title">Sponsorship <span class="gold-gradient-text">Packages</span></h2>
+                <p class="section-desc">
+                    Transparent, high-impact campaign tiers tailored for brands demanding prestige, measurable reach, and premium aesthetic execution.
+                </p>
+            </div>
+
+            <div class="packages-grid">
+                <!-- Package 1: Starter -->
+                <div class="package-card" id="pkg-starter">
+                    <div>
+                        <div class="package-tier">Starter</div>
+                        <div class="package-tagline">Ideal for fast brand announcements &amp; event teasers</div>
+                        <div class="package-price-wrap">
+                            <span class="package-price">99</span><span class="package-currency">AED</span>
+                        </div>
+                        <ul class="package-features">
+                            <li><i class="fas fa-check"></i> 1 Dedicated Story Feature (24 Hours)</li>
+                            <li><i class="fas fa-check"></i> Direct Swipe-Up / Sticker Link</li>
+                            <li><i class="fas fa-check"></i> Account Handle Tag &amp; Mention</li>
+                            <li><i class="fas fa-check"></i> Rapid Delivery within 48 Hours</li>
+                        </ul>
+                    </div>
+                    <button class="btn-luxury btn-outline-gold" onclick="selectPackage('Starter', 99)">
+                        Select Starter
+                    </button>
+                </div>
+
+                <!-- Package 2: Growth -->
+                <div class="package-card" id="pkg-growth">
+                    <div>
+                        <div class="package-tier">Growth</div>
+                        <div class="package-tagline">Multi-touch story campaign for stronger recall</div>
+                        <div class="package-price-wrap">
+                            <span class="package-price">169</span><span class="package-currency">AED</span>
+                        </div>
+                        <ul class="package-features">
+                            <li><i class="fas fa-check"></i> 2 Coordinated Story Sequences</li>
+                            <li><i class="fas fa-check"></i> Interactive CTA Sticker / Poll</li>
+                            <li><i class="fas fa-check"></i> 7-Day Pinned Profile Highlight</li>
+                            <li><i class="fas fa-check"></i> Targeted Location &amp; Venue Tagging</li>
+                            <li><i class="fas fa-check"></i> Full Insights Screenshot Report</li>
+                        </ul>
+                    </div>
+                    <button class="btn-luxury btn-outline-gold" onclick="selectPackage('Growth', 169)">
+                        Select Growth
+                    </button>
+                </div>
+
+                <!-- Package 3: Pro (Highlighted) -->
+                <div class="package-card highlighted" id="pkg-pro">
+                    <div class="package-badge-popular">Top ROI Choice</div>
+                    <div>
+                        <div class="package-tier gold-gradient-text">Pro Tier</div>
+                        <div class="package-tagline">High-production cinematic reel with collaborative tagging</div>
+                        <div class="package-price-wrap">
+                            <span class="package-price">299</span><span class="package-currency">AED</span>
+                        </div>
+                        <ul class="package-features">
+                            <li><i class="fas fa-check"></i> <strong>1 Cinematic 4K Reel</strong> or Dedicated Post</li>
+                            <li><i class="fas fa-check"></i> <strong>Co-Author Collaborator Tag</strong> (Dual Audience)</li>
+                            <li><i class="fas fa-check"></i> 3 Accompanying Story Highlights</li>
+                            <li><i class="fas fa-check"></i> In-Feed Pinned Post for 72 Hours</li>
+                            <li><i class="fas fa-check"></i> Complete Performance &amp; Impression Analytics</li>
+                        </ul>
+                    </div>
+                    <button class="btn-luxury btn-gold" onclick="selectPackage('Pro', 299)">
+                        Select Pro Tier
+                    </button>
+                </div>
+
+                <!-- Package 4: Monthly -->
+                <div class="package-card" id="pkg-monthly">
+                    <div>
+                        <div class="package-tier">Monthly</div>
+                        <div class="package-tagline">Ongoing strategic presence with bi-weekly coverage</div>
+                        <div class="package-price-wrap">
+                            <span class="package-price">399</span><span class="package-currency">AED</span>
+                        </div>
+                        <ul class="package-features">
+                            <li><i class="fas fa-check"></i> 4 Strategic Story Features</li>
+                            <li><i class="fas fa-check"></i> 2 Dedicated Feed Posts / Reels</li>
+                            <li><i class="fas fa-check"></i> Brand Ambassador Bio Mention</li>
+                            <li><i class="fas fa-check"></i> Bi-weekly Audience Engagement Updates</li>
+                            <li><i class="fas fa-check"></i> Priority Content Scheduling</li>
+                        </ul>
+                    </div>
+                    <button class="btn-luxury btn-outline-gold" onclick="selectPackage('Monthly', 399)">
+                        Select Monthly
+                    </button>
+                </div>
+
+                <!-- Package 5: VIP -->
+                <div class="package-card" id="pkg-vip">
+                    <div>
+                        <div class="package-tier">VIP Prestige</div>
+                        <div class="package-tagline">Complete multi-format campaign blitz for product launches</div>
+                        <div class="package-price-wrap">
+                            <span class="package-price">599</span><span class="package-currency">AED</span>
+                        </div>
+                        <ul class="package-features">
+                            <li><i class="fas fa-check"></i> 2 High-End 4K Reels (Co-Collaborator)</li>
+                            <li><i class="fas fa-check"></i> 6 Editorial Story Shares</li>
+                            <li><i class="fas fa-check"></i> 14-Day Exclusive Link in Bio Placement</li>
+                            <li><i class="fas fa-check"></i> Permanent Story Highlights Folder</li>
+                            <li><i class="fas fa-check"></i> Custom Creative Concept &amp; Scriptwriting</li>
+                        </ul>
+                    </div>
+                    <button class="btn-luxury btn-outline-gold" onclick="selectPackage('VIP', 599)">
+                        Select VIP Prestige
+                    </button>
+                </div>
+
+                <!-- Package 6: Ultimate -->
+                <div class="package-card" id="pkg-ultimate">
+                    <div>
+                        <div class="package-tier">Ultimate</div>
+                        <div class="package-tagline">30-Day exclusive brand takeover &amp; luxury ambassador package</div>
+                        <div class="package-price-wrap">
+                            <span class="package-price">799</span><span class="package-currency">AED</span>
+                        </div>
+                        <ul class="package-features">
+                            <li><i class="fas fa-check"></i> 4 Cinematic 4K Co-Posted Reels</li>
+                            <li><i class="fas fa-check"></i> 10 Strategic Story Sequences</li>
+                            <li><i class="fas fa-check"></i> 30-Day Permanent Link in Bio</li>
+                            <li><i class="fas fa-check"></i> Live On-Location Coverage / Event Visit</li>
+                            <li><i class="fas fa-check"></i> Full Raw 4K Video Rights for Paid Ads</li>
+                        </ul>
+                    </div>
+                    <button class="btn-luxury btn-outline-gold" onclick="selectPackage('Ultimate', 799)">
+                        Select Ultimate
+                    </button>
+                </div>
+            </div>
+
+            <!-- Mandatory Audit Requirement Banner -->
+            <div class="audit-requirement-banner">
+                <div class="audit-info">
+                    <div class="audit-icon-wrap">
+                        <i class="fas fa-shield-halved"></i>
+                    </div>
+                    <div>
+                        <div class="audit-title">
+                            Account &amp; Profile Audit Required <span class="audit-tag">Mandatory</span>
+                        </div>
+                        <p class="audit-desc">
+                            To guarantee optimal campaign conversion, an algorithmic profile optimization &amp; GCC audience alignment audit (+73 AED) is mandatorily integrated with all new brand bookings.
+                        </p>
+                    </div>
+                </div>
+                <div class="audit-price-pill">
+                    <div class="audit-price-val">+73 AED</div>
+                    <div class="audit-price-sub">Included in Booking</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Booking Section -->
+    <section class="booking-section" id="booking">
+        <div class="container">
+            <div class="booking-wrap">
+                <div class="booking-details">
+                    <span class="section-tag"><i class="fas fa-calendar-check"></i> Reservation</span>
+                    <h3>Book Your <span class="gold-gradient-text">Collaboration</span></h3>
+                    <p>
+                        Submit your campaign objectives below. Our portal will generate a formal WhatsApp sponsorship brief with direct pricing and initiate prompt scheduling.
+                    </p>
+
+                    <ul class="booking-perks">
+                        <li><i class="fas fa-check-circle"></i> Direct confirmation with Shankar Lal</li>
+                        <li><i class="fas fa-check-circle"></i> Guaranteed 4K cinematic delivery</li>
+                        <li><i class="fas fa-check-circle"></i> Complete analytics transparency</li>
+                        <li><i class="fas fa-check-circle"></i> Verified GCC &amp; Dubai reach</li>
+                    </ul>
+
+                    <div class="booking-direct-contact">
+                        <div class="direct-icon">
+                            <i class="fab fa-whatsapp"></i>
+                        </div>
+                        <div>
+                            <div style="font-weight: 700; color: #ffffff; font-size: 0.95rem;">Instant WhatsApp Desk</div>
+                            <div style="font-size: 0.82rem; color: var(--text-muted);">Direct campaign assistance within 2 hours</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Interactive Booking Form -->
+                <div class="booking-form-wrap">
+                    <form id="sponsorshipForm" onsubmit="handleFormSubmit(event)">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label" for="brandName">Brand / Company Name</label>
+                                <input type="text" id="brandName" class="form-control" placeholder="e.g. Royal Mirage Hotel" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="contactPerson">Contact Person</label>
+                                <input type="text" id="contactPerson" class="form-control" placeholder="e.g. Sarah Al-Mansoor" required>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label" for="contactEmail">Business Email</label>
+                                <input type="email" id="contactEmail" class="form-control" placeholder="sarah@brand.ae" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="contactPhone">WhatsApp Number</label>
+                                <input type="tel" id="contactPhone" class="form-control" placeholder="+971 50 123 4567" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="packageSelect">Selected Sponsorship Package</label>
+                            <select id="packageSelect" class="form-control" onchange="updateSummary()" required>
+                                <option value="Starter:99">Starter Package — 99 AED</option>
+                                <option value="Growth:169">Growth Package — 169 AED</option>
+                                <option value="Pro:299" selected>Pro Tier (Highlighted) — 299 AED</option>
+                                <option value="Monthly:399">Monthly Retainer — 399 AED</option>
+                                <option value="VIP:599">VIP Prestige — 599 AED</option>
+                                <option value="Ultimate:799">Ultimate Brand Takeover — 799 AED</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="campaignBrief">Campaign Brief / Key Deliverables</label>
+                            <textarea id="campaignBrief" class="form-control" placeholder="Describe your product, campaign dates, goals, or venue location..." required></textarea>
+                        </div>
+
+                        <!-- Live Order Summary -->
+                        <div class="order-summary-box">
+                            <div class="summary-row">
+                                <span id="summaryPkgName">Package: Pro Tier</span>
+                                <span id="summaryPkgPrice">299 AED</span>
+                            </div>
+                            <div class="summary-row">
+                                <span>Account &amp; Profile Audit (Mandatory)</span>
+                                <span>+73 AED</span>
+                            </div>
+                            <div class="summary-row total-row">
+                                <span>Total Investment:</span>
+                                <span id="summaryTotal">372 AED</span>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn-luxury btn-gold" style="width: 100%;">
+                            <i class="fab fa-whatsapp"></i> Generate WhatsApp Brief &amp; Book
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-inner">
+                <div>
+                    <div class="brand-title" style="font-size: 1.6rem; color: #ffffff;">SHANKAR LAL</div>
+                    <div class="brand-sub" style="margin-top: 0.2rem;">@dubai._viibe &bull; Dubai Luxury Creator</div>
+                    <p style="color: var(--text-dim); font-size: 0.88rem; max-width: 440px; margin-top: 0.8rem;">
+                        Premier digital media partnerships in Dubai and the GCC region. Curating elegance, luxury hospitality, and high-impact brand engagements.
+                    </p>
+                </div>
+
+                <div class="footer-socials">
+                    <a href="https://instagram.com/dubai._viibe" target="_blank" class="social-btn" aria-label="Instagram">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="https://wa.me/971500000000" target="_blank" class="social-btn" aria-label="WhatsApp">
+                        <i class="fab fa-whatsapp"></i>
+                    </a>
+                    <a href="mailto:contact@dubai-viibe.com" class="social-btn" aria-label="Email">
+                        <i class="fas fa-envelope"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="footer-copy">
+                &copy; 2026 Shankar Lal (@dubai._viibe). All Rights Reserved. Luxury Digital Media Kit &amp; Sponsorship Portal.
+            </div>
+        </div>
+    </footer>
+
+    <!-- WhatsApp Floating Action -->
+    <a href="https://wa.me/971500000000?text=Hello%20Shankar%20Lal%20(@dubai._viibe),%20I%20would%20like%20to%20inquire%20about%20a%20luxury%20brand%20sponsorship." target="_blank" class="wa-float" aria-label="Direct WhatsApp Message">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- Scripts -->
+    <script>
+        // WhatsApp Phone Destination (Default creator number)
+        const CREATOR_WHATSAPP_NUMBER = "971500000000";
+
+        // Mobile Drawer Management
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const drawerClose = document.getElementById('drawerClose');
+        const mobileDrawer = document.getElementById('mobileDrawer');
+        const drawerOverlay = document.getElementById('drawerOverlay');
+
+        function openDrawer() {
+            mobileDrawer.classList.add('active');
+            drawerOverlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeDrawer() {
+            mobileDrawer.classList.remove('active');
+            drawerOverlay.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        if (mobileMenuBtn) mobileMenuBtn.addEventListener('click', openDrawer);
+        if (drawerClose) drawerClose.addEventListener('click', closeDrawer);
+        if (drawerOverlay) drawerOverlay.addEventListener('click', closeDrawer);
+
+        // Package selection helper
+        function selectPackage(pkgName, price) {
+            const selectEl = document.getElementById('packageSelect');
+            const targetVal = `${pkgName}:${price}`;
+            
+            for (let option of selectEl.options) {
+                if (option.value === targetVal) {
+                    option.selected = true;
+                    break;
+                }
+            }
+            updateSummary();
+            
+            // Smooth scroll to booking form
+            const bookingSection = document.getElementById('booking');
+            if (bookingSection) {
+                bookingSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+
+        // Price Calculation with Mandatory Audit (+73 AED)
+        function updateSummary() {
+            const selectEl = document.getElementById('packageSelect');
+            const [pkgName, priceStr] = selectEl.value.split(':');
+            const price = parseInt(priceStr, 10);
+            const auditFee = 73;
+            const total = price + auditFee;
+
+            document.getElementById('summaryPkgName').textContent = `Package: ${pkgName} Tier`;
+            document.getElementById('summaryPkgPrice').textContent = `${price} AED`;
+            document.getElementById('summaryTotal').textContent = `${total} AED`;
+        }
+
+        // Handle Form Submission and WhatsApp message generation
+        function handleFormSubmit(e) {
+            e.preventDefault();
+
+            const brandName = document.getElementById('brandName').value.trim();
+            const contactPerson = document.getElementById('contactPerson').value.trim();
+            const contactEmail = document.getElementById('contactEmail').value.trim();
+            const contactPhone = document.getElementById('contactPhone').value.trim();
+            const campaignBrief = document.getElementById('campaignBrief').value.trim();
+
+            const selectEl = document.getElementById('packageSelect');
+            const [pkgName, priceStr] = selectEl.value.split(':');
+            const packagePrice = parseInt(priceStr, 10);
+            const auditFee = 73;
+            const totalInvestment = packagePrice + auditFee;
+
+            // Build luxury WhatsApp message
+            const messageLines = [
+                `*DUBAI LUXURY SPONSORSHIP INQUIRY*`,
+                `━━━━━━━━━━━━━━━━━━━━━━━━`,
+                `*Creator:* Shankar Lal (@dubai._viibe)`,
+                `*Brand / Company:* ${brandName}`,
+                `*Contact Person:* ${contactPerson}`,
+                `*Email:* ${contactEmail}`,
+                `*Phone / WhatsApp:* ${contactPhone}`,
+                `━━━━━━━━━━━━━━━━━━━━━━━━`,
+                `*Selected Tier:* ${pkgName} Package (${packagePrice} AED)`,
+                `*Profile Audit:* Required (+${auditFee} AED)`,
+                `*Total Campaign Value:* ${totalInvestment} AED`,
+                `━━━━━━━━━━━━━━━━━━━━━━━━`,
+                `*Campaign Brief:*`,
+                `"${campaignBrief}"`,
+                `━━━━━━━━━━━━━━━━━━━━━━━━`,
+                `_Sent via Dubai Media Kit Portal_`
+            ];
+
+            const encodedMessage = encodeURIComponent(messageLines.join('\n'));
+            const whatsappUrl = `https://wa.me/${CREATOR_WHATSAPP_NUMBER}?text=${encodedMessage}`;
+
+            // Open WhatsApp in a new tab
+            window.open(whatsappUrl, '_blank');
+        }
+
+        // Initialize summary on load
+        document.addEventListener('DOMContentLoaded', () => {
+            updateSummary();
+        });
+    </script>
+</body>
+</html>

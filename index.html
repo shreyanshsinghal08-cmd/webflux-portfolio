@@ -924,6 +924,94 @@
             .floating-card.card-2 { right: -2%; bottom: 2%; }
             .whatsapp-float { width: 54px; height: 54px; font-size: 1.6rem; bottom: 20px; right: 20px; }
         }
+    
+        /* Luxury Showcase Card (Dubai Viibe) */
+        .portfolio-item.luxury-card {
+            background: rgba(15, 23, 42, 0.45);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(212, 175, 55, 0.25);
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            position: relative;
+            overflow: hidden;
+            transition: var(--transition);
+        }
+        .portfolio-item.luxury-card:hover {
+            transform: translateY(-8px) translateZ(0);
+            border-color: rgba(212, 175, 55, 0.6);
+            box-shadow: 0 20px 45px rgba(0, 0, 0, 0.75), 0 0 30px rgba(212, 175, 55, 0.25), 0 0 18px rgba(239, 68, 68, 0.25);
+        }
+        .portfolio-item.luxury-card .portfolio-tag.luxury-tag {
+            background: rgba(10, 10, 14, 0.88);
+            border: 1px solid rgba(212, 175, 55, 0.45);
+            color: #f7e8a4;
+            box-shadow: 0 0 12px rgba(212, 175, 55, 0.25);
+        }
+        .portfolio-item.luxury-card .portfolio-tag.luxury-tag i {
+            color: #d4af37;
+            margin-right: 0.35rem;
+        }
+        .portfolio-item.luxury-card .portfolio-overlay {
+            background: linear-gradient(to top, rgba(7, 9, 14, 0.98) 0%, rgba(14, 14, 18, 0.65) 60%, transparent 100%);
+        }
+        .portfolio-item.luxury-card .portfolio-overlay h3 {
+            background: linear-gradient(135deg, #fff7d6 0%, #d4af37 60%, #aa820a 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .portfolio-item.luxury-card .portfolio-overlay a {
+            color: #f7e8a4 !important;
+        }
+        .portfolio-item.luxury-card .portfolio-overlay a:hover {
+            color: #ef4444 !important;
+        }
+        .portfolio-tags-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+            margin-bottom: 0.75rem;
+        }
+        .luxury-pill {
+            font-size: 0.7rem;
+            font-weight: 600;
+            font-family: 'JetBrains Mono', monospace;
+            padding: 0.2rem 0.6rem;
+            border-radius: 50px;
+            background: rgba(212, 175, 55, 0.08);
+            border: 1px solid rgba(212, 175, 55, 0.28);
+            color: #f7e8a4;
+            letter-spacing: 0.4px;
+        }
+        .portfolio-item.luxury-card .portfolio-sub {
+            font-size: 0.82rem;
+            color: #d4af37;
+            font-weight: 600;
+            margin-bottom: 0.45rem;
+            font-family: 'JetBrains Mono', monospace;
+        }
+        .portfolio-item.luxury-card .portfolio-desc {
+            color: var(--text-muted);
+            font-size: 0.88rem;
+            line-height: 1.55;
+            margin-bottom: 0.75rem;
+        }
+        .portfolio-item.luxury-card .portfolio-info a {
+            color: #f7e8a4 !important;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            font-weight: 700;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.88rem;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        .portfolio-item.luxury-card .portfolio-info a:hover {
+            color: #ef4444 !important;
+            transform: translateX(4px);
+        }
     </style>
 </head>
 <body>
@@ -1055,6 +1143,29 @@
         <div class="container">
             <div class="section-header fade-in"><span class="section-tag"><i class="fas fa-layer-group"></i> My Work</span><h2>Recent <span>Projects</span></h2><p>Take a look at some of my recent website designs for schools, coaching institutes, and businesses.</p></div>
             <div class="portfolio-grid">
+                <div class="portfolio-item luxury-card fade-in">
+                    <span class="portfolio-tag luxury-tag"><i class="fas fa-crown"></i> Luxury Media Kit</span>
+                    <div class="portfolio-image">
+                        <img src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=600&amp;q=80" alt="Dubai Viibe — Shankar Lal (@dubai._viibe)">
+                        <div class="portfolio-overlay">
+                            <h3>Dubai Viibe &mdash; Shankar Lal</h3>
+                            <a href="./contentcreator/" target="_blank">Explore Media Kit <i class="fas fa-arrow-right"></i></a>
+                            <p>High-end digital media kit and sponsorship portal featuring 6-tier brand packages, luxury aesthetics, and automated WhatsApp inquiry routing.</p>
+                        </div>
+                    </div>
+                    <div class="portfolio-info">
+                        <div class="portfolio-tags-row">
+                            <span class="luxury-pill">Luxury Branding</span>
+                            <span class="luxury-pill">49.1k Creator</span>
+                            <span class="luxury-pill">Champagne Gold UI</span>
+                        </div>
+                        <h3>Dubai Viibe &mdash; Shankar Lal</h3>
+                        <p class="portfolio-sub">@dubai._viibe &bull; Dubai Luxury Creator</p>
+                        <p class="portfolio-desc">High-end digital media kit and sponsorship portal featuring 6-tier brand packages, luxury aesthetics, and automated WhatsApp inquiry routing.</p>
+                        <a href="./contentcreator/" target="_blank">Explore Media Kit <i class="fas fa-arrow-up-right-from-square"></i></a>
+                    </div>
+                </div>
+
                 <div class="portfolio-item fade-in"><span class="portfolio-tag">School</span><div class="portfolio-image"><img src="school.webp" alt="St. Mary's High School"><div class="portfolio-overlay"><h3>St. Mary's High School</h3><a href="st-marys-school/index.html">View Project <i class="fas fa-arrow-right"></i></a><p>Complete school website with admission portal and parent dashboard</p></div></div><div class="portfolio-info"><h3>St. Mary's High School</h3><a href="st-marys-school/index.html">View Project <i class="fas fa-arrow-right"></i></a><p>Educational Institution</p></div></div>
                 <div class="portfolio-item fade-in"><span class="portfolio-tag">Coaching</span><div class="portfolio-image"><img src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=600&amp;q=80" alt="Coaching Website"><div class="portfolio-overlay"><h3>Apex Coaching Center</h3><a href="apex-coaching/index.html">View Project <i class="fas fa-arrow-right"></i></a><p>Coaching institute website with course management system</p></div></div><div class="portfolio-info"><h3>Apex Coaching Center</h3><a href="apex-coaching/index.html">View Project <i class="fas fa-arrow-right"></i></a><p>Education &amp; Training</p></div></div>
                 <div class="portfolio-item fade-in"><span class="portfolio-tag">Business</span><div class="portfolio-image"><img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=600&amp;q=80" alt="Business Website"><div class="portfolio-overlay"><h3>TechStart Solutions</h3><a href="techstart-solutions/index.html">View Project <i class="fas fa-arrow-right"></i></a><p>Corporate website for IT consulting firm</p></div></div><div class="portfolio-info"><h3>TechStart Solutions</h3><a href="techstart-solutions/index.html">View Project <i class="fas fa-arrow-right"></i></a><p>IT Consulting</p></div></div>
