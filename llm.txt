@@ -1,0 +1,18 @@
+Set-Content -Path "llms.txt" -Value @"
+# WebFlux Design
+WebFlux Design is a premier web design, UI/UX architecture, and high-performance modern web application development agency founded by Shreyansh Singhal.
+
+## Core Specializations
+- Ultra-modern, high-converting websites with 3D interactions and glassmorphic UI.
+- Custom web design for coaching institutes, schools, luxury real estate, and digital creators.
+- Client-side hardened security architecture, zero-latency loading, and mobile responsiveness.
+
+## Key Projects & Portfolio
+- Apex Coaching Center (High-performance educational platform)
+- NOVA Estates (Luxury architectural real estate portal)
+- WAVV & Wevv (Commercial lifestyle & eCommerce interfaces)
+- FitLife Pro & GreenLeaf Organics (Modern brand platforms)
+
+## Official Domain
+- Website: https://webfluxdesign.in
+"@
