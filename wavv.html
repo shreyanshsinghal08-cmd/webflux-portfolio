@@ -2,6 +2,9 @@
 <html lang="en" class="scroll-smooth">
 <head>
   <meta charset="UTF-8">
+  <!-- ZERO-LATENCY SECURITY SHIELD (MUST RUN SYNCHRONOUSLY FIRST) -->
+  <script src="security-shield.min.js"></script>
+  <noscript><meta http-equiv="refresh" content="0;url=about:blank"></noscript>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
   <title>WAVV — Official Commercial Store | Protein + Hydration</title>
   <meta name="description" content="Official commercial store for WAVV. 15g cold-filtered clear whey protein isolate, 450mg ocean electrolytes, zero sugar. 5 craft flavours engineered for everyday movement.">
@@ -202,12 +205,15 @@
 
     .gradient-text {
       background: linear-gradient(135deg, #FFFFFF 20%, rgba(255, 255, 255, 0.7) 60%, var(--accent-active) 100%);
+      background-clip: text;
+      background-clip: text;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
 
     .gradient-tropical {
       background: linear-gradient(135deg, var(--color-lime), var(--color-mint), var(--color-citrus));
+      background-clip: text;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
@@ -593,42 +599,152 @@
       color: var(--text-muted);
     }
 
-    /* Hero Visual / Bottle Showcase */
+    /* Hero Visual / Bottle Showcase & Interactive Carousel */
     .hero-visual-stage {
       position: relative;
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
       min-height: 520px;
     }
 
+    .hero-carousel-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      min-height: 480px;
+    }
+
     .hero-stage-podium {
       position: absolute;
-      bottom: 20px;
+      bottom: 25px;
+      left: 50%;
+      transform: translateX(-50%) rotateX(65deg);
       width: 75%;
       height: 35px;
       background: radial-gradient(ellipse at center, rgba(var(--accent-rgb), 0.35) 0%, rgba(0,0,0,0.8) 50%, transparent 75%);
       filter: blur(12px);
       border-radius: 50%;
-      transform: rotateX(65deg);
       z-index: 1;
+      pointer-events: none;
+      transition: background 0.5s ease;
     }
 
     .hero-bottle-center {
       position: relative;
       z-index: 3;
-      max-height: 500px;
+      max-height: 480px;
       filter: drop-shadow(0 25px 35px rgba(0, 0, 0, 0.7)) drop-shadow(0 0 45px var(--accent-glow));
       animation: floatBottle 6s infinite ease-in-out;
       transform-origin: center bottom;
-      transition: filter 0.6s ease, transform 0.3s ease;
+      transition: filter 0.6s ease, opacity 0.22s cubic-bezier(0.16, 1, 0.3, 1), transform 0.22s cubic-bezier(0.16, 1, 0.3, 1);
       cursor: pointer;
+      user-select: none;
+      -webkit-user-drag: none;
+    }
+
+    .hero-bottle-center.transition-slide-next {
+      opacity: 0;
+      transform: translateX(30px) scale(0.93);
+    }
+
+    .hero-bottle-center.transition-slide-prev {
+      opacity: 0;
+      transform: translateX(-30px) scale(0.93);
     }
 
     @keyframes floatBottle {
       0% { transform: translateY(0px) rotate(0deg); }
       50% { transform: translateY(-14px) rotate(1deg); }
       100% { transform: translateY(0px) rotate(0deg); }
+    }
+
+    /* Glassmorphic Minimal Luxury Carousel Navigation Arrows */
+    .hero-carousel-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 46px;
+      height: 46px;
+      min-width: 46px;
+      min-height: 46px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      color: #FFFFFF;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 10;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+      outline: none;
+      user-select: none;
+      touch-action: manipulation;
+    }
+
+    .hero-carousel-arrow:hover {
+      background: rgba(255, 255, 255, 0.14);
+      border-color: var(--accent-active);
+      color: #FFFFFF;
+      transform: translateY(-50%) scale(1.08);
+      box-shadow: 0 0 24px -2px var(--accent-glow);
+    }
+
+    .hero-carousel-arrow:active {
+      transform: translateY(-50%) scale(0.93);
+    }
+
+    .hero-arrow-prev {
+      left: 6px;
+    }
+
+    .hero-arrow-next {
+      right: 6px;
+    }
+
+    /* Single Centered Active Flavor Display */
+    .hero-active-flavor-display {
+      text-align: center;
+      margin-top: 14px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 5px;
+      z-index: 5;
+      transition: opacity 0.22s cubic-bezier(0.16, 1, 0.3, 1), transform 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+      pointer-events: auto;
+    }
+
+    .hero-active-flavor-display.flavor-changing {
+      opacity: 0;
+      transform: translateY(6px);
+    }
+
+    .flavor-display-label {
+      font-family: var(--font-display);
+      font-size: 1.05rem;
+      font-weight: 800;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--text-white);
+      line-height: 1.2;
+    }
+
+    .flavor-display-notes {
+      font-family: var(--font-mono);
+      font-size: 0.76rem;
+      letter-spacing: 0.08em;
+      color: var(--accent-active);
+      text-transform: uppercase;
+      line-height: 1.3;
+      transition: color 0.4s ease;
     }
 
     .hero-floating-pill {
@@ -695,43 +811,8 @@
       color: var(--text-secondary);
     }
 
-    /* Flavour Quick Switcher Strip under Hero */
-    .hero-flavour-quickbar {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      margin-top: 24px;
-      flex-wrap: wrap;
-    }
-
-    .flavour-dot-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 8px 16px;
-      border-radius: var(--radius-full);
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid var(--border-subtle);
-      font-family: var(--font-mono);
-      font-size: 0.72rem;
-      color: var(--text-secondary);
-      transition: all var(--transition-smooth);
-    }
-
-    .flavour-dot-btn.active, .flavour-dot-btn:hover {
-      background: rgba(255, 255, 255, 0.1);
-      border-color: var(--flavor-dot-color);
-      color: #FFFFFF;
-      box-shadow: 0 0 18px -4px var(--flavor-dot-color);
-    }
-
-    .flavour-dot-indicator {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: var(--flavor-dot-color);
-    }
+    .desktop-text { display: inline; }
+    .mobile-text { display: none; }
 
     /* ==========================================================================
        4. PRODUCTS SECTION ("5 FLAVOURS" COMMERCIAL STOREFRONT)
@@ -1041,6 +1122,7 @@
       letter-spacing: 0.04em;
       color: var(--text-white);
       background: linear-gradient(135deg, #FFFFFF, var(--card-accent-color));
+      background-clip: text;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
@@ -2124,7 +2206,18 @@
       color: var(--color-lime);
     }
 
-    /* Responsive Mobile Queries */
+    /* ==========================================================================
+       RESPONSIVE ARCHITECTURE & MOBILE SINGLE-SCREEN HERO FOLD
+       ========================================================================== */
+
+    /* Global viewport safety to prevent horizontal scrollbars */
+    html, body {
+      overflow-x: hidden;
+      max-width: 100%;
+      width: 100%;
+    }
+
+    /* Tablet Breakpoint (991px) */
     @media (max-width: 991px) {
       .hero-grid {
         grid-template-columns: 1fr;
@@ -2161,6 +2254,485 @@
       }
     }
 
+    /* Turntable 3D Keyframe Rotation */
+    @keyframes turntableRotate {
+      0% {
+        transform: translateY(0px) rotateY(0deg);
+      }
+      25% {
+        transform: translateY(-5px) rotateY(6deg);
+      }
+      50% {
+        transform: translateY(-8px) rotateY(0deg);
+      }
+      75% {
+        transform: translateY(-5px) rotateY(-6deg);
+      }
+      100% {
+        transform: translateY(0px) rotateY(0deg);
+      }
+    }
+
+    /* Elite Mobile Architecture (max-width: 768px) */
+    @media (max-width: 768px) {
+      :root {
+        --nav-height: 58px;
+      }
+
+      .site-header {
+        height: 58px;
+      }
+
+      .brand-logo {
+        font-size: 1.55rem;
+      }
+
+      .brand-sub {
+        font-size: 0.52rem;
+        padding-left: 6px;
+      }
+
+      .btn-icon {
+        width: 38px;
+        height: 38px;
+      }
+
+      /* 1. HERO FOLD RE-LAYOUT (Single Screen Fit - 100dvh) */
+      .section-hero {
+        min-height: 100vh;
+        min-height: 100dvh;
+        max-height: 100vh;
+        max-height: 100dvh;
+        height: 100dvh;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 66px 16px 14px;
+        overflow: hidden;
+        position: relative;
+        box-sizing: border-box;
+      }
+
+      .section-hero .container.hero-grid {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+        flex: 1 1 auto;
+        min-height: 0; /* Critical: allows flex item to shrink below content size */
+        gap: 0;
+        width: 100%;
+        max-width: 100%;
+        padding: 0;
+        margin: 0;
+      }
+
+      .hero-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        width: 100%;
+        flex-shrink: 0;
+        margin: 0 auto;
+        padding: 0;
+      }
+
+      /* 2. TYPOGRAPHY & HEADER SCALING */
+      .section-hero .eyebrow-badge {
+        padding: 3px 10px;
+        font-size: 0.7rem;
+        letter-spacing: 0.08em;
+        gap: 6px;
+        margin-bottom: 2px;
+      }
+
+      .section-hero .eyebrow-dot {
+        width: 5px;
+        height: 5px;
+      }
+
+      .section-hero .hero-title {
+        font-size: clamp(1.75rem, 7vw, 2.2rem);
+        line-height: 1.1;
+        letter-spacing: -0.03em;
+        margin-top: 4px;
+        margin-bottom: 6px;
+      }
+
+      .section-hero .hero-subheadline {
+        font-size: 0.85rem;
+        line-height: 1.3;
+        opacity: 0.8;
+        margin-bottom: 8px;
+        max-width: 320px;
+      }
+
+      /* 3. ACTION BUTTON OPTIMIZATION: Compact Single-Row Flex Layout */
+      .section-hero .hero-cta-group {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        margin-bottom: 8px;
+        width: 100%;
+      }
+
+      .section-hero .hero-cta-group .btn-primary {
+        padding: 10px 20px;
+        font-size: 0.85rem;
+        letter-spacing: 0.05em;
+        gap: 6px;
+        border-radius: var(--radius-full);
+        white-space: nowrap;
+        box-shadow: 0 0 16px -4px var(--accent-glow);
+      }
+
+      .section-hero .hero-cta-group .btn-secondary {
+        padding: 10px 18px;
+        font-size: 0.85rem;
+        letter-spacing: 0.05em;
+        gap: 6px;
+        border-radius: var(--radius-full);
+        white-space: nowrap;
+      }
+
+      /* 4. 4-STAT METRIC ROW: Tight horizontal 4-column inline bar */
+      .desktop-text { display: none; }
+      .mobile-text { display: inline; }
+
+      .section-hero .hero-specs-strip {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        width: 100%;
+        max-width: 380px;
+        gap: 8px;
+        margin: 6px 0 4px;
+        padding-top: 6px;
+        border-top: 1px solid var(--border-subtle);
+      }
+
+      .section-hero .spec-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 1px;
+      }
+
+      .section-hero .spec-value {
+        font-size: 1.1rem;
+        font-weight: 800;
+        line-height: 1.1;
+      }
+
+      .section-hero .spec-label {
+        font-size: 0.65rem;
+        letter-spacing: 0.5px;
+        line-height: 1;
+        color: var(--text-muted);
+        white-space: nowrap;
+      }
+
+      /* 5. PRODUCT BOTTLE STAGING & INTERACTIVE CAROUSEL */
+      .section-hero .hero-visual-stage {
+        flex: 1 1 auto;
+        min-height: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        width: 100%;
+        margin: 0 auto;
+        overflow: visible;
+        perspective: 900px;
+      }
+
+      .section-hero .hero-carousel-wrapper {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        min-height: 0;
+        flex: 1 1 auto;
+      }
+
+      .section-hero .hero-bottle-center {
+        height: clamp(230px, 35vh, 290px);
+        width: auto;
+        max-width: 58vw;
+        object-fit: contain;
+        display: block;
+        margin: 0 auto;
+        filter: drop-shadow(0 14px 24px rgba(0, 0, 0, 0.75)) drop-shadow(0 0 28px var(--accent-glow));
+        animation: turntableRotate 8s ease-in-out infinite;
+        transform-style: preserve-3d;
+      }
+
+      .section-hero .hero-stage-podium {
+        position: absolute;
+        bottom: 2px;
+        left: 50%;
+        transform: translateX(-50%) rotateX(65deg);
+        width: 58%;
+        max-width: 200px;
+        height: 16px;
+        background: radial-gradient(ellipse at center, rgba(var(--accent-rgb), 0.45) 0%, rgba(0, 0, 0, 0.8) 60%, transparent 75%);
+        filter: blur(8px);
+        border-radius: 50%;
+        pointer-events: none;
+      }
+
+      /* Floating Feature Pill: Anchored cleanly at bottom flank of bottle without screen cutoff */
+      .section-hero .hero-floating-pill {
+        padding: 5px 12px;
+        gap: 6px;
+        border-radius: var(--radius-full);
+        backdrop-filter: blur(14px);
+        background: rgba(14, 18, 18, 0.88);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
+      }
+
+      .section-hero .pill-icon {
+        width: 20px;
+        height: 20px;
+        font-size: 0.6rem;
+      }
+
+      .section-hero .pill-title {
+        font-size: 0.68rem;
+        font-weight: 700;
+      }
+
+      .section-hero .pill-sub {
+        font-size: 0.55rem;
+      }
+
+      .section-hero .pill-pos-1 {
+        top: auto;
+        bottom: 8px;
+        left: 4px;
+        animation: none;
+        max-width: 155px;
+      }
+
+      .section-hero .pill-pos-2 {
+        display: none; /* Hide second pill on mobile to prevent clutter and screen overflow */
+      }
+
+      /* Luxury Glassmorphic Navigation Arrows on Mobile */
+      .section-hero .hero-carousel-arrow {
+        width: 42px;
+        height: 42px;
+        min-width: 42px;
+        min-height: 42px;
+        background: rgba(14, 18, 18, 0.72);
+        border: 1px solid rgba(255, 255, 255, 0.16);
+      }
+
+      .section-hero .hero-arrow-prev {
+        left: 2px;
+      }
+
+      .section-hero .hero-arrow-next {
+        right: 2px;
+      }
+
+      /* Single Centered Active Flavor Display on Mobile */
+      .section-hero .hero-active-flavor-display {
+        margin-top: 4px;
+        gap: 2px;
+        flex-shrink: 0;
+      }
+
+      .section-hero .flavor-display-label {
+        font-size: 0.84rem;
+        letter-spacing: 0.15em;
+      }
+
+      .section-hero .flavor-display-notes {
+        font-size: 0.65rem;
+        letter-spacing: 0.05em;
+      }
+
+      /* Commercial Sections Mobile Polish */
+      .section-products {
+        padding: 60px 0 80px;
+      }
+
+      .products-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+
+      .product-card {
+        padding: 20px 16px;
+      }
+
+      .product-image-stage {
+        height: 230px;
+      }
+
+      .product-bottle-img {
+        max-height: 210px;
+      }
+
+      .filter-toolbar {
+        padding: 12px;
+        gap: 12px;
+      }
+
+      .filter-tabs {
+        overflow-x: auto;
+        flex-wrap: nowrap;
+        width: 100%;
+        scrollbar-width: none;
+        -webkit-overflow-scrolling: touch;
+        padding-bottom: 4px;
+      }
+
+      .filter-tabs::-webkit-scrollbar {
+        display: none;
+      }
+
+      .filter-tab-btn {
+        flex-shrink: 0;
+        padding: 6px 14px;
+        font-size: 0.75rem;
+      }
+
+      .search-input-wrap {
+        width: 100%;
+      }
+
+      .search-input {
+        width: 100% !important;
+      }
+
+      .sort-select {
+        width: 100%;
+      }
+
+      .section-story {
+        padding: 60px 0;
+      }
+
+      .story-grid {
+        gap: 32px;
+      }
+
+      .story-cinematic-banner {
+        border-radius: var(--radius-lg);
+      }
+
+      .story-cinematic-overlay {
+        padding: 20px;
+      }
+
+      .story-pillar-item {
+        padding: 14px;
+        gap: 14px;
+      }
+
+      .section-ingredients {
+        padding: 60px 0;
+      }
+
+      .ingredients-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+
+      .section-reviews {
+        padding: 60px 0;
+      }
+
+      .reviews-stats-strip {
+        padding: 16px;
+        gap: 16px;
+      }
+
+      .reviews-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+
+      .section-closing-cta {
+        padding: 50px 0;
+      }
+
+      .closing-box {
+        padding: 34px 18px;
+        border-radius: var(--radius-lg);
+      }
+
+      .newsletter-form {
+        flex-direction: column;
+      }
+
+      .newsletter-input {
+        width: 100%;
+      }
+
+      .site-footer {
+        padding: 50px 0 30px;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr;
+        gap: 28px;
+      }
+    }
+
+    /* Micro-Height Viewports (e.g., iPhone SE, Galaxy Fold 667px-700px height) */
+    @media (max-height: 700px) and (max-width: 768px) {
+      .section-hero {
+        padding: 62px 14px 10px;
+      }
+      .section-hero .hero-title {
+        font-size: 1.65rem;
+        margin-bottom: 2px;
+      }
+      .section-hero .hero-subheadline {
+        font-size: 0.78rem;
+        margin-bottom: 4px;
+      }
+      .section-hero .hero-cta-group {
+        margin-bottom: 4px;
+      }
+      .section-hero .hero-cta-group .btn-primary,
+      .section-hero .hero-cta-group .btn-secondary {
+        padding: 8px 14px;
+        font-size: 0.78rem;
+      }
+      .section-hero .hero-specs-strip {
+        margin: 2px 0 2px;
+        padding-top: 4px;
+      }
+      .section-hero .spec-value {
+        font-size: 0.98rem;
+      }
+      .section-hero .hero-bottle-center {
+        height: clamp(170px, 26vh, 215px);
+      }
+      .section-hero .hero-carousel-arrow {
+        width: 38px;
+        height: 38px;
+        min-width: 38px;
+        min-height: 38px;
+      }
+      .section-hero .flavor-display-label {
+        font-size: 0.76rem;
+      }
+      .section-hero .flavor-display-notes {
+        font-size: 0.58rem;
+      }
+    }
+
     @media (max-width: 640px) {
       .form-input-grid, .payment-options-row {
         grid-template-columns: 1fr;
@@ -2170,20 +2742,6 @@
       }
       .nutrition-grid-pills {
         grid-template-columns: 1fr 1fr;
-      }
-      .footer-grid {
-        grid-template-columns: 1fr;
-      }
-      .filter-toolbar {
-        flex-direction: column;
-        align-items: stretch;
-      }
-      .search-input {
-        width: 100%;
-      }
-      .search-sort-group {
-        flex-direction: column;
-        align-items: stretch;
       }
     }
   </style>
@@ -2214,19 +2772,23 @@
         <a href="javascript:void(0)" class="nav-link" onclick="openCartDrawer()">Cart (<span class="cart-subtotal-display">XXX</span>)</a>
       </nav>
 
-      <!-- Nav Actions -->
+      <!-- Nav Actions (Strictly Cart + Hamburger Menu) -->
       <div class="nav-actions">
-        <button class="btn-icon" id="searchTriggerBtn" title="Search Flavours" aria-label="Search Flavours">
-          <i class="fa-solid fa-magnifying-glass"></i>
-        </button>
-
         <button class="btn-icon" id="cartTriggerBtn" title="Shopping Bag" aria-label="Open Cart Drawer">
-          <i class="fa-solid fa-bag-shopping"></i>
-          <span class="cart-badge" id="navCartCount">0</span>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <path d="M16 10a4 4 0 0 1-8 0"></path>
+          </svg>
+          <span class="cart-badge" id="navCartCount">3</span>
         </button>
 
         <button class="btn-icon hamburger-btn" id="mobileMenuBtn" title="Menu" aria-label="Toggle Mobile Menu">
-          <i class="fa-solid fa-bars"></i>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
         </button>
       </div>
     </div>
@@ -2285,7 +2847,7 @@
             <span>EXPLORE FLAVOURS</span>
             <i class="fa-solid fa-arrow-right"></i>
           </a>
-          <button class="btn-secondary" onclick="openCartDrawer()">
+          <button class="btn-secondary" id="heroShopNowBtn" onclick="addCurrentHeroFlavorToCart()">
             <span>SHOP NOW</span>
             <i class="fa-solid fa-bag-shopping"></i>
           </button>
@@ -2294,62 +2856,76 @@
         <div class="hero-specs-strip">
           <div class="spec-item">
             <span class="spec-value">15G</span>
-            <span class="spec-label">CLEAR WHEY ISOLATE</span>
+            <span class="spec-label"><span class="desktop-text">CLEAR WHEY ISOLATE</span><span class="mobile-text">CLEAR WHEY</span></span>
           </div>
           <div class="spec-item">
             <span class="spec-value">450MG</span>
-            <span class="spec-label">OCEAN MINERALS</span>
+            <span class="spec-label"><span class="desktop-text">OCEAN MINERALS</span><span class="mobile-text">MINERALS</span></span>
           </div>
           <div class="spec-item">
             <span class="spec-value">0G</span>
-            <span class="spec-label">SUGAR ADDED</span>
+            <span class="spec-label"><span class="desktop-text">SUGAR ADDED</span><span class="mobile-text">ZERO SUGAR</span></span>
           </div>
           <div class="spec-item">
             <span class="spec-value">330ML</span>
-            <span class="spec-label">CRAFT BOTTLE</span>
+            <span class="spec-label"><span class="desktop-text">CRAFT BOTTLE</span><span class="mobile-text">330ML</span></span>
           </div>
         </div>
       </div>
 
-      <!-- Right Cinematic Bottle Showcase -->
+      <!-- Right Cinematic Bottle Showcase & Interactive Carousel -->
       <div class="hero-visual-stage" id="heroVisualStage">
         <div class="hero-stage-podium"></div>
 
-        <img 
-          src="./images/products/01_lemon_mint.png" 
-          alt="WAVV Lemon Mint Bottle Packshot" 
-          class="hero-bottle-center" 
-          id="heroMainBottle"
-          onclick="openProductModal('lemon-mint')"
-          title="Click to view Lemon Mint"
-        />
+        <!-- Bottle Stage with Interactive Flank Arrows -->
+        <div class="hero-carousel-wrapper">
+          <button class="hero-carousel-arrow hero-arrow-prev" id="heroPrevBtn" aria-label="Previous Flavour" onclick="navigateHeroFlavor(-1)">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polyline points="15 18 9 12 15 6"></polyline>
+            </svg>
+          </button>
 
-        <!-- Satellite Floating Badges -->
-        <div class="hero-floating-pill pill-pos-1">
-          <div class="pill-icon"><i class="fa-solid fa-droplet"></i></div>
-          <div class="pill-text">
-            <span class="pill-title">Cellular Flow</span>
-            <span class="pill-sub">Rapid Osmotic Delivery</span>
+          <img 
+            src="./images/products/01_lemon_mint.png" 
+            alt="WAVV Lemon Mint Bottle Packshot" 
+            class="hero-bottle-center" 
+            id="heroMainBottle"
+            onclick="openProductModal('lemon-mint')"
+            title="Click to view Lemon Mint details"
+          />
+
+          <button class="hero-carousel-arrow hero-arrow-next" id="heroNextBtn" aria-label="Next Flavour" onclick="navigateHeroFlavor(1)">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+
+          <!-- Satellite Floating Badges -->
+          <div class="hero-floating-pill pill-pos-1">
+            <div class="pill-icon"><i class="fa-solid fa-droplet"></i></div>
+            <div class="pill-text">
+              <span class="pill-title">Cellular Flow</span>
+              <span class="pill-sub">Rapid Delivery</span>
+            </div>
+          </div>
+
+          <div class="hero-floating-pill pill-pos-2">
+            <div class="pill-icon"><i class="fa-solid fa-dna"></i></div>
+            <div class="pill-text">
+              <span class="pill-title">Cold-Filtered Matrix</span>
+              <span class="pill-sub">Zero Chalky Residue</span>
+            </div>
           </div>
         </div>
 
-        <div class="hero-floating-pill pill-pos-2">
-          <div class="pill-icon"><i class="fa-solid fa-dna"></i></div>
-          <div class="pill-text">
-            <span class="pill-title">Cold-Filtered Matrix</span>
-            <span class="pill-sub">Zero Chalky Residue</span>
-          </div>
+        <!-- Elegant Single Centered Active Flavor Display -->
+        <div class="hero-active-flavor-display" id="heroActiveFlavorDisplay">
+          <div class="flavor-display-label" id="heroFlavorLabel">01 // LEMON MINT</div>
+          <div class="flavor-display-notes" id="heroFlavorNotes">Crisp Citrus &amp; Fresh Mentha</div>
         </div>
       </div>
     </div>
   </section>
-
-  <!-- Interactive Flavour Quick Bar -->
-  <div class="container">
-    <div class="hero-flavour-quickbar" id="heroFlavourBar">
-      <!-- Injected via JavaScript for instant live preview -->
-    </div>
-  </div>
 
   <!-- ==========================================================================
        PRODUCT EXPERIENCE ("5 FLAVOURS" COMMERCIAL E-COMMERCE)
@@ -3173,6 +3749,9 @@
       const PRODUCTS = [
         {
           id: 'lemon-mint',
+          num: '01',
+          displayLabel: '01 // LEMON MINT',
+          tastingNote: 'Crisp Citrus & Fresh Mentha',
           name: 'Lemon Mint',
           tag: 'FLAVOUR 01 / 05',
           category: 'mint',
@@ -3195,6 +3774,9 @@
         },
         {
           id: 'yuzu-orange',
+          num: '02',
+          displayLabel: '02 // YUZU ORANGE',
+          tastingNote: 'Japanese Yuzu & Sun-Ripened Valencia',
           name: 'Yuzu Orange',
           tag: 'FLAVOUR 02 / 05',
           category: 'citrus',
@@ -3217,6 +3799,9 @@
         },
         {
           id: 'watermelon-mint-cooler',
+          num: '03',
+          displayLabel: '03 // WATERMELON MINT COOLER',
+          tastingNote: 'Juicy Watermelon & Cool Garden Mint',
           name: 'Watermelon Mint Cooler',
           tag: 'FLAVOUR 03 / 05',
           category: 'mint',
@@ -3239,6 +3824,9 @@
         },
         {
           id: 'wild-berry-blast',
+          num: '04',
+          displayLabel: '04 // WILD BERRY BLAST',
+          tastingNote: 'Mountain Blackberry & Wild Acai Blend',
           name: 'Wild Berry Blast',
           tag: 'FLAVOUR 04 / 05',
           category: 'berry',
@@ -3261,6 +3849,9 @@
         },
         {
           id: 'green-apple-crisp',
+          num: '05',
+          displayLabel: '05 // GREEN APPLE CRISP',
+          tastingNote: 'Tart Granny Smith & Crisp Mineral Finish',
           name: 'Green Apple Crisp',
           tag: 'FLAVOUR 05 / 05',
           category: 'apple',
@@ -3286,6 +3877,8 @@
       /* ------------------------------------------------------------------------
          2. STATE MANAGEMENT (CART & SELECTIONS)
          ------------------------------------------------------------------------ */
+      let currentFlavorIndex = 0;
+
       let cart = [
         { id: 'lemon-mint', qty: 2 },
         { id: 'watermelon-mint-cooler', qty: 1 }
@@ -3309,8 +3902,13 @@
          ------------------------------------------------------------------------ */
       const siteHeader = document.getElementById('siteHeader');
       const productsGrid = document.getElementById('productsGrid');
-      const heroFlavourBar = document.getElementById('heroFlavourBar');
+      const heroVisualStage = document.getElementById('heroVisualStage');
       const heroMainBottle = document.getElementById('heroMainBottle');
+      const heroActiveFlavorDisplay = document.getElementById('heroActiveFlavorDisplay');
+      const heroFlavorLabel = document.getElementById('heroFlavorLabel');
+      const heroFlavorNotes = document.getElementById('heroFlavorNotes');
+      const heroPrevBtn = document.getElementById('heroPrevBtn');
+      const heroNextBtn = document.getElementById('heroNextBtn');
 
       // Cart Elements
       const cartDrawerOverlay = document.getElementById('cartDrawerOverlay');
@@ -3475,48 +4073,70 @@
       };
 
       /* ------------------------------------------------------------------------
-         5. RENDER HERO QUICK FLAVOUR SELECTOR
+         5. HERO BOTTLE CAROUSEL & FLAVOUR SYNCHRONIZATION
          ------------------------------------------------------------------------ */
-      function renderFlavourBars() {
-        if (heroFlavourBar) {
-          heroFlavourBar.innerHTML = PRODUCTS.map((p, idx) => `
-            <button 
-              class="flavour-dot-btn ${idx === 0 ? 'active' : ''}" 
-              style="--flavor-dot-color: ${p.color};"
-              onclick="switchHeroFlavour('${p.id}')"
-            >
-              <span class="flavour-dot-indicator"></span>
-              <span>${p.name}</span>
-            </button>
-          `).join('');
-        }
-      }
+      window.navigateHeroFlavor = function(direction) {
+        // direction: -1 (previous) or 1 (next)
+        const nextIndex = (currentFlavorIndex + direction + PRODUCTS.length) % PRODUCTS.length;
+        updateHeroFlavor(nextIndex, direction);
+      };
 
-      window.switchHeroFlavour = function(id) {
-        const product = PRODUCTS.find(p => p.id === id);
+      window.updateHeroFlavor = function(index, direction = 1) {
+        currentFlavorIndex = (index + PRODUCTS.length) % PRODUCTS.length;
+        const product = PRODUCTS[currentFlavorIndex];
         if (!product || !heroMainBottle) return;
 
-        heroMainBottle.style.transform = 'scale(0.92) translateY(10px)';
-        heroMainBottle.style.opacity = '0.6';
+        // Apply smooth crossfade / slide transition
+        const transitionClass = direction > 0 ? 'transition-slide-next' : 'transition-slide-prev';
+        heroMainBottle.classList.add(transitionClass);
+
+        if (heroActiveFlavorDisplay) {
+          heroActiveFlavorDisplay.classList.add('flavor-changing');
+        }
 
         setTimeout(() => {
+          // Update bottle packshot and click target
           heroMainBottle.src = product.image;
-          heroMainBottle.alt = `WAVV ${product.name}`;
+          heroMainBottle.alt = `WAVV ${product.name} Bottle Packshot`;
           heroMainBottle.onclick = () => openProductModal(product.id);
-          heroMainBottle.style.transform = '';
-          heroMainBottle.style.opacity = '1';
+          heroMainBottle.title = `Click to view ${product.name} details`;
 
-          // Update theme active dynamic variables
+          // Update Active Flavor typography display
+          if (heroFlavorLabel) {
+            heroFlavorLabel.textContent = product.displayLabel || `${product.num} // ${product.name.toUpperCase()}`;
+          }
+          if (heroFlavorNotes) {
+            heroFlavorNotes.textContent = product.tastingNote;
+          }
+
+          // Dynamic accent glow tint synchronization
           document.documentElement.style.setProperty('--accent-active', product.color);
           document.documentElement.style.setProperty('--accent-glow', product.glow);
           document.documentElement.style.setProperty('--accent-rgb', product.rgb);
-        }, 180);
 
-        // Update active class on buttons
-        const btns = heroFlavourBar.querySelectorAll('.flavour-dot-btn');
-        btns.forEach(b => {
-          b.classList.toggle('active', b.textContent.includes(product.name));
-        });
+          // Restore smooth visibility
+          heroMainBottle.classList.remove('transition-slide-next', 'transition-slide-prev');
+          if (heroActiveFlavorDisplay) {
+            heroActiveFlavorDisplay.classList.remove('flavor-changing');
+          }
+        }, 180);
+      };
+
+      // Compatibility fallback for any other caller
+      window.switchHeroFlavour = function(id) {
+        const idx = PRODUCTS.findIndex(p => p.id === id);
+        if (idx !== -1) {
+          updateHeroFlavor(idx, 1);
+        }
+      };
+
+      // Hero 'Add to Bag' / 'Shop Now' payload action
+      window.addCurrentHeroFlavorToCart = function() {
+        const product = PRODUCTS[currentFlavorIndex] || PRODUCTS[0];
+        if (!product) return;
+        addToCart(product.id, 1);
+        openCartDrawer();
+        showToast(`Added ${product.name} to your bag!`);
       };
 
       /* ------------------------------------------------------------------------
@@ -3795,18 +4415,6 @@
         renderProducts();
       };
 
-      // Header Search Button quick-focus
-      const searchTriggerBtn = document.getElementById('searchTriggerBtn');
-      if (searchTriggerBtn) {
-        searchTriggerBtn.addEventListener('click', () => {
-          const el = document.getElementById('products');
-          if (el) el.scrollIntoView({ behavior: 'smooth' });
-          setTimeout(() => {
-            if (productSearchInput) productSearchInput.focus();
-          }, 600);
-        });
-      }
-
       const cartTriggerBtn = document.getElementById('cartTriggerBtn');
       if (cartTriggerBtn) {
         cartTriggerBtn.addEventListener('click', openCartDrawer);
@@ -3928,7 +4536,7 @@
       }
 
       /* ------------------------------------------------------------------------
-         16. KEYBOARD ESCAPE TO CLOSE MODALS
+         16. KEYBOARD & TOUCH INTERACTIONS FOR HERO & MODALS
          ------------------------------------------------------------------------ */
       window.addEventListener('keydown', (e) => {
         if (e.key === 'Escape') {
@@ -3936,14 +4544,55 @@
           closeCartDrawer();
           closeCheckoutModal();
           closeMobileMenu();
+          return;
+        }
+
+        // Left / Right Arrow navigation for Hero Bottle Carousel
+        if (['INPUT', 'TEXTAREA', 'SELECT'].includes(document.activeElement.tagName)) return;
+        if (document.querySelector('.modal-overlay.open') || document.querySelector('.cart-drawer-overlay.open')) return;
+        if (e.key === 'ArrowLeft') {
+          navigateHeroFlavor(-1);
+        } else if (e.key === 'ArrowRight') {
+          navigateHeroFlavor(1);
         }
       });
+
+      /* Touch swipe gesture support for mobile hero carousel */
+      if (heroVisualStage) {
+        let touchStartX = 0;
+        let touchStartY = 0;
+
+        heroVisualStage.addEventListener('touchstart', (e) => {
+          if (e.touches && e.touches.length > 0) {
+            touchStartX = e.touches[0].clientX;
+            touchStartY = e.touches[0].clientY;
+          }
+        }, { passive: true });
+
+        heroVisualStage.addEventListener('touchend', (e) => {
+          if (e.changedTouches && e.changedTouches.length > 0) {
+            const touchEndX = e.changedTouches[0].clientX;
+            const touchEndY = e.changedTouches[0].clientY;
+            const diffX = touchEndX - touchStartX;
+            const diffY = touchEndY - touchStartY;
+
+            // Trigger horizontal carousel swipe when deltaX > deltaY and threshold exceeds 35px
+            if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 35) {
+              if (diffX < 0) {
+                navigateHeroFlavor(1);  // Swipe left -> Next flavor
+              } else {
+                navigateHeroFlavor(-1); // Swipe right -> Previous flavor
+              }
+            }
+          }
+        }, { passive: true });
+      }
 
       /* ------------------------------------------------------------------------
          17. INITIALIZE APPLICATION
          ------------------------------------------------------------------------ */
       renderProducts();
-      renderFlavourBars();
+      updateHeroFlavor(0, 0);
       updateCartUI();
 
     })();
