@@ -1,0 +1,4 @@
+node_modules/
+.next/
+.vscode/
+_backup_legacy_routes/

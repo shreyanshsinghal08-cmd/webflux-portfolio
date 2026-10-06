@@ -1,0 +1,70 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Pathway+Extreme:wght@400;700;800&family=Poppins:wght@400;500;600&display=swap');
+
+@layer base {
+  * {
+    box-sizing: border-box;
+    border-color: #073E91;
+  }
+  body {
+    background-color: #171229;
+    color: #E0F9FF;
+    font-family: 'Inter', sans-serif;
+    letter-spacing: 0.015em;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Pathway Extreme', sans-serif;
+    font-weight: 700;
+  }
+  h2 {
+    text-shadow: 0 0 40px rgba(0, 184, 255, 0.15);
+  }
+  
+  /* Custom Extracted Scrollbar */
+  ::-webkit-scrollbar {
+    width: 10px;
+    border-radius: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #0E1C38;
+    border-radius: 10px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: #00B8FF;
+    border: 3px solid #00B8FF;
+    border-radius: 20px;
+  }
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: #00B8FF #0E1C38;
+  }
+  ::selection {
+    background: rgba(0, 184, 255, 0.3);
+    color: #ffffff;
+  }
+}
+
+@layer components {
+  .cyber-card {
+    @apply bg-[#010D2A] border border-[#073E91] rounded-xl shadow-card p-6 transition-all duration-200;
+  }
+  .card-surface {
+    @apply bg-[#010D2A] border border-[#073E91] rounded-xl shadow-card p-6 transition-all duration-200;
+  }
+  .cyber-btn {
+    @apply bg-[#00B8FF] text-[#171229] font-semibold px-5 py-2.5 rounded-lg hover:bg-[#0095CC] active:scale-95 transition-all shadow-neon-glow flex items-center justify-center gap-2 cursor-pointer;
+  }
+  .btn-primary {
+    @apply bg-[#00B8FF] text-[#171229] font-semibold px-5 py-2.5 rounded-lg hover:bg-[#0095CC] active:scale-95 transition-all shadow-neon-glow flex items-center justify-center gap-2 cursor-pointer;
+  }
+  .cyber-btn-secondary {
+    @apply bg-[#010D2A] text-[#E0F9FF] border border-[#073E91] hover:bg-[#073E91]/30 px-4 py-2 rounded-lg transition-all flex items-center justify-center gap-2 cursor-pointer;
+  }
+  .cyber-input {
+    @apply bg-[#171229] border border-[#073E91] text-[#E0F9FF] rounded-lg px-4 py-2.5 focus:outline-none focus:border-[#00B8FF] focus:ring-1 focus:ring-[#00B8FF] transition-all w-full placeholder-[#8AB4F8]/50;
+  }
+}
