@@ -260,14 +260,14 @@ export default function WebFluxHomePage() {
           <span>✦ Premium Web Design Studio</span>
         </div>
 
-        {/* Massive, Clean, Pure White Headline (Crazy Kinetic Word Splitting & Elastic Jumps) */}
-        <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-heading font-extrabold text-white tracking-[-0.04em] max-w-4xl leading-[1.06] select-none">
-          <span className="kinetic-word-wrapper"><span className="kinetic-word word-jump-1 text-draw-underline">Visually</span></span>
-          <span className="kinetic-word-wrapper"><span className="kinetic-word word-jump-2">stunning</span></span>
-          <span className="kinetic-word-wrapper"><span className="kinetic-word word-jump-3">websites</span></span>
-          <span className="kinetic-word-wrapper"><span className="kinetic-word word-jump-4">for</span></span>
-          <span className="kinetic-word-wrapper"><span className="kinetic-word word-jump-5">elite</span></span>
-          <span className="kinetic-word-wrapper"><span className="kinetic-word word-jump-6">businesses.</span></span>
+        {/* Massive, Clean, Pure White Headline (Free, Open-Space Kinetic Typography - Zero Clipping Boxes) */}
+        <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-heading font-extrabold text-white tracking-[-0.04em] max-w-4xl leading-[1.08] select-none overflow-visible">
+          <span className="hero-free-word hero-word-1 text-draw-underline">Visually</span>{' '}
+          <span className="hero-free-word hero-word-2">stunning</span>{' '}
+          <span className="hero-free-word hero-word-3">websites</span>{' '}
+          <span className="hero-free-word hero-word-4">for</span>{' '}
+          <span className="hero-free-word hero-word-5">elite</span>{' '}
+          <span className="hero-free-word hero-word-6">businesses.</span>
         </h1>
 
         {/* Crisp Subtitle in Soft Gray (Staggered Directional Slide & Landing Jump) */}

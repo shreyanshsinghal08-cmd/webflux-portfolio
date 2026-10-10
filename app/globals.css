@@ -449,97 +449,147 @@
    Snappy, high-end, energetic typographic choreography
    ================================================== */
 
-/* 1. Hero Kinetic Word Splitting & Elastic Jumps */
-.kinetic-word-wrapper {
+/* 1. Hero Free Open-Space Kinetic Typography (Zero Clipping / Zero Masking Boxes) */
+.hero-free-word {
   display: inline-block;
-  overflow: hidden;
-  vertical-align: top;
-  margin-right: 0.26em;
-  padding-bottom: 0.12em;
-}
-
-.kinetic-word {
-  display: inline-block;
-  will-change: transform, opacity;
-  transform-origin: center bottom;
-  animation-duration: 0.65s;
-  animation-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1);
+  position: relative;
+  overflow: visible !important;
+  margin: 0 0.12em;
+  will-change: transform, opacity, filter;
+  animation-duration: 0.85s;
+  animation-timing-function: cubic-bezier(0.2, 1.3, 0.4, 1);
   animation-fill-mode: both;
   transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), text-shadow 0.25s ease;
 }
 
-@keyframes wordJumpLeft {
+/* Word 1: "Visually" — Glides from bottom-left open space with gentle counter-tilt & blur-to-sharp */
+@keyframes freeGlideBottomLeft {
   0% {
     opacity: 0;
-    transform: translateY(120%) rotate(-8deg) scale(0.9);
-  }
-  60% {
-    opacity: 1;
-    transform: translateY(-9px) rotate(2deg) scale(1.05);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0) rotate(0deg) scale(1);
-  }
-}
-
-@keyframes wordPopBounce {
-  0% {
-    opacity: 0;
-    transform: translateY(130%) scale(0.7) rotate(6deg);
-  }
-  60% {
-    opacity: 1;
-    transform: translateY(-12px) scale(1.08) rotate(-2deg);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0) scale(1) rotate(0deg);
-  }
-}
-
-@keyframes wordSpringUp {
-  0% {
-    opacity: 0;
-    transform: translateY(115%) rotate(-4deg);
+    filter: blur(8px);
+    transform: translate3d(-35px, 45px, 0) rotate(-7deg) scale(0.9);
   }
   65% {
     opacity: 1;
-    transform: translateY(-10px) rotate(1.5deg);
+    filter: blur(0px);
+    transform: translate3d(3px, -7px, 0) rotate(1.5deg) scale(1.04);
   }
   100% {
     opacity: 1;
-    transform: translateY(0) rotate(0deg);
+    filter: blur(0px);
+    transform: translate3d(0, 0, 0) rotate(0deg) scale(1);
   }
 }
 
-@keyframes wordJumpRight {
+/* Word 2: "stunning" — Drops gently from upper-left open air with elastic landing */
+@keyframes freeGlideTopLeft {
   0% {
     opacity: 0;
-    transform: translateY(125%) rotate(7deg) scale(0.85);
+    filter: blur(7px);
+    transform: translate3d(-20px, -40px, 0) rotate(5deg) scale(1.12);
   }
-  60% {
+  65% {
     opacity: 1;
-    transform: translateY(-10px) rotate(-2deg) scale(1.06);
+    filter: blur(0px);
+    transform: translate3d(2px, 5px, 0) rotate(-1.5deg) scale(0.97);
   }
   100% {
     opacity: 1;
-    transform: translateY(0) rotate(0deg) scale(1);
+    filter: blur(0px);
+    transform: translate3d(0, 0, 0) rotate(0deg) scale(1);
   }
 }
 
-.word-jump-1 { animation-name: wordJumpLeft; animation-delay: 0.05s; }
-.word-jump-2 { animation-name: wordPopBounce; animation-delay: 0.14s; }
-.word-jump-3 { animation-name: wordSpringUp; animation-delay: 0.09s; }
-.word-jump-4 { animation-name: wordPopBounce; animation-delay: 0.22s; }
-.word-jump-5 { animation-name: wordJumpRight; animation-delay: 0.17s; }
-.word-jump-6 { animation-name: wordJumpLeft; animation-delay: 0.28s; }
+/* Word 3: "websites" — Dynamic spring rise from deep center with vertical bounce */
+@keyframes freeSpringCenterUp {
+  0% {
+    opacity: 0;
+    filter: blur(9px);
+    transform: translate3d(0, 50px, 0) rotate(-3deg) scale(0.85);
+  }
+  65% {
+    opacity: 1;
+    filter: blur(0px);
+    transform: translate3d(0, -9px, 0) rotate(1deg) scale(1.05);
+  }
+  100% {
+    opacity: 1;
+    filter: blur(0px);
+    transform: translate3d(0, 0, 0) rotate(0deg) scale(1);
+  }
+}
 
-/* Interactive word hover: playful tactile spring on cursor touch */
-.kinetic-word:hover {
-  transform: translateY(-5px) scale(1.07) rotate(-1.5deg) !important;
+/* Word 4: "for" — Snappy weightless pop & elastic expansion in open space */
+@keyframes freePopScale {
+  0% {
+    opacity: 0;
+    filter: blur(5px);
+    transform: translate3d(0, 25px, 0) rotate(6deg) scale(0.65);
+  }
+  65% {
+    opacity: 1;
+    filter: blur(0px);
+    transform: translate3d(0, -5px, 0) rotate(-2deg) scale(1.08);
+  }
+  100% {
+    opacity: 1;
+    filter: blur(0px);
+    transform: translate3d(0, 0, 0) rotate(0deg) scale(1);
+  }
+}
+
+/* Word 5: "elite" — Swings from top-right open air with smooth rotational catch */
+@keyframes freeGlideTopRight {
+  0% {
+    opacity: 0;
+    filter: blur(7px);
+    transform: translate3d(25px, -36px, 0) rotate(-6deg) scale(1.1);
+  }
+  65% {
+    opacity: 1;
+    filter: blur(0px);
+    transform: translate3d(-3px, 6px, 0) rotate(1.5deg) scale(0.96);
+  }
+  100% {
+    opacity: 1;
+    filter: blur(0px);
+    transform: translate3d(0, 0, 0) rotate(0deg) scale(1);
+  }
+}
+
+/* Word 6: "businesses." — Soars in from bottom-right with high-energy spring overshoot */
+@keyframes freeSpringBottomRight {
+  0% {
+    opacity: 0;
+    filter: blur(9px);
+    transform: translate3d(40px, 46px, 0) rotate(8deg) scale(0.88);
+  }
+  65% {
+    opacity: 1;
+    filter: blur(0px);
+    transform: translate3d(-4px, -8px, 0) rotate(-2deg) scale(1.05);
+  }
+  100% {
+    opacity: 1;
+    filter: blur(0px);
+    transform: translate3d(0, 0, 0) rotate(0deg) scale(1);
+  }
+}
+
+/* Organic non-linear staggered timing */
+.hero-word-1 { animation-name: freeGlideBottomLeft; animation-delay: 0.08s; }
+.hero-word-2 { animation-name: freeGlideTopLeft; animation-delay: 0.22s; }
+.hero-word-3 { animation-name: freeSpringCenterUp; animation-delay: 0.14s; }
+.hero-word-4 { animation-name: freePopScale; animation-delay: 0.30s; }
+.hero-word-5 { animation-name: freeGlideTopRight; animation-delay: 0.18s; }
+.hero-word-6 { animation-name: freeSpringBottomRight; animation-delay: 0.26s; }
+
+/* Interactive tactile spring hover on open words */
+.hero-free-word:hover {
+  transform: translateY(-6px) scale(1.08) rotate(-1.5deg) !important;
   color: #FFFFFF !important;
-  text-shadow: 0 0 25px rgba(255, 255, 255, 0.45);
+  text-shadow: 0 0 25px rgba(255, 255, 255, 0.5);
+  cursor: default;
 }
 
 /* 2. Subtext Kinetic Slide & Landing Jump */
