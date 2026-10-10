@@ -3,26 +3,41 @@
 import React, { useEffect, useRef } from 'react';
 
 interface Star {
-  x: number;
-  y: number;
+  // Center anchor around which orbital math evolves
+  centerX: number;
+  centerY: number;
+  // Mathematical 3D depth simulation [0.15, 1.0]
+  z: number;
   radius: number;
-  vx: number;
-  vy: number;
   baseAlpha: number;
-  alpha: number;
-  twinkleSpeed: number;
-  twinklePhase: number;
+  // Angular and orbital dynamics
+  orbitAngle: number;
+  angularSpeed: number;
+  orbitRadiusX: number;
+  orbitRadiusY: number;
+  tiltAngle: number;
+  // Linear drift velocity vector
+  driftVx: number;
+  driftVy: number;
+  // Time oscillation and twinkling
+  phase: number;
+  twinkleFreq: number;
+  harmonicFreq: number;
+  // Interactive cursor deflection spring offsets
+  reactionX: number;
+  reactionY: number;
 }
 
 interface ShootingStar {
   startX: number;
   startY: number;
-  length: number;
-  speed: number;
-  dx: number;
-  dy: number;
+  dirX: number;
+  dirY: number;
+  initialVelocity: number;
+  acceleration: number;
+  maxDistance: number;
+  duration: number; // in frames
   currentFrame: number;
-  duration: number;
   active: boolean;
 }
 
@@ -49,156 +64,255 @@ export default function SpaceBackground() {
       canvas.height = height * dpr;
       canvas.style.width = `${width}px`;
       canvas.style.height = `${height}px`;
-      ctx.setTransform(1, 0, 0, 1, 0, 0); // Reset transform before scaling to avoid cumulative scales
+      ctx.setTransform(1, 0, 0, 1, 0, 0);
       ctx.scale(dpr, dpr);
     };
 
     resize();
 
-    // 1. Generate 175 micro-sized stars continuously drifting in random diagonal directions
-    const STAR_COUNT = 175;
+    // 1. MATHEMATICAL STAR ENGINE INITIALIZATION
+    // 200 micro-sized stars operating with trigonometric orbital mechanics
+    const STAR_COUNT = 200;
     const stars: Star[] = [];
 
     for (let i = 0; i < STAR_COUNT; i++) {
-      const dirX = Math.random() < 0.5 ? -1 : 1;
-      const dirY = Math.random() < 0.5 ? -1 : 1;
-      const speedX = Math.random() * 0.22 + 0.04;
-      const speedY = Math.random() * 0.22 + 0.04;
-      const baseAlpha = Math.random() * 0.6 + 0.25;
+      // Depth simulation z: 0.15 (deep, faint, slow) to 1.0 (foreground, crisp, lively)
+      const z = Math.pow(Math.random(), 1.4) * 0.85 + 0.15;
+      const radius = 0.38 + z * 0.82; // 0.38px to 1.2px micro-stars
+      const baseAlpha = 0.22 + z * 0.68; // Deeper stars are softer, near stars are brilliant
+
+      // Orbital parameters using sin/cos mechanics
+      const orbitRadiusX = 25 + Math.random() * 80 * (1 - z * 0.4);
+      const orbitRadiusY = 15 + Math.random() * 50 * (1 - z * 0.4);
+      const tiltAngle = Math.random() * Math.PI; // Orbital plane orientation
+      const angularSpeed = (0.0003 + Math.random() * 0.0008) * (Math.random() < 0.5 ? 1 : -1);
+
+      // Linear drift vector
+      const driftAngle = Math.random() * Math.PI * 2;
+      const driftSpeed = 0.06 + 0.16 * z;
+      const driftVx = Math.cos(driftAngle) * driftSpeed;
+      const driftVy = Math.sin(driftAngle) * driftSpeed;
 
       stars.push({
-        x: Math.random() * width,
-        y: Math.random() * height,
-        radius: Math.random() * 0.75 + 0.45, // 0.45px to 1.2px micro-stars
-        vx: dirX * speedX,
-        vy: dirY * speedY,
+        centerX: Math.random() * width,
+        centerY: Math.random() * height,
+        z,
+        radius,
         baseAlpha,
-        alpha: baseAlpha,
-        twinkleSpeed: Math.random() * 0.025 + 0.008,
-        twinklePhase: Math.random() * Math.PI * 2,
+        orbitAngle: Math.random() * Math.PI * 2,
+        angularSpeed,
+        orbitRadiusX,
+        orbitRadiusY,
+        tiltAngle,
+        driftVx,
+        driftVy,
+        phase: Math.random() * Math.PI * 2,
+        twinkleFreq: 0.015 + Math.random() * 0.035,
+        harmonicFreq: 0.0008 + Math.random() * 0.0015,
+        reactionX: 0,
+        reactionY: 0,
       });
     }
 
-    // 2. Shooting Star state
+    // 2. CURSOR INTERACTION TRACKING
+    let mouseX = -9999;
+    let mouseY = -9999;
+    let isMouseActive = false;
+
+    const handleMouseMove = (e: MouseEvent) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+      isMouseActive = true;
+    };
+
+    const handleMouseLeave = () => {
+      isMouseActive = false;
+      mouseX = -9999;
+      mouseY = -9999;
+    };
+
+    window.addEventListener('mousemove', handleMouseMove, { passive: true });
+    window.addEventListener('mouseleave', handleMouseLeave);
+
+    // 3. SHOOTING STARS MATHEMATICAL ENGINE
     let shootingStar: ShootingStar | null = null;
-    let frameCounter = 0;
-    let nextShootingStarFrame = Math.floor(Math.random() * 180 + 150);
+    let frameCount = 0;
+    // Periodic random interval between 200 and 360 frames (3.3s to 6.0s at 60fps)
+    let nextShootingStarFrame = Math.floor(Math.random() * 160 + 200);
 
     const spawnShootingStar = () => {
-      const angle = (Math.PI / 4) + (Math.random() - 0.5) * 0.35; // ~35deg - 55deg
-      const dirX = Math.random() < 0.3 ? -1 : 1;
-      const speed = Math.random() * 7 + 13; // 13-20 px per frame
-      const length = Math.random() * 70 + 90; // 90-160px tail
-      const duration = Math.floor(Math.random() * 15 + 35); // 35-50 frames
+      // Angle-based trajectory across sky
+      const theta = Math.PI / 4 + (Math.random() - 0.5) * (Math.PI / 7); // ~32deg to 58deg
+      const dirX = Math.random() < 0.25 ? -Math.cos(theta) : Math.cos(theta);
+      const dirY = Math.sin(theta);
 
-      const startX = dirX === 1
-        ? Math.random() * (width * 0.75)
-        : Math.random() * (width * 0.75) + width * 0.25;
-      const startY = Math.random() * (height * 0.45);
+      const startX = dirX > 0 ? Math.random() * (width * 0.7) : Math.random() * (width * 0.7) + width * 0.3;
+      const startY = Math.random() * (height * 0.35);
 
-      const dx = Math.cos(angle) * speed * dirX;
-      const dy = Math.sin(angle) * speed;
+      const initialVelocity = 14 + Math.random() * 8; // Initial speed
+      const acceleration = 0.22; // Kinematic acceleration
+      const duration = Math.floor(32 + Math.random() * 18); // 32 to 50 frames
+      const maxDistance = initialVelocity * duration + 0.5 * acceleration * duration * duration;
 
       shootingStar = {
         startX,
         startY,
-        length,
-        speed,
-        dx,
-        dy,
-        currentFrame: 0,
+        dirX,
+        dirY,
+        initialVelocity,
+        acceleration,
+        maxDistance,
         duration,
+        currentFrame: 0,
         active: true,
       };
     };
 
-    // 3. 60fps Render Loop
-    const render = () => {
-      frameCounter++;
-      ctx.clearRect(0, 0, width, height);
+    // 4. MAIN MATHEMATICAL RENDER LOOP (60fps)
+    const MARGIN = 70; // Edge wrapping buffer
+    const INFLUENCE_RADIUS = 160; // Cursor interaction distance
 
-      // --- Draw Drifting Stars ---
+    const render = (time: number) => {
+      frameCount++;
+
+      // Deep void black clear
+      ctx.fillStyle = '#000000';
+      ctx.fillRect(0, 0, width, height);
+
+      // --- RENDER MATHEMATICAL STARS ---
       for (let i = 0; i < stars.length; i++) {
         const star = stars[i];
 
-        star.x += star.vx;
-        star.y += star.vy;
+        // Linear velocity vector drift
+        star.centerX += star.driftVx;
+        star.centerY += star.driftVy;
 
-        // Wrap coordinates seamlessly when reaching viewport bounds
-        if (star.x < 0) star.x = width;
-        else if (star.x > width) star.x = 0;
-        if (star.y < 0) star.y = height;
-        else if (star.y > height) star.y = 0;
+        // Continuous seamless wrapping at screen boundaries
+        if (star.centerX < -MARGIN) star.centerX = width + MARGIN;
+        else if (star.centerX > width + MARGIN) star.centerX = -MARGIN;
 
-        // Subtle organic twinkling
-        star.twinklePhase += star.twinkleSpeed;
-        star.alpha = Math.max(
+        if (star.centerY < -MARGIN) star.centerY = height + MARGIN;
+        else if (star.centerY > height + MARGIN) star.centerY = -MARGIN;
+
+        // Orbital angular rotation
+        star.orbitAngle += star.angularSpeed;
+
+        // Harmonic time oscillation using sin/cos/tan
+        const harmonic = Math.sin(time * star.harmonicFreq + star.phase);
+        const ellipticalX = Math.cos(star.orbitAngle) * star.orbitRadiusX;
+        const ellipticalY = Math.sin(star.orbitAngle) * star.orbitRadiusY;
+
+        // Rotate ellipse by tiltAngle via 2D rotation matrix math
+        const rotatedOrbitX = ellipticalX * Math.cos(star.tiltAngle) - ellipticalY * Math.sin(star.tiltAngle);
+        const rotatedOrbitY = ellipticalX * Math.sin(star.tiltAngle) + ellipticalY * Math.cos(star.tiltAngle);
+
+        // Compute current theoretical point on canvas
+        const currentX = star.centerX + rotatedOrbitX + harmonic * 2;
+        const currentY = star.centerY + rotatedOrbitY + harmonic * 1.5;
+
+        // Cursor distance and interaction physics
+        if (isMouseActive) {
+          const dx = currentX - mouseX;
+          const dy = currentY - mouseY;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+
+          if (dist < INFLUENCE_RADIUS && dist > 0) {
+            // Smooth cosine falloff force: 1 at cursor center, 0 at outer boundary
+            const force = Math.cos((dist / INFLUENCE_RADIUS) * (Math.PI * 0.5));
+            const nx = dx / dist;
+            const ny = dy / dist;
+
+            // Repulsion modulated by 3D depth and subtle orbital swirl
+            const swirl = Math.sin(dist * 0.04) * force * 6;
+            const targetReactionX = nx * force * (32 * star.z) - ny * swirl;
+            const targetReactionY = ny * force * (32 * star.z) + nx * swirl;
+
+            star.reactionX += (targetReactionX - star.reactionX) * 0.12;
+            star.reactionY += (targetReactionY - star.reactionY) * 0.12;
+          } else {
+            star.reactionX *= 0.92;
+            star.reactionY *= 0.92;
+          }
+        } else {
+          star.reactionX *= 0.92;
+          star.reactionY *= 0.92;
+        }
+
+        // Final rendered coordinates
+        const renderX = currentX + star.reactionX;
+        const renderY = currentY + star.reactionY;
+
+        // Time-based organic twinkle using sinusoidal oscillation
+        const twinkle = Math.sin(time * star.twinkleFreq + star.phase);
+        const dynamicAlpha = Math.max(
           0.12,
-          Math.min(1, star.baseAlpha + Math.sin(star.twinklePhase) * 0.22)
+          Math.min(1.0, star.baseAlpha * (0.68 + 0.32 * twinkle))
         );
 
-        ctx.fillStyle = `rgba(255, 255, 255, ${star.alpha})`;
+        // Draw micro-star body
+        ctx.fillStyle = `rgba(255, 255, 255, ${dynamicAlpha})`;
         ctx.beginPath();
-        ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
+        ctx.arc(renderX, renderY, star.radius, 0, Math.PI * 2);
         ctx.fill();
 
-        if (star.radius > 0.85 && star.alpha > 0.6) {
-          ctx.fillStyle = `rgba(255, 255, 255, ${star.alpha * 0.15})`;
+        // Subtle specular halo for prominent foreground stars (z > 0.85)
+        if (star.z > 0.82 && dynamicAlpha > 0.65) {
+          ctx.fillStyle = `rgba(255, 255, 255, ${dynamicAlpha * 0.14})`;
           ctx.beginPath();
-          ctx.arc(star.x, star.y, star.radius * 2.2, 0, Math.PI * 2);
+          ctx.arc(renderX, renderY, star.radius * 2.3, 0, Math.PI * 2);
           ctx.fill();
         }
       }
 
-      // --- Handle Shooting Star ---
-      if (!shootingStar && frameCounter >= nextShootingStarFrame) {
+      // --- RENDER SHOOTING STAR ---
+      if (!shootingStar && frameCount >= nextShootingStarFrame) {
         spawnShootingStar();
       }
 
       if (shootingStar && shootingStar.active) {
         shootingStar.currentFrame++;
-        const progress = shootingStar.currentFrame / shootingStar.duration;
+        const t = shootingStar.currentFrame;
+        const progress = t / shootingStar.duration;
 
-        if (progress >= 1) {
+        if (progress >= 1.0) {
           shootingStar.active = false;
           shootingStar = null;
-          nextShootingStarFrame = frameCounter + Math.floor(Math.random() * 180 + 150);
+          // Schedule next shooting star
+          nextShootingStarFrame = frameCount + Math.floor(Math.random() * 160 + 200);
         } else {
-          let alpha = 1;
-          if (progress < 0.2) {
-            alpha = progress / 0.2;
-          } else if (progress > 0.45) {
-            alpha = 1 - (progress - 0.45) / 0.55;
-          }
-          alpha = Math.max(0, Math.min(1, alpha));
+          // Kinematic distance integration: d = v0*t + 0.5*a*t^2
+          const currentDistance =
+            shootingStar.initialVelocity * t + 0.5 * shootingStar.acceleration * t * t;
 
-          const headX = shootingStar.startX + shootingStar.dx * shootingStar.currentFrame;
-          const headY = shootingStar.startY + shootingStar.dy * shootingStar.currentFrame;
+          const headX = shootingStar.startX + shootingStar.dirX * currentDistance;
+          const headY = shootingStar.startY + shootingStar.dirY * currentDistance;
 
-          const currentTailLength = shootingStar.length * Math.min(1, shootingStar.currentFrame / 8);
-          const dirLen = Math.hypot(shootingStar.dx, shootingStar.dy);
-          const normX = shootingStar.dx / dirLen;
-          const normY = shootingStar.dy / dirLen;
+          // Sinusoidal opacity envelope: peaks smoothly in mid-flight, fades at ends
+          const envelopeAlpha = Math.sin(progress * Math.PI);
 
-          const tailX = headX - normX * currentTailLength;
-          const tailY = headY - normY * currentTailLength;
+          // Dynamic streak tail length
+          const tailLength = 110 + 60 * Math.sin(progress * Math.PI);
+          const tailX = headX - shootingStar.dirX * tailLength;
+          const tailY = headY - shootingStar.dirY * tailLength;
 
+          // Render shooting star gradient
           const gradient = ctx.createLinearGradient(tailX, tailY, headX, headY);
           gradient.addColorStop(0, 'rgba(255, 255, 255, 0)');
-          gradient.addColorStop(0.75, `rgba(255, 255, 255, ${alpha * 0.35})`);
-          gradient.addColorStop(1, `rgba(255, 255, 255, ${alpha * 0.95})`);
+          gradient.addColorStop(0.75, `rgba(255, 255, 255, ${envelopeAlpha * 0.35})`);
+          gradient.addColorStop(1, `rgba(255, 255, 255, ${envelopeAlpha * 0.95})`);
 
           ctx.strokeStyle = gradient;
-          ctx.lineWidth = 1.3;
+          ctx.lineWidth = 1.35;
           ctx.lineCap = 'round';
           ctx.beginPath();
           ctx.moveTo(tailX, tailY);
           ctx.lineTo(headX, headY);
           ctx.stroke();
 
-          ctx.fillStyle = `rgba(255, 255, 255, ${alpha * 0.98})`;
+          // Intense glowing head point
+          ctx.fillStyle = `rgba(255, 255, 255, ${envelopeAlpha * 0.98})`;
           ctx.beginPath();
-          ctx.arc(headX, headY, 1.25, 0, Math.PI * 2);
+          ctx.arc(headX, headY, 1.3, 0, Math.PI * 2);
           ctx.fill();
         }
       }
@@ -217,20 +331,24 @@ export default function SpaceBackground() {
     return () => {
       cancelAnimationFrame(animationFrameId);
       window.removeEventListener('resize', handleResize);
+      window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('mouseleave', handleMouseLeave);
     };
   }, []);
 
   return (
     <canvas
       ref={canvasRef}
-      className="fixed inset-0 pointer-events-none -z-10"
+      className="fixed inset-0 pointer-events-none"
       style={{
         position: 'fixed',
-        inset: 0,
+        top: 0,
+        left: 0,
         width: '100vw',
         height: '100vh',
         pointerEvents: 'none',
-        zIndex: -1,
+        zIndex: 0,
+        background: '#000000',
       }}
       aria-hidden="true"
     />
