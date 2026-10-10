@@ -4,6 +4,7 @@ import Link from 'next/link';
 import Script from 'next/script';
 import Footer from '@/components/Footer';
 import FloatingNav from '@/components/FloatingNav';
+import SpaceBackground from '@/components/SpaceBackground';
 
 export const metadata: Metadata = {
   title: 'WebFlux Design — Visually stunning websites for elite businesses.',
@@ -64,32 +65,12 @@ export default function RootLayout({
         />
       </head>
       <body className="relative bg-black text-[#E2E8F0] antialiased overflow-x-hidden min-h-screen selection:bg-white/20 selection:text-white">
+        {/* Dynamic Canvas Space Background with Random Moving Stars & Shooting Stars */}
+        <SpaceBackground />
+
         {/* Pure CSS Faint Grid Background (Webora Style) */}
         <div className="bg-webora-grid" aria-hidden="true" />
 
-        {/* Subtle Live Sparkle / Particle Background System */}
-        <div className="sparkle-background-container" aria-hidden="true">
-          <span className="sparkle-dot sp-1" />
-          <span className="sparkle-dot sp-2" />
-          <span className="sparkle-dot sp-3" />
-          <span className="sparkle-dot sp-4" />
-          <span className="sparkle-dot sp-5" />
-          <span className="sparkle-dot sp-6" />
-          <span className="sparkle-dot sp-7" />
-          <span className="sparkle-dot sp-8" />
-          <span className="sparkle-dot sp-9" />
-          <span className="sparkle-dot sp-10" />
-          <span className="sparkle-dot sp-11" />
-          <span className="sparkle-dot sp-12" />
-          <span className="sparkle-dot sp-13" />
-          <span className="sparkle-dot sp-14" />
-          <span className="sparkle-dot sp-15" />
-          <span className="sparkle-dot sp-16" />
-          <span className="sparkle-star sp-17" />
-          <span className="sparkle-star sp-18" />
-          <span className="sparkle-star sp-19" />
-          <span className="sparkle-star sp-20" />
-        </div>
 
         {/* Ultra-Minimal Top Header (No traditional top navbar links bar) */}
         <header className="absolute top-0 left-0 right-0 z-30 px-6 sm:px-12 py-7 sm:py-9 flex items-center justify-between pointer-events-none">

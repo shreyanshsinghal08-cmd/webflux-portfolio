@@ -3,7 +3,152 @@
 <head>
     <meta charset="UTF-8">
     <!-- ZERO-LATENCY SECURITY SHIELD (SYNCHRONOUS EXECUTION) -->
-    <script src="public/security-shield.min.js"></script>
+    <script src="public/security-shield.min.js">
+        // Dynamic Canvas Space Background Simulation (60fps)
+        (function initSpaceBackground() {
+            const canvas = document.getElementById('space-background-canvas');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d', { alpha: true });
+            if (!ctx) return;
+
+            let width = window.innerWidth;
+            let height = window.innerHeight;
+            const dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+            function resize() {
+                width = window.innerWidth;
+                height = window.innerHeight;
+                canvas.width = width * dpr;
+                canvas.height = height * dpr;
+                canvas.style.width = width + 'px';
+                canvas.style.height = height + 'px';
+                ctx.scale(dpr, dpr);
+            }
+            resize();
+            window.addEventListener('resize', resize);
+
+            const STAR_COUNT = 175;
+            const stars = [];
+            for (let i = 0; i < STAR_COUNT; i++) {
+                const dirX = Math.random() < 0.5 ? -1 : 1;
+                const dirY = Math.random() < 0.5 ? -1 : 1;
+                const speedX = Math.random() * 0.22 + 0.04;
+                const speedY = Math.random() * 0.22 + 0.04;
+                const baseAlpha = Math.random() * 0.6 + 0.25;
+                stars.push({
+                    x: Math.random() * width,
+                    y: Math.random() * height,
+                    radius: Math.random() * 0.75 + 0.45,
+                    vx: dirX * speedX,
+                    vy: dirY * speedY,
+                    baseAlpha: baseAlpha,
+                    alpha: baseAlpha,
+                    twinkleSpeed: Math.random() * 0.025 + 0.008,
+                    twinklePhase: Math.random() * Math.PI * 2
+                });
+            }
+
+            let shootingStar = null;
+            let frameCounter = 0;
+            let nextShootingStarFrame = Math.floor(Math.random() * 180 + 150);
+
+            function spawnShootingStar() {
+                const angle = (Math.PI / 4) + (Math.random() - 0.5) * 0.35;
+                const dirX = Math.random() < 0.3 ? -1 : 1;
+                const speed = Math.random() * 7 + 13;
+                const length = Math.random() * 70 + 90;
+                const duration = Math.floor(Math.random() * 15 + 35);
+                const startX = dirX === 1 ? Math.random() * (width * 0.75) : Math.random() * (width * 0.75) + width * 0.25;
+                const startY = Math.random() * (height * 0.45);
+                const dx = Math.cos(angle) * speed * dirX;
+                const dy = Math.sin(angle) * speed;
+                shootingStar = {
+                    startX, startY, length, speed, dx, dy,
+                    currentFrame: 0, duration, active: true
+                };
+            }
+
+            function animate() {
+                frameCounter++;
+                ctx.clearRect(0, 0, width, height);
+
+                for (let i = 0; i < stars.length; i++) {
+                    const star = stars[i];
+                    star.x += star.vx;
+                    star.y += star.vy;
+                    if (star.x < 0) star.x = width;
+                    else if (star.x > width) star.x = 0;
+                    if (star.y < 0) star.y = height;
+                    else if (star.y > height) star.y = 0;
+
+                    star.twinklePhase += star.twinkleSpeed;
+                    star.alpha = Math.max(0.12, Math.min(1, star.baseAlpha + Math.sin(star.twinklePhase) * 0.22));
+
+                    ctx.fillStyle = 'rgba(255, 255, 255, ' + star.alpha + ')';
+                    ctx.beginPath();
+                    ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
+                    ctx.fill();
+
+                    if (star.radius > 0.85 && star.alpha > 0.6) {
+                        ctx.fillStyle = 'rgba(255, 255, 255, ' + (star.alpha * 0.15) + ')';
+                        ctx.beginPath();
+                        ctx.arc(star.x, star.y, star.radius * 2.2, 0, Math.PI * 2);
+                        ctx.fill();
+                    }
+                }
+
+                if (!shootingStar && frameCounter >= nextShootingStarFrame) {
+                    spawnShootingStar();
+                }
+
+                if (shootingStar && shootingStar.active) {
+                    shootingStar.currentFrame++;
+                    const progress = shootingStar.currentFrame / shootingStar.duration;
+                    if (progress >= 1) {
+                        shootingStar.active = false;
+                        shootingStar = null;
+                        nextShootingStarFrame = frameCounter + Math.floor(Math.random() * 180 + 150);
+                    } else {
+                        let alpha = 1;
+                        if (progress < 0.2) alpha = progress / 0.2;
+                        else if (progress > 0.45) alpha = 1 - (progress - 0.45) / 0.55;
+                        alpha = Math.max(0, Math.min(1, alpha));
+
+                        const headX = shootingStar.startX + shootingStar.dx * shootingStar.currentFrame;
+                        const headY = shootingStar.startY + shootingStar.dy * shootingStar.currentFrame;
+                        const currentTailLength = shootingStar.length * Math.min(1, shootingStar.currentFrame / 8);
+                        const dirLen = Math.hypot(shootingStar.dx, shootingStar.dy);
+                        const normX = shootingStar.dx / dirLen;
+                        const normY = shootingStar.dy / dirLen;
+                        const tailX = headX - normX * currentTailLength;
+                        const tailY = headY - normY * currentTailLength;
+
+                        const gradient = ctx.createLinearGradient(tailX, tailY, headX, headY);
+                        gradient.addColorStop(0, 'rgba(255, 255, 255, 0)');
+                        gradient.addColorStop(0.75, 'rgba(255, 255, 255, ' + (alpha * 0.35) + ')');
+                        gradient.addColorStop(1, 'rgba(255, 255, 255, ' + (alpha * 0.95) + ')');
+
+                        ctx.strokeStyle = gradient;
+                        ctx.lineWidth = 1.3;
+                        ctx.lineCap = 'round';
+                        ctx.beginPath();
+                        ctx.moveTo(tailX, tailY);
+                        ctx.lineTo(headX, headY);
+                        ctx.stroke();
+
+                        ctx.fillStyle = 'rgba(255, 255, 255, ' + (alpha * 0.98) + ')';
+                        ctx.beginPath();
+                        ctx.arc(headX, headY, 1.25, 0, Math.PI * 2);
+                        ctx.fill();
+                    }
+                }
+
+                requestAnimationFrame(animate);
+            }
+            requestAnimationFrame(animate);
+        })();
+
+    </script>
     <script src="security-shield.min.js"></script>
     <noscript><meta http-equiv="refresh" content="0;url=about:blank"></noscript>
 
@@ -1550,105 +1695,12 @@
             .bento-about-card { padding: 2.2rem 1.5rem; }
         }
 
-        /* ==================================================
-           SUBTLE LIVE SPARKLE / PARTICLE BACKGROUND SYSTEM
-           ================================================== */
-        .sparkle-background-container {
-            position: fixed;
-            inset: 0;
-            width: 100vw;
-            height: 100vh;
-            pointer-events: none;
-            z-index: 0;
-            overflow: hidden;
-        }
-        .sparkle-dot {
-            position: absolute;
-            border-radius: 50%;
-            background: #FFFFFF;
-            box-shadow: 0 0 4px rgba(255, 255, 255, 0.8), 0 0 10px rgba(255, 255, 255, 0.3);
-            will-change: transform, opacity;
-            animation-iteration-count: infinite;
-            animation-timing-function: ease-in-out;
-        }
-        .sparkle-star {
-            position: absolute;
-            width: 5px;
-            height: 5px;
-            pointer-events: none;
-            will-change: transform, opacity;
-            animation-iteration-count: infinite;
-            animation-timing-function: ease-in-out;
-        }
-        .sparkle-star::before,
-        .sparkle-star::after {
-            content: '';
-            position: absolute;
-            background: rgba(255, 255, 255, 0.7);
-            box-shadow: 0 0 6px rgba(255, 255, 255, 0.9);
-        }
-        .sparkle-star::before { top: 2px; left: 0; width: 5px; height: 1px; }
-        .sparkle-star::after { top: 0; left: 2px; width: 1px; height: 5px; }
-
-        @keyframes sparkleTwinkleA {
-            0%, 100% { opacity: 0.12; transform: translateY(0) scale(0.8); }
-            50% { opacity: 0.55; transform: translateY(-8px) scale(1.15); }
-        }
-        @keyframes sparkleTwinkleB {
-            0%, 100% { opacity: 0.08; transform: translateY(0) scale(0.7); }
-            50% { opacity: 0.45; transform: translateY(-12px) scale(1.2); }
-        }
-        @keyframes sparkleTwinkleC {
-            0%, 100% { opacity: 0.15; transform: translateY(0) scale(0.9); }
-            50% { opacity: 0.6; transform: translateY(-6px) scale(1.25); }
-        }
-
-        .sp-1  { top: 12%; left: 15%; width: 2px; height: 2px; animation: sparkleTwinkleA 5.5s infinite 0.3s; }
-        .sp-2  { top: 22%; left: 82%; width: 1.5px; height: 1.5px; animation: sparkleTwinkleB 7s infinite 1.2s; }
-        .sp-3  { top: 38%; left: 28%; width: 2.5px; height: 2.5px; animation: sparkleTwinkleC 6.2s infinite 0.7s; }
-        .sp-4  { top: 48%; left: 74%; width: 2px; height: 2px; animation: sparkleTwinkleA 8s infinite 2.1s; }
-        .sp-5  { top: 62%; left: 12%; width: 1.5px; height: 1.5px; animation: sparkleTwinkleB 6.8s infinite 1.5s; }
-        .sp-6  { top: 75%; left: 88%; width: 2.5px; height: 2.5px; animation: sparkleTwinkleC 5.8s infinite 0.9s; }
-        .sp-7  { top: 86%; left: 35%; width: 2px; height: 2px; animation: sparkleTwinkleA 7.4s infinite 2.5s; }
-        .sp-8  { top: 18%; left: 65%; width: 1.5px; height: 1.5px; animation: sparkleTwinkleB 6s infinite 0.5s; }
-        .sp-9  { top: 32%; left: 8%;  width: 2px; height: 2px; animation: sparkleTwinkleC 7.8s infinite 1.8s; }
-        .sp-10 { top: 54%; left: 45%; width: 1.5px; height: 1.5px; animation: sparkleTwinkleA 6.5s infinite 1.1s; }
-        .sp-11 { top: 68%; left: 60%; width: 2.5px; height: 2.5px; animation: sparkleTwinkleB 7.2s infinite 2.8s; }
-        .sp-12 { top: 82%; left: 18%; width: 2px; height: 2px; animation: sparkleTwinkleC 6s infinite 0.2s; }
-        .sp-13 { top: 28%; left: 92%; width: 1.5px; height: 1.5px; animation: sparkleTwinkleA 8.5s infinite 1.4s; }
-        .sp-14 { top: 44%; left: 19%; width: 2px; height: 2px; animation: sparkleTwinkleB 5.6s infinite 0.8s; }
-        .sp-15 { top: 71%; left: 38%; width: 1.5px; height: 1.5px; animation: sparkleTwinkleC 7s infinite 2.2s; }
-        .sp-16 { top: 92%; left: 78%; width: 2px; height: 2px; animation: sparkleTwinkleA 6.6s infinite 1.7s; }
-        .sp-17 { top: 15%; left: 40%; width: 5px; height: 5px; animation: sparkleTwinkleC 6.4s infinite 1.0s; }
-        .sp-18 { top: 41%; left: 85%; width: 5px; height: 5px; animation: sparkleTwinkleA 7.5s infinite 2.0s; }
-        .sp-19 { top: 65%; left: 24%; width: 5px; height: 5px; animation: sparkleTwinkleB 8.2s infinite 0.5s; }
-        .sp-20 { top: 88%; left: 68%; width: 5px; height: 5px; animation: sparkleTwinkleC 6.8s infinite 1.6s; }
+        /* Dynamic Canvas Space Background active */
     </style>
 </head>
 <body>
-    <!-- Subtle Live Sparkle / Particle Background System -->
-    <div class="sparkle-background-container" aria-hidden="true">
-        <span class="sparkle-dot sp-1"></span>
-        <span class="sparkle-dot sp-2"></span>
-        <span class="sparkle-dot sp-3"></span>
-        <span class="sparkle-dot sp-4"></span>
-        <span class="sparkle-dot sp-5"></span>
-        <span class="sparkle-dot sp-6"></span>
-        <span class="sparkle-dot sp-7"></span>
-        <span class="sparkle-dot sp-8"></span>
-        <span class="sparkle-dot sp-9"></span>
-        <span class="sparkle-dot sp-10"></span>
-        <span class="sparkle-dot sp-11"></span>
-        <span class="sparkle-dot sp-12"></span>
-        <span class="sparkle-dot sp-13"></span>
-        <span class="sparkle-dot sp-14"></span>
-        <span class="sparkle-dot sp-15"></span>
-        <span class="sparkle-dot sp-16"></span>
-        <span class="sparkle-star sp-17"></span>
-        <span class="sparkle-star sp-18"></span>
-        <span class="sparkle-star sp-19"></span>
-        <span class="sparkle-star sp-20"></span>
-    </div>
+    <!-- Dynamic Canvas Space Background with Moving Stars & Shooting Stars -->
+    <canvas id="space-background-canvas" style="position: fixed; inset: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 0;" aria-hidden="true"></canvas>
     <!-- Corner Header Minimal Mark -->
     <a href="#" class="header-brand">
         <div class="header-brand-mark">W</div>
