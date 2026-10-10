@@ -1696,9 +1696,57 @@
         }
 
         /* Dynamic Canvas Space Background active */
+    
+        /* Strict Mobile Responsiveness & Compression (<768px) */
+        @media (max-width: 767px) {
+            .portfolio-grid,
+            .services-grid,
+            .pricing-grid,
+            .about-grid,
+            .bento-about-pillars {
+                grid-template-columns: 1fr !important;
+            }
+            .service-card,
+            .bento-card,
+            .glass-card {
+                padding: 1.25rem !important; /* p-5 */
+                border-radius: 1.25rem !important;
+            }
+            h1 { font-size: 2.25rem !important; line-height: 1.15 !important; }
+            h2 { font-size: 1.75rem !important; line-height: 1.2 !important; }
+            .floating-menu-btn { bottom: 6rem !important; right: 1rem !important; width: 3.25rem !important; height: 3.25rem !important; }
+            .floating-whatsapp-btn { bottom: 1.25rem !important; right: 1rem !important; width: 3.25rem !important; height: 3.25rem !important; }
+        }
+
     </style>
 </head>
 <body>
+
+    <!-- Gravity-Fall Loading Screen (Simulates physical gravity drop and impact on load) -->
+    <div id="gravity-loader" style="position: fixed; inset: 0; z-index: 9999; background: #000000; display: flex; flex-direction: column; align-items: center; justify-content: space-between; user-select: none; transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);">
+        <div style="width: 100%; padding: 2rem; display: flex; align-items: center; justify-content: space-between; z-index: 10;">
+            <div style="display: flex; align-items: center; gap: 0.5rem;">
+                <div style="width: 24px; height: 24px; border-radius: 6px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center; color: #fff; font-family: monospace; font-size: 12px; font-weight: bold;">W</div>
+                <span style="font-family: monospace; font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: #a1a1aa;">WebFlux Gravity Engine</span>
+            </div>
+            <div style="font-family: monospace; font-size: 10px; color: #71717a; text-transform: uppercase; letter-spacing: 0.15em;">Calibrating &bull; 60fps</div>
+        </div>
+        <div id="gravity-number-box" style="position: absolute; left: 50%; transform: translate(-50%, -50%); display: flex; flex-direction: column; align-items: center; z-index: 20; will-change: transform;">
+            <div style="display: flex; align-items: baseline;">
+                <span id="gravity-pct" style="font-size: clamp(3.5rem, 12vw, 7.5rem); font-family: monospace; font-weight: 800; color: #ffffff; letter-spacing: -0.05em; text-shadow: 0 0 35px rgba(255,255,255,0.4);">1</span>
+                <span style="font-size: clamp(1.5rem, 4vw, 2.5rem); font-family: monospace; font-weight: bold; color: #71717a; margin-left: 0.25rem;">%</span>
+            </div>
+            <span id="gravity-status" style="font-family: monospace; font-size: 10px; text-transform: uppercase; letter-spacing: 0.25em; color: #a1a1aa; margin-top: 0.25rem;">Synchronizing Void</span>
+        </div>
+        <div style="position: absolute; left: 50%; top: 76vh; transform: translate(-50%, -50%); display: flex; flex-direction: column; align-items: center; z-index: 10; pointer-events: none;">
+            <div id="ground-line" style="width: min(90vw, 540px); height: 1px; background: linear-gradient(90deg, transparent, #ffffff, transparent); box-shadow: 0 0 15px rgba(255,255,255,0.35); transition: all 0.3s ease;"></div>
+            <div style="margin-top: 1rem; font-family: monospace; font-size: 9px; text-transform: uppercase; letter-spacing: 0.2em; color: #52525b;">SURFACE HORIZON &bull; 0.00 M</div>
+        </div>
+        <div style="width: 100%; padding-bottom: 2rem; display: flex; justify-content: center; z-index: 10;">
+            <span style="font-family: monospace; font-size: 9px; text-transform: uppercase; letter-spacing: 0.2em; color: #52525b;">&copy; 2026 WebFlux Studio &bull; Elite Interface Architecture</span>
+        </div>
+    </div>
+
     <!-- Dynamic Canvas Space Background with Moving Stars & Shooting Stars -->
     <canvas id="space-background-canvas" style="position: fixed; inset: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 0;" aria-hidden="true"></canvas>
     <!-- Corner Header Minimal Mark -->
@@ -2055,38 +2103,87 @@
         </div>
     </section>
 
-    <!-- ==================================================
-         6. FAQ SECTION (#faq)
+        <!-- ==================================================
+         6. FAQ SECTION (#faq - WEBORA STYLE VERTICAL ACCORDION LIST)
          ================================================== -->
     <section id="faq" class="reveal-on-scroll">
         <div class="container">
-            <div class="section-header">
-                <div class="pill-badge">
-                    <span>✦ Guidance &bull; Direct Answers</span>
-                </div>
-                <h2>
-                    <span class="section-word section-word-left word-delay-1">Frequently</span>
-                    <span class="section-word section-word-pop word-delay-2">asked</span>
-                    <span class="section-word section-word-right word-delay-3">questions.</span>
-                </h2>
-                <p>Everything you need to know about our engineering standards, turnaround, and policies.</p>
+            <div class="section-header" style="text-align: center; max-width: 720px; margin: 0 auto 3.5rem auto;">
+                <h2>Frequently asked questions</h2>
+                <p>Everything you need to know about WebFlux Design and our process.</p>
             </div>
-            <div class="faq-grid">
-                <div class="faq-item">
-                    <h3>Who builds the websites for schools and coaching institutes?</h3>
-                    <p>WebFlux Design, directed by Lead Front-End Architect Shreyansh Singhal, architects high-performance educational platforms. Benchmark deployments include Apex Coaching Center and St. Mary's High School.</p>
+            <div class="webora-faq-list" style="max-width: 768px; margin: 0 auto; border-top: 1px solid rgba(255,255,255,0.08); border-bottom: 1px solid rgba(255,255,255,0.08);">
+                <div class="webora-faq-item" style="border-bottom: 1px solid rgba(255,255,255,0.08);">
+                    <button class="webora-faq-trigger" style="width: 100%; padding: 1.4rem 0; background: none; border: none; text-align: left; display: flex; align-items: center; justify-content: space-between; gap: 1rem; cursor: pointer; color: #ffffff; font-family: var(--font-heading, sans-serif); font-size: 1.05rem; font-weight: 600;">
+                        <span>What is WebFlux Design?</span>
+                        <i class="fas fa-chevron-down" style="color: #71717a; transition: transform 0.3s ease; font-size: 0.85rem;"></i>
+                    </button>
+                    <div class="webora-faq-answer" style="display: block; padding-bottom: 1.4rem; color: #a1a1aa; font-size: 0.88rem; line-height: 1.65;">
+                        WebFlux Design is an elite web architecture studio led by Shreyansh Singhal. We specialize in engineering ultra-fast, visually captivating, 60fps digital experiences, institutional portals, and commercial web platforms built specifically for ambitious brands and institutions seeking digital dominance.
+                    </div>
                 </div>
-                <div class="faq-item">
-                    <h3>How does the Demo-Before-Payment guarantee work?</h3>
-                    <p>On Standard (₹30,000) and Premium (₹50,000) packages, WebFlux builds a fully functional, live prototype first. You test 60fps responsiveness and design excellence before any payment is finalized.</p>
+                <div class="webora-faq-item" style="border-bottom: 1px solid rgba(255,255,255,0.08);">
+                    <button class="webora-faq-trigger" style="width: 100%; padding: 1.4rem 0; background: none; border: none; text-align: left; display: flex; align-items: center; justify-content: space-between; gap: 1rem; cursor: pointer; color: #ffffff; font-family: var(--font-heading, sans-serif); font-size: 1.05rem; font-weight: 600;">
+                        <span>How is this different from standard templates or themes?</span>
+                        <i class="fas fa-chevron-down" style="color: #71717a; transition: transform 0.3s ease; font-size: 0.85rem;"></i>
+                    </button>
+                    <div class="webora-faq-answer" style="display: none; padding-bottom: 1.4rem; color: #a1a1aa; font-size: 0.88rem; line-height: 1.65;">
+                        Unlike bloated WordPress themes or off-the-shelf templates weighed down by redundant scripts, insecure plugins, and generic styles, every WebFlux build is custom-engineered from the ground up using Next.js and Tailwind CSS. The result is instant sub-second page loads, 95+ Core Web Vitals, bespoke aesthetics, and clean maintainable code.
+                    </div>
                 </div>
-                <div class="faq-item">
-                    <h3>How fast will my custom website be delivered?</h3>
-                    <p>Turnaround is predictable: Fast-track 2-page websites are delivered in 3 business days. Full multi-page educational and commercial systems launch within 7 to 14 business days.</p>
+                <div class="webora-faq-item" style="border-bottom: 1px solid rgba(255,255,255,0.08);">
+                    <button class="webora-faq-trigger" style="width: 100%; padding: 1.4rem 0; background: none; border: none; text-align: left; display: flex; align-items: center; justify-content: space-between; gap: 1rem; cursor: pointer; color: #ffffff; font-family: var(--font-heading, sans-serif); font-size: 1.05rem; font-weight: 600;">
+                        <span>How is it different from generic AI website builders?</span>
+                        <i class="fas fa-chevron-down" style="color: #71717a; transition: transform 0.3s ease; font-size: 0.85rem;"></i>
+                    </button>
+                    <div class="webora-faq-answer" style="display: none; padding-bottom: 1.4rem; color: #a1a1aa; font-size: 0.88rem; line-height: 1.65;">
+                        Generic AI builders produce cookie-cutter layouts with predictable typography, clunky animations, and unoptimized code structures that search engines penalize. We architect unique, human-crafted kinetic interfaces with cinematic motion design, intentional typographic hierarchy, and rock-solid production performance.
+                    </div>
                 </div>
-                <div class="faq-item">
-                    <h3>Do you work with clients outside of India?</h3>
-                    <p>Yes. WebFlux Design regularly collaborates with clients across Dubai, the UAE, and the GCC region. Case studies include the Dubai Viibe (@dubai._viibe) ultra-luxury media kit portal.</p>
+                <div class="webora-faq-item" style="border-bottom: 1px solid rgba(255,255,255,0.08);">
+                    <button class="webora-faq-trigger" style="width: 100%; padding: 1.4rem 0; background: none; border: none; text-align: left; display: flex; align-items: center; justify-content: space-between; gap: 1rem; cursor: pointer; color: #ffffff; font-family: var(--font-heading, sans-serif); font-size: 1.05rem; font-weight: 600;">
+                        <span>What do I actually get when the project is done?</span>
+                        <i class="fas fa-chevron-down" style="color: #71717a; transition: transform 0.3s ease; font-size: 0.85rem;"></i>
+                    </button>
+                    <div class="webora-faq-answer" style="display: none; padding-bottom: 1.4rem; color: #a1a1aa; font-size: 0.88rem; line-height: 1.65;">
+                        You receive complete ownership of the full production codebase, optimized build artifacts, global CDN edge deployment setup (Vercel, Cloudflare, or AWS), custom domain & DNS configuration, automated lead capture workflows, SEO & AEO schema integrations, and comprehensive maintenance documentation.
+                    </div>
+                </div>
+                <div class="webora-faq-item" style="border-bottom: 1px solid rgba(255,255,255,0.08);">
+                    <button class="webora-faq-trigger" style="width: 100%; padding: 1.4rem 0; background: none; border: none; text-align: left; display: flex; align-items: center; justify-content: space-between; gap: 1rem; cursor: pointer; color: #ffffff; font-family: var(--font-heading, sans-serif); font-size: 1.05rem; font-weight: 600;">
+                        <span>Can I bring my existing branding and assets?</span>
+                        <i class="fas fa-chevron-down" style="color: #71717a; transition: transform 0.3s ease; font-size: 0.85rem;"></i>
+                    </button>
+                    <div class="webora-faq-answer" style="display: none; padding-bottom: 1.4rem; color: #a1a1aa; font-size: 0.88rem; line-height: 1.65;">
+                        Yes, absolutely. We can seamlessly integrate your existing logo, typography rules, brand color palettes, and photography, elevating them into an ultra-modern, high-end design system. If you lack assets, we will architect pristine typography and visual assets tailored to your market.
+                    </div>
+                </div>
+                <div class="webora-faq-item" style="border-bottom: 1px solid rgba(255,255,255,0.08);">
+                    <button class="webora-faq-trigger" style="width: 100%; padding: 1.4rem 0; background: none; border: none; text-align: left; display: flex; align-items: center; justify-content: space-between; gap: 1rem; cursor: pointer; color: #ffffff; font-family: var(--font-heading, sans-serif); font-size: 1.05rem; font-weight: 600;">
+                        <span>Do you handle backend logic or just frontend?</span>
+                        <i class="fas fa-chevron-down" style="color: #71717a; transition: transform 0.3s ease; font-size: 0.85rem;"></i>
+                    </button>
+                    <div class="webora-faq-answer" style="display: none; padding-bottom: 1.4rem; color: #a1a1aa; font-size: 0.88rem; line-height: 1.65;">
+                        We build end-to-end full-stack architectures. In addition to our signature 60fps frontend interfaces, we engineer secure backend APIs, database systems (PostgreSQL, Supabase, MongoDB), automated email & lead funnels, student enrollment management, authentication, and payment gateways like Razorpay and Stripe.
+                    </div>
+                </div>
+                <div class="webora-faq-item" style="border-bottom: 1px solid rgba(255,255,255,0.08);">
+                    <button class="webora-faq-trigger" style="width: 100%; padding: 1.4rem 0; background: none; border: none; text-align: left; display: flex; align-items: center; justify-content: space-between; gap: 1rem; cursor: pointer; color: #ffffff; font-family: var(--font-heading, sans-serif); font-size: 1.05rem; font-weight: 600;">
+                        <span>What does a custom project cost?</span>
+                        <i class="fas fa-chevron-down" style="color: #71717a; transition: transform 0.3s ease; font-size: 0.85rem;"></i>
+                    </button>
+                    <div class="webora-faq-answer" style="display: none; padding-bottom: 1.4rem; color: #a1a1aa; font-size: 0.88rem; line-height: 1.65;">
+                        Our investment tiers are structured transparently with zero hidden fees. Rapid 2-page websites start at ₹10,000; comprehensive educational and institutional platforms are ₹30,000; and full-stack bespoke enterprise portals start at ₹50,000. On qualifying tiers, we build a free live working demo before you pay.
+                    </div>
+                </div>
+                <div class="webora-faq-item" style="border-bottom: 1px solid rgba(255,255,255,0.08);">
+                    <button class="webora-faq-trigger" style="width: 100%; padding: 1.4rem 0; background: none; border: none; text-align: left; display: flex; align-items: center; justify-content: space-between; gap: 1rem; cursor: pointer; color: #ffffff; font-family: var(--font-heading, sans-serif); font-size: 1.05rem; font-weight: 600;">
+                        <span>What is the timeline from start to launch?</span>
+                        <i class="fas fa-chevron-down" style="color: #71717a; transition: transform 0.3s ease; font-size: 0.85rem;"></i>
+                    </button>
+                    <div class="webora-faq-answer" style="display: none; padding-bottom: 1.4rem; color: #a1a1aa; font-size: 0.88rem; line-height: 1.65;">
+                        Most standard projects are completed and ready for final review within 3 to 7 business days. Complex custom platforms with deep backend integrations or multi-stage admissions workflows typically launch within 10 to 14 business days.
+                    </div>
                 </div>
             </div>
         </div>
@@ -2344,6 +2441,61 @@
                 });
             });
         }
+    
+        // Gravity Fall Loader Physics Animation
+        (function initGravityLoader() {
+            const loader = document.getElementById('gravity-loader');
+            const pctEl = document.getElementById('gravity-pct');
+            const numBox = document.getElementById('gravity-number-box');
+            const statusEl = document.getElementById('gravity-status');
+            const groundLine = document.getElementById('ground-line');
+            if (!loader || !pctEl || !numBox) return;
+
+            document.body.style.overflow = 'hidden';
+            const duration = 1400;
+            const topVh = 8;
+            const groundVh = 76;
+            let start = null;
+
+            function step(timestamp) {
+                if (!start) start = timestamp;
+                const elapsed = timestamp - start;
+                const progress = Math.min(elapsed / duration, 1);
+                const gravityY = Math.pow(progress, 2.2);
+                const currentY = topVh + gravityY * (groundVh - topVh);
+                const pct = Math.min(100, Math.max(1, Math.floor(1 + 99 * Math.pow(progress, 1.85))));
+
+                pctEl.textContent = pct;
+                numBox.style.top = currentY + 'vh';
+                const scaleY = 1 + gravityY * 0.14;
+                const scaleX = 1 - gravityY * 0.08;
+                numBox.style.transform = 'translate(-50%, -50%) scale(' + scaleX + ', ' + scaleY + ')';
+
+                if (progress < 1) {
+                    requestAnimationFrame(step);
+                } else {
+                    pctEl.textContent = 100;
+                    if (statusEl) statusEl.textContent = 'Terminal Velocity Reached';
+                    numBox.style.top = groundVh + 'vh';
+                    numBox.style.transform = 'translate(-50%, -50%) scale(1.18, 0.85)';
+                    if (groundLine) {
+                        groundLine.style.boxShadow = '0 0 35px rgba(255,255,255,0.9), 0 0 70px rgba(255,255,255,0.5)';
+                        groundLine.style.transform = 'scaleX(1.12)';
+                    }
+                    setTimeout(() => {
+                        loader.style.opacity = '0';
+                        loader.style.transform = 'translateY(-30px)';
+                        loader.style.pointerEvents = 'none';
+                    }, 280);
+                    setTimeout(() => {
+                        loader.style.display = 'none';
+                        document.body.style.overflow = '';
+                    }, 950);
+                }
+            }
+            requestAnimationFrame(step);
+        })();
+
     </script>
 </body>
 </html>

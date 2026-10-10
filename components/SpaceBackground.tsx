@@ -49,6 +49,7 @@ export default function SpaceBackground() {
       canvas.height = height * dpr;
       canvas.style.width = `${width}px`;
       canvas.style.height = `${height}px`;
+      ctx.setTransform(1, 0, 0, 1, 0, 0); // Reset transform before scaling to avoid cumulative scales
       ctx.scale(dpr, dpr);
     };
 
@@ -59,7 +60,6 @@ export default function SpaceBackground() {
     const stars: Star[] = [];
 
     for (let i = 0; i < STAR_COUNT; i++) {
-      // Diagonal drift with gentle randomized components
       const dirX = Math.random() < 0.5 ? -1 : 1;
       const dirY = Math.random() < 0.5 ? -1 : 1;
       const speedX = Math.random() * 0.22 + 0.04;
@@ -82,13 +82,11 @@ export default function SpaceBackground() {
     // 2. Shooting Star state
     let shootingStar: ShootingStar | null = null;
     let frameCounter = 0;
-    // Trigger every 2.5 to 5.5 seconds (at 60fps: 150-330 frames)
     let nextShootingStarFrame = Math.floor(Math.random() * 180 + 150);
 
     const spawnShootingStar = () => {
-      // Diagonal trajectory across upper/mid portion of viewport
       const angle = (Math.PI / 4) + (Math.random() - 0.5) * 0.35; // ~35deg - 55deg
-      const dirX = Math.random() < 0.3 ? -1 : 1; // mostly left-to-right, occasionally right-to-left
+      const dirX = Math.random() < 0.3 ? -1 : 1;
       const speed = Math.random() * 7 + 13; // 13-20 px per frame
       const length = Math.random() * 70 + 90; // 90-160px tail
       const duration = Math.floor(Math.random() * 15 + 35); // 35-50 frames
@@ -123,7 +121,6 @@ export default function SpaceBackground() {
       for (let i = 0; i < stars.length; i++) {
         const star = stars[i];
 
-        // Move star diagonally
         star.x += star.vx;
         star.y += star.vy;
 
@@ -140,13 +137,11 @@ export default function SpaceBackground() {
           Math.min(1, star.baseAlpha + Math.sin(star.twinklePhase) * 0.22)
         );
 
-        // Render micro-star core
         ctx.fillStyle = `rgba(255, 255, 255, ${star.alpha})`;
         ctx.beginPath();
         ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
         ctx.fill();
 
-        // Soft halo on brighter micro-stars
         if (star.radius > 0.85 && star.alpha > 0.6) {
           ctx.fillStyle = `rgba(255, 255, 255, ${star.alpha * 0.15})`;
           ctx.beginPath();
@@ -167,10 +162,8 @@ export default function SpaceBackground() {
         if (progress >= 1) {
           shootingStar.active = false;
           shootingStar = null;
-          // Schedule next shooting star in 2.5 to 5.5 seconds
           nextShootingStarFrame = frameCounter + Math.floor(Math.random() * 180 + 150);
         } else {
-          // Smooth fade envelope: rapid fade in, smooth fade out
           let alpha = 1;
           if (progress < 0.2) {
             alpha = progress / 0.2;
@@ -182,7 +175,6 @@ export default function SpaceBackground() {
           const headX = shootingStar.startX + shootingStar.dx * shootingStar.currentFrame;
           const headY = shootingStar.startY + shootingStar.dy * shootingStar.currentFrame;
 
-          // Growing tail as streak accelerates
           const currentTailLength = shootingStar.length * Math.min(1, shootingStar.currentFrame / 8);
           const dirLen = Math.hypot(shootingStar.dx, shootingStar.dy);
           const normX = shootingStar.dx / dirLen;
@@ -191,7 +183,6 @@ export default function SpaceBackground() {
           const tailX = headX - normX * currentTailLength;
           const tailY = headY - normY * currentTailLength;
 
-          // Render shooting star gradient tail
           const gradient = ctx.createLinearGradient(tailX, tailY, headX, headY);
           gradient.addColorStop(0, 'rgba(255, 255, 255, 0)');
           gradient.addColorStop(0.75, `rgba(255, 255, 255, ${alpha * 0.35})`);
@@ -205,7 +196,6 @@ export default function SpaceBackground() {
           ctx.lineTo(headX, headY);
           ctx.stroke();
 
-          // Brilliant head point
           ctx.fillStyle = `rgba(255, 255, 255, ${alpha * 0.98})`;
           ctx.beginPath();
           ctx.arc(headX, headY, 1.25, 0, Math.PI * 2);
@@ -233,14 +223,14 @@ export default function SpaceBackground() {
   return (
     <canvas
       ref={canvasRef}
-      className="fixed inset-0 pointer-events-none z-0"
+      className="fixed inset-0 pointer-events-none -z-10"
       style={{
         position: 'fixed',
         inset: 0,
         width: '100vw',
         height: '100vh',
         pointerEvents: 'none',
-        zIndex: 0,
+        zIndex: -1,
       }}
       aria-hidden="true"
     />

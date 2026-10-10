@@ -1,10 +1,10 @@
 import './globals.css';
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import Script from 'next/script';
 import Footer from '@/components/Footer';
 import FloatingNav from '@/components/FloatingNav';
 import SpaceBackground from '@/components/SpaceBackground';
+import GravityLoader from '@/components/GravityLoader';
 
 export const metadata: Metadata = {
   title: 'WebFlux Design — Visually stunning websites for elite businesses.',
@@ -39,7 +39,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="dark bg-black">
+    <html lang="en" className="dark bg-black scroll-smooth">
       <head>
         {/* Anti-Clone Security: Synchronous protection against contextmenu and dragstart */}
         <script
@@ -53,9 +53,6 @@ export default function RootLayout({
           }}
         />
 
-        {/* Client Security Shield */}
-        <script src="/security-shield.min.js" async />
-
         {/* Clean Modern Fonts: Inter and Outfit only (No serif fonts) */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
@@ -65,14 +62,16 @@ export default function RootLayout({
         />
       </head>
       <body className="relative bg-black text-[#E2E8F0] antialiased overflow-x-hidden min-h-screen selection:bg-white/20 selection:text-white">
-        {/* Dynamic Canvas Space Background with Random Moving Stars & Shooting Stars */}
+        {/* 1. Dynamic Canvas Space Background with Moving Stars & Shooting Stars (z-index: -1, fixed, behind all content) */}
         <SpaceBackground />
 
-        {/* Pure CSS Faint Grid Background (Webora Style) */}
+        {/* 2. Gravity-Fall Loading Screen (Simulates physical gravity drop and impact on load) */}
+        <GravityLoader />
+
+        {/* 3. Pure CSS Faint Grid Background (Webora Style) */}
         <div className="bg-webora-grid" aria-hidden="true" />
 
-
-        {/* Ultra-Minimal Top Header (No traditional top navbar links bar) */}
+        {/* Ultra-Minimal Top Header */}
         <header className="absolute top-0 left-0 right-0 z-30 px-6 sm:px-12 py-7 sm:py-9 flex items-center justify-between pointer-events-none">
           <Link
             href="/"
@@ -108,7 +107,7 @@ export default function RootLayout({
         {/* Minimal Monochrome Footer */}
         <Footer />
 
-        {/* Floating Circular Navigation Menu (Positioned safely above WhatsApp) */}
+        {/* Floating Circular Navigation Menu */}
         <FloatingNav />
       </body>
     </html>

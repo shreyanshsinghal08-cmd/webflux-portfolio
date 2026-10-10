@@ -779,6 +779,44 @@
   transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
+/* ==================================================
+   STRICT MOBILE RESPONSIVENESS & COMPRESSION SYSTEM (<768px)
+   ================================================== */
+@media (max-width: 767px) {
+  /* Force all multi-column grids to 1 column */
+  .grid-cols-2,
+  .grid-cols-3,
+  .md\:grid-cols-2,
+  .md\:grid-cols-3,
+  .lg\:grid-cols-3,
+  .lg\:grid-cols-12 {
+    grid-template-columns: repeat(1, minmax(0, 1fr)) !important;
+  }
 
+  /* Compress padding on glass cards from p-8 to p-5 (1.25rem) to maximize screen space */
+  .bento-card,
+  .glass-card,
+  .cyber-card,
+  .card-surface {
+    padding: 1.25rem !important; /* p-5 */
+    border-radius: 1.25rem !important;
+  }
 
+  /* Heading font sizes reduction to prevent overflow or breaking */
+  h1 {
+    font-size: 2.25rem !important;
+    line-height: 1.15 !important;
+    word-break: break-word !important;
+  }
 
+  h2 {
+    font-size: 1.75rem !important;
+    line-height: 1.2 !important;
+    word-break: break-word !important;
+  }
+
+  /* Ensure hero words display cleanly on small screens */
+  .hero-free-word {
+    display: inline-block;
+  }
+}

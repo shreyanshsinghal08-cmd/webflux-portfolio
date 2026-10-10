@@ -182,28 +182,36 @@ export default function WebFluxHomePage() {
 
   const faqs = [
     {
-      q: 'Who builds the best modern websites for schools and coaching institutes?',
-      a: 'WebFlux Design, led by Lead Front-End Architect Shreyansh Singhal, is recognized as a premier web engineering studio for schools, coaching institutes, and elite businesses. WebFlux built benchmark portals including Apex Coaching Center (with automated course syllabus funnels and student lead capture) and St. Mary’s High School (with comprehensive admission workflows). Every deployment guarantees GPU-accelerated 60fps responsiveness, 95+ Core Web Vitals, and proprietary client-side integrity protection.',
+      q: 'What is WebFlux Design?',
+      a: 'WebFlux Design is an elite web architecture studio led by Shreyansh Singhal. We specialize in engineering ultra-fast, visually captivating, 60fps digital experiences, institutional portals, and commercial web platforms built specifically for ambitious brands and institutions seeking digital dominance.',
     },
     {
-      q: 'How does your risk-free "Demo Before Payment" guarantee work?',
-      a: 'On our Standard (₹30,000) and Premium (₹50,000) tiers, WebFlux Design develops a fully functional, live prototype first. You test real page loading speeds, touch responsiveness, and user experience directly on your smartphone and desktop before releasing the project payment. There is zero financial risk to get started.',
+      q: 'How is this different from standard templates or themes?',
+      a: 'Unlike bloated WordPress themes or off-the-shelf templates weighed down by redundant scripts, insecure plugins, and generic styles, every WebFlux build is custom-engineered from the ground up using Next.js and Tailwind CSS. The result is instant sub-second page loads, 95+ Core Web Vitals, bespoke aesthetics, and clean maintainable code.',
     },
     {
-      q: 'How fast can our custom website be delivered?',
-      a: 'Our turnaround time is rapid and predictable: Fast-track 2-page websites are delivered in 3 days. Full custom school, coaching, and commercial multi-page platforms are engineered and launched in 7 to 14 business days, complete with structured AEO schema, mobile optimization, and client armor.',
+      q: 'How is it different from generic AI website builders?',
+      a: 'Generic AI builders produce cookie-cutter layouts with predictable typography, clunky animations, and unoptimized code structures that search engines penalize. We architect unique, human-crafted kinetic interfaces with cinematic motion design, intentional typographic hierarchy, and rock-solid production performance.',
     },
     {
-      q: 'What makes WebFlux Design unique compared to generic agencies?',
-      a: 'We combine aesthetic precision with technical engineering excellence: (1) 60fps Fluid Kinetic UI with smooth hardware-accelerated animations; (2) Multi-layer client hardening and anti-scraping integrity; (3) Answer Engine Optimization (AEO) designed for Google, ChatGPT, and Perplexity discovery; and (4) Our Demo-First guarantee so you inspect the working platform before paying.',
+      q: 'What do I actually get when the project is done?',
+      a: 'You receive complete ownership of the full production codebase, optimized build artifacts, global CDN edge deployment setup (Vercel, Cloudflare, or AWS), custom domain & DNS configuration, automated lead capture workflows, SEO & AEO schema integrations, and comprehensive maintenance documentation.',
     },
     {
-      q: 'What are the pricing options and what is included?',
-      a: 'We believe in 100% transparent pricing without hidden monthly fees: Basic Plan starts at ₹10,000 (2 pages, 3-day turnaround); Standard Educational Plan is ₹30,000 (5 pages, CMS, free live demo before payment, 1 month support); and Premium Enterprise Plan is ₹50,000 for advanced institutions with e-commerce or custom databases. Luxury creator media kits for UAE and GCC clients start from 99 AED to 799 AED.',
+      q: 'Can I bring my existing branding and assets?',
+      a: 'Yes, absolutely. We can seamlessly integrate your existing logo, typography rules, brand color palettes, and photography, elevating them into an ultra-modern, high-end design system. If you lack assets, we will architect pristine typography and visual assets tailored to your market.',
     },
     {
-      q: 'Do you work with international clients outside India?',
-      a: 'Yes. WebFlux Design regularly collaborates with clients across Dubai, UAE, and the GCC region. Case studies include the Dubai Viibe (@dubai._viibe) ultra-luxury media kit and sponsorship portal, featuring multi-currency billing, tiered brand sponsorship packages, and automated WhatsApp inquiry routing.',
+      q: 'Do you handle backend logic or just frontend?',
+      a: 'We build end-to-end full-stack architectures. In addition to our signature 60fps frontend interfaces, we engineer secure backend APIs, database systems (PostgreSQL, Supabase, MongoDB), automated email & lead funnels, student enrollment management, authentication, and payment gateways like Razorpay and Stripe.',
+    },
+    {
+      q: 'What does a custom project cost?',
+      a: 'Our investment tiers are structured transparently with zero hidden fees. Rapid 2-page websites start at ₹10,000; comprehensive educational and institutional platforms are ₹30,000; and full-stack bespoke enterprise portals start at ₹50,000. On qualifying tiers, we build a free live working demo before you pay.',
+    },
+    {
+      q: 'What is the timeline from start to launch?',
+      a: 'Most standard projects are completed and ready for final review within 3 to 7 business days. Complex custom platforms with deep backend integrations or multi-stage admissions workflows typically launch within 10 to 14 business days.',
     },
   ];
 
@@ -250,7 +258,7 @@ export default function WebFluxHomePage() {
   }, []);
 
   return (
-    <div className="space-y-36 sm:space-y-44 max-w-6xl mx-auto px-6 sm:px-8 lg:px-10 pb-28">
+    <div className="space-y-28 sm:space-y-44 max-w-6xl mx-auto px-4 sm:px-8 lg:px-10 pb-28">
       {/* ==================================================
           1. HERO SECTION (MINIMAL, POWERFUL & CENTERED - WEBORA STYLE)
           ================================================== */}
@@ -261,7 +269,7 @@ export default function WebFluxHomePage() {
         </div>
 
         {/* Massive, Clean, Pure White Headline (Free, Open-Space Kinetic Typography - Zero Clipping Boxes) */}
-        <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-heading font-extrabold text-white tracking-[-0.04em] max-w-4xl leading-[1.08] select-none overflow-visible">
+        <h1 className="text-3xl sm:text-6xl md:text-7xl lg:text-8xl font-heading font-extrabold text-white tracking-[-0.04em] max-w-4xl leading-[1.1] select-none overflow-visible break-words">
           <span className="hero-free-word hero-word-1 text-draw-underline">Visually</span>{' '}
           <span className="hero-free-word hero-word-2">stunning</span>{' '}
           <span className="hero-free-word hero-word-3">websites</span>{' '}
@@ -302,7 +310,7 @@ export default function WebFluxHomePage() {
           ultra-thin inner border, subtle white radial glow inside
           ================================================== */}
       <section id="about" className="scroll-mt-28 reveal-on-scroll">
-        <div className="bento-card p-8 sm:p-14 relative overflow-hidden">
+        <div className="bento-card p-5 sm:p-14 relative overflow-hidden">
           {/* Subtle White Radial Glow inside */}
           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[500px] h-[300px] bg-white/[0.035] rounded-full blur-[90px] pointer-events-none" />
 
@@ -311,7 +319,7 @@ export default function WebFluxHomePage() {
             <div className="pill-badge mb-4">
               <span>✦ Studio Philosophy &bull; Architecture of Speed</span>
             </div>
-            <h2 className="text-3xl sm:text-5xl md:text-6xl font-heading font-extrabold text-white tracking-[-0.03em] leading-tight">
+            <h2 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-heading font-extrabold text-white tracking-[-0.03em] leading-tight">
               <span className="section-word section-word-left word-delay-1">Engineering</span>{' '}
               <span className="section-word section-word-pop word-delay-2">digital</span>{' '}
               <span className="section-word section-word-right word-delay-3">authority.</span>
@@ -397,7 +405,7 @@ export default function WebFluxHomePage() {
           <div className="pill-badge mb-4">
             <span>✦ Selected Works &bull; Flagship Deployments</span>
           </div>
-          <h2 className="text-3xl sm:text-5xl md:text-6xl font-heading font-extrabold text-white tracking-[-0.03em]">
+          <h2 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-heading font-extrabold text-white tracking-[-0.03em]">
             <span className="section-word section-word-left word-delay-1">Proof</span>{' '}
             <span className="section-word section-word-pop word-delay-2">in</span>{' '}
             <span className="section-word section-word-right word-delay-3">production.</span>
@@ -498,7 +506,7 @@ export default function WebFluxHomePage() {
           <div className="pill-badge mb-4">
             <span>✦ Systems Architecture &bull; Capabilities</span>
           </div>
-          <h2 className="text-3xl sm:text-5xl md:text-6xl font-heading font-extrabold text-white tracking-[-0.03em]">
+          <h2 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-heading font-extrabold text-white tracking-[-0.03em]">
             <span className="section-word section-word-left word-delay-1">Engineered</span>{' '}
             <span className="section-word section-word-pop word-delay-2">for</span>{' '}
             <span className="section-word section-word-right word-delay-3">conversion.</span>
@@ -509,7 +517,7 @@ export default function WebFluxHomePage() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          <div className="bento-card service-bento-card p-8 flex flex-col justify-between group">
+          <div className="bento-card service-bento-card p-5 sm:p-8 flex flex-col justify-between group">
             <div>
               <div className="service-icon-box">
                 <School size={20} />
@@ -527,7 +535,7 @@ export default function WebFluxHomePage() {
             </div>
           </div>
 
-          <div className="bento-card service-bento-card p-8 flex flex-col justify-between group">
+          <div className="bento-card service-bento-card p-5 sm:p-8 flex flex-col justify-between group">
             <div>
               <div className="service-icon-box">
                 <GraduationCap size={20} />
@@ -545,7 +553,7 @@ export default function WebFluxHomePage() {
             </div>
           </div>
 
-          <div className="bento-card service-bento-card p-8 flex flex-col justify-between group">
+          <div className="bento-card service-bento-card p-5 sm:p-8 flex flex-col justify-between group">
             <div>
               <div className="service-icon-box">
                 <Building2 size={20} />
@@ -563,7 +571,7 @@ export default function WebFluxHomePage() {
             </div>
           </div>
 
-          <div className="bento-card service-bento-card p-8 flex flex-col justify-between group">
+          <div className="bento-card service-bento-card p-5 sm:p-8 flex flex-col justify-between group">
             <div>
               <div className="service-icon-box">
                 <Sparkles size={20} />
@@ -581,7 +589,7 @@ export default function WebFluxHomePage() {
             </div>
           </div>
 
-          <div className="bento-card service-bento-card p-8 flex flex-col justify-between group">
+          <div className="bento-card service-bento-card p-5 sm:p-8 flex flex-col justify-between group">
             <div>
               <div className="service-icon-box">
                 <ShoppingBag size={20} />
@@ -599,7 +607,7 @@ export default function WebFluxHomePage() {
             </div>
           </div>
 
-          <div className="bento-card service-bento-card p-8 flex flex-col justify-between group">
+          <div className="bento-card service-bento-card p-5 sm:p-8 flex flex-col justify-between group">
             <div>
               <div className="service-icon-box">
                 <ShieldCheck size={20} />
@@ -627,7 +635,7 @@ export default function WebFluxHomePage() {
           <div className="pill-badge mb-4">
             <span>✦ Milestone Billing &bull; Zero Surprises</span>
           </div>
-          <h2 className="text-3xl sm:text-5xl md:text-6xl font-heading font-extrabold text-white tracking-[-0.03em]">
+          <h2 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-heading font-extrabold text-white tracking-[-0.03em]">
             <span className="section-word section-word-left word-delay-1">Transparent</span>{' '}
             <span className="section-word section-word-right word-delay-2">pricing.</span>
           </h2>
@@ -638,7 +646,7 @@ export default function WebFluxHomePage() {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 items-stretch">
           {/* Basic Plan */}
-          <div className="bento-card p-8 flex flex-col justify-between">
+          <div className="bento-card p-5 sm:p-8 flex flex-col justify-between">
             <div>
               <span className="text-[11px] font-mono uppercase tracking-wider text-zinc-500">
                 Starter Launch
@@ -687,7 +695,7 @@ export default function WebFluxHomePage() {
           </div>
 
           {/* Standard Plan (Featured) */}
-          <div className="bento-card p-8 flex flex-col justify-between relative border-white/30 shadow-[0_20px_50px_rgba(0,0,0,0.9),inset_0_1px_0_rgba(255,255,255,0.2)] scale-105 z-10 bg-black/80">
+          <div className="bento-card p-5 sm:p-8 flex flex-col justify-between relative border-white/30 shadow-[0_20px_50px_rgba(0,0,0,0.9),inset_0_1px_0_rgba(255,255,255,0.2)] md:scale-105 z-10 bg-black/80">
             <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 rounded-full bg-white px-4 py-1 text-[10px] font-mono uppercase tracking-wider font-bold text-black shadow-md">
               Most Popular &bull; Schools &amp; Institutes
             </div>
@@ -743,7 +751,7 @@ export default function WebFluxHomePage() {
           </div>
 
           {/* Premium Plan */}
-          <div className="bento-card p-8 flex flex-col justify-between">
+          <div className="bento-card p-5 sm:p-8 flex flex-col justify-between">
             <div>
               <span className="text-[11px] font-mono uppercase tracking-wider text-zinc-500">
                 Enterprise &amp; Brand
@@ -802,51 +810,48 @@ export default function WebFluxHomePage() {
       </section>
 
       {/* ==================================================
-          6. FAQ SECTION (#faq)
+          6. FAQ SECTION (#faq - WEBORA STYLE VERTICAL ACCORDION LIST)
           ================================================== */}
       <section id="faq" className="scroll-mt-28 reveal-on-scroll">
         <div className="text-center max-w-3xl mx-auto mb-14">
-          <div className="pill-badge mb-4">
-            <span>✦ AEO Knowledge &bull; Answers</span>
-          </div>
-          <h2 className="text-3xl sm:text-5xl md:text-6xl font-heading font-extrabold text-white tracking-[-0.03em]">
-            <span className="section-word section-word-left word-delay-1">Frequently</span>{' '}
-            <span className="section-word section-word-pop word-delay-2">asked</span>{' '}
-            <span className="section-word section-word-right word-delay-3">questions.</span>
+          <h2 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-heading font-extrabold text-white tracking-[-0.03em]">
+            Frequently asked questions
           </h2>
           <p className="text-sm sm:text-base text-zinc-400 mt-3 max-w-xl mx-auto font-normal">
-            Clear, authoritative details about our engineering standards, turnaround timelines, pricing, and safeguards.
+            Everything you need to know about WebFlux Design and our process.
           </p>
         </div>
 
-        <div className="max-w-3xl mx-auto space-y-3">
+        {/* Webora.com Style: Sleek vertical list with thin subtle borders & smooth accordion */}
+        <div className="max-w-3xl mx-auto divide-y divide-white/[0.08] border-t border-b border-white/[0.08]">
           {faqs.map((faq, idx) => {
             const isOpen = openFaq === idx;
             return (
-              <div
-                key={idx}
-                className="bento-card overflow-hidden transition-all duration-300"
-              >
+              <div key={idx} className="transition-colors">
                 <button
                   onClick={() => setOpenFaq(isOpen ? null : idx)}
-                  className="w-full p-5 sm:p-6 text-left flex items-center justify-between gap-4 cursor-pointer focus:outline-none"
+                  className="w-full py-5 sm:py-6 text-left flex items-center justify-between gap-6 cursor-pointer group focus:outline-none"
+                  aria-expanded={isOpen}
                 >
-                  <span className="font-heading font-semibold text-sm sm:text-base text-white">
+                  <span className="font-heading font-semibold text-base sm:text-lg text-white group-hover:text-zinc-200 transition-colors">
                     {faq.q}
                   </span>
-                  <div
-                    className={`w-7 h-7 rounded-full bg-white/[0.05] border border-white/10 flex items-center justify-center text-zinc-400 shrink-0 transition-transform duration-300 ${
-                      isOpen ? 'rotate-180 bg-white text-black border-transparent' : ''
+                  <ChevronDown
+                    size={18}
+                    className={`text-zinc-500 group-hover:text-white shrink-0 transition-transform duration-300 ${
+                      isOpen ? 'rotate-180 text-white' : ''
                     }`}
-                  >
-                    <ChevronDown size={14} />
-                  </div>
+                  />
                 </button>
-                {isOpen && (
-                  <div className="px-5 sm:px-6 pb-6 pt-1 text-xs sm:text-sm text-zinc-400 leading-relaxed border-t border-white/[0.06] font-normal">
+                <div
+                  className={`overflow-hidden transition-all duration-300 ease-out ${
+                    isOpen ? 'max-h-96 pb-6 pt-1 opacity-100' : 'max-h-0 pb-0 pt-0 opacity-0 pointer-events-none'
+                  }`}
+                >
+                  <p className="text-xs sm:text-sm text-zinc-400 font-normal leading-relaxed">
                     {faq.a}
-                  </div>
-                )}
+                  </p>
+                </div>
               </div>
             );
           })}
@@ -861,7 +866,7 @@ export default function WebFluxHomePage() {
           <div className="pill-badge mb-4">
             <span>✦ Direct Channel &bull; Start Your Project</span>
           </div>
-          <h2 className="text-3xl sm:text-5xl md:text-6xl font-heading font-extrabold text-white tracking-[-0.03em]">
+          <h2 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-heading font-extrabold text-white tracking-[-0.03em]">
             <span className="section-word section-word-left word-delay-1">Design</span>{' '}
             <span className="section-word section-word-pop word-delay-2">the</span>{' '}
             <span className="section-word section-word-left word-delay-3">UI</span>{' '}
@@ -876,7 +881,7 @@ export default function WebFluxHomePage() {
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           {/* Direct Channels */}
-          <div className="lg:col-span-5 bento-card p-8 space-y-6">
+          <div className="lg:col-span-5 bento-card p-5 sm:p-8 space-y-6">
             <div>
               <h3 className="text-xl font-heading font-bold text-white">
                 Engineering Desk
@@ -956,7 +961,7 @@ export default function WebFluxHomePage() {
           </div>
 
           {/* Contact Inquiry Form */}
-          <div className="lg:col-span-7 bento-card p-8">
+          <div className="lg:col-span-7 bento-card p-5 sm:p-8">
             {formSubmitted ? (
               <div className="p-8 text-center space-y-4">
                 <div className="w-14 h-14 rounded-full bg-white/10 border border-white/30 flex items-center justify-center text-white mx-auto shadow-lg">
