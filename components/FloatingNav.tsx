@@ -113,16 +113,18 @@ export default function FloatingNav() {
             {menuItems.map((item, index) => {
               const Icon = item.icon;
               const isActive = activeSection === item.id;
+              // Organic staggered delays for crazy spring feel
+              const staggerDelays = [30, 90, 50, 130, 80, 150];
 
               return (
                 <button
                   key={item.id}
                   onClick={() => scrollToSection(item.id)}
                   style={{
-                    transitionDelay: isOpen ? `${index * 35}ms` : '0ms',
+                    transitionDelay: isOpen ? `${staggerDelays[index]}ms` : '0ms',
                   }}
-                  className={`group w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-left transition-all duration-300 cursor-pointer ${
-                    isOpen ? 'translate-x-0 opacity-100' : 'translate-x-2 opacity-0'
+                  className={`group w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-left menu-item-kinetic cursor-pointer ${
+                    isOpen ? 'translate-x-0 opacity-100 scale-100' : 'translate-x-5 opacity-0 scale-90'
                   } ${
                     isActive
                       ? 'bg-white/10 text-white border border-white/20 shadow-[inset_0_1px_0_rgba(255,255,255,0.15)]'
@@ -134,7 +136,7 @@ export default function FloatingNav() {
                       {item.num}
                     </span>
                     <div className="flex flex-col">
-                      <span className="text-sm font-heading font-semibold text-white group-hover:text-white transition-colors">
+                      <span className="text-sm font-heading font-semibold text-white group-hover:text-white group-hover:translate-x-1 transition-transform inline-block duration-200">
                         {item.label}
                       </span>
                       <span className="text-[10px] font-mono text-zinc-500 group-hover:text-zinc-400 transition-colors">
@@ -146,7 +148,7 @@ export default function FloatingNav() {
                   <div className="flex items-center gap-2">
                     <Icon
                       size={15}
-                      className={`transition-all duration-300 group-hover:scale-110 ${
+                      className={`transition-all duration-300 group-hover:scale-125 ${
                         isActive ? 'text-white animate-soft-pulse' : 'text-zinc-500 group-hover:text-white'
                       }`}
                     />
@@ -165,10 +167,10 @@ export default function FloatingNav() {
             <a
               href="#contact"
               onClick={() => setIsOpen(false)}
-              className="w-full flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl bg-white hover:bg-zinc-200 text-black text-xs font-bold tracking-wider uppercase transition-all duration-200 hover:scale-[1.02]"
+              className="w-full flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl bg-white hover:bg-zinc-200 text-black text-xs font-bold tracking-wider uppercase btn-crazy-spring"
             >
               <span>Get Free Demo Website</span>
-              <ArrowRight size={13} />
+              <ArrowRight size={13} className="btn-icon-kick" />
             </a>
           </div>
         </div>

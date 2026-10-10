@@ -260,32 +260,38 @@ export default function WebFluxHomePage() {
           <span>✦ Premium Web Design Studio</span>
         </div>
 
-        {/* Massive, Clean, Pure White Headline (Blur-to-Sharp entrance + Soft Underline) */}
-        <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-heading font-extrabold text-white tracking-[-0.04em] max-w-4xl leading-[1.06] animate-hero-title">
-          <span className="text-draw-underline">Visually stunning</span> websites for elite businesses.
+        {/* Massive, Clean, Pure White Headline (Crazy Kinetic Word Splitting & Elastic Jumps) */}
+        <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-heading font-extrabold text-white tracking-[-0.04em] max-w-4xl leading-[1.06] select-none">
+          <span className="kinetic-word-wrapper"><span className="kinetic-word word-jump-1 text-draw-underline">Visually</span></span>
+          <span className="kinetic-word-wrapper"><span className="kinetic-word word-jump-2">stunning</span></span>
+          <span className="kinetic-word-wrapper"><span className="kinetic-word word-jump-3">websites</span></span>
+          <span className="kinetic-word-wrapper"><span className="kinetic-word word-jump-4">for</span></span>
+          <span className="kinetic-word-wrapper"><span className="kinetic-word word-jump-5">elite</span></span>
+          <span className="kinetic-word-wrapper"><span className="kinetic-word word-jump-6">businesses.</span></span>
         </h1>
 
-        {/* Crisp Subtitle in Soft Gray (Delayed Entrance) */}
-        <p className="mt-7 text-base sm:text-xl text-[#A1A1AA] max-w-2xl font-normal leading-relaxed tracking-tight animate-hero-sub">
-          We architect sub-second, 60fps digital experiences and educational platforms engineered for maximum enrollment, client retention, and Google dominance.
+        {/* Crisp Subtitle in Soft Gray (Staggered Directional Slide & Landing Jump) */}
+        <p className="mt-7 text-base sm:text-xl text-[#A1A1AA] max-w-2xl font-normal leading-relaxed tracking-tight">
+          <span className="animate-subtext-left">We architect sub-second, 60fps digital experiences and educational platforms</span>{' '}
+          <span className="animate-subtext-right">engineered for maximum enrollment, client retention, and Google dominance.</span>
         </p>
 
-        {/* Webora-Style Minimal Buttons - Exactly 2 Buttons */}
+        {/* Webora-Style Minimal Buttons - Exactly 2 Buttons with Crazy Spring & Icon Kick */}
         <div className="mt-10 flex flex-wrap items-center justify-center gap-4 animate-hero-buttons">
           <a
             href="#contact"
-            className="btn-primary text-xs uppercase tracking-wider py-3.5 px-8"
+            className="btn-primary btn-crazy-spring text-xs uppercase tracking-wider py-3.5 px-8"
           >
             <span>Get Free Demo Website</span>
-            <ArrowRight size={14} />
+            <ArrowRight size={14} className="btn-icon-kick" />
           </a>
 
           <a
             href="#portfolio"
-            className="btn-secondary text-xs uppercase tracking-wider py-3.5 px-8"
+            className="btn-secondary btn-crazy-spring text-xs uppercase tracking-wider py-3.5 px-8"
           >
             <span>Explore Portfolio</span>
-            <ArrowUpRight size={14} />
+            <ArrowUpRight size={14} className="btn-icon-kick" />
           </a>
         </div>
       </section>
@@ -306,7 +312,9 @@ export default function WebFluxHomePage() {
               <span>✦ Studio Philosophy &bull; Architecture of Speed</span>
             </div>
             <h2 className="text-3xl sm:text-5xl md:text-6xl font-heading font-extrabold text-white tracking-[-0.03em] leading-tight">
-              Engineering digital authority.
+              <span className="section-word section-word-left word-delay-1">Engineering</span>{' '}
+              <span className="section-word section-word-pop word-delay-2">digital</span>{' '}
+              <span className="section-word section-word-right word-delay-3">authority.</span>
             </h2>
             <p className="text-sm font-mono text-zinc-400 mt-2">
               Founded &amp; Directed by Shreyansh Singhal — Lead Front-End Architect
@@ -365,14 +373,14 @@ export default function WebFluxHomePage() {
                 href="https://wa.me/918302589297"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn-primary text-xs uppercase tracking-wider py-2.5 px-6"
+                className="btn-primary btn-crazy-spring text-xs uppercase tracking-wider py-2.5 px-6"
               >
                 <span>Direct WhatsApp</span>
-                <ArrowRight size={13} />
+                <ArrowRight size={13} className="btn-icon-kick" />
               </a>
               <a
                 href="mailto:shreyanshsinghal08@gmail.com"
-                className="btn-secondary text-xs uppercase tracking-wider py-2.5 px-6 font-mono"
+                className="btn-secondary btn-crazy-spring text-xs uppercase tracking-wider py-2.5 px-6 font-mono"
               >
                 <span>Email Desk</span>
               </a>
@@ -390,7 +398,9 @@ export default function WebFluxHomePage() {
             <span>✦ Selected Works &bull; Flagship Deployments</span>
           </div>
           <h2 className="text-3xl sm:text-5xl md:text-6xl font-heading font-extrabold text-white tracking-[-0.03em]">
-            Proof in production.
+            <span className="section-word section-word-left word-delay-1">Proof</span>{' '}
+            <span className="section-word section-word-pop word-delay-2">in</span>{' '}
+            <span className="section-word section-word-right word-delay-3">production.</span>
           </h2>
           <p className="text-sm sm:text-base text-zinc-400 mt-3 max-w-xl mx-auto font-normal">
             Live client portals, educational platforms, and digital storefronts engineered by WebFlux Design.
@@ -489,7 +499,9 @@ export default function WebFluxHomePage() {
             <span>✦ Systems Architecture &bull; Capabilities</span>
           </div>
           <h2 className="text-3xl sm:text-5xl md:text-6xl font-heading font-extrabold text-white tracking-[-0.03em]">
-            Engineered for conversion.
+            <span className="section-word section-word-left word-delay-1">Engineered</span>{' '}
+            <span className="section-word section-word-pop word-delay-2">for</span>{' '}
+            <span className="section-word section-word-right word-delay-3">conversion.</span>
           </h2>
           <p className="text-sm sm:text-base text-zinc-400 mt-3 max-w-xl mx-auto font-normal">
             Specialized digital platforms built to convert visitors into enrolled students, booked clients, and loyal customers.
@@ -616,7 +628,8 @@ export default function WebFluxHomePage() {
             <span>✦ Milestone Billing &bull; Zero Surprises</span>
           </div>
           <h2 className="text-3xl sm:text-5xl md:text-6xl font-heading font-extrabold text-white tracking-[-0.03em]">
-            Transparent pricing.
+            <span className="section-word section-word-left word-delay-1">Transparent</span>{' '}
+            <span className="section-word section-word-right word-delay-2">pricing.</span>
           </h2>
           <p className="text-sm sm:text-base text-zinc-400 mt-3 max-w-xl mx-auto font-normal">
             No recurring template royalties, no surprise retainers. All Standard and Premium tiers include our risk-free demo guarantee.
@@ -666,7 +679,7 @@ export default function WebFluxHomePage() {
             <div className="mt-8">
               <a
                 href="#contact"
-                className="btn-secondary w-full text-center text-xs uppercase tracking-wider justify-center"
+                className="btn-secondary btn-crazy-spring w-full text-center text-xs uppercase tracking-wider justify-center"
               >
                 Select Starter
               </a>
@@ -722,7 +735,7 @@ export default function WebFluxHomePage() {
             <div className="mt-8">
               <a
                 href="#contact"
-                className="btn-primary w-full text-center text-xs uppercase tracking-wider justify-center shadow-lg"
+                className="btn-primary btn-crazy-spring w-full text-center text-xs uppercase tracking-wider justify-center shadow-lg"
               >
                 Claim Free Demo
               </a>
@@ -775,7 +788,7 @@ export default function WebFluxHomePage() {
             <div className="mt-8">
               <a
                 href="#contact"
-                className="btn-secondary w-full text-center text-xs uppercase tracking-wider justify-center"
+                className="btn-secondary btn-crazy-spring w-full text-center text-xs uppercase tracking-wider justify-center"
               >
                 Select Enterprise
               </a>
@@ -797,7 +810,9 @@ export default function WebFluxHomePage() {
             <span>✦ AEO Knowledge &bull; Answers</span>
           </div>
           <h2 className="text-3xl sm:text-5xl md:text-6xl font-heading font-extrabold text-white tracking-[-0.03em]">
-            Frequently asked questions.
+            <span className="section-word section-word-left word-delay-1">Frequently</span>{' '}
+            <span className="section-word section-word-pop word-delay-2">asked</span>{' '}
+            <span className="section-word section-word-right word-delay-3">questions.</span>
           </h2>
           <p className="text-sm sm:text-base text-zinc-400 mt-3 max-w-xl mx-auto font-normal">
             Clear, authoritative details about our engineering standards, turnaround timelines, pricing, and safeguards.
@@ -847,7 +862,12 @@ export default function WebFluxHomePage() {
             <span>✦ Direct Channel &bull; Start Your Project</span>
           </div>
           <h2 className="text-3xl sm:text-5xl md:text-6xl font-heading font-extrabold text-white tracking-[-0.03em]">
-            Design the UI you will ship.
+            <span className="section-word section-word-left word-delay-1">Design</span>{' '}
+            <span className="section-word section-word-pop word-delay-2">the</span>{' '}
+            <span className="section-word section-word-left word-delay-3">UI</span>{' '}
+            <span className="section-word section-word-pop word-delay-4">you</span>{' '}
+            <span className="section-word section-word-pop word-delay-5">will</span>{' '}
+            <span className="section-word section-word-right word-delay-6">ship.</span>
           </h2>
           <p className="text-sm sm:text-base text-zinc-400 mt-3 max-w-xl mx-auto font-normal">
             Connect directly with Lead Architect Shreyansh Singhal. We review your requirements and provide preliminary demo architecture within 24 hours.
@@ -1047,9 +1067,9 @@ export default function WebFluxHomePage() {
 
                 <button
                   type="submit"
-                  className="btn-primary w-full text-xs uppercase tracking-wider py-3.5 justify-center shadow-lg"
+                  className="btn-primary btn-crazy-spring w-full text-xs uppercase tracking-wider py-3.5 justify-center shadow-lg"
                 >
-                  <Send size={14} />
+                  <Send size={14} className="btn-icon-kick" />
                   <span>Request Free Demo Prototype</span>
                 </button>
               </form>

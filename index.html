@@ -221,7 +221,6 @@
 
         img {
             -webkit-user-drag: none;
-            user-drag: none;
             pointer-events: auto;
         }
 
@@ -538,6 +537,160 @@
             opacity: 1;
             transform: translateY(0);
             filter: blur(0px);
+        }
+
+        /* ==================================================
+           CRAZY KINETIC TEXT MOTION SYSTEM (SPRING & ELASTIC BOUNCE)
+           Snappy, high-end, energetic typographic choreography
+           ================================================== */
+        .kinetic-word-wrapper {
+            display: inline-block;
+            overflow: hidden;
+            vertical-align: top;
+            margin-right: 0.26em;
+            padding-bottom: 0.12em;
+        }
+
+        .kinetic-word {
+            display: inline-block;
+            will-change: transform, opacity;
+            transform-origin: center bottom;
+            animation-duration: 0.65s;
+            animation-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1);
+            animation-fill-mode: both;
+            transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), text-shadow 0.25s ease;
+        }
+
+        @keyframes wordJumpLeft {
+            0% { opacity: 0; transform: translateY(120%) rotate(-8deg) scale(0.9); }
+            60% { opacity: 1; transform: translateY(-9px) rotate(2deg) scale(1.05); }
+            100% { opacity: 1; transform: translateY(0) rotate(0deg) scale(1); }
+        }
+
+        @keyframes wordPopBounce {
+            0% { opacity: 0; transform: translateY(130%) scale(0.7) rotate(6deg); }
+            60% { opacity: 1; transform: translateY(-12px) scale(1.08) rotate(-2deg); }
+            100% { opacity: 1; transform: translateY(0) scale(1) rotate(0deg); }
+        }
+
+        @keyframes wordSpringUp {
+            0% { opacity: 0; transform: translateY(115%) rotate(-4deg); }
+            65% { opacity: 1; transform: translateY(-10px) rotate(1.5deg); }
+            100% { opacity: 1; transform: translateY(0) rotate(0deg); }
+        }
+
+        @keyframes wordJumpRight {
+            0% { opacity: 0; transform: translateY(125%) rotate(7deg) scale(0.85); }
+            60% { opacity: 1; transform: translateY(-10px) rotate(-2deg) scale(1.06); }
+            100% { opacity: 1; transform: translateY(0) rotate(0deg) scale(1); }
+        }
+
+        .word-jump-1 { animation-name: wordJumpLeft; animation-delay: 0.05s; }
+        .word-jump-2 { animation-name: wordPopBounce; animation-delay: 0.14s; }
+        .word-jump-3 { animation-name: wordSpringUp; animation-delay: 0.09s; }
+        .word-jump-4 { animation-name: wordPopBounce; animation-delay: 0.22s; }
+        .word-jump-5 { animation-name: wordJumpRight; animation-delay: 0.17s; }
+        .word-jump-6 { animation-name: wordJumpLeft; animation-delay: 0.28s; }
+
+        .kinetic-word:hover {
+            transform: translateY(-5px) scale(1.07) rotate(-1.5deg) !important;
+            color: #FFFFFF !important;
+            text-shadow: 0 0 25px rgba(255, 255, 255, 0.45);
+        }
+
+        @keyframes subtextSlideLeft {
+            0% { opacity: 0; transform: translateX(-40px) translateY(14px); }
+            65% { opacity: 1; transform: translateX(4px) translateY(-3px); }
+            100% { opacity: 1; transform: translateX(0) translateY(0); }
+        }
+
+        @keyframes subtextSlideRight {
+            0% { opacity: 0; transform: translateX(40px) translateY(14px); }
+            65% { opacity: 1; transform: translateX(-4px) translateY(-3px); }
+            100% { opacity: 1; transform: translateX(0) translateY(0); }
+        }
+
+        .animate-subtext-left {
+            display: inline-block;
+            animation: subtextSlideLeft 0.65s cubic-bezier(0.34, 1.56, 0.64, 1) 0.35s both;
+            will-change: transform, opacity;
+        }
+
+        .animate-subtext-right {
+            display: inline-block;
+            animation: subtextSlideRight 0.65s cubic-bezier(0.34, 1.56, 0.64, 1) 0.45s both;
+            will-change: transform, opacity;
+        }
+
+        .section-word {
+            display: inline-block;
+            opacity: 0;
+            transform: translateY(32px) scale(0.9);
+            transition: opacity 0.55s cubic-bezier(0.34, 1.56, 0.64, 1),
+                        transform 0.55s cubic-bezier(0.34, 1.56, 0.64, 1);
+            will-change: transform, opacity;
+            margin-right: 0.22em;
+        }
+
+        .section-word-left {
+            transform: translateX(-24px) translateY(28px) rotate(-3deg);
+        }
+
+        .section-word-right {
+            transform: translateX(24px) translateY(28px) rotate(3deg);
+        }
+
+        .section-word-pop {
+            transform: scale(0.78) translateY(30px);
+        }
+
+        .reveal-on-scroll.is-visible .section-word,
+        .reveal-on-scroll.is-visible .section-word-left,
+        .reveal-on-scroll.is-visible .section-word-right,
+        .reveal-on-scroll.is-visible .section-word-pop {
+            opacity: 1;
+            transform: translateX(0) translateY(0) rotate(0deg) scale(1);
+        }
+
+        .reveal-on-scroll.is-visible .word-delay-1 { transition-delay: 0.05s; }
+        .reveal-on-scroll.is-visible .word-delay-2 { transition-delay: 0.13s; }
+        .reveal-on-scroll.is-visible .word-delay-3 { transition-delay: 0.21s; }
+        .reveal-on-scroll.is-visible .word-delay-4 { transition-delay: 0.29s; }
+        .reveal-on-scroll.is-visible .word-delay-5 { transition-delay: 0.36s; }
+        .reveal-on-scroll.is-visible .word-delay-6 { transition-delay: 0.42s; }
+
+        .section-word:hover {
+            transform: translateY(-4px) scale(1.05) !important;
+            color: #FFFFFF !important;
+            transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .menu-item-kinetic {
+            transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1),
+                        opacity 0.3s ease,
+                        background 0.2s ease,
+                        border-color 0.2s ease;
+        }
+
+        .btn-crazy-spring {
+            transition: transform 0.26s cubic-bezier(0.34, 1.56, 0.64, 1),
+                        box-shadow 0.26s ease,
+                        background-color 0.2s ease !important;
+        }
+
+        .btn-crazy-spring:hover {
+            transform: scale(1.04) translateY(-3px) !important;
+            box-shadow: 0 12px 30px rgba(255, 255, 255, 0.22) !important;
+        }
+
+        .btn-crazy-spring:active {
+            transform: scale(0.96) translateY(1px) !important;
+        }
+
+        .btn-crazy-spring:hover .btn-icon-kick,
+        .btn-crazy-spring:hover i {
+            transform: translateX(5px) scale(1.15);
+            transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
 
         /* ==================================================
@@ -1201,15 +1354,27 @@
             text-decoration: none;
             font-size: 0.88rem;
             font-weight: 500;
-            transition: all 0.25s ease;
+            transform: translateX(12px) scale(0.95);
+            opacity: 0;
+            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s ease, background 0.2s ease, color 0.2s ease;
         }
+        .floating-menu-panel.active a {
+            transform: translateX(0) scale(1);
+            opacity: 1;
+        }
+        .floating-menu-panel.active a:nth-of-type(1) { transition-delay: 30ms; }
+        .floating-menu-panel.active a:nth-of-type(2) { transition-delay: 90ms; }
+        .floating-menu-panel.active a:nth-of-type(3) { transition-delay: 50ms; }
+        .floating-menu-panel.active a:nth-of-type(4) { transition-delay: 130ms; }
+        .floating-menu-panel.active a:nth-of-type(5) { transition-delay: 80ms; }
+        .floating-menu-panel.active a:nth-of-type(6) { transition-delay: 150ms; }
         .floating-menu-panel a:hover {
             background: rgba(255, 255, 255, 0.08);
             color: #FFFFFF;
-            transform: translateX(3px);
+            transform: translateX(4px) scale(1.02);
         }
         .floating-menu-panel a:hover i {
-            transform: translateX(2px);
+            transform: translateX(3px) scale(1.2);
             opacity: 1;
         }
         .floating-menu-num {
@@ -1280,18 +1445,26 @@
             <div class="pill-badge animate-hero-pill">
                 <span>✦ Premium Web Design Studio</span>
             </div>
-            <h1 class="animate-hero-title">
-                <span class="text-draw-underline">Visually stunning</span> websites for elite businesses.
+            <h1>
+                <span class="kinetic-word-wrapper"><span class="kinetic-word word-jump-1 text-draw-underline">Visually</span></span>
+                <span class="kinetic-word-wrapper"><span class="kinetic-word word-jump-2">stunning</span></span>
+                <span class="kinetic-word-wrapper"><span class="kinetic-word word-jump-3">websites</span></span>
+                <span class="kinetic-word-wrapper"><span class="kinetic-word word-jump-4">for</span></span>
+                <span class="kinetic-word-wrapper"><span class="kinetic-word word-jump-5">elite</span></span>
+                <span class="kinetic-word-wrapper"><span class="kinetic-word word-jump-6">businesses.</span></span>
             </h1>
-            <p class="animate-hero-sub">We architect sub-second, 60fps digital experiences and educational platforms engineered for maximum enrollment, client retention, and Google dominance.</p>
+            <p>
+                <span class="animate-subtext-left">We architect sub-second, 60fps digital experiences and educational platforms</span>
+                <span class="animate-subtext-right">engineered for maximum enrollment, client retention, and Google dominance.</span>
+            </p>
             <div class="hero-buttons animate-hero-buttons">
-                <a href="#contact" class="btn btn-primary">
+                <a href="#contact" class="btn btn-primary btn-crazy-spring">
                     <span>Get Free Demo Website</span>
-                    <i class="fas fa-arrow-right"></i>
+                    <i class="fas fa-arrow-right btn-icon-kick"></i>
                 </a>
-                <a href="#portfolio" class="btn btn-outline">
+                <a href="#portfolio" class="btn btn-outline btn-crazy-spring">
                     <span>Explore Portfolio</span>
-                    <i class="fas fa-arrow-up-right-from-square"></i>
+                    <i class="fas fa-arrow-up-right-from-square btn-icon-kick"></i>
                 </a>
             </div>
         </div>
@@ -1307,7 +1480,11 @@
                     <div class="pill-badge">
                         <span>✦ Studio Philosophy &bull; Architecture of Speed</span>
                     </div>
-                    <h2>Engineering digital authority.</h2>
+                    <h2>
+                        <span class="section-word section-word-left word-delay-1">Engineering</span>
+                        <span class="section-word section-word-pop word-delay-2">digital</span>
+                        <span class="section-word section-word-right word-delay-3">authority.</span>
+                    </h2>
                     <p class="bento-lead-architect">Founded &amp; Directed by Shreyansh Singhal &mdash; Lead Front-End Architect</p>
                     <p class="bento-desc">At WebFlux Design, we believe that every millisecond of latency diminishes trust and burns potential enrollments. We craft custom websites for schools, coaching institutes, and luxury brands using a zero-runtime, 60fps kinetic philosophy that guarantees maximum responsiveness across all hardware.</p>
                 </div>
@@ -1331,11 +1508,11 @@
                 <div class="bento-action-row">
                     <span class="bento-meta">Studio: Rajasthan, India &bull; Worldwide Engagements</span>
                     <div class="bento-actions">
-                        <a href="https://wa.me/918302589297" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+                        <a href="https://wa.me/918302589297" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-crazy-spring">
                             <span>Direct WhatsApp</span>
-                            <i class="fas fa-arrow-right"></i>
+                            <i class="fas fa-arrow-right btn-icon-kick"></i>
                         </a>
-                        <a href="mailto:shreyanshsinghal08@gmail.com" class="btn btn-outline">
+                        <a href="mailto:shreyanshsinghal08@gmail.com" class="btn btn-outline btn-crazy-spring">
                             <span>Email Desk</span>
                         </a>
                     </div>
@@ -1353,7 +1530,12 @@
                 <div class="pill-badge">
                     <span>✦ Core Offerings &bull; Web Architecture</span>
                 </div>
-                <h2>Systems engineered to scale.</h2>
+                <h2>
+                    <span class="section-word section-word-left word-delay-1">Systems</span>
+                    <span class="section-word section-word-pop word-delay-2">engineered</span>
+                    <span class="section-word section-word-pop word-delay-3">to</span>
+                    <span class="section-word section-word-right word-delay-4">scale.</span>
+                </h2>
                 <p>Tailored digital platforms developed with sub-second latency and high-converting funnel design.</p>
             </div>
             <div class="services-grid">
@@ -1400,7 +1582,11 @@
                 <div class="pill-badge">
                     <span>✦ Selected Works &bull; Flagship Deployments</span>
                 </div>
-                <h2>Proof in production.</h2>
+                <h2>
+                    <span class="section-word section-word-left word-delay-1">Proof</span>
+                    <span class="section-word section-word-pop word-delay-2">in</span>
+                    <span class="section-word section-word-right word-delay-3">production.</span>
+                </h2>
                 <p>Live client portals, educational platforms, and digital storefronts engineered by WebFlux Design.</p>
             </div>
             <div class="portfolio-grid">
@@ -1518,7 +1704,11 @@
                 <div class="pill-badge">
                     <span>✦ Clear Engagements &bull; Zero Surprises</span>
                 </div>
-                <h2>Simple, transparent investment.</h2>
+                <h2>
+                    <span class="section-word section-word-left word-delay-1">Simple,</span>
+                    <span class="section-word section-word-pop word-delay-2">transparent</span>
+                    <span class="section-word section-word-right word-delay-3">investment.</span>
+                </h2>
                 <p>Every tier includes our signature Demo-Before-Payment policy and rapid deployment timeline.</p>
             </div>
             <div class="pricing-grid">
@@ -1541,7 +1731,7 @@
                         <li class="not-included">Free Live Demo Before Payment</li>
                         <li class="not-included">CMS &amp; Admin Dashboard</li>
                     </ul>
-                    <a href="#contact" class="btn btn-outline">Select Basic</a>
+                    <a href="#contact" class="btn btn-outline btn-crazy-spring">Select Basic</a>
                 </div>
 
                 <!-- Standard Plan (Featured) -->
@@ -1564,7 +1754,7 @@
                         <li><i class="fas fa-check"></i> 7–10 Days Deployment</li>
                         <li class="not-included">Multi-Currency E-Commerce</li>
                     </ul>
-                    <a href="#contact" class="btn btn-primary">Select Standard</a>
+                    <a href="#contact" class="btn btn-primary btn-crazy-spring">Select Standard</a>
                 </div>
 
                 <!-- Premium Plan -->
@@ -1585,7 +1775,7 @@
                         <li><i class="fas fa-check"></i> 3 Months Priority Engineering Support</li>
                         <li><i class="fas fa-check"></i> 10–14 Days Deployment</li>
                     </ul>
-                    <a href="#contact" class="btn btn-outline">Select Enterprise</a>
+                    <a href="#contact" class="btn btn-outline btn-crazy-spring">Select Enterprise</a>
                 </div>
             </div>
         </div>
@@ -1600,7 +1790,11 @@
                 <div class="pill-badge">
                     <span>✦ Guidance &bull; Direct Answers</span>
                 </div>
-                <h2>Frequently asked questions.</h2>
+                <h2>
+                    <span class="section-word section-word-left word-delay-1">Frequently</span>
+                    <span class="section-word section-word-pop word-delay-2">asked</span>
+                    <span class="section-word section-word-right word-delay-3">questions.</span>
+                </h2>
                 <p>Everything you need to know about our engineering standards, turnaround, and policies.</p>
             </div>
             <div class="faq-grid">
@@ -1634,7 +1828,12 @@
                     <div class="pill-badge">
                         <span>✦ Direct Line &bull; 24h Response</span>
                     </div>
-                    <h3>Let's architect something extraordinary.</h3>
+                    <h3>
+                        <span class="section-word section-word-left word-delay-1">Let's</span>
+                        <span class="section-word section-word-pop word-delay-2">architect</span>
+                        <span class="section-word section-word-pop word-delay-3">something</span>
+                        <span class="section-word section-word-right word-delay-4">extraordinary.</span>
+                    </h3>
                     <p>Have an ambitious project in mind? Share your scope and we'll reply with a clear milestone proposal within 24 hours.</p>
                     
                     <div class="contact-methods">
@@ -1695,9 +1894,9 @@
                             <label for="message">PROJECT BRIEF</label>
                             <textarea id="message" name="message" placeholder="Describe your goals, desired timeline, and reference requirements..." required></textarea>
                         </div>
-                        <button type="submit" class="btn btn-primary" style="width: 100%;">
+                        <button type="submit" class="btn btn-primary btn-crazy-spring" style="width: 100%;">
                             <span>Submit Project Scope</span>
-                            <i class="fas fa-paper-plane"></i>
+                            <i class="fas fa-paper-plane btn-icon-kick"></i>
                         </button>
                     </form>
                 </div>
