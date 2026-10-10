@@ -84,8 +84,8 @@ export default function FloatingNav() {
         />
       )}
 
-      {/* Floating Menu Controller positioned at bottom-32 right-8 (SAFELY ABOVE WHATSAPP) */}
-      <div className="fixed bottom-32 right-8 sm:bottom-36 sm:right-8 z-50 flex flex-col items-end select-none">
+      {/* Floating Menu Controller positioned at bottom-36 / bottom-40 right-8 (SAFELY ABOVE WHATSAPP) */}
+      <div className="fixed bottom-36 right-8 sm:bottom-40 sm:right-8 z-50 flex flex-col items-end select-none">
         {/* Expanded Vertical Menu (Smooth rotating/scrolling popup) */}
         <div
           className={`mb-4 w-72 sm:w-80 rounded-2xl bg-[#0a0a0a]/95 backdrop-blur-3xl border border-white/10 shadow-[0_25px_60px_rgba(0,0,0,0.95),inset_0_1px_0_rgba(255,255,255,0.1)] p-3 transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] origin-bottom-right ${

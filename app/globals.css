@@ -9,7 +9,7 @@
   --bg-void: #050505;
   --color-white: #FFFFFF;
   --color-silver: #E2E8F0;
-  --color-muted: #94A3B8;
+  --color-muted: #A1A1AA;
   --border-subtle: rgba(255, 255, 255, 0.1);
   --border-glow: rgba(255, 255, 255, 0.25);
   --bento-bg: rgba(20, 20, 20, 0.6);
@@ -61,7 +61,7 @@
   }
 
   p, span, label {
-    color: #94A3B8;
+    color: #A1A1AA;
   }
 
   /* Faint Webora-Style Grid Background */

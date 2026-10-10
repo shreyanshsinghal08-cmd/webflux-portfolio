@@ -235,7 +235,7 @@ export default function WebFluxHomePage() {
       {/* ==================================================
           1. HERO SECTION (MINIMAL, POWERFUL & CENTERED - WEBORA STYLE)
           ================================================== */}
-      <section className="relative pt-8 pb-16 sm:pt-16 sm:pb-24 flex flex-col items-center text-center">
+      <section className="relative pt-16 pb-28 sm:pt-28 sm:pb-36 flex flex-col items-center text-center">
         {/* Subtle Top Pill Badge */}
         <div className="pill-badge mb-8">
           <span>✦ Premium Web Design Studio</span>
@@ -246,12 +246,12 @@ export default function WebFluxHomePage() {
           Visually stunning websites for elite businesses.
         </h1>
 
-        {/* Crisp Subtitle in Silver */}
-        <p className="mt-7 text-base sm:text-xl text-[#94A3B8] max-w-2xl font-normal leading-relaxed tracking-tight">
+        {/* Crisp Subtitle in Soft Gray */}
+        <p className="mt-7 text-base sm:text-xl text-[#A1A1AA] max-w-2xl font-normal leading-relaxed tracking-tight">
           We architect sub-second, 60fps digital experiences and educational platforms engineered for maximum enrollment, client retention, and Google dominance.
         </p>
 
-        {/* Webora-Style Minimal Buttons */}
+        {/* Webora-Style Minimal Buttons - Exactly 2 Buttons */}
         <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
           <a
             href="#contact"
@@ -262,28 +262,12 @@ export default function WebFluxHomePage() {
           </a>
 
           <a
-            href="https://wa.me/918302589297"
-            target="_blank"
-            rel="noopener noreferrer"
+            href="#portfolio"
             className="btn-secondary text-xs uppercase tracking-wider py-3.5 px-8"
           >
-            <span>WhatsApp Consultation</span>
-            <ArrowUpRight size={13} className="text-zinc-400" />
+            <span>Explore Portfolio</span>
+            <ArrowUpRight size={14} />
           </a>
-        </div>
-
-        {/* Ultra-Clean Telemetry Bar */}
-        <div className="mt-14 pt-8 border-t border-white/[0.08] flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-xs font-mono text-zinc-400">
-          <span className="flex items-center gap-1.5">
-            <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
-            50+ Deployments Delivered
-          </span>
-          <span className="text-zinc-600">&bull;</span>
-          <span>Zero Runtime Bloat</span>
-          <span className="text-zinc-600">&bull;</span>
-          <span>60fps Kinetic UI</span>
-          <span className="text-zinc-600">&bull;</span>
-          <span>&lt;0.5s Page Latency</span>
         </div>
       </section>
 
