@@ -288,45 +288,45 @@
     <link rel="preconnect" href="https://images.unsplash.com">
     <style>
         :root {
-            /* Strict Premium Deep-Blue Gradient Color Palette */
-            --bg-canvas: #031130;
-            --bg-alt: #031130;
-            --bg-surface: rgba(3, 17, 48, 0.4);
-            --bg-surface-elevated: rgba(3, 17, 48, 0.6);
-            --card: rgba(3, 17, 48, 0.4);
-            --card-hover: rgba(3, 17, 48, 0.6);
+            /* Pure Black, White & Silver Webora Aesthetic */
+            --bg-canvas: #000000;
+            --bg-alt: #050505;
+            --bg-surface: rgba(20, 20, 20, 0.6);
+            --bg-surface-elevated: rgba(25, 25, 25, 0.8);
+            --card: rgba(20, 20, 20, 0.6);
+            --card-hover: rgba(30, 30, 30, 0.8);
 
-            --neon-crimson: #185DF1;
-            --neon-crimson-glow: rgba(24, 93, 241, 0.45);
-            --neon-crimson-dim: rgba(24, 93, 241, 0.15);
+            --neon-crimson: #FFFFFF;
+            --neon-crimson-glow: rgba(255, 255, 255, 0.2);
+            --neon-crimson-dim: rgba(255, 255, 255, 0.05);
             
-            --cyber-cyan: #185DF1;
-            --cyber-cyan-glow: rgba(24, 93, 241, 0.4);
-            --cyber-cyan-dim: rgba(24, 93, 241, 0.15);
+            --cyber-cyan: #FFFFFF;
+            --cyber-cyan-glow: rgba(255, 255, 255, 0.2);
+            --cyber-cyan-dim: rgba(255, 255, 255, 0.05);
             
-            --cyber-amber: #185DF1;
-            --cyber-amber-glow: rgba(24, 93, 241, 0.35);
+            --cyber-amber: #FFFFFF;
+            --cyber-amber-glow: rgba(255, 255, 255, 0.2);
 
-            --primary: #185DF1;
-            --primary-dark: #124ecb;
-            --primary-light: #2A6EF5;
-            --secondary: #185DF1;
-            --accent: #185DF1;
+            --primary: #FFFFFF;
+            --primary-dark: #E2E8F0;
+            --primary-light: #FFFFFF;
+            --secondary: #FFFFFF;
+            --accent: #FFFFFF;
 
-            --text: #F3F7FE;
-            --text-muted: rgba(243, 247, 254, 0.6);
-            --text-dim: rgba(243, 247, 254, 0.45);
+            --text: #FFFFFF;
+            --text-muted: #94A3B8;
+            --text-dim: #64748B;
 
-            --border: rgba(243, 247, 254, 0.08);
-            --border-hover: rgba(24, 93, 241, 0.5);
-            --border-crimson: rgba(24, 93, 241, 0.5);
+            --border: rgba(255, 255, 255, 0.1);
+            --border-hover: rgba(255, 255, 255, 0.3);
+            --border-crimson: rgba(255, 255, 255, 0.2);
 
-            --glass-blur: blur(16px);
-            --glass-specular: inset 0 1px 0 0 rgba(243, 247, 254, 0.08);
-            --shadow: 0 10px 30px -10px rgba(3, 17, 48, 0.7);
-            --shadow-lg: 0 20px 40px rgba(24, 93, 241, 0.15);
-            --shadow-cyan: 0 20px 40px rgba(24, 93, 241, 0.15);
-            --shadow-crimson: 0 20px 40px rgba(24, 93, 241, 0.15);
+            --glass-blur: blur(30px);
+            --glass-specular: inset 0 1px 0 0 rgba(255, 255, 255, 0.1);
+            --shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
+            --shadow-lg: 0 25px 60px rgba(0, 0, 0, 0.95);
+            --shadow-cyan: 0 15px 40px rgba(0, 0, 0, 0.8);
+            --shadow-crimson: 0 15px 40px rgba(0, 0, 0, 0.8);
 
             --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
             --transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
@@ -420,16 +420,16 @@
 
         .floating-menu-btn {
             position: fixed;
-            bottom: 24px;
-            right: 24px;
+            bottom: 128px;
+            right: 32px;
             width: 58px;
             height: 58px;
             border-radius: 50%;
-            background: rgba(3, 7, 18, 0.85);
+            background: rgba(10, 10, 10, 0.9);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            color: #F3F7FE;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #FFFFFF;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -437,18 +437,18 @@
             gap: 2px;
             z-index: 9999;
             cursor: pointer;
-            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.85), 0 0 25px rgba(24, 93, 241, 0.35);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.9), inset 0 1px 0 rgba(255, 255, 255, 0.15);
             transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
         }
         .floating-menu-btn:hover {
             transform: scale(1.05);
-            border-color: rgba(24, 93, 241, 0.7);
-            box-shadow: 0 15px 45px rgba(0, 0, 0, 0.95), 0 0 35px rgba(24, 93, 241, 0.6);
+            border-color: rgba(255, 255, 255, 0.5);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.95);
         }
         .floating-menu-panel {
             position: fixed;
-            bottom: 92px;
-            right: 24px;
+            bottom: 196px;
+            right: 32px;
             width: 300px;
             background: rgba(3, 7, 18, 0.92);
             backdrop-filter: blur(24px);
