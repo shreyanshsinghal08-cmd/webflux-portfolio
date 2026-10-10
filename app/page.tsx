@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import {
   ArrowRight,
   ArrowUpRight,
@@ -230,6 +230,25 @@ export default function WebFluxHomePage() {
       });
   };
 
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+          }
+        });
+      },
+      { threshold: 0.08, rootMargin: '0px 0px -40px 0px' }
+    );
+
+    document.querySelectorAll('.reveal-on-scroll').forEach((el) => {
+      observer.observe(el);
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <div className="space-y-36 sm:space-y-44 max-w-6xl mx-auto px-6 sm:px-8 lg:px-10 pb-28">
       {/* ==================================================
@@ -237,22 +256,22 @@ export default function WebFluxHomePage() {
           ================================================== */}
       <section className="relative pt-16 pb-28 sm:pt-28 sm:pb-36 flex flex-col items-center text-center">
         {/* Subtle Top Pill Badge */}
-        <div className="pill-badge mb-8">
+        <div className="pill-badge mb-8 animate-hero-pill">
           <span>✦ Premium Web Design Studio</span>
         </div>
 
-        {/* Massive, Clean, Pure White Headline (NO GRADIENT, NO RED, NO BLUE) */}
-        <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-heading font-extrabold text-white tracking-[-0.04em] max-w-4xl leading-[1.06]">
-          Visually stunning websites for elite businesses.
+        {/* Massive, Clean, Pure White Headline (Blur-to-Sharp entrance + Soft Underline) */}
+        <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-heading font-extrabold text-white tracking-[-0.04em] max-w-4xl leading-[1.06] animate-hero-title">
+          <span className="text-draw-underline">Visually stunning</span> websites for elite businesses.
         </h1>
 
-        {/* Crisp Subtitle in Soft Gray */}
-        <p className="mt-7 text-base sm:text-xl text-[#A1A1AA] max-w-2xl font-normal leading-relaxed tracking-tight">
+        {/* Crisp Subtitle in Soft Gray (Delayed Entrance) */}
+        <p className="mt-7 text-base sm:text-xl text-[#A1A1AA] max-w-2xl font-normal leading-relaxed tracking-tight animate-hero-sub">
           We architect sub-second, 60fps digital experiences and educational platforms engineered for maximum enrollment, client retention, and Google dominance.
         </p>
 
         {/* Webora-Style Minimal Buttons - Exactly 2 Buttons */}
-        <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
+        <div className="mt-10 flex flex-wrap items-center justify-center gap-4 animate-hero-buttons">
           <a
             href="#contact"
             className="btn-primary text-xs uppercase tracking-wider py-3.5 px-8"
@@ -276,7 +295,7 @@ export default function WebFluxHomePage() {
           Deep translucent black rgba(20,20,20,0.6), 30px blur,
           ultra-thin inner border, subtle white radial glow inside
           ================================================== */}
-      <section id="about" className="scroll-mt-28">
+      <section id="about" className="scroll-mt-28 reveal-on-scroll">
         <div className="bento-card p-8 sm:p-14 relative overflow-hidden">
           {/* Subtle White Radial Glow inside */}
           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[500px] h-[300px] bg-white/[0.035] rounded-full blur-[90px] pointer-events-none" />
@@ -365,7 +384,7 @@ export default function WebFluxHomePage() {
       {/* ==================================================
           3. PORTFOLIO SHOWCASE (#portfolio)
           ================================================== */}
-      <section id="portfolio" className="scroll-mt-28">
+      <section id="portfolio" className="scroll-mt-28 reveal-on-scroll">
         <div className="text-center max-w-3xl mx-auto mb-12">
           <div className="pill-badge mb-4">
             <span>✦ Selected Works &bull; Flagship Deployments</span>
@@ -464,7 +483,7 @@ export default function WebFluxHomePage() {
       {/* ==================================================
           4. SERVICES SECTION (#services)
           ================================================== */}
-      <section id="services" className="scroll-mt-28">
+      <section id="services" className="scroll-mt-28 reveal-on-scroll">
         <div className="text-center max-w-3xl mx-auto mb-14">
           <div className="pill-badge mb-4">
             <span>✦ Systems Architecture &bull; Capabilities</span>
@@ -591,7 +610,7 @@ export default function WebFluxHomePage() {
       {/* ==================================================
           5. PRICING SECTION (#pricing)
           ================================================== */}
-      <section id="pricing" className="scroll-mt-28">
+      <section id="pricing" className="scroll-mt-28 reveal-on-scroll">
         <div className="text-center max-w-3xl mx-auto mb-14">
           <div className="pill-badge mb-4">
             <span>✦ Milestone Billing &bull; Zero Surprises</span>
@@ -772,7 +791,7 @@ export default function WebFluxHomePage() {
       {/* ==================================================
           6. FAQ SECTION (#faq)
           ================================================== */}
-      <section id="faq" className="scroll-mt-28">
+      <section id="faq" className="scroll-mt-28 reveal-on-scroll">
         <div className="text-center max-w-3xl mx-auto mb-14">
           <div className="pill-badge mb-4">
             <span>✦ AEO Knowledge &bull; Answers</span>
@@ -822,7 +841,7 @@ export default function WebFluxHomePage() {
       {/* ==================================================
           7. CONTACT SECTION (#contact)
           ================================================== */}
-      <section id="contact" className="scroll-mt-28">
+      <section id="contact" className="scroll-mt-28 reveal-on-scroll">
         <div className="text-center max-w-3xl mx-auto mb-14">
           <div className="pill-badge mb-4">
             <span>✦ Direct Channel &bull; Start Your Project</span>

@@ -248,3 +248,199 @@
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
 }
+
+/* ==================================================
+   PREMIUM MOTION & KINETIC TYPOGRAPHY SYSTEM
+   Subtle, buttery smooth, hardware-accelerated (60fps)
+   ================================================== */
+
+/* 1. Hero Text Entrance (Fade-Up + Blur-to-Sharp) */
+@keyframes heroPillEntrance {
+  0% {
+    opacity: 0;
+    transform: translateY(14px) scale(0.96);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes heroHeadlineEntrance {
+  0% {
+    opacity: 0;
+    transform: translateY(26px);
+    filter: blur(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0px);
+  }
+}
+
+@keyframes heroSubEntrance {
+  0% {
+    opacity: 0;
+    transform: translateY(18px);
+    filter: blur(4px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0px);
+  }
+}
+
+@keyframes heroButtonsEntrance {
+  0% {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-hero-pill {
+  animation: heroPillEntrance 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.animate-hero-title {
+  animation: heroHeadlineEntrance 0.95s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both;
+  will-change: transform, opacity, filter;
+}
+
+.animate-hero-sub {
+  animation: heroSubEntrance 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.25s both;
+  will-change: transform, opacity;
+}
+
+.animate-hero-buttons {
+  animation: heroButtonsEntrance 0.85s cubic-bezier(0.16, 1, 0.3, 1) 0.38s both;
+}
+
+/* 2. Soft Underline Draw on Highlight Text */
+.text-draw-underline {
+  position: relative;
+  display: inline-block;
+}
+
+.text-draw-underline::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 2px;
+  width: 100%;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.35);
+  transform-origin: left;
+  animation: underlineDraw 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.5s both;
+}
+
+@keyframes underlineDraw {
+  0% {
+    transform: scaleX(0);
+    opacity: 0;
+  }
+  100% {
+    transform: scaleX(1);
+    opacity: 1;
+  }
+}
+
+/* 3. Subtle Icon Breathing & Float */
+@keyframes iconSlowBreathe {
+  0%, 100% {
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    transform: translateY(-3px) scale(1.03);
+  }
+}
+
+.icon-breathe {
+  animation: iconSlowBreathe 5s ease-in-out infinite;
+  will-change: transform;
+}
+
+.icon-breathe-delayed {
+  animation: iconSlowBreathe 5.5s ease-in-out 1s infinite;
+  will-change: transform;
+}
+
+/* Hover on icons: smooth scale + soft white glow */
+.icon-interactive {
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+              color 0.2s ease;
+}
+
+.icon-interactive:hover {
+  transform: scale(1.08) translateY(-2px);
+  border-color: rgba(255, 255, 255, 0.4) !important;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.12);
+}
+
+/* 4. Floating Menu Spring Animation & Glow Pulse */
+@keyframes floatingMenuGlowPulse {
+  0%, 100% {
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.9), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  }
+  50% {
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.95), 0 0 25px rgba(255, 255, 255, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+  }
+}
+
+.btn-menu-pulse {
+  animation: floatingMenuGlowPulse 4s ease-in-out infinite;
+}
+
+/* Spring expansion for the vertical popup menu */
+.menu-spring-panel {
+  transition: all 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.15) !important;
+}
+
+/* 5. Scroll Reveal System */
+.reveal-on-scroll {
+  opacity: 0;
+  transform: translateY(24px);
+  filter: blur(4px);
+  transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.75s cubic-bezier(0.16, 1, 0.3, 1),
+              filter 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform, filter;
+}
+
+.reveal-on-scroll.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+  filter: blur(0px);
+}
+
+/* Stagger utility classes */
+.stagger-1 { transition-delay: 60ms; }
+.stagger-2 { transition-delay: 120ms; }
+.stagger-3 { transition-delay: 180ms; }
+.stagger-4 { transition-delay: 240ms; }
+.stagger-5 { transition-delay: 300ms; }
+.stagger-6 { transition-delay: 360ms; }
+
+/* Gentle pulse for active status dots */
+@keyframes softDotPulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.4;
+    transform: scale(0.85);
+  }
+}
+
+.animate-soft-pulse {
+  animation: softDotPulse 2.4s ease-in-out infinite;
+}
+
