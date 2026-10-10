@@ -1,5 +1,6 @@
-/** @type {import('tailwindcss').Config} */
-module.exports = {
+import type { Config } from 'tailwindcss';
+
+const config: Config = {
   content: [
     './app/**/*.{js,ts,jsx,tsx,mdx}',
     './components/**/*.{js,ts,jsx,tsx,mdx}',
@@ -9,10 +10,12 @@ module.exports = {
   theme: {
     extend: {
       colors: {
+        // STRICT PALETTE
         prussian: '#031130',
         salesport: '#185DF1',
         alice: '#F3F7FE',
 
+        // Semantic tokens
         base: '#031130',
         primary: {
           DEFAULT: '#185DF1',
@@ -27,6 +30,7 @@ module.exports = {
           hoverBorder: 'rgba(24, 93, 241, 0.5)',
         },
 
+        // Legacy / Cyber mapped tokens to preserve system compatibility
         cyber: {
           bg: '#031130',
           surface: 'rgba(3, 17, 48, 0.5)',
@@ -98,3 +102,5 @@ module.exports = {
   },
   plugins: [],
 };
+
+export default config;

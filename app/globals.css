@@ -2,69 +2,386 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Pathway+Extreme:wght@400;700;800&family=Poppins:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Syne:wght@700;800&display=swap');
+
+:root {
+  --color-prussian: #031130;
+  --color-salesport: #185DF1;
+  --color-alice: #F3F7FE;
+  --color-alice-muted: rgba(243, 247, 254, 0.6);
+  --color-glass-bg: rgba(3, 17, 48, 0.4);
+  --color-glass-border: rgba(243, 247, 254, 0.08);
+  --color-glass-hover-border: rgba(24, 93, 241, 0.5);
+  --color-glass-glow: 0 20px 40px rgba(24, 93, 241, 0.15);
+}
 
 @layer base {
   * {
     box-sizing: border-box;
-    border-color: #073E91;
   }
+
+  html {
+    scroll-behavior: smooth;
+    background-color: #031130;
+  }
+
   body {
-    background-color: #171229;
-    color: #E0F9FF;
-    font-family: 'Inter', sans-serif;
-    letter-spacing: 0.015em;
+    background-color: #031130;
+    color: #F3F7FE;
+    font-family: 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    letter-spacing: -0.01em;
     -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+    position: relative;
+    min-height: 100vh;
   }
+
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Pathway Extreme', sans-serif;
+    color: #F3F7FE;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     font-weight: 700;
+    letter-spacing: -0.03em;
   }
-  h2 {
-    text-shadow: 0 0 40px rgba(0, 184, 255, 0.15);
+
+  p, span, label, input, textarea {
+    color: rgba(243, 247, 254, 0.85);
   }
-  
-  /* Custom Extracted Scrollbar */
+
+  /* Custom Modern Deep-Blue Scrollbar */
   ::-webkit-scrollbar {
-    width: 10px;
-    border-radius: 10px;
+    width: 8px;
   }
   ::-webkit-scrollbar-track {
-    background: #0E1C38;
-    border-radius: 10px;
+    background: #031130;
   }
   ::-webkit-scrollbar-thumb {
-    background-color: #00B8FF;
-    border: 3px solid #00B8FF;
-    border-radius: 20px;
+    background-color: rgba(24, 93, 241, 0.5);
+    border-radius: 9999px;
+    border: 2px solid #031130;
   }
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: #185DF1;
+  }
+
   * {
     scrollbar-width: thin;
-    scrollbar-color: #00B8FF #0E1C38;
+    scrollbar-color: rgba(24, 93, 241, 0.5) #031130;
   }
+
   ::selection {
-    background: rgba(0, 184, 255, 0.3);
-    color: #ffffff;
+    background: rgba(24, 93, 241, 0.45);
+    color: #F3F7FE;
   }
 }
 
-@layer components {
-  .cyber-card {
-    @apply bg-[#010D2A] border border-[#073E91] rounded-xl shadow-card p-6 transition-all duration-200;
+/* ==================================================
+   ANIMATED GRADIENT MESH / AURORA BACKGROUND
+   Smooth 60fps GPU-accelerated keyframe morphing
+   ================================================== */
+.aurora-mesh {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+  background-color: #031130;
+}
+
+.aurora-orb-1 {
+  position: absolute;
+  top: -15%;
+  left: 10%;
+  width: 65vw;
+  height: 65vw;
+  max-width: 850px;
+  max-height: 850px;
+  border-radius: 50%;
+  background: radial-gradient(circle at center, rgba(24, 93, 241, 0.38) 0%, rgba(3, 17, 48, 0.1) 60%, transparent 75%);
+  filter: blur(80px);
+  will-change: transform, opacity;
+  animation: auroraMorph1 20s cubic-bezier(0.4, 0, 0.2, 1) infinite alternate;
+}
+
+.aurora-orb-2 {
+  position: absolute;
+  bottom: 5%;
+  right: -5%;
+  width: 70vw;
+  height: 70vw;
+  max-width: 900px;
+  max-height: 900px;
+  border-radius: 50%;
+  background: radial-gradient(circle at center, rgba(24, 93, 241, 0.32) 0%, rgba(3, 17, 48, 0.15) 60%, transparent 80%);
+  filter: blur(90px);
+  will-change: transform, opacity;
+  animation: auroraMorph2 24s cubic-bezier(0.4, 0, 0.2, 1) infinite alternate;
+}
+
+.aurora-orb-3 {
+  position: absolute;
+  top: 40%;
+  left: 45%;
+  width: 50vw;
+  height: 50vw;
+  max-width: 700px;
+  max-height: 700px;
+  border-radius: 50%;
+  background: radial-gradient(circle at center, rgba(24, 93, 241, 0.25) 0%, rgba(3, 17, 48, 0.2) 55%, transparent 75%);
+  filter: blur(100px);
+  will-change: transform, opacity;
+  animation: auroraMorph3 22s cubic-bezier(0.4, 0, 0.2, 1) infinite alternate;
+}
+
+@keyframes auroraMorph1 {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1) rotate(0deg);
+    opacity: 0.7;
   }
-  .card-surface {
-    @apply bg-[#010D2A] border border-[#073E91] rounded-xl shadow-card p-6 transition-all duration-200;
+  50% {
+    transform: translate3d(80px, 60px, 0) scale(1.18) rotate(15deg);
+    opacity: 0.95;
   }
-  .cyber-btn {
-    @apply bg-[#00B8FF] text-[#171229] font-semibold px-5 py-2.5 rounded-lg hover:bg-[#0095CC] active:scale-95 transition-all shadow-neon-glow flex items-center justify-center gap-2 cursor-pointer;
+  100% {
+    transform: translate3d(-60px, 110px, 0) scale(0.92) rotate(-10deg);
+    opacity: 0.65;
   }
-  .btn-primary {
-    @apply bg-[#00B8FF] text-[#171229] font-semibold px-5 py-2.5 rounded-lg hover:bg-[#0095CC] active:scale-95 transition-all shadow-neon-glow flex items-center justify-center gap-2 cursor-pointer;
+}
+
+@keyframes auroraMorph2 {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1.1) rotate(0deg);
+    opacity: 0.6;
   }
-  .cyber-btn-secondary {
-    @apply bg-[#010D2A] text-[#E0F9FF] border border-[#073E91] hover:bg-[#073E91]/30 px-4 py-2 rounded-lg transition-all flex items-center justify-center gap-2 cursor-pointer;
+  50% {
+    transform: translate3d(-100px, -70px, 0) scale(0.9) rotate(-20deg);
+    opacity: 0.85;
   }
-  .cyber-input {
-    @apply bg-[#171229] border border-[#073E91] text-[#E0F9FF] rounded-lg px-4 py-2.5 focus:outline-none focus:border-[#00B8FF] focus:ring-1 focus:ring-[#00B8FF] transition-all w-full placeholder-[#8AB4F8]/50;
+  100% {
+    transform: translate3d(70px, -110px, 0) scale(1.15) rotate(10deg);
+    opacity: 0.65;
   }
+}
+
+@keyframes auroraMorph3 {
+  0% {
+    transform: translate3d(0, 0, 0) scale(0.95);
+    opacity: 0.5;
+  }
+  50% {
+    transform: translate3d(90px, -50px, 0) scale(1.22);
+    opacity: 0.8;
+  }
+  100% {
+    transform: translate3d(-70px, 80px, 0) scale(1.05);
+    opacity: 0.55;
+  }
+}
+
+/* ==================================================
+   SUBTLE NOISE OVERLAY (2-3% Opacity for tactile film grain)
+   ================================================== */
+.noise-overlay {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.025;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+/* ==================================================
+   GLASSMORPHISM CARDS & CONTAINERS
+   Background: rgba(3, 17, 48, 0.4)
+   Backdrop blur: 16px
+   Border: 1px solid rgba(243, 247, 254, 0.08)
+   Hover: -translate-y-2, border rgba(24, 93, 241, 0.5), box-shadow 0 20px 40px rgba(24, 93, 241, 0.15)
+   ================================================== */
+.glass-card,
+.cyber-card,
+.card-surface {
+  background: rgba(3, 17, 48, 0.4) !important;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(243, 247, 254, 0.08) !important;
+  border-radius: 1rem;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-card:hover,
+.cyber-card:hover,
+.card-surface:hover {
+  transform: translateY(-8px) !important;
+  border-color: rgba(24, 93, 241, 0.5) !important;
+  box-shadow: 0 20px 40px rgba(24, 93, 241, 0.15) !important;
+}
+
+/* Static Glass container (no lift on hover) */
+.glass-container {
+  background: rgba(3, 17, 48, 0.4);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(243, 247, 254, 0.08);
+}
+
+/* ==================================================
+   PREMIUM BUTTONS
+   Solid #185DF1 with #F3F7FE text.
+   Hover: brighter blue with glowing shadow.
+   ================================================== */
+.btn-primary,
+.cyber-btn {
+  background-color: #185DF1 !important;
+  color: #F3F7FE !important;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.75rem;
+  border-radius: 9999px;
+  border: 1px solid rgba(243, 247, 254, 0.15);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 16px rgba(24, 93, 241, 0.35);
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.btn-primary:hover,
+.cyber-btn:hover {
+  background-color: #2A6EF5 !important;
+  transform: translateY(-2px);
+  box-shadow: 0 0 25px rgba(24, 93, 241, 0.55), 0 8px 24px rgba(24, 93, 241, 0.4) !important;
+}
+
+.btn-secondary,
+.cyber-btn-secondary {
+  background: rgba(3, 17, 48, 0.6) !important;
+  color: #F3F7FE !important;
+  border: 1px solid rgba(243, 247, 254, 0.12) !important;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.75rem;
+  border-radius: 9999px;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.btn-secondary:hover,
+.cyber-btn-secondary:hover {
+  background: rgba(24, 93, 241, 0.15) !important;
+  border-color: rgba(24, 93, 241, 0.5) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(24, 93, 241, 0.2);
+}
+
+.btn-outline {
+  background: transparent;
+  color: #F3F7FE;
+  border: 1px solid rgba(243, 247, 254, 0.2);
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.75rem;
+  border-radius: 9999px;
+  transition: all 0.25s ease;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.btn-outline:hover {
+  border-color: #185DF1;
+  background: rgba(24, 93, 241, 0.1);
+  color: #F3F7FE;
+  box-shadow: 0 0 20px rgba(24, 93, 241, 0.25);
+}
+
+/* ==================================================
+   INPUT CONTROLS
+   ================================================== */
+.cyber-input,
+.glass-input {
+  background: rgba(3, 17, 48, 0.6) !important;
+  border: 1px solid rgba(243, 247, 254, 0.12) !important;
+  color: #F3F7FE !important;
+  border-radius: 0.75rem;
+  padding: 0.75rem 1rem;
+  transition: all 0.2s ease;
+  width: 100%;
+}
+
+.cyber-input:focus,
+.glass-input:focus {
+  outline: none;
+  border-color: #185DF1 !important;
+  box-shadow: 0 0 15px rgba(24, 93, 241, 0.35);
+}
+
+.cyber-input::placeholder,
+.glass-input::placeholder {
+  color: rgba(243, 247, 254, 0.4);
+}
+
+/* ==================================================
+   ENTRANCE ANIMATIONS & STAGGER DELAYS
+   ================================================== */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.delay-100 { animation-delay: 100ms; }
+.delay-150 { animation-delay: 150ms; }
+.delay-200 { animation-delay: 200ms; }
+.delay-250 { animation-delay: 250ms; }
+.delay-300 { animation-delay: 300ms; }
+.delay-400 { animation-delay: 400ms; }
+.delay-500 { animation-delay: 500ms; }
+.delay-600 { animation-delay: 600ms; }
+
+/* Pulse dot effect */
+@keyframes pulseDot {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+    box-shadow: 0 0 0 0 rgba(24, 93, 241, 0.7);
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.8;
+    box-shadow: 0 0 0 8px rgba(24, 93, 241, 0);
+  }
+}
+
+.pulse-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #185DF1;
+  animation: pulseDot 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
