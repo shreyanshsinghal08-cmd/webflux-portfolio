@@ -509,9 +509,9 @@ export default function WebFluxHomePage() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          <div className="bento-card p-8 flex flex-col justify-between group">
+          <div className="bento-card service-bento-card p-8 flex flex-col justify-between group">
             <div>
-              <div className="w-10 h-10 rounded-xl bg-white/[0.05] border border-white/10 flex items-center justify-center text-white mb-6 group-hover:scale-105 transition-transform">
+              <div className="service-icon-box">
                 <School size={20} />
               </div>
               <h3 className="text-lg font-heading font-bold text-white mb-2">
@@ -527,9 +527,9 @@ export default function WebFluxHomePage() {
             </div>
           </div>
 
-          <div className="bento-card p-8 flex flex-col justify-between group">
+          <div className="bento-card service-bento-card p-8 flex flex-col justify-between group">
             <div>
-              <div className="w-10 h-10 rounded-xl bg-white/[0.05] border border-white/10 flex items-center justify-center text-white mb-6 group-hover:scale-105 transition-transform">
+              <div className="service-icon-box">
                 <GraduationCap size={20} />
               </div>
               <h3 className="text-lg font-heading font-bold text-white mb-2">
@@ -545,9 +545,9 @@ export default function WebFluxHomePage() {
             </div>
           </div>
 
-          <div className="bento-card p-8 flex flex-col justify-between group">
+          <div className="bento-card service-bento-card p-8 flex flex-col justify-between group">
             <div>
-              <div className="w-10 h-10 rounded-xl bg-white/[0.05] border border-white/10 flex items-center justify-center text-white mb-6 group-hover:scale-105 transition-transform">
+              <div className="service-icon-box">
                 <Building2 size={20} />
               </div>
               <h3 className="text-lg font-heading font-bold text-white mb-2">
@@ -563,9 +563,9 @@ export default function WebFluxHomePage() {
             </div>
           </div>
 
-          <div className="bento-card p-8 flex flex-col justify-between group">
+          <div className="bento-card service-bento-card p-8 flex flex-col justify-between group">
             <div>
-              <div className="w-10 h-10 rounded-xl bg-white/[0.05] border border-white/10 flex items-center justify-center text-white mb-6 group-hover:scale-105 transition-transform">
+              <div className="service-icon-box">
                 <Sparkles size={20} />
               </div>
               <h3 className="text-lg font-heading font-bold text-white mb-2">
@@ -581,9 +581,9 @@ export default function WebFluxHomePage() {
             </div>
           </div>
 
-          <div className="bento-card p-8 flex flex-col justify-between group">
+          <div className="bento-card service-bento-card p-8 flex flex-col justify-between group">
             <div>
-              <div className="w-10 h-10 rounded-xl bg-white/[0.05] border border-white/10 flex items-center justify-center text-white mb-6 group-hover:scale-105 transition-transform">
+              <div className="service-icon-box">
                 <ShoppingBag size={20} />
               </div>
               <h3 className="text-lg font-heading font-bold text-white mb-2">
@@ -599,9 +599,9 @@ export default function WebFluxHomePage() {
             </div>
           </div>
 
-          <div className="bento-card p-8 flex flex-col justify-between group">
+          <div className="bento-card service-bento-card p-8 flex flex-col justify-between group">
             <div>
-              <div className="w-10 h-10 rounded-xl bg-white/[0.05] border border-white/10 flex items-center justify-center text-white mb-6 group-hover:scale-105 transition-transform">
+              <div className="service-icon-box">
                 <ShieldCheck size={20} />
               </div>
               <h3 className="text-lg font-heading font-bold text-white mb-2">
