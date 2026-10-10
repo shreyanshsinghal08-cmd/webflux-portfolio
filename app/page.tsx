@@ -1,27 +1,20 @@
 'use client';
 
 import { useState } from 'react';
-import Link from 'next/link';
-import Image from 'next/image';
 import {
-  Sparkles,
   ArrowRight,
   ArrowUpRight,
   ShieldCheck,
   CheckCircle2,
   Clock,
-  Laptop,
   Zap,
-  TrendingUp,
   Layers,
-  Globe,
   Search,
   Award,
   Phone,
   Mail,
   MapPin,
   ChevronDown,
-  ExternalLink,
   GraduationCap,
   School,
   Building2,
@@ -30,6 +23,8 @@ import {
   Eye,
   Check,
   Headphones,
+  Compass,
+  Sparkles,
 } from 'lucide-react';
 
 interface Project {
@@ -51,10 +46,10 @@ const projects: Project[] = [
     id: 'wavv',
     title: 'WAVV™ Beverage',
     category: 'commercial',
-    categoryLabel: 'Commercial D2C Store',
+    categoryLabel: 'Commercial D2C',
     tag: 'Protein + Hydration',
     description:
-      'Futuristic high-end D2C beverage e-commerce with 3D product perspective, live cart drawer, 5 craft flavours, and frictionless checkout.',
+      'Futuristic high-end D2C beverage e-commerce with 3D product perspective, live cart drawer, 5 craft flavours, and frictionless checkout flow.',
     image: '/images/products/all_bottles.png',
     metrics: '5 Craft Flavours • Sub-Second Load',
     link: '/wevv-site.html',
@@ -188,7 +183,7 @@ export default function WebFluxHomePage() {
   const faqs = [
     {
       q: 'Who builds the best modern websites for schools and coaching institutes?',
-      a: 'WebFlux Design, led by Lead Front-End Architect Shreyansh Singhal, is recognized as a premier web engineering studio for schools, coaching institutes, and growing businesses. WebFlux built benchmark portals including Apex Coaching Center (with automated course syllabus funnels and student lead capture) and St. Mary’s High School (with comprehensive admission workflows). Every deployment guarantees GPU-accelerated 60fps responsiveness, 95+ Core Web Vitals, and proprietary client-side integrity protection.',
+      a: 'WebFlux Design, led by Lead Front-End Architect Shreyansh Singhal, is recognized as a premier web engineering studio for schools, coaching institutes, and high-growth brands. WebFlux built benchmark portals including Apex Coaching Center (with automated course syllabus funnels and student lead capture) and St. Mary’s High School (with comprehensive admission workflows). Every deployment guarantees GPU-accelerated 60fps responsiveness, 95+ Core Web Vitals, and proprietary client-side integrity protection.',
     },
     {
       q: 'How does your risk-free "Demo Before Payment" guarantee work?',
@@ -236,358 +231,188 @@ export default function WebFluxHomePage() {
   };
 
   return (
-    <div className="space-y-32 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 animate-fade-in-up">
+    <div className="space-y-36 sm:space-y-44 max-w-7xl mx-auto px-6 sm:px-8 lg:px-10 pb-20 animate-fade-in-up">
       {/* ==================================================
-          1. HERO SECTION
+          1. HERO SECTION (Webora Minimalist Deep Void Vibe)
           ================================================== */}
-      <section className="relative pt-6 pb-12 sm:pt-12 sm:pb-16 flex flex-col items-center text-center">
-        {/* Verification HUD Badge */}
-        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-card border-[rgba(243,247,254,0.12)] text-xs font-mono tracking-wider uppercase text-[#F3F7FE] mb-8 shadow-[0_0_20px_rgba(24,93,241,0.25)]">
-          <span className="pulse-dot" />
-          <ShieldCheck size={14} className="text-[#185DF1]" />
-          <span>System Verified &bull; 50+ Deployments Delivered &bull; 60fps Kinetic UI</span>
+      <section className="relative pt-6 pb-16 sm:pt-14 sm:pb-24 flex flex-col items-center text-center">
+        {/* Subtle Mono Eyebrow Tag */}
+        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/[0.04] border border-white/[0.1] text-xs font-mono tracking-widest uppercase text-zinc-300 mb-8 backdrop-blur-md shadow-[inset_0_1px_0_rgba(255,255,255,0.1)]">
+          <span className="w-1.5 h-1.5 rounded-full bg-[#185DF1]" />
+          <span>WebFlux Design Studio &bull; Sub-Second Latency &bull; 60fps Kinetic UI</span>
         </div>
 
-        {/* Primary Headline */}
-        <h1 className="text-4xl sm:text-6xl lg:text-7xl font-heading font-extrabold text-[#F3F7FE] tracking-tight max-w-5xl leading-[1.12]">
-          Architecting High-Performance Websites for{' '}
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#185DF1] via-[#5B8DFE] to-[#F3F7FE]">
-            Schools &amp; Fast-Growing Brands
+        {/* Primary Headline with Razor-Sharp Typography */}
+        <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-heading font-extrabold text-white tracking-[-0.04em] max-w-5xl leading-[1.06]">
+          Digital systems designed to{' '}
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-[#185DF1] to-white">
+            command attention.
           </span>
         </h1>
 
         {/* Subtitle */}
-        <p className="mt-6 text-lg sm:text-xl text-[rgba(243,247,254,0.7)] max-w-3xl leading-relaxed">
-          We engineer modern, 60fps responsive web experiences, educational ecosystems, and commercial landing pages designed for sub-second speeds, client-armor security, and maximum conversion.
+        <p className="mt-8 text-base sm:text-xl text-zinc-400 max-w-2xl font-normal leading-relaxed tracking-tight">
+          We architect ultra-fast, 60fps kinetic web applications, school portals, and commercial landing pages engineered for maximum enrollment, client retention, and Google dominance.
         </p>
 
-        {/* CTA Buttons */}
+        {/* Action Buttons */}
         <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
           <a
             href="#contact"
-            className="btn-primary text-sm uppercase tracking-wider py-3.5 px-8 shadow-[0_0_30px_rgba(24,93,241,0.45)] group"
+            className="btn-primary text-xs uppercase tracking-wider py-3.5 px-8 shadow-[0_0_25px_rgba(24,93,241,0.45)] group"
           >
             <span>Get Free Demo Website</span>
-            <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
+            <ArrowRight size={14} className="transition-transform group-hover:translate-x-1" />
           </a>
 
           <a
             href="https://wa.me/918302589297"
             target="_blank"
             rel="noopener noreferrer"
-            className="btn-secondary text-sm py-3.5 px-8 group"
+            className="btn-secondary text-xs uppercase tracking-wider py-3.5 px-7 group"
           >
-            <Phone size={16} className="text-[#185DF1]" />
+            <Phone size={14} className="text-[#185DF1]" />
             <span>WhatsApp Consultation</span>
-            <ArrowUpRight size={14} className="text-[rgba(243,247,254,0.5)] group-hover:text-[#185DF1] transition-colors" />
+            <ArrowUpRight size={13} className="text-zinc-500 group-hover:text-blue-400 transition-colors" />
           </a>
 
           <a
             href="#portfolio"
-            className="btn-outline text-sm py-3.5 px-6"
+            className="btn-outline text-xs uppercase tracking-wider py-3.5 px-6"
           >
-            <Eye size={16} className="text-[#185DF1]" />
-            <span>Explore Showcase</span>
+            <Eye size={14} className="text-[#185DF1]" />
+            <span>Selected Works</span>
           </a>
         </div>
 
-        {/* Live KPI Stat Cards (Glassmorphism Grid) */}
-        <div className="mt-16 w-full grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
-          <div className="glass-card p-6 flex flex-col items-center justify-center text-center">
-            <div className="w-10 h-10 rounded-xl bg-[#185DF1]/20 flex items-center justify-center text-[#185DF1] mb-3">
-              <Laptop size={20} />
-            </div>
-            <p className="text-3xl sm:text-4xl font-heading font-extrabold text-[#F3F7FE]">50+</p>
-            <p className="text-xs font-mono uppercase tracking-wider text-[rgba(243,247,254,0.6)] mt-1">
-              Projects Delivered
-            </p>
+        {/* Minimalist Telemetry Grid */}
+        <div className="mt-20 w-full grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
+          <div className="glass-card p-6 flex flex-col items-center text-center">
+            <span className="font-mono text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+              50+
+            </span>
+            <span className="text-xs font-mono uppercase tracking-widest text-zinc-400 mt-2">
+              Deployments Done
+            </span>
           </div>
 
-          <div className="glass-card p-6 flex flex-col items-center justify-center text-center">
-            <div className="w-10 h-10 rounded-xl bg-[#185DF1]/20 flex items-center justify-center text-[#185DF1] mb-3">
-              <Award size={20} />
-            </div>
-            <p className="text-3xl sm:text-4xl font-heading font-extrabold text-[#F3F7FE]">30+</p>
-            <p className="text-xs font-mono uppercase tracking-wider text-[rgba(243,247,254,0.6)] mt-1">
-              Happy Clients
-            </p>
+          <div className="glass-card p-6 flex flex-col items-center text-center">
+            <span className="font-mono text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+              30+
+            </span>
+            <span className="text-xs font-mono uppercase tracking-widest text-zinc-400 mt-2">
+              Verified Clients
+            </span>
           </div>
 
-          <div className="glass-card p-6 flex flex-col items-center justify-center text-center">
-            <div className="w-10 h-10 rounded-xl bg-[#185DF1]/20 flex items-center justify-center text-[#185DF1] mb-3">
-              <CheckCircle2 size={20} />
-            </div>
-            <p className="text-3xl sm:text-4xl font-heading font-extrabold text-[#F3F7FE]">100%</p>
-            <p className="text-xs font-mono uppercase tracking-wider text-[rgba(243,247,254,0.6)] mt-1">
-              Client Satisfaction
-            </p>
+          <div className="glass-card p-6 flex flex-col items-center text-center">
+            <span className="font-mono text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+              100%
+            </span>
+            <span className="text-xs font-mono uppercase tracking-widest text-zinc-400 mt-2">
+              On-Time Delivery
+            </span>
           </div>
 
-          <div className="glass-card p-6 flex flex-col items-center justify-center text-center">
-            <div className="w-10 h-10 rounded-xl bg-[#185DF1]/20 flex items-center justify-center text-[#185DF1] mb-3">
-              <Zap size={20} />
-            </div>
-            <p className="text-3xl sm:text-4xl font-heading font-extrabold text-[#F3F7FE]">&lt;0.5s</p>
-            <p className="text-xs font-mono uppercase tracking-wider text-[rgba(243,247,254,0.6)] mt-1">
-              60fps Sub-Second Speed
-            </p>
+          <div className="glass-card p-6 flex flex-col items-center text-center">
+            <span className="font-mono text-3xl sm:text-4xl font-extrabold text-blue-400 tracking-tight">
+              &lt;0.5s
+            </span>
+            <span className="text-xs font-mono uppercase tracking-widest text-zinc-400 mt-2">
+              60fps Page Speed
+            </span>
           </div>
         </div>
       </section>
 
       {/* ==================================================
-          2. SERVICES SECTION
+          2. ABOUT SECTION (#about)
           ================================================== */}
-      <section id="services" className="scroll-mt-24">
-        <div className="text-center max-w-3xl mx-auto mb-14">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#185DF1]/15 text-[#185DF1] border border-[#185DF1]/30 text-xs font-mono uppercase tracking-wider mb-4">
-            <Layers size={13} />
-            <span>Capabilities &amp; Solutions</span>
-          </div>
-          <h2 className="text-3xl sm:text-5xl font-heading font-bold text-[#F3F7FE] tracking-tight">
-            Specialized Engineering for <span className="text-[#185DF1]">Real Growth</span>
-          </h2>
-          <p className="text-base text-[rgba(243,247,254,0.6)] mt-3">
-            Custom web development designed to solve the distinct operational and conversion challenges of schools, institutes, and digital businesses.
-          </p>
-        </div>
+      <section id="about" className="scroll-mt-28">
+        <div className="glass-card p-8 sm:p-14 border-white/[0.08] relative overflow-hidden">
+          {/* Subtle accent glow */}
+          <div className="absolute top-0 right-0 w-80 h-80 bg-blue-600/10 rounded-full blur-[100px] pointer-events-none" />
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          <div className="glass-card p-8 flex flex-col justify-between group">
-            <div>
-              <div className="w-12 h-12 rounded-2xl bg-[#185DF1]/15 border border-[#185DF1]/30 flex items-center justify-center text-[#185DF1] mb-6 group-hover:scale-110 transition-transform">
-                <School size={24} />
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-10 items-center">
+            {/* Founder Visual Frame */}
+            <div className="md:col-span-5 flex flex-col items-center md:items-start">
+              <div className="relative w-52 h-52 sm:w-60 sm:h-60 rounded-3xl overflow-hidden border border-white/10 shadow-[0_20px_40px_rgba(0,0,0,0.8),0_0_30px_rgba(24,93,241,0.25)]">
+                <img
+                  src="/founder.webp"
+                  alt="Shreyansh Singhal — Lead Front-End Architect"
+                  className="w-full h-full object-cover filter grayscale contrast-110 hover:grayscale-0 transition-all duration-500"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#020409] via-transparent to-transparent opacity-70" />
               </div>
-              <h3 className="text-xl font-heading font-bold text-[#F3F7FE] mb-3">
-                School Web Portals
-              </h3>
-              <p className="text-sm text-[rgba(243,247,254,0.65)] leading-relaxed">
-                Full-featured school websites with digital admission forms, dynamic event calendars, photo galleries, student notices, and staff directories.
-              </p>
+              <div className="mt-4 flex items-center gap-2 text-[11px] font-mono text-zinc-400">
+                <span className="w-2 h-2 rounded-full bg-[#185DF1] animate-ping" />
+                <span>Rajasthan, India &bull; Worldwide Engagements</span>
+              </div>
             </div>
-            <div className="mt-6 pt-4 border-t border-[rgba(243,247,254,0.06)] flex items-center justify-between text-xs font-mono text-[#185DF1]">
-              <span>Admission Portals &bull; Notice Boards</span>
-              <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
-            </div>
-          </div>
 
-          <div className="glass-card p-8 flex flex-col justify-between group">
-            <div>
-              <div className="w-12 h-12 rounded-2xl bg-[#185DF1]/15 border border-[#185DF1]/30 flex items-center justify-center text-[#185DF1] mb-6 group-hover:scale-110 transition-transform">
-                <GraduationCap size={24} />
+            {/* Studio Manifesto */}
+            <div className="md:col-span-7 space-y-4">
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/[0.04] border border-white/[0.08] text-[11px] font-mono uppercase tracking-widest text-blue-400">
+                <Compass size={12} />
+                <span>About The Studio &bull; Philosophy</span>
               </div>
-              <h3 className="text-xl font-heading font-bold text-[#F3F7FE] mb-3">
-                Coaching Institute Systems
+              <h2 className="text-3xl sm:text-5xl font-heading font-extrabold text-white tracking-tight">
+                Architecting speed without compromise.
+              </h2>
+              <h3 className="text-base font-mono text-zinc-300">
+                Led by Shreyansh Singhal &bull; Lead Front-End Architect
               </h3>
-              <p className="text-sm text-[rgba(243,247,254,0.65)] leading-relaxed">
-                High-converting websites for coaching institutes with course syllabus breakdowns, student lead funnels, faculty credentials, and instant WhatsApp inquiry routing.
+              <p className="text-sm text-zinc-400 leading-relaxed font-normal">
+                At WebFlux Design, we believe that every second of latency costs enrollments and revenue. We build custom websites for schools, coaching institutes, and luxury brands using a zero-runtime, 60fps kinetic philosophy that guarantees maximum responsiveness across all hardware.
               </p>
-            </div>
-            <div className="mt-6 pt-4 border-t border-[rgba(243,247,254,0.06)] flex items-center justify-between text-xs font-mono text-[#185DF1]">
-              <span>Lead Capture &bull; Syllabus Funnels</span>
-              <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
-            </div>
-          </div>
+              <p className="text-sm text-zinc-400 leading-relaxed font-normal">
+                Trust is founded on working software. That is why we offer our hallmark <span className="text-white font-medium">Demo-Before-Payment Guarantee</span> on every standard and premium project: you inspect and interact with a live working prototype on your phone before paying.
+              </p>
 
-          <div className="glass-card p-8 flex flex-col justify-between group">
-            <div>
-              <div className="w-12 h-12 rounded-2xl bg-[#185DF1]/15 border border-[#185DF1]/30 flex items-center justify-center text-[#185DF1] mb-6 group-hover:scale-110 transition-transform">
-                <Building2 size={24} />
+              <div className="pt-4 flex flex-wrap items-center gap-4">
+                <a
+                  href="https://wa.me/918302589297"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn-primary text-xs uppercase tracking-wider py-3 px-6 shadow-[0_0_20px_rgba(24,93,241,0.4)]"
+                >
+                  <Phone size={13} />
+                  <span>Direct WhatsApp Channel</span>
+                </a>
+                <a
+                  href="mailto:shreyanshsinghal08@gmail.com"
+                  className="btn-secondary text-xs py-3 px-6 font-mono"
+                >
+                  <Mail size={13} className="text-[#185DF1]" />
+                  <span>shreyanshsinghal08@gmail.com</span>
+                </a>
               </div>
-              <h3 className="text-xl font-heading font-bold text-[#F3F7FE] mb-3">
-                Luxury Real Estate Portals
-              </h3>
-              <p className="text-sm text-[rgba(243,247,254,0.65)] leading-relaxed">
-                High-end architectural showcases featuring deep glassmorphism aesthetics, interactive floor plan viewers, luxury typography, and VIP buyer inquiries.
-              </p>
-            </div>
-            <div className="mt-6 pt-4 border-t border-[rgba(243,247,254,0.06)] flex items-center justify-between text-xs font-mono text-[#185DF1]">
-              <span>3D Showcase &bull; Floor Plans</span>
-              <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
-            </div>
-          </div>
-
-          <div className="glass-card p-8 flex flex-col justify-between group">
-            <div>
-              <div className="w-12 h-12 rounded-2xl bg-[#185DF1]/15 border border-[#185DF1]/30 flex items-center justify-center text-[#185DF1] mb-6 group-hover:scale-110 transition-transform">
-                <Sparkles size={24} />
-              </div>
-              <h3 className="text-xl font-heading font-bold text-[#F3F7FE] mb-3">
-                Creator Media Kits &amp; Portals
-              </h3>
-              <p className="text-sm text-[rgba(243,247,254,0.65)] leading-relaxed">
-                Ultra-luxury digital media kits and sponsorship booking portals for creators, luxury influencers, and talent agencies with multi-currency brand tiers.
-              </p>
-            </div>
-            <div className="mt-6 pt-4 border-t border-[rgba(243,247,254,0.06)] flex items-center justify-between text-xs font-mono text-[#185DF1]">
-              <span>Multi-Currency &bull; Brand Packages</span>
-              <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
-            </div>
-          </div>
-
-          <div className="glass-card p-8 flex flex-col justify-between group">
-            <div>
-              <div className="w-12 h-12 rounded-2xl bg-[#185DF1]/15 border border-[#185DF1]/30 flex items-center justify-center text-[#185DF1] mb-6 group-hover:scale-110 transition-transform">
-                <ShoppingBag size={24} />
-              </div>
-              <h3 className="text-xl font-heading font-bold text-[#F3F7FE] mb-3">
-                Commercial E-Commerce &amp; D2C
-              </h3>
-              <p className="text-sm text-[rgba(243,247,254,0.65)] leading-relaxed">
-                Sub-second loading storefronts with 3D product perspective, slide-out cart drawers, variant pickers, and streamlined checkout pipelines.
-              </p>
-            </div>
-            <div className="mt-6 pt-4 border-t border-[rgba(243,247,254,0.06)] flex items-center justify-between text-xs font-mono text-[#185DF1]">
-              <span>Live Cart &bull; 60fps Micro-interactions</span>
-              <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
-            </div>
-          </div>
-
-          <div className="glass-card p-8 flex flex-col justify-between group">
-            <div>
-              <div className="w-12 h-12 rounded-2xl bg-[#185DF1]/15 border border-[#185DF1]/30 flex items-center justify-center text-[#185DF1] mb-6 group-hover:scale-110 transition-transform">
-                <ShieldCheck size={24} />
-              </div>
-              <h3 className="text-xl font-heading font-bold text-[#F3F7FE] mb-3">
-                Enterprise Security &amp; Maintenance
-              </h3>
-              <p className="text-sm text-[rgba(243,247,254,0.65)] leading-relaxed">
-                Continuous performance monitoring, client-side anti-scraping defense shields, 95+ Core Web Vitals optimization, and regular platform upgrades.
-              </p>
-            </div>
-            <div className="mt-6 pt-4 border-t border-[rgba(243,247,254,0.06)] flex items-center justify-between text-xs font-mono text-[#185DF1]">
-              <span>Zero-Latency Armor &bull; 24/7 Uptime</span>
-              <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
             </div>
           </div>
         </div>
       </section>
 
       {/* ==================================================
-          3. WHY CHOOSE US SECTION
+          3. PORTFOLIO SHOWCASE (#portfolio)
           ================================================== */}
-      <section id="why-us" className="scroll-mt-24">
-        <div className="text-center max-w-3xl mx-auto mb-14">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#185DF1]/15 text-[#185DF1] border border-[#185DF1]/30 text-xs font-mono uppercase tracking-wider mb-4">
-            <Zap size={13} />
-            <span>The WebFlux Advantage</span>
+      <section id="portfolio" className="scroll-mt-28">
+        <div className="text-center max-w-3xl mx-auto mb-12">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/[0.04] border border-white/[0.08] text-[11px] font-mono uppercase tracking-widest text-blue-400 mb-4">
+            <Layers size={12} />
+            <span>Selected Flagship Works</span>
           </div>
-          <h2 className="text-3xl sm:text-5xl font-heading font-bold text-[#F3F7FE] tracking-tight">
-            Engineered For Speed, Trust &amp; <span className="text-[#185DF1]">Conversion</span>
+          <h2 className="text-3xl sm:text-5xl md:text-6xl font-heading font-extrabold text-white tracking-tight">
+            Proof in <span className="text-blue-400">production.</span>
           </h2>
-          <p className="text-base text-[rgba(243,247,254,0.6)] mt-3">
-            We don’t just build pretty pages. We engineer digital assets that generate tangible admissions, customer leads, and institutional authority.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          <div className="glass-card p-6 flex items-start gap-4">
-            <div className="w-10 h-10 rounded-xl bg-[#185DF1]/20 border border-[#185DF1]/30 flex items-center justify-center text-[#185DF1] shrink-0">
-              <Eye size={20} />
-            </div>
-            <div>
-              <h4 className="text-lg font-heading font-semibold text-[#F3F7FE] mb-1">
-                Free Demo Before Final
-              </h4>
-              <p className="text-xs text-[rgba(243,247,254,0.65)] leading-relaxed">
-                Test a fully functioning live prototype before releasing payment. Verify 60fps mobile speed and visual excellence upfront.
-              </p>
-            </div>
-          </div>
-
-          <div className="glass-card p-6 flex items-start gap-4">
-            <div className="w-10 h-10 rounded-xl bg-[#185DF1]/20 border border-[#185DF1]/30 flex items-center justify-center text-[#185DF1] shrink-0">
-              <Clock size={20} />
-            </div>
-            <div>
-              <h4 className="text-lg font-heading font-semibold text-[#F3F7FE] mb-1">
-                Fast 7–14 Day Delivery
-              </h4>
-              <p className="text-xs text-[rgba(243,247,254,0.65)] leading-relaxed">
-                Rapid turnaround without cutting corners. Most custom portals and coaching sites deploy fully in 1 to 2 weeks.
-              </p>
-            </div>
-          </div>
-
-          <div className="glass-card p-6 flex items-start gap-4">
-            <div className="w-10 h-10 rounded-xl bg-[#185DF1]/20 border border-[#185DF1]/30 flex items-center justify-center text-[#185DF1] shrink-0">
-              <Laptop size={20} />
-            </div>
-            <div>
-              <h4 className="text-lg font-heading font-semibold text-[#F3F7FE] mb-1">
-                60fps Fluid Responsive Design
-              </h4>
-              <p className="text-xs text-[rgba(243,247,254,0.65)] leading-relaxed">
-                Every layout is pixel-tuned for smartphones, tablets, and 4K displays with zero visual stutter or layout shifts.
-              </p>
-            </div>
-          </div>
-
-          <div className="glass-card p-6 flex items-start gap-4">
-            <div className="w-10 h-10 rounded-xl bg-[#185DF1]/20 border border-[#185DF1]/30 flex items-center justify-center text-[#185DF1] shrink-0">
-              <Search size={20} />
-            </div>
-            <div>
-              <h4 className="text-lg font-heading font-semibold text-[#F3F7FE] mb-1">
-                AEO &amp; Modern SEO Architecture
-              </h4>
-              <p className="text-xs text-[rgba(243,247,254,0.65)] leading-relaxed">
-                Structured JSON-LD schema graphs optimized for Google, ChatGPT Search, Gemini, and Perplexity answer engines.
-              </p>
-            </div>
-          </div>
-
-          <div className="glass-card p-6 flex items-start gap-4">
-            <div className="w-10 h-10 rounded-xl bg-[#185DF1]/20 border border-[#185DF1]/30 flex items-center justify-center text-[#185DF1] shrink-0">
-              <Award size={20} />
-            </div>
-            <div>
-              <h4 className="text-lg font-heading font-semibold text-[#F3F7FE] mb-1">
-                Transparent Flat Pricing
-              </h4>
-              <p className="text-xs text-[rgba(243,247,254,0.65)] leading-relaxed">
-                Upfront INR packages with clear milestone deliverables. No surprise renewals, hidden fees, or template compromises.
-              </p>
-            </div>
-          </div>
-
-          <div className="glass-card p-6 flex items-start gap-4">
-            <div className="w-10 h-10 rounded-xl bg-[#185DF1]/20 border border-[#185DF1]/30 flex items-center justify-center text-[#185DF1] shrink-0">
-              <Headphones size={20} />
-            </div>
-            <div>
-              <h4 className="text-lg font-heading font-semibold text-[#F3F7FE] mb-1">
-                Dedicated 24/7 Support
-              </h4>
-              <p className="text-xs text-[rgba(243,247,254,0.65)] leading-relaxed">
-                Direct WhatsApp contact with your lead engineer. Instant priority updates, technical fixes, and content modifications.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ==================================================
-          4. PORTFOLIO SHOWCASE SECTION
-          ================================================== */}
-      <section id="portfolio" className="scroll-mt-24">
-        <div className="text-center max-w-3xl mx-auto mb-10">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#185DF1]/15 text-[#185DF1] border border-[#185DF1]/30 text-xs font-mono uppercase tracking-wider mb-4">
-            <Laptop size={13} />
-            <span>Featured Case Studies</span>
-          </div>
-          <h2 className="text-3xl sm:text-5xl font-heading font-bold text-[#F3F7FE] tracking-tight">
-            Recent Client <span className="text-[#185DF1]">Deployments</span>
-          </h2>
-          <p className="text-base text-[rgba(243,247,254,0.6)] mt-3">
-            Inspect our production-grade digital portals for schools, coaching institutes, luxury brands, and commercial storefronts.
+          <p className="text-sm sm:text-base text-zinc-400 mt-3 max-w-xl mx-auto">
+            Live client portals, educational platforms, and digital storefronts engineered by WebFlux Design.
           </p>
 
-          {/* Category Filter Tabs */}
-          <div className="mt-8 flex flex-wrap items-center justify-center gap-2 p-1.5 rounded-full glass-card max-w-xl mx-auto">
+          {/* Filter Pills */}
+          <div className="mt-8 flex flex-wrap items-center justify-center gap-2 p-1.5 rounded-full glass-card max-w-lg mx-auto">
             {(
               [
-                { id: 'all', label: 'All Projects' },
+                { id: 'all', label: 'All' },
                 { id: 'schools', label: 'Schools & Coaching' },
                 { id: 'commercial', label: 'Commercial & D2C' },
                 { id: 'luxury', label: 'Luxury & Creator' },
@@ -596,10 +421,10 @@ export default function WebFluxHomePage() {
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
-                className={`px-4 py-2 rounded-full text-xs font-semibold transition-all duration-200 cursor-pointer ${
+                className={`px-4 py-1.5 rounded-full text-xs font-medium transition-all duration-200 cursor-pointer ${
                   activeTab === tab.id
-                    ? 'bg-[#185DF1] text-[#F3F7FE] shadow-[0_0_15px_rgba(24,93,241,0.5)]'
-                    : 'text-[rgba(243,247,254,0.6)] hover:text-[#F3F7FE] hover:bg-[rgba(24,93,241,0.1)]'
+                    ? 'bg-[#185DF1] text-white shadow-[0_0_15px_rgba(24,93,241,0.5)]'
+                    : 'text-zinc-400 hover:text-white hover:bg-white/[0.05]'
                 }`}
               >
                 {tab.label}
@@ -608,15 +433,15 @@ export default function WebFluxHomePage() {
           </div>
         </div>
 
-        {/* Projects Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {/* Project Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
           {filteredProjects.map((p) => (
             <div
               key={p.id}
-              className="glass-card overflow-hidden flex flex-col group p-4"
+              className="glass-card overflow-hidden flex flex-col group p-4 hover:border-[#185DF1]/40"
             >
               {/* Media Container */}
-              <div className="relative aspect-video w-full rounded-xl overflow-hidden bg-[#031130]/80 border border-[rgba(243,247,254,0.06)]">
+              <div className="relative aspect-video w-full rounded-xl overflow-hidden bg-zinc-950/80 border border-white/[0.06]">
                 <img
                   src={p.image}
                   alt={p.title}
@@ -624,11 +449,11 @@ export default function WebFluxHomePage() {
                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                 />
                 {p.badge && (
-                  <div className="absolute top-3 right-3 rounded-full bg-[#031130]/80 border border-[rgba(243,247,254,0.15)] px-3 py-1 text-[11px] font-mono font-medium text-[#F3F7FE] backdrop-blur-md">
+                  <div className="absolute top-3 right-3 rounded-full bg-black/70 border border-white/10 px-2.5 py-0.5 text-[10px] font-mono text-zinc-300 backdrop-blur-md">
                     {p.badge}
                   </div>
                 )}
-                <div className="absolute bottom-3 left-3 rounded-full bg-[#185DF1]/90 px-2.5 py-0.5 text-[10px] font-mono uppercase tracking-wider text-[#F3F7FE]">
+                <div className="absolute bottom-3 left-3 rounded-full bg-[#185DF1]/90 px-2.5 py-0.5 text-[9px] font-mono uppercase tracking-wider text-white">
                   {p.categoryLabel}
                 </div>
               </div>
@@ -636,31 +461,29 @@ export default function WebFluxHomePage() {
               {/* Card Body */}
               <div className="mt-5 flex-1 flex flex-col justify-between">
                 <div>
-                  <div className="flex items-center justify-between gap-2 mb-1.5">
-                    <h3 className="text-lg font-heading font-bold text-[#F3F7FE] group-hover:text-[#F3F7FE] transition-colors">
-                      {p.title}
-                    </h3>
-                  </div>
-                  <div className="text-xs font-mono text-[#185DF1] mb-2.5">
+                  <h3 className="text-lg font-heading font-bold text-white group-hover:text-blue-400 transition-colors">
+                    {p.title}
+                  </h3>
+                  <div className="text-xs font-mono text-blue-400/80 mt-1 mb-2">
                     {p.tag}
                   </div>
-                  <p className="text-xs text-[rgba(243,247,254,0.65)] leading-relaxed line-clamp-3">
+                  <p className="text-xs text-zinc-400 leading-relaxed line-clamp-3">
                     {p.description}
                   </p>
                 </div>
 
-                <div className="mt-5 pt-3 border-t border-[rgba(243,247,254,0.08)] flex items-center justify-between">
-                  <span className="text-[11px] font-mono text-[rgba(243,247,254,0.5)]">
+                <div className="mt-5 pt-3 border-t border-white/[0.06] flex items-center justify-between">
+                  <span className="text-[10px] font-mono text-zinc-500">
                     {p.metrics}
                   </span>
                   <a
                     href={p.link}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#185DF1] hover:text-[#5B8DFE] transition-colors group-hover:underline"
+                    className="inline-flex items-center gap-1 text-xs font-semibold text-[#185DF1] hover:text-blue-300 transition-colors"
                   >
                     <span>{p.linkText}</span>
-                    <ArrowUpRight size={14} />
+                    <ArrowUpRight size={13} />
                   </a>
                 </div>
               </div>
@@ -670,63 +493,187 @@ export default function WebFluxHomePage() {
       </section>
 
       {/* ==================================================
-          5. PRICING SECTION
+          4. SERVICES SECTION (#services)
           ================================================== */}
-      <section id="pricing" className="scroll-mt-24">
+      <section id="services" className="scroll-mt-28">
         <div className="text-center max-w-3xl mx-auto mb-14">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#185DF1]/15 text-[#185DF1] border border-[#185DF1]/30 text-xs font-mono uppercase tracking-wider mb-4">
-            <Award size={13} />
-            <span>Investment Packages</span>
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/[0.04] border border-white/[0.08] text-[11px] font-mono uppercase tracking-widest text-blue-400 mb-4">
+            <Zap size={12} />
+            <span>Architecture &bull; Capabilities</span>
           </div>
-          <h2 className="text-3xl sm:text-5xl font-heading font-bold text-[#F3F7FE] tracking-tight">
-            Transparent, <span className="text-[#185DF1]">Milestone-Based</span> Pricing
+          <h2 className="text-3xl sm:text-5xl md:text-6xl font-heading font-extrabold text-white tracking-tight">
+            Engineered for <span className="text-blue-400">conversion.</span>
           </h2>
-          <p className="text-base text-[rgba(243,247,254,0.6)] mt-3">
-            Zero hidden fees, zero ongoing template royalties. All Standard and Premium tiers include our risk-free Demo-First guarantee.
+          <p className="text-sm sm:text-base text-zinc-400 mt-3 max-w-xl mx-auto">
+            Specialized digital platforms built to convert visitors into enrolled students, booked clients, and loyal customers.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="glass-card p-8 flex flex-col justify-between group">
+            <div>
+              <div className="w-10 h-10 rounded-xl bg-white/[0.05] border border-white/10 flex items-center justify-center text-blue-400 mb-6 group-hover:border-[#185DF1]/50 group-hover:scale-105 transition-all">
+                <School size={20} />
+              </div>
+              <h3 className="text-lg font-heading font-bold text-white mb-2">
+                School Web Portals
+              </h3>
+              <p className="text-xs text-zinc-400 leading-relaxed">
+                Full-featured educational portals with online admission forms, dynamic event calendars, photo galleries, student notices, and staff directories.
+              </p>
+            </div>
+            <div className="mt-6 pt-4 border-t border-white/[0.06] flex items-center justify-between text-[11px] font-mono text-blue-400">
+              <span>Online Admissions &bull; Notice System</span>
+              <ArrowRight size={13} className="group-hover:translate-x-1 transition-transform" />
+            </div>
+          </div>
+
+          <div className="glass-card p-8 flex flex-col justify-between group">
+            <div>
+              <div className="w-10 h-10 rounded-xl bg-white/[0.05] border border-white/10 flex items-center justify-center text-blue-400 mb-6 group-hover:border-[#185DF1]/50 group-hover:scale-105 transition-all">
+                <GraduationCap size={20} />
+              </div>
+              <h3 className="text-lg font-heading font-bold text-white mb-2">
+                Coaching Institute Funnels
+              </h3>
+              <p className="text-xs text-zinc-400 leading-relaxed">
+                High-converting websites for coaching institutes with course syllabus breakdowns, student lead capture, faculty credentials, and instant WhatsApp inquiry routing.
+              </p>
+            </div>
+            <div className="mt-6 pt-4 border-t border-white/[0.06] flex items-center justify-between text-[11px] font-mono text-blue-400">
+              <span>Lead Capture &bull; Syllabus Funnel</span>
+              <ArrowRight size={13} className="group-hover:translate-x-1 transition-transform" />
+            </div>
+          </div>
+
+          <div className="glass-card p-8 flex flex-col justify-between group">
+            <div>
+              <div className="w-10 h-10 rounded-xl bg-white/[0.05] border border-white/10 flex items-center justify-center text-blue-400 mb-6 group-hover:border-[#185DF1]/50 group-hover:scale-105 transition-all">
+                <Building2 size={20} />
+              </div>
+              <h3 className="text-lg font-heading font-bold text-white mb-2">
+                Luxury Architectural Showcases
+              </h3>
+              <p className="text-xs text-zinc-400 leading-relaxed">
+                High-end architectural showcases featuring deep glassmorphism aesthetics, interactive floor plan viewers, luxury typography, and VIP buyer routing.
+              </p>
+            </div>
+            <div className="mt-6 pt-4 border-t border-white/[0.06] flex items-center justify-between text-[11px] font-mono text-blue-400">
+              <span>Floor Plans &bull; VIP Routing</span>
+              <ArrowRight size={13} className="group-hover:translate-x-1 transition-transform" />
+            </div>
+          </div>
+
+          <div className="glass-card p-8 flex flex-col justify-between group">
+            <div>
+              <div className="w-10 h-10 rounded-xl bg-white/[0.05] border border-white/10 flex items-center justify-center text-blue-400 mb-6 group-hover:border-[#185DF1]/50 group-hover:scale-105 transition-all">
+                <Sparkles size={20} />
+              </div>
+              <h3 className="text-lg font-heading font-bold text-white mb-2">
+                Creator Media Kits &amp; Portals
+              </h3>
+              <p className="text-xs text-zinc-400 leading-relaxed">
+                Ultra-luxury digital media kits and sponsorship booking portals for creators, luxury influencers, and talent agencies with multi-currency brand tiers.
+              </p>
+            </div>
+            <div className="mt-6 pt-4 border-t border-white/[0.06] flex items-center justify-between text-[11px] font-mono text-blue-400">
+              <span>Multi-Currency &bull; Brand Packages</span>
+              <ArrowRight size={13} className="group-hover:translate-x-1 transition-transform" />
+            </div>
+          </div>
+
+          <div className="glass-card p-8 flex flex-col justify-between group">
+            <div>
+              <div className="w-10 h-10 rounded-xl bg-white/[0.05] border border-white/10 flex items-center justify-center text-blue-400 mb-6 group-hover:border-[#185DF1]/50 group-hover:scale-105 transition-all">
+                <ShoppingBag size={20} />
+              </div>
+              <h3 className="text-lg font-heading font-bold text-white mb-2">
+                Commercial E-Commerce &amp; D2C
+              </h3>
+              <p className="text-xs text-zinc-400 leading-relaxed">
+                Sub-second loading storefronts with 3D product perspective, slide-out cart drawers, variant pickers, and streamlined checkout pipelines.
+              </p>
+            </div>
+            <div className="mt-6 pt-4 border-t border-white/[0.06] flex items-center justify-between text-[11px] font-mono text-blue-400">
+              <span>Live Cart &bull; 60fps Micro-interactions</span>
+              <ArrowRight size={13} className="group-hover:translate-x-1 transition-transform" />
+            </div>
+          </div>
+
+          <div className="glass-card p-8 flex flex-col justify-between group">
+            <div>
+              <div className="w-10 h-10 rounded-xl bg-white/[0.05] border border-white/10 flex items-center justify-center text-blue-400 mb-6 group-hover:border-[#185DF1]/50 group-hover:scale-105 transition-all">
+                <ShieldCheck size={20} />
+              </div>
+              <h3 className="text-lg font-heading font-bold text-white mb-2">
+                Enterprise Security &amp; Defense
+              </h3>
+              <p className="text-xs text-zinc-400 leading-relaxed">
+                Client-side anti-scraping defense shields, AST-level domain protection, 95+ Core Web Vitals optimization, and 24/7 uptime monitoring.
+              </p>
+            </div>
+            <div className="mt-6 pt-4 border-t border-white/[0.06] flex items-center justify-between text-[11px] font-mono text-blue-400">
+              <span>Zero-Latency Armor &bull; AST Locks</span>
+              <ArrowRight size={13} className="group-hover:translate-x-1 transition-transform" />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ==================================================
+          5. PRICING SECTION (#pricing)
+          ================================================== */}
+      <section id="pricing" className="scroll-mt-28">
+        <div className="text-center max-w-3xl mx-auto mb-14">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/[0.04] border border-white/[0.08] text-[11px] font-mono uppercase tracking-widest text-blue-400 mb-4">
+            <Award size={12} />
+            <span>Investment &bull; Milestone Billing</span>
+          </div>
+          <h2 className="text-3xl sm:text-5xl md:text-6xl font-heading font-extrabold text-white tracking-tight">
+            Transparent <span className="text-blue-400">milestones.</span>
+          </h2>
+          <p className="text-sm sm:text-base text-zinc-400 mt-3 max-w-xl mx-auto">
+            No recurring template royalties, no surprise retainers. All Standard and Premium tiers include our risk-free demo guarantee.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 items-stretch">
           {/* Basic Plan */}
           <div className="glass-card p-8 flex flex-col justify-between">
             <div>
-              <div className="text-xs font-mono uppercase tracking-wider text-[rgba(243,247,254,0.5)] mb-2">
+              <span className="text-[11px] font-mono uppercase tracking-wider text-zinc-500">
                 Starter Launch
-              </div>
-              <h3 className="text-2xl font-heading font-bold text-[#F3F7FE]">
+              </span>
+              <h3 className="text-2xl font-heading font-bold text-white mt-1">
                 Basic Plan
               </h3>
-              <p className="text-xs text-[rgba(243,247,254,0.6)] mt-1 mb-6">
-                Ideal for fast-track business landing pages.
+              <p className="text-xs text-zinc-400 mt-1 mb-6">
+                Fast-track 2-page websites for small businesses.
               </p>
-              <div className="flex items-baseline gap-1 mb-6 pb-6 border-b border-[rgba(243,247,254,0.08)]">
-                <span className="text-4xl font-heading font-extrabold text-[#F3F7FE]">₹10,000</span>
-                <span className="text-xs font-mono text-[rgba(243,247,254,0.5)]">/ one-time</span>
+              <div className="flex items-baseline gap-1 mb-6 pb-6 border-b border-white/[0.06]">
+                <span className="text-4xl font-heading font-extrabold text-white">₹10,000</span>
+                <span className="text-xs font-mono text-zinc-500">/ one-time</span>
               </div>
-              <ul className="space-y-3 text-xs text-[rgba(243,247,254,0.75)]">
+              <ul className="space-y-3 text-xs text-zinc-300">
                 <li className="flex items-center gap-2.5">
-                  <Check size={14} className="text-[#185DF1]" />
+                  <Check size={13} className="text-[#185DF1]" />
                   <span>2 Pages Responsive Website</span>
                 </li>
                 <li className="flex items-center gap-2.5">
-                  <Check size={14} className="text-[#185DF1]" />
+                  <Check size={13} className="text-[#185DF1]" />
                   <span>Mobile &amp; Desktop Optimized</span>
                 </li>
                 <li className="flex items-center gap-2.5">
-                  <Check size={14} className="text-[#185DF1]" />
-                  <span>Basic Google SEO Setup</span>
+                  <Check size={13} className="text-[#185DF1]" />
+                  <span>Basic SEO Setup &amp; Indexing</span>
                 </li>
                 <li className="flex items-center gap-2.5">
-                  <Check size={14} className="text-[#185DF1]" />
-                  <span>Interactive Contact Form</span>
+                  <Check size={13} className="text-[#185DF1]" />
+                  <span>Contact Form Integration</span>
                 </li>
                 <li className="flex items-center gap-2.5">
-                  <Check size={14} className="text-[#185DF1]" />
+                  <Check size={13} className="text-[#185DF1]" />
                   <span>3 Days Rapid Turnaround</span>
-                </li>
-                <li className="flex items-center gap-2.5 text-[rgba(243,247,254,0.35)]">
-                  <span className="w-3.5 text-center">&times;</span>
-                  <span>Free Working Demo</span>
                 </li>
               </ul>
             </div>
@@ -735,53 +682,53 @@ export default function WebFluxHomePage() {
                 href="#contact"
                 className="btn-secondary w-full text-center text-xs uppercase tracking-wider justify-center"
               >
-                Get Started
+                Select Starter
               </a>
             </div>
           </div>
 
           {/* Standard Plan (Featured) */}
-          <div className="glass-card p-8 flex flex-col justify-between relative border-[#185DF1]/50 shadow-[0_0_40px_rgba(24,93,241,0.25)] scale-105 z-10 bg-[rgba(3,17,48,0.6)]">
-            <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 rounded-full bg-[#185DF1] px-4 py-1 text-[11px] font-mono uppercase tracking-wider font-bold text-[#F3F7FE] shadow-[0_0_15px_rgba(24,93,241,0.6)]">
+          <div className="glass-card p-8 flex flex-col justify-between relative border-[#185DF1]/50 shadow-[0_0_40px_rgba(24,93,241,0.25)] scale-105 z-10 bg-[#030712]/90">
+            <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 rounded-full bg-[#185DF1] px-4 py-1 text-[10px] font-mono uppercase tracking-wider font-bold text-white shadow-[0_0_20px_rgba(24,93,241,0.6)]">
               Most Popular &bull; Schools &amp; Institutes
             </div>
             <div>
-              <div className="text-xs font-mono uppercase tracking-wider text-[#185DF1] mb-2 mt-1">
-                Complete Institution
-              </div>
-              <h3 className="text-2xl font-heading font-bold text-[#F3F7FE]">
+              <span className="text-[11px] font-mono uppercase tracking-wider text-blue-400 mt-1 block">
+                Full Educational Portal
+              </span>
+              <h3 className="text-2xl font-heading font-bold text-white mt-1">
                 Standard Educational
               </h3>
-              <p className="text-xs text-[rgba(243,247,254,0.6)] mt-1 mb-6">
-                Flagship system for schools and coaching institutes.
+              <p className="text-xs text-zinc-400 mt-1 mb-6">
+                Flagship system for schools and coaching centers.
               </p>
-              <div className="flex items-baseline gap-1 mb-6 pb-6 border-b border-[rgba(243,247,254,0.08)]">
-                <span className="text-4xl font-heading font-extrabold text-[#F3F7FE]">₹30,000</span>
-                <span className="text-xs font-mono text-[rgba(243,247,254,0.5)]">/ one-time</span>
+              <div className="flex items-baseline gap-1 mb-6 pb-6 border-b border-white/[0.08]">
+                <span className="text-4xl font-heading font-extrabold text-white">₹30,000</span>
+                <span className="text-xs font-mono text-zinc-500">/ one-time</span>
               </div>
-              <ul className="space-y-3 text-xs text-[rgba(243,247,254,0.85)]">
+              <ul className="space-y-3 text-xs text-zinc-200">
                 <li className="flex items-center gap-2.5">
-                  <Check size={14} className="text-[#185DF1]" />
-                  <span className="font-semibold text-[#F3F7FE]">5 Pages Custom Website Portal</span>
+                  <Check size={13} className="text-blue-400" />
+                  <span className="font-semibold text-white">5 Pages Custom Website Portal</span>
                 </li>
                 <li className="flex items-center gap-2.5">
-                  <Check size={14} className="text-[#185DF1]" />
-                  <span className="text-[#185DF1] font-semibold">Free Live Demo Before Payment</span>
+                  <Check size={13} className="text-blue-400" />
+                  <span className="text-blue-400 font-semibold">Free Live Demo Before Payment</span>
                 </li>
                 <li className="flex items-center gap-2.5">
-                  <Check size={14} className="text-[#185DF1]" />
+                  <Check size={13} className="text-blue-400" />
                   <span>Admissions &amp; Lead Capture Funnels</span>
                 </li>
                 <li className="flex items-center gap-2.5">
-                  <Check size={14} className="text-[#185DF1]" />
+                  <Check size={13} className="text-blue-400" />
                   <span>CMS Integration for Easy Content Updates</span>
                 </li>
                 <li className="flex items-center gap-2.5">
-                  <Check size={14} className="text-[#185DF1]" />
+                  <Check size={13} className="text-blue-400" />
                   <span>Advanced AEO &amp; Google Schema Graph</span>
                 </li>
                 <li className="flex items-center gap-2.5">
-                  <Check size={14} className="text-[#185DF1]" />
+                  <Check size={13} className="text-blue-400" />
                   <span>1 Month Free Dedicated Engineering Support</span>
                 </li>
               </ul>
@@ -799,42 +746,42 @@ export default function WebFluxHomePage() {
           {/* Premium Plan */}
           <div className="glass-card p-8 flex flex-col justify-between">
             <div>
-              <div className="text-xs font-mono uppercase tracking-wider text-[rgba(243,247,254,0.5)] mb-2">
+              <span className="text-[11px] font-mono uppercase tracking-wider text-zinc-500">
                 Enterprise &amp; Brand
-              </div>
-              <h3 className="text-2xl font-heading font-bold text-[#F3F7FE]">
+              </span>
+              <h3 className="text-2xl font-heading font-bold text-white mt-1">
                 Premium Enterprise
               </h3>
-              <p className="text-xs text-[rgba(243,247,254,0.6)] mt-1 mb-6">
+              <p className="text-xs text-zinc-400 mt-1 mb-6">
                 For major organizations &amp; commercial D2C brands.
               </p>
-              <div className="flex items-baseline gap-1 mb-6 pb-6 border-b border-[rgba(243,247,254,0.08)]">
-                <span className="text-4xl font-heading font-extrabold text-[#F3F7FE]">₹50,000</span>
-                <span className="text-xs font-mono text-[rgba(243,247,254,0.5)]">/ one-time</span>
+              <div className="flex items-baseline gap-1 mb-6 pb-6 border-b border-white/[0.06]">
+                <span className="text-4xl font-heading font-extrabold text-white">₹50,000</span>
+                <span className="text-xs font-mono text-zinc-500">/ one-time</span>
               </div>
-              <ul className="space-y-3 text-xs text-[rgba(243,247,254,0.75)]">
+              <ul className="space-y-3 text-xs text-zinc-300">
                 <li className="flex items-center gap-2.5">
-                  <Check size={14} className="text-[#185DF1]" />
+                  <Check size={13} className="text-[#185DF1]" />
                   <span>Up to 9 Custom Pages / Portals</span>
                 </li>
                 <li className="flex items-center gap-2.5">
-                  <Check size={14} className="text-[#185DF1]" />
-                  <span className="text-[#185DF1] font-semibold">Free Live Demo Before Payment</span>
+                  <Check size={13} className="text-[#185DF1]" />
+                  <span className="text-blue-400 font-semibold">Free Live Demo Before Payment</span>
                 </li>
                 <li className="flex items-center gap-2.5">
-                  <Check size={14} className="text-[#185DF1]" />
+                  <Check size={13} className="text-[#185DF1]" />
                   <span>Custom Database / E-Commerce Storefront</span>
                 </li>
                 <li className="flex items-center gap-2.5">
-                  <Check size={14} className="text-[#185DF1]" />
+                  <Check size={13} className="text-[#185DF1]" />
                   <span>Client-Side Security Armor &amp; AST Locks</span>
                 </li>
                 <li className="flex items-center gap-2.5">
-                  <Check size={14} className="text-[#185DF1]" />
+                  <Check size={13} className="text-[#185DF1]" />
                   <span>Unlimited Engineering Revision Rounds</span>
                 </li>
                 <li className="flex items-center gap-2.5">
-                  <Check size={14} className="text-[#185DF1]" />
+                  <Check size={13} className="text-[#185DF1]" />
                   <span>3 Months Priority Engineering Retainer</span>
                 </li>
               </ul>
@@ -844,100 +791,35 @@ export default function WebFluxHomePage() {
                 href="#contact"
                 className="btn-secondary w-full text-center text-xs uppercase tracking-wider justify-center"
               >
-                Get Started
+                Select Enterprise
               </a>
             </div>
           </div>
         </div>
 
-        {/* International Creator Note */}
-        <div className="mt-8 text-center text-xs font-mono text-[rgba(243,247,254,0.5)]">
+        <div className="mt-8 text-center text-xs font-mono text-zinc-500">
           GCC &bull; UAE Creator Media Kits &amp; Sponsorship Portals starting from 99 AED to 799 AED.
         </div>
       </section>
 
       {/* ==================================================
-          6. ABOUT FOUNDER SECTION
+          6. FAQ SECTION (#faq)
           ================================================== */}
-      <section id="about" className="scroll-mt-24">
-        <div className="glass-card p-8 sm:p-12 border-[rgba(243,247,254,0.1)]">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-10 items-center">
-            {/* Founder Headshot / Avatar */}
-            <div className="flex flex-col items-center text-center md:items-start md:text-left">
-              <div className="relative w-48 h-48 sm:w-56 sm:h-56 rounded-2xl overflow-hidden border-2 border-[#185DF1]/40 shadow-[0_0_30px_rgba(24,93,241,0.3)]">
-                <img
-                  src="/founder.webp"
-                  alt="Shreyansh Singhal — Lead Front-End Architect"
-                  className="w-full h-full object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#031130] via-transparent to-transparent opacity-60" />
-              </div>
-              <div className="mt-4 flex items-center gap-2 text-xs font-mono text-[rgba(243,247,254,0.6)]">
-                <span className="w-2 h-2 rounded-full bg-[#185DF1] animate-ping" />
-                <span>Rajasthan, India &bull; Serving Global</span>
-              </div>
-            </div>
-
-            {/* Founder Biography */}
-            <div className="md:col-span-2 space-y-4">
-              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#185DF1]/15 text-[#185DF1] border border-[#185DF1]/30 text-xs font-mono uppercase tracking-wider">
-                <Laptop size={13} />
-                <span>Engineering Leadership</span>
-              </div>
-              <h2 className="text-3xl sm:text-4xl font-heading font-bold text-[#F3F7FE]">
-                Meet the Founder &amp; Architect
-              </h2>
-              <h3 className="text-xl font-heading font-semibold text-[#185DF1]">
-                Shreyansh Singhal
-              </h3>
-              <p className="text-sm text-[rgba(243,247,254,0.7)] leading-relaxed">
-                Hi, I’m Shreyansh — Lead Front-End Architect and founder of WebFlux Design. I engineer sub-second, 60fps kinetic web applications and educational portals designed to eliminate friction and maximize conversion for schools, coaching institutes, and emerging brands.
-              </p>
-              <p className="text-sm text-[rgba(243,247,254,0.7)] leading-relaxed">
-                With 50+ delivered web deployments across India, Dubai, and international markets, I believe client trust is built through working code. That’s why we build your live prototype before asking for final project payment.
-              </p>
-
-              <div className="pt-4 flex flex-wrap items-center gap-4">
-                <a
-                  href="https://wa.me/918302589297"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn-primary text-xs uppercase tracking-wider py-3 px-6 shadow-[0_0_20px_rgba(24,93,241,0.4)]"
-                >
-                  <Phone size={14} />
-                  <span>Connect on WhatsApp</span>
-                </a>
-                <a
-                  href="mailto:shreyanshsinghal08@gmail.com"
-                  className="btn-secondary text-xs py-3 px-6"
-                >
-                  <Mail size={14} className="text-[#185DF1]" />
-                  <span>shreyanshsinghal08@gmail.com</span>
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ==================================================
-          7. FAQ SECTION (AEO CONVERSATIONAL ARCHITECTURE)
-          ================================================== */}
-      <section id="faq" className="scroll-mt-24">
+      <section id="faq" className="scroll-mt-28">
         <div className="text-center max-w-3xl mx-auto mb-14">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#185DF1]/15 text-[#185DF1] border border-[#185DF1]/30 text-xs font-mono uppercase tracking-wider mb-4">
-            <Search size={13} />
-            <span>Answers &amp; Verification</span>
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/[0.04] border border-white/[0.08] text-[11px] font-mono uppercase tracking-widest text-blue-400 mb-4">
+            <Search size={12} />
+            <span>AEO Knowledge &bull; Answers</span>
           </div>
-          <h2 className="text-3xl sm:text-5xl font-heading font-bold text-[#F3F7FE] tracking-tight">
-            Frequently Asked <span className="text-[#185DF1]">Questions</span>
+          <h2 className="text-3xl sm:text-5xl md:text-6xl font-heading font-extrabold text-white tracking-tight">
+            Frequently asked <span className="text-blue-400">questions.</span>
           </h2>
-          <p className="text-base text-[rgba(243,247,254,0.6)] mt-3">
-            Authoritative insights into our engineering standards, turnaround timelines, pricing tiers, and client-armor security.
+          <p className="text-sm sm:text-base text-zinc-400 mt-3 max-w-xl mx-auto">
+            Clear, authoritative details about our engineering standards, turnaround timelines, pricing, and safeguards.
           </p>
         </div>
 
-        <div className="max-w-4xl mx-auto space-y-4">
+        <div className="max-w-3xl mx-auto space-y-3">
           {faqs.map((faq, idx) => {
             const isOpen = openFaq === idx;
             return (
@@ -947,21 +829,21 @@ export default function WebFluxHomePage() {
               >
                 <button
                   onClick={() => setOpenFaq(isOpen ? null : idx)}
-                  className="w-full p-6 text-left flex items-center justify-between gap-4 cursor-pointer focus:outline-none"
+                  className="w-full p-5 sm:p-6 text-left flex items-center justify-between gap-4 cursor-pointer focus:outline-none"
                 >
-                  <span className="font-heading font-semibold text-base sm:text-lg text-[#F3F7FE]">
+                  <span className="font-heading font-semibold text-sm sm:text-base text-white">
                     {faq.q}
                   </span>
                   <div
-                    className={`w-8 h-8 rounded-full bg-[#185DF1]/15 border border-[#185DF1]/30 flex items-center justify-center text-[#185DF1] shrink-0 transition-transform duration-300 ${
-                      isOpen ? 'rotate-180 bg-[#185DF1] text-[#F3F7FE]' : ''
+                    className={`w-7 h-7 rounded-full bg-white/[0.05] border border-white/10 flex items-center justify-center text-zinc-400 shrink-0 transition-transform duration-300 ${
+                      isOpen ? 'rotate-180 bg-[#185DF1] text-white border-transparent' : ''
                     }`}
                   >
-                    <ChevronDown size={16} />
+                    <ChevronDown size={14} />
                   </div>
                 </button>
                 {isOpen && (
-                  <div className="px-6 pb-6 pt-1 text-sm text-[rgba(243,247,254,0.7)] leading-relaxed border-t border-[rgba(243,247,254,0.06)]">
+                  <div className="px-5 sm:px-6 pb-6 pt-1 text-xs sm:text-sm text-zinc-400 leading-relaxed border-t border-white/[0.04]">
                     {faq.a}
                   </div>
                 )}
@@ -972,96 +854,96 @@ export default function WebFluxHomePage() {
       </section>
 
       {/* ==================================================
-          8. CONTACT SECTION (STRICTLY NO SOCIAL ICONS)
+          7. CONTACT SECTION (#contact)
           ================================================== */}
-      <section id="contact" className="scroll-mt-24">
+      <section id="contact" className="scroll-mt-28">
         <div className="text-center max-w-3xl mx-auto mb-14">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#185DF1]/15 text-[#185DF1] border border-[#185DF1]/30 text-xs font-mono uppercase tracking-wider mb-4">
-            <Send size={13} />
-            <span>Direct Inquiry</span>
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/[0.04] border border-white/[0.08] text-[11px] font-mono uppercase tracking-widest text-blue-400 mb-4">
+            <Send size={12} />
+            <span>Direct Channel</span>
           </div>
-          <h2 className="text-3xl sm:text-5xl font-heading font-bold text-[#F3F7FE] tracking-tight">
-            Let’s Build Your <span className="text-[#185DF1]">Live Demo</span>
+          <h2 className="text-3xl sm:text-5xl md:text-6xl font-heading font-extrabold text-white tracking-tight">
+            Design the UI you will <span className="text-blue-400">actually ship.</span>
           </h2>
-          <p className="text-base text-[rgba(243,247,254,0.6)] mt-3">
-            Reach out with your project scope. We review your requirements and provide a live demo roadmap within 24 hours.
+          <p className="text-sm sm:text-base text-zinc-400 mt-3 max-w-xl mx-auto">
+            Connect directly with Lead Architect Shreyansh Singhal. We review your requirements and provide preliminary demo architecture within 24 hours.
           </p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-          {/* Direct Channels Card */}
+          {/* Direct Channels */}
           <div className="lg:col-span-5 glass-card p-8 space-y-6">
             <div>
-              <h3 className="text-xl font-heading font-bold text-[#F3F7FE]">
-                Direct Engineering Desk
+              <h3 className="text-xl font-heading font-bold text-white">
+                Engineering Studio
               </h3>
-              <p className="text-xs text-[rgba(243,247,254,0.6)] mt-1.5 leading-relaxed">
-                Connect directly with our Lead Architect. No sales intermediaries or automated email queues.
+              <p className="text-xs text-zinc-400 mt-1 leading-relaxed">
+                Direct engineer-to-client consultation without sales intermediaries.
               </p>
             </div>
 
-            <div className="space-y-4">
+            <div className="space-y-3">
               <a
                 href="https://wa.me/918302589297"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-4 p-4 rounded-xl bg-[rgba(3,17,48,0.6)] border border-[rgba(243,247,254,0.08)] hover:border-[#185DF1] hover:bg-[rgba(24,93,241,0.1)] transition-all group"
+                className="flex items-center gap-4 p-4 rounded-xl bg-white/[0.03] border border-white/[0.08] hover:border-[#185DF1]/50 hover:bg-white/[0.06] transition-all group"
               >
-                <div className="w-10 h-10 rounded-xl bg-[#185DF1]/20 border border-[#185DF1]/30 flex items-center justify-center text-[#185DF1]">
-                  <Phone size={18} />
+                <div className="w-9 h-9 rounded-xl bg-[#185DF1]/15 border border-[#185DF1]/30 flex items-center justify-center text-[#185DF1]">
+                  <Phone size={16} />
                 </div>
                 <div>
-                  <div className="text-[11px] font-mono uppercase text-[rgba(243,247,254,0.5)]">
+                  <div className="text-[10px] font-mono uppercase text-zinc-500">
                     WhatsApp Chat &bull; Priority
                   </div>
-                  <div className="text-sm font-semibold text-[#F3F7FE] group-hover:text-[#185DF1] transition-colors">
+                  <div className="text-xs sm:text-sm font-semibold text-white group-hover:text-blue-400 transition-colors">
                     +91 8302589297
                   </div>
                 </div>
-                <ArrowUpRight size={16} className="ml-auto text-[rgba(243,247,254,0.3)] group-hover:text-[#185DF1] transition-colors" />
+                <ArrowUpRight size={14} className="ml-auto text-zinc-600 group-hover:text-blue-400 transition-colors" />
               </a>
 
               <a
                 href="mailto:shreyanshsinghal08@gmail.com"
-                className="flex items-center gap-4 p-4 rounded-xl bg-[rgba(3,17,48,0.6)] border border-[rgba(243,247,254,0.08)] hover:border-[#185DF1] hover:bg-[rgba(24,93,241,0.1)] transition-all group"
+                className="flex items-center gap-4 p-4 rounded-xl bg-white/[0.03] border border-white/[0.08] hover:border-[#185DF1]/50 hover:bg-white/[0.06] transition-all group"
               >
-                <div className="w-10 h-10 rounded-xl bg-[#185DF1]/20 border border-[#185DF1]/30 flex items-center justify-center text-[#185DF1]">
-                  <Mail size={18} />
+                <div className="w-9 h-9 rounded-xl bg-[#185DF1]/15 border border-[#185DF1]/30 flex items-center justify-center text-[#185DF1]">
+                  <Mail size={16} />
                 </div>
                 <div>
-                  <div className="text-[11px] font-mono uppercase text-[rgba(243,247,254,0.5)]">
+                  <div className="text-[10px] font-mono uppercase text-zinc-500">
                     Primary Email
                   </div>
-                  <div className="text-sm font-semibold text-[#F3F7FE] group-hover:text-[#185DF1] transition-colors">
+                  <div className="text-xs sm:text-sm font-semibold text-white group-hover:text-blue-400 transition-colors">
                     shreyanshsinghal08@gmail.com
                   </div>
                 </div>
-                <ArrowUpRight size={16} className="ml-auto text-[rgba(243,247,254,0.3)] group-hover:text-[#185DF1] transition-colors" />
+                <ArrowUpRight size={14} className="ml-auto text-zinc-600 group-hover:text-blue-400 transition-colors" />
               </a>
 
-              <div className="flex items-center gap-4 p-4 rounded-xl bg-[rgba(3,17,48,0.6)] border border-[rgba(243,247,254,0.08)]">
-                <div className="w-10 h-10 rounded-xl bg-[#185DF1]/20 border border-[#185DF1]/30 flex items-center justify-center text-[#185DF1]">
-                  <MapPin size={18} />
+              <div className="flex items-center gap-4 p-4 rounded-xl bg-white/[0.03] border border-white/[0.08]">
+                <div className="w-9 h-9 rounded-xl bg-[#185DF1]/15 border border-[#185DF1]/30 flex items-center justify-center text-[#185DF1]">
+                  <MapPin size={16} />
                 </div>
                 <div>
-                  <div className="text-[11px] font-mono uppercase text-[rgba(243,247,254,0.5)]">
-                    Engineering Studio
+                  <div className="text-[10px] font-mono uppercase text-zinc-500">
+                    Studio Headquarters
                   </div>
-                  <div className="text-sm font-semibold text-[#F3F7FE]">
+                  <div className="text-xs sm:text-sm font-semibold text-white">
                     Rajasthan, India &bull; Serving Worldwide
                   </div>
                 </div>
               </div>
 
-              <div className="flex items-center gap-4 p-4 rounded-xl bg-[rgba(3,17,48,0.6)] border border-[rgba(243,247,254,0.08)]">
-                <div className="w-10 h-10 rounded-xl bg-[#185DF1]/20 border border-[#185DF1]/30 flex items-center justify-center text-[#185DF1]">
-                  <Clock size={18} />
+              <div className="flex items-center gap-4 p-4 rounded-xl bg-white/[0.03] border border-white/[0.08]">
+                <div className="w-9 h-9 rounded-xl bg-[#185DF1]/15 border border-[#185DF1]/30 flex items-center justify-center text-[#185DF1]">
+                  <Clock size={16} />
                 </div>
                 <div>
-                  <div className="text-[11px] font-mono uppercase text-[rgba(243,247,254,0.5)]">
+                  <div className="text-[10px] font-mono uppercase text-zinc-500">
                     Operational Hours
                   </div>
-                  <div className="text-sm font-semibold text-[#F3F7FE]">
+                  <div className="text-xs sm:text-sm font-semibold text-white">
                     Mon – Sat: 9:00 AM – 8:00 PM IST
                   </div>
                 </div>
@@ -1073,14 +955,14 @@ export default function WebFluxHomePage() {
           <div className="lg:col-span-7 glass-card p-8">
             {formSubmitted ? (
               <div className="p-8 text-center space-y-4">
-                <div className="w-14 h-14 rounded-full bg-[#185DF1]/20 border border-[#185DF1] flex items-center justify-center text-[#185DF1] mx-auto shadow-[0_0_20px_rgba(24,93,241,0.5)]">
-                  <CheckCircle2 size={32} />
+                <div className="w-14 h-14 rounded-full bg-[#185DF1]/20 border border-[#185DF1] flex items-center justify-center text-blue-400 mx-auto shadow-[0_0_20px_rgba(24,93,241,0.5)]">
+                  <CheckCircle2 size={30} />
                 </div>
-                <h4 className="text-2xl font-heading font-bold text-[#F3F7FE]">
-                  Message Received
+                <h4 className="text-xl font-heading font-bold text-white">
+                  Transmission Confirmed
                 </h4>
-                <p className="text-sm text-[rgba(243,247,254,0.7)] max-w-md mx-auto">
-                  Thank you! Your project request has been transmitted. We will review your requirements and respond via WhatsApp or Email within a few hours.
+                <p className="text-xs sm:text-sm text-zinc-400 max-w-md mx-auto">
+                  Thank you. Your project scope has been received. Lead Architect Shreyansh will reach out via WhatsApp or Email within a few hours.
                 </p>
                 <button
                   onClick={() => setFormSubmitted(false)}
@@ -1093,7 +975,7 @@ export default function WebFluxHomePage() {
               <form onSubmit={handleContactSubmit} className="space-y-4">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-xs font-mono uppercase tracking-wider text-[rgba(243,247,254,0.7)] mb-1.5">
+                    <label className="block text-[11px] font-mono uppercase tracking-wider text-zinc-400 mb-1.5">
                       Full Name *
                     </label>
                     <input
@@ -1101,11 +983,11 @@ export default function WebFluxHomePage() {
                       name="name"
                       required
                       placeholder="e.g. Dr. Rajesh Kumar"
-                      className="glass-input"
+                      className="glass-input text-xs"
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-mono uppercase tracking-wider text-[rgba(243,247,254,0.7)] mb-1.5">
+                    <label className="block text-[11px] font-mono uppercase tracking-wider text-zinc-400 mb-1.5">
                       Email Address *
                     </label>
                     <input
@@ -1113,14 +995,14 @@ export default function WebFluxHomePage() {
                       name="email"
                       required
                       placeholder="rajesh@institution.org"
-                      className="glass-input"
+                      className="glass-input text-xs"
                     />
                   </div>
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-xs font-mono uppercase tracking-wider text-[rgba(243,247,254,0.7)] mb-1.5">
+                    <label className="block text-[11px] font-mono uppercase tracking-wider text-zinc-400 mb-1.5">
                       Phone / WhatsApp *
                     </label>
                     <input
@@ -1128,38 +1010,38 @@ export default function WebFluxHomePage() {
                       name="phone"
                       required
                       placeholder="+91 98765 43210"
-                      className="glass-input"
+                      className="glass-input text-xs"
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-mono uppercase tracking-wider text-[rgba(243,247,254,0.7)] mb-1.5">
+                    <label className="block text-[11px] font-mono uppercase tracking-wider text-zinc-400 mb-1.5">
                       Service Required *
                     </label>
                     <select
                       name="service"
                       required
-                      className="glass-input"
+                      className="glass-input text-xs"
                       defaultValue="School Website Portal"
                     >
-                      <option value="School Website Portal" className="bg-[#031130] text-[#F3F7FE]">
+                      <option value="School Website Portal" className="bg-[#020409] text-white">
                         School Website Portal
                       </option>
-                      <option value="Coaching Institute Platform" className="bg-[#031130] text-[#F3F7FE]">
+                      <option value="Coaching Institute Platform" className="bg-[#020409] text-white">
                         Coaching Institute Platform
                       </option>
-                      <option value="Luxury Real Estate Showcase" className="bg-[#031130] text-[#F3F7FE]">
+                      <option value="Luxury Real Estate Showcase" className="bg-[#020409] text-white">
                         Luxury Real Estate Showcase
                       </option>
-                      <option value="Creator Media Kit & Portal" className="bg-[#031130] text-[#F3F7FE]">
+                      <option value="Creator Media Kit & Portal" className="bg-[#020409] text-white">
                         Creator Media Kit &amp; Portal
                       </option>
-                      <option value="Commercial E-Commerce Store" className="bg-[#031130] text-[#F3F7FE]">
+                      <option value="Commercial E-Commerce Store" className="bg-[#020409] text-white">
                         Commercial E-Commerce Store
                       </option>
-                      <option value="High-Converting Landing Page" className="bg-[#031130] text-[#F3F7FE]">
+                      <option value="High-Converting Landing Page" className="bg-[#020409] text-white">
                         High-Converting Landing Page
                       </option>
-                      <option value="Other Custom Web Project" className="bg-[#031130] text-[#F3F7FE]">
+                      <option value="Other Custom Web Project" className="bg-[#020409] text-white">
                         Other Custom Web Project
                       </option>
                     </select>
@@ -1167,7 +1049,7 @@ export default function WebFluxHomePage() {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-mono uppercase tracking-wider text-[rgba(243,247,254,0.7)] mb-1.5">
+                  <label className="block text-[11px] font-mono uppercase tracking-wider text-zinc-400 mb-1.5">
                     Project Scope &amp; Vision *
                   </label>
                   <textarea
@@ -1175,7 +1057,7 @@ export default function WebFluxHomePage() {
                     required
                     rows={4}
                     placeholder="Describe your school, coaching institute, or project requirements..."
-                    className="glass-input resize-none"
+                    className="glass-input text-xs resize-none"
                   />
                 </div>
 
@@ -1183,8 +1065,8 @@ export default function WebFluxHomePage() {
                   type="submit"
                   className="btn-primary w-full text-xs uppercase tracking-wider py-3.5 justify-center shadow-[0_0_25px_rgba(24,93,241,0.4)]"
                 >
-                  <Send size={15} />
-                  <span>Transmit Inquiry For Free Demo</span>
+                  <Send size={14} />
+                  <span>Request Free Demo Prototype</span>
                 </button>
               </form>
             )}

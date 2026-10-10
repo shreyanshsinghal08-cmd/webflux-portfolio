@@ -413,25 +413,78 @@
         ::-webkit-scrollbar-thumb { background: linear-gradient(180deg, #ef4444, #06b6d4); border-radius: 4px; }
         ::-webkit-scrollbar-thumb:hover { background: #ef4444; }
 
-        /* Navigation */
-        .navbar {
-            position: fixed; top: 0; width: 100%; z-index: 1000;
-            background: rgba(7, 9, 14, 0.82);
+        /* Navigation Override - Floating Menu (Webora Style) */
+        .navbar, .mobile-menu, #overlay {
+            display: none !important;
+        }
+
+        .floating-menu-btn {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            width: 58px;
+            height: 58px;
+            border-radius: 50%;
+            background: rgba(3, 7, 18, 0.85);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--border);
-            transition: var(--transition);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: #F3F7FE;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 2px;
+            z-index: 9999;
+            cursor: pointer;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.85), 0 0 25px rgba(24, 93, 241, 0.35);
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
         }
-        .navbar::after {
-            content: '';
-            position: absolute;
-            bottom: 0; left: 0; width: 100%; height: 1px;
-            background: linear-gradient(90deg, transparent 5%, #ef4444 30%, #06b6d4 70%, transparent 95%);
-            opacity: 0.7;
+        .floating-menu-btn:hover {
+            transform: scale(1.05);
+            border-color: rgba(24, 93, 241, 0.7);
+            box-shadow: 0 15px 45px rgba(0, 0, 0, 0.95), 0 0 35px rgba(24, 93, 241, 0.6);
         }
-        .navbar.scrolled {
-            background: rgba(7, 9, 14, 0.95);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7), 0 0 15px rgba(239, 68, 68, 0.15);
+        .floating-menu-panel {
+            position: fixed;
+            bottom: 92px;
+            right: 24px;
+            width: 300px;
+            background: rgba(3, 7, 18, 0.92);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            padding: 14px;
+            box-shadow: 0 30px 70px rgba(0, 0, 0, 0.9), 0 0 40px rgba(24, 93, 241, 0.22);
+            z-index: 9999;
+            transform-origin: bottom right;
+            transform: scale(0.9) rotate(-8deg) translateY(20px);
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .floating-menu-panel.active {
+            transform: scale(1) rotate(0deg) translateY(0);
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .floating-menu-panel a {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 14px;
+            border-radius: 14px;
+            color: #94a3b8;
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+        .floating-menu-panel a:hover {
+            background: rgba(255, 255, 255, 0.05);
+            color: #ffffff;
+            transform: translateX(-4px);
         }
         .nav-container {
             max-width: 1200px; margin: 0 auto; padding: 1.1rem 2rem;
@@ -2197,6 +2250,30 @@
                 }
             });
         });
+
+        // Floating Menu toggle
+        function toggleFloatingMenu() {
+            const panel = document.getElementById('floatingMenuPanel');
+            if (panel) panel.classList.toggle('active');
+        }
     </script>
+
+    <!-- Floating Circular Navigation Menu (Webora Style) -->
+    <div id="floatingMenuPanel" class="floating-menu-panel">
+        <div style="padding: 6px 12px 10px; border-bottom: 1px solid rgba(255,255,255,0.08); margin-bottom: 6px; display: flex; align-items: center; justify-content: space-between;">
+            <span style="font-family: monospace; font-size: 11px; text-transform: uppercase; color: #94a3b8; font-weight: 600;">Navigation</span>
+            <span style="font-family: monospace; font-size: 10px; color: #64748b;">6 Items</span>
+        </div>
+        <a href="#about" onclick="toggleFloatingMenu()"><span><strong style="color: #60a5fa; font-family: monospace; margin-right: 8px;">01</strong>About</span><i class="fas fa-arrow-right" style="font-size: 11px; opacity: 0.6;"></i></a>
+        <a href="#portfolio" onclick="toggleFloatingMenu()"><span><strong style="color: #60a5fa; font-family: monospace; margin-right: 8px;">02</strong>Portfolio</span><i class="fas fa-arrow-right" style="font-size: 11px; opacity: 0.6;"></i></a>
+        <a href="#services" onclick="toggleFloatingMenu()"><span><strong style="color: #60a5fa; font-family: monospace; margin-right: 8px;">03</strong>Services</span><i class="fas fa-arrow-right" style="font-size: 11px; opacity: 0.6;"></i></a>
+        <a href="#pricing" onclick="toggleFloatingMenu()"><span><strong style="color: #60a5fa; font-family: monospace; margin-right: 8px;">04</strong>Pricing</span><i class="fas fa-arrow-right" style="font-size: 11px; opacity: 0.6;"></i></a>
+        <a href="#faq" onclick="toggleFloatingMenu()"><span><strong style="color: #60a5fa; font-family: monospace; margin-right: 8px;">05</strong>FAQ</span><i class="fas fa-arrow-right" style="font-size: 11px; opacity: 0.6;"></i></a>
+        <a href="#contact" onclick="toggleFloatingMenu()"><span><strong style="color: #60a5fa; font-family: monospace; margin-right: 8px;">06</strong>Contact</span><i class="fas fa-arrow-right" style="font-size: 11px; opacity: 0.6;"></i></a>
+    </div>
+    <button id="floatingMenuBtn" class="floating-menu-btn" onclick="toggleFloatingMenu()" aria-label="Toggle navigation menu">
+        <i class="fas fa-compass" style="font-size: 18px; color: #60a5fa;"></i>
+        <span style="font-family: monospace; font-size: 8px; letter-spacing: 1px; color: #94a3b8; font-weight: bold;">MENU</span>
+    </button>
 </body>
 </html>
