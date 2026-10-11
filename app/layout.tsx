@@ -62,7 +62,7 @@ export default function RootLayout({
         />
       </head>
       <body className="relative bg-black text-[#E2E8F0] antialiased overflow-x-hidden min-h-screen selection:bg-white/20 selection:text-white">
-        {/* 1. Dynamic Canvas Space Background with Moving Stars & Shooting Stars (z-index: -1, fixed, behind all content) */}
+        {/* 1. Cinematic Depth Fog + Volumetric Light Beams (God Rays) Living Void Atmosphere */}
         <SpaceBackground />
 
         {/* 2. Gravity-Fall Loading Screen (Simulates physical gravity drop and impact on load) */}
