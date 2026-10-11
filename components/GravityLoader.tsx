@@ -2,24 +2,25 @@
 
 import React, { useEffect, useRef, useState } from 'react';
 
-interface ClientStar {
+interface BusinessParticle {
+  id: number;
   name: string;
   category: string;
-  targetAngle: number;
-  targetDist: number;
-  startX: number;
-  startY: number;
-  launchTime: number; // in seconds
-  flightDuration: number;
-  currentX: number;
-  currentY: number;
-  isAttached: boolean;
-  attachTime: number;
-  explodeVx: number;
-  explodeVy: number;
+  x: number;
+  y: number;
+  vx: number;
+  vy: number;
+  radius: number;
+  initialAngle: number;
+  initialDist: number;
+  ambientSpeed: number;
+  radialOscSpeed: number;
+  merged: boolean;
+  mergeTime: number;
+  trail: Array<{ x: number; y: number }>;
 }
 
-interface ExplosionParticle {
+interface SupernovaSpark {
   x: number;
   y: number;
   vx: number;
@@ -29,15 +30,24 @@ interface ExplosionParticle {
   decay: number;
 }
 
+interface MergeRipple {
+  x: number;
+  y: number;
+  radius: number;
+  maxRadius: number;
+  alpha: number;
+  growth: number;
+}
+
 export default function GravityLoader() {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const [percentage, setPercentage] = useState(1);
-  const [statusText, setStatusText] = useState('ALIGNING VOID CORE');
+  const [statusText, setStatusText] = useState('DETECTING DISTRIBUTED NODES');
   const [isExiting, setIsExiting] = useState(false);
   const [isComplete, setIsComplete] = useState(false);
 
   useEffect(() => {
-    // Lock scroll during loading sequence
+    // Lock scroll during 5-second cinematic loading sequence
     document.body.style.overflow = 'hidden';
 
     const canvas = canvasRef.current;
@@ -67,299 +77,393 @@ export default function GravityLoader() {
 
     const isMobile = width < 768;
     const cx = width / 2;
-    const cy = height / 2 - (isMobile ? 24 : 32);
+    const cy = height / 2 - (isMobile ? 22 : 30);
 
-    // 8 Diverse client business archetypes as per notebook concept
-    const CLIENT_SPECS = [
-      { name: 'Artisan Café', category: 'F&B', angle: 0.35, launch: 0.15 },
-      { name: 'Fitness & Gym', category: 'Health', angle: 1.15, launch: 0.38 },
-      { name: 'Fine Dining', category: 'Luxury', angle: 1.95, launch: 0.62 },
-      { name: 'Luxury Salon', category: 'Beauty', angle: 2.75, launch: 0.88 },
-      { name: 'Apex Academy', category: 'Education', angle: 3.55, launch: 1.12 },
-      { name: 'Boutique Hotel', category: 'Hospitality', angle: 4.35, launch: 1.36 },
-      { name: 'Real Estate', category: 'Commercial', angle: 5.15, launch: 1.62 },
-      { name: 'Tech Startup', category: 'SaaS', angle: 5.95, launch: 1.88 },
+    // 26 Independent Business Entities scattered around outer edges
+    const BUSINESS_NAMES = [
+      { name: 'Elite Academy', category: 'Education' },
+      { name: 'Artisan Café', category: 'Hospitality' },
+      { name: 'Boutique Hotel', category: 'Luxury' },
+      { name: 'Apex Fitness', category: 'Health' },
+      { name: 'Luxe Salon', category: 'Beauty' },
+      { name: 'Fintech Protocol', category: 'Finance' },
+      { name: 'Vanguard Realty', category: 'Real Estate' },
+      { name: 'Aura Dining', category: 'Gastronomy' },
+      { name: 'Biotech Labs', category: 'Science' },
+      { name: 'Studio Media', category: 'Creative' },
+      { name: 'Orbit Retail', category: 'Commerce' },
+      { name: 'Stellar Freight', category: 'Logistics' },
+      { name: 'Apex Law', category: 'Legal' },
+      { name: 'Quantum SaaS', category: 'Software' },
+      { name: 'Elysium Health', category: 'Medical' },
+      { name: 'Arch Studio', category: 'Design' },
+      { name: 'Horizon Motors', category: 'Automotive' },
+      { name: 'Pulse Agency', category: 'Marketing' },
+      { name: 'Summit Capital', category: 'Venture' },
+      { name: 'Titan Shield', category: 'Security' },
+      { name: 'Verve Roasters', category: 'F&B' },
+      { name: 'Aether Robotics', category: 'Robotics' },
+      { name: 'Solstice Spa', category: 'Wellness' },
+      { name: 'Kinetix Labs', category: 'AI Research' },
+      { name: 'Nexus Cloud', category: 'Infrastructure' },
+      { name: 'Prism Creative', category: 'Production' },
     ];
 
-    const clientStars: ClientStar[] = CLIENT_SPECS.map((spec, i) => {
-      const targetDist = isMobile ? 85 + (i % 3) * 22 : 140 + (i % 3) * 40;
-      // Spawn far outside screen
-      const spawnAngle = spec.angle + (Math.random() - 0.5) * 0.8;
-      const spawnDist = Math.max(width, height) * 0.85 + 100;
-      const startX = cx + Math.cos(spawnAngle) * spawnDist;
-      const startY = cy + Math.sin(spawnAngle) * spawnDist;
+    // Perimeter distribution radius (near edges of viewport)
+    const baseDist = Math.min(width, height) * (isMobile ? 0.38 : 0.42);
 
-      // Explosion outward trajectory
-      const expAngle = spec.angle + (Math.random() - 0.5) * 0.3;
-      const expSpeed = 12 + Math.random() * 14;
+    const particles: BusinessParticle[] = BUSINESS_NAMES.map((spec, i) => {
+      const angle = (i / BUSINESS_NAMES.length) * Math.PI * 2 + (Math.random() - 0.5) * 0.22;
+      const dist = baseDist + (i % 3) * (isMobile ? 18 : 32) + Math.random() * 20;
+      const startX = cx + Math.cos(angle) * dist;
+      const startY = cy + Math.sin(angle) * dist;
 
       return {
+        id: i,
         name: spec.name,
         category: spec.category,
-        targetAngle: spec.angle,
-        targetDist,
-        startX,
-        startY,
-        launchTime: spec.launch,
-        flightDuration: 0.55,
-        currentX: startX,
-        currentY: startY,
-        isAttached: false,
-        attachTime: 0,
-        explodeVx: Math.cos(expAngle) * expSpeed,
-        explodeVy: Math.sin(expAngle) * expSpeed,
+        x: startX,
+        y: startY,
+        vx: 0,
+        vy: 0,
+        radius: isMobile ? 3.2 + (i % 3) * 0.6 : 3.8 + (i % 4) * 0.7, // 3.5px to 5.5px
+        initialAngle: angle,
+        initialDist: dist,
+        ambientSpeed: (0.0003 + (i % 5) * 0.00015) * (i % 2 === 0 ? 1 : -1),
+        radialOscSpeed: 1.2 + Math.random() * 0.8,
+        merged: false,
+        mergeTime: 0,
+        trail: [],
       };
     });
 
-    const explosionParticles: ExplosionParticle[] = [];
-    let hasExploded = false;
-    let explosionTime = 0;
-    const EXPLOSION_TRIGGER_TIME = 2.45; // seconds
+    const ripples: MergeRipple[] = [];
+    const supernovaSparks: SupernovaSpark[] = [];
+    let supernovaTriggered = false;
+    let exitTriggered = false;
+    let completedTriggered = false;
+
     let startTime: number | null = null;
+    const TOTAL_DURATION = 5.0; // Exactly 5.0 seconds
 
     const render = (timestamp: number) => {
       if (!startTime) startTime = timestamp;
-      const elapsed = (timestamp - startTime) / 1000; // in seconds
+      const elapsed = Math.min((timestamp - startTime) / 1000, TOTAL_DURATION + 0.1);
 
+      // --- 1. TIMELINE SYNCHRONIZATION (0s - 5s) ---
+      let currentPct = 1;
+      let currentStatus = 'DETECTING DISTRIBUTED NODES';
+
+      if (elapsed < 2.0) {
+        // Scene 1 (0.0s - 2.0s): 1% -> 30%
+        currentPct = Math.min(30, Math.floor(1 + (elapsed / 2.0) * 29));
+        currentStatus = elapsed < 1.0 ? 'DETECTING DISTRIBUTED NODES' : 'CALCULATING GRAVITATIONAL CONVERGENCE';
+      } else if (elapsed < 4.0) {
+        // Scene 2 (2.0s - 4.0s): 30% -> 85%
+        const t = (elapsed - 2.0) / 2.0;
+        currentPct = Math.min(85, Math.floor(30 + Math.pow(t, 1.2) * 55));
+        currentStatus = t < 0.6 ? 'GRAVITATIONAL ACCRETION ACTIVE' : 'INWARD ORBITAL COMPRESSION';
+      } else if (elapsed < 4.5) {
+        // Scene 3 (4.0s - 4.5s): 85% -> 99%
+        const t = (elapsed - 4.0) / 0.5;
+        currentPct = Math.min(99, Math.floor(85 + t * 14));
+        currentStatus = 'PLANETARY GENESIS • WEBFLUX CORE';
+      } else {
+        // Scene 4 (4.5s - 5.0s): 100% Hit & Hold
+        currentPct = 100;
+        currentStatus = 'SUPERNOVA BURST • SYSTEM READY';
+      }
+
+      setPercentage(currentPct);
+      setStatusText(currentStatus);
+
+      // Trigger exit fade transition at 4.60s
+      if (elapsed >= 4.6 && !exitTriggered) {
+        exitTriggered = true;
+        setIsExiting(true);
+      }
+
+      // Complete unmount sequence at 5.0s
+      if (elapsed >= 5.0 && !completedTriggered) {
+        completedTriggered = true;
+        setIsComplete(true);
+        document.body.style.overflow = '';
+        return;
+      }
+
+      // Deep void black clear
       ctx.clearRect(0, 0, width, height);
-
-      // Deep void black background
       ctx.fillStyle = '#000000';
       ctx.fillRect(0, 0, width, height);
 
-      // Calculate progress percentage based on attached client stars
-      let attachedCount = 0;
+      // Draw faint mathematical coordinate guide circle
+      const guideAlpha = Math.max(0, 0.08 - elapsed * 0.015);
+      if (guideAlpha > 0) {
+        ctx.strokeStyle = `rgba(255, 255, 255, ${guideAlpha})`;
+        ctx.lineWidth = 1;
+        ctx.setLineDash([4, 8]);
+        ctx.beginPath();
+        ctx.arc(cx, cy, baseDist, 0, Math.PI * 2);
+        ctx.stroke();
+        ctx.setLineDash([]);
+      }
 
-      // Update client stars
-      clientStars.forEach((star) => {
-        if (elapsed >= star.launchTime) {
-          const t = Math.min((elapsed - star.launchTime) / star.flightDuration, 1);
-          // Ease-out cubic curve for gravity pull towards center ball
-          const easeOut = 1 - Math.pow(1 - t, 3);
+      // --- 2. PHYSICS & PARTICLE UPDATES BY SCENE ---
+      const maxPlanetRadius = isMobile ? 48 : 66;
+      let planetRadius = 0;
+      let planetAlpha = 0;
 
-          const targetX = cx + Math.cos(star.targetAngle) * star.targetDist;
-          const targetY = cy + Math.sin(star.targetAngle) * star.targetDist;
+      if (elapsed >= 3.8) {
+        // Scene 3: Rapidly expanding glowing sphere (The New Planet)
+        const planetProgress = Math.min((elapsed - 3.8) / 0.7, 1);
+        const easeOut = 1 - Math.pow(1 - planetProgress, 3);
+        planetRadius = 6 + (maxPlanetRadius - 6) * easeOut;
+        planetAlpha = Math.min(1, (elapsed - 3.8) * 3);
+      }
 
-          if (hasExploded) {
-            // Accelerate outwards during explosion
-            const dtExplode = elapsed - explosionTime;
-            star.currentX += star.explodeVx * 1.35;
-            star.currentY += star.explodeVy * 1.35;
-          } else {
-            // Parabolic fly-in towards target orbit
-            const perpAngle = star.targetAngle + Math.PI / 2;
-            const curveArch = (1 - easeOut) * Math.sin(easeOut * Math.PI) * 70;
-            star.currentX = star.startX + (targetX - star.startX) * easeOut + Math.cos(perpAngle) * curveArch;
-            star.currentY = star.startY + (targetY - star.startY) * easeOut + Math.sin(perpAngle) * curveArch;
+      // Update and draw particles
+      particles.forEach((p) => {
+        if (p.merged) return;
+
+        if (elapsed < 2.0) {
+          // --- SCENE 1 (0s - 2s): Ambient Scatter & Drift ---
+          const currentAngle = p.initialAngle + elapsed * p.ambientSpeed * Math.PI;
+          const oscDist = p.initialDist + Math.sin(elapsed * p.radialOscSpeed + p.id) * 8;
+          p.x = cx + Math.cos(currentAngle) * oscDist;
+          p.y = cy + Math.sin(currentAngle) * oscDist;
+        } else if (elapsed < 4.0) {
+          // --- SCENE 2 (2s - 4s): Strong Gravitational Pull ---
+          // Real Physics: dx, dy, dist, angle, gravity force vector
+          const dx = cx - p.x;
+          const dy = cy - p.y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          const angle = Math.atan2(dy, dx);
+
+          // Force increases with time and inversely with distance
+          const timeProgress = (elapsed - 2.0) / 2.0; // 0 to 1
+          const force = (0.8 + 8.5 * Math.pow(timeProgress, 1.8)) * (360 / Math.max(dist, 40));
+
+          // Tangential accretion swirl
+          const swirl = (1 - timeProgress) * 0.45;
+          const perpAngle = angle + Math.PI / 2;
+
+          p.vx += Math.cos(angle) * force * 0.14 + Math.cos(perpAngle) * swirl;
+          p.vy += Math.sin(angle) * force * 0.14 + Math.sin(perpAngle) * swirl;
+
+          // Velocity damping to maintain clean trajectories
+          p.vx *= 0.93;
+          p.vy *= 0.93;
+
+          p.x += p.vx;
+          p.y += p.vy;
+
+          // Record trail
+          p.trail.unshift({ x: p.x, y: p.y });
+          if (p.trail.length > 10) p.trail.pop();
+
+          // Check if particle hits center accretion boundary
+          if (dist < 18) {
+            p.merged = true;
+            p.mergeTime = elapsed;
+            ripples.push({
+              x: cx,
+              y: cy,
+              radius: 4,
+              maxRadius: 28 + Math.random() * 20,
+              alpha: 0.8,
+              growth: 1.8,
+            });
           }
+        } else {
+          // --- SCENE 3 (4s - 4.5s): Absorption into The New Planet ---
+          const dx = cx - p.x;
+          const dy = cy - p.y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          const angle = Math.atan2(dy, dx);
 
-          if (t >= 1) {
-            if (!star.isAttached) {
-              star.isAttached = true;
-              star.attachTime = elapsed;
-            }
+          // Maximum acceleration into planet core
+          const force = 32 * (250 / Math.max(dist, 10));
+          p.vx += Math.cos(angle) * force * 0.16;
+          p.vy += Math.sin(angle) * force * 0.16;
+          p.x += p.vx;
+          p.y += p.vy;
+
+          if (dist < Math.max(planetRadius, 14)) {
+            p.merged = true;
+            p.mergeTime = elapsed;
+            ripples.push({
+              x: cx,
+              y: cy,
+              radius: planetRadius * 0.5,
+              maxRadius: planetRadius * 1.5,
+              alpha: 0.9,
+              growth: 2.2,
+            });
           }
         }
 
-        if (star.isAttached) {
-          attachedCount++;
+        // --- DRAW PARTICLE TRAILS ---
+        if (p.trail.length > 1) {
+          ctx.beginPath();
+          ctx.moveTo(p.trail[0].x, p.trail[0].y);
+          for (let j = 1; j < p.trail.length; j++) {
+            ctx.lineTo(p.trail[j].x, p.trail[j].y);
+          }
+          ctx.strokeStyle = `rgba(255, 255, 255, ${Math.min(0.35, (elapsed - 2.0) * 0.25)})`;
+          ctx.lineWidth = 1.2;
+          ctx.stroke();
+        }
+
+        // --- DRAW GLOWING PARTICLE BODY ---
+        ctx.save();
+        ctx.shadowColor = 'rgba(255, 255, 255, 0.85)';
+        ctx.shadowBlur = Math.max(4, p.radius * 2.2);
+
+        // Core star
+        ctx.fillStyle = '#FFFFFF';
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.restore();
+
+        // Atmospheric halo
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.22)';
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.radius * 2.2, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Render business name label during Scene 1 (0s - 2s)
+        if (elapsed < 2.0) {
+          const labelAlpha = Math.max(0, 0.85 - elapsed * 0.25);
+          const isRight = p.x >= cx;
+          ctx.fillStyle = `rgba(255, 255, 255, ${labelAlpha})`;
+          ctx.font = `600 ${isMobile ? '8px' : '10px'} Inter, sans-serif`;
+          ctx.textAlign = isRight ? 'left' : 'right';
+          ctx.textBaseline = 'middle';
+          ctx.fillText(p.name, p.x + (isRight ? 10 : -10), p.y);
         }
       });
 
-      // Synchronize percentage with client connections: 1% -> 25% -> 50% -> 75% -> 100%
-      let calculatedPct = 1;
-      if (attachedCount === 0) {
-        calculatedPct = Math.min(10, Math.floor(1 + elapsed * 10));
-      } else if (attachedCount <= 2) {
-        calculatedPct = 15 + Math.floor((attachedCount / 2) * 12);
-      } else if (attachedCount <= 4) {
-        calculatedPct = 28 + Math.floor(((attachedCount - 2) / 2) * 24);
-      } else if (attachedCount <= 6) {
-        calculatedPct = 54 + Math.floor(((attachedCount - 4) / 2) * 22);
-      } else if (attachedCount < clientStars.length) {
-        calculatedPct = 78 + Math.floor(((attachedCount - 6) / 2) * 18);
-      } else {
-        calculatedPct = 100;
-      }
+      // --- 3. DRAW MERGE RIPPLES ---
+      for (let i = ripples.length - 1; i >= 0; i--) {
+        const r = ripples[i];
+        r.radius += r.growth;
+        r.alpha -= 0.035;
 
-      calculatedPct = Math.min(100, Math.max(1, calculatedPct));
-      setPercentage(calculatedPct);
-
-      if (calculatedPct < 25) {
-        setStatusText('GRAVITY CORE INITIALIZING');
-      } else if (calculatedPct < 75) {
-        setStatusText(`CONNECTING CLIENTS (${attachedCount}/${clientStars.length})`);
-      } else if (calculatedPct < 100) {
-        setStatusText('ORBITAL LOCK ACHIEVED');
-      } else {
-        setStatusText('SUPERNOVA TRIGGERED');
-      }
-
-      // Check for 100% Explosion Trigger
-      if (elapsed >= EXPLOSION_TRIGGER_TIME && !hasExploded) {
-        hasExploded = true;
-        explosionTime = elapsed;
-
-        // Spawn 80 radial explosion particles
-        for (let i = 0; i < 80; i++) {
-          const angle = Math.random() * Math.PI * 2;
-          const speed = 6 + Math.random() * 22;
-          explosionParticles.push({
-            x: cx,
-            y: cy,
-            vx: Math.cos(angle) * speed,
-            vy: Math.sin(angle) * speed,
-            radius: 1 + Math.random() * 2.8,
-            alpha: 1,
-            decay: 0.018 + Math.random() * 0.025,
-          });
+        if (r.alpha <= 0 || r.radius >= r.maxRadius) {
+          ripples.splice(i, 1);
+        } else {
+          ctx.strokeStyle = `rgba(255, 255, 255, ${r.alpha})`;
+          ctx.lineWidth = 1.2;
+          ctx.beginPath();
+          ctx.arc(r.x, r.y, r.radius, 0, Math.PI * 2);
+          ctx.stroke();
         }
-
-        // Trigger smooth fade-out and reveal of actual website
-        setTimeout(() => {
-          setIsExiting(true);
-        }, 320);
-
-        setTimeout(() => {
-          setIsComplete(true);
-          document.body.style.overflow = '';
-        }, 900);
       }
 
-      // --- DRAW CURVED CONNECTION LINES (From client stars to central ball) ---
-      if (!hasExploded) {
-        clientStars.forEach((star) => {
-          if (elapsed >= star.launchTime) {
-            const t = Math.min((elapsed - star.launchTime) / star.flightDuration, 1);
-            const lineAlpha = star.isAttached ? 0.45 : t * 0.25;
-
-            // Draw curved organic connection bezier
-            const midX = (star.currentX + cx) / 2;
-            const midY = (star.currentY + cy) / 2;
-            const perpAngle = star.targetAngle + Math.PI / 2;
-            const curveOffset = Math.sin(star.targetAngle * 3) * 25;
-            const ctrlX = midX + Math.cos(perpAngle) * curveOffset;
-            const ctrlY = midY + Math.sin(perpAngle) * curveOffset;
-
-            ctx.strokeStyle = `rgba(255, 255, 255, ${lineAlpha})`;
-            ctx.lineWidth = star.isAttached ? 1.2 : 0.8;
-            ctx.beginPath();
-            ctx.moveTo(star.currentX, star.currentY);
-            ctx.quadraticCurveTo(ctrlX, ctrlY, cx, cy);
-            ctx.stroke();
-          }
-        });
-      }
-
-      // --- DRAW CENTRAL WEBFLUX BALL (The Core) ---
-      const coreBaseRadius = isMobile ? 26 : 36;
-      let coreScale = 1;
-
-      if (!hasExploded) {
-        // Subtle breathing pulse
-        coreScale = 1 + Math.sin(elapsed * 4) * 0.04;
-      } else {
-        // Expansion flash during supernova
-        const dtExp = elapsed - explosionTime;
-        coreScale = 1 + dtExp * 4;
-      }
-
-      const coreRadius = coreBaseRadius * coreScale;
-      const coreAlpha = hasExploded ? Math.max(0, 1 - (elapsed - explosionTime) * 3) : 1;
-
-      if (coreAlpha > 0) {
-        // Outer glowing halo
-        const gradHalo = ctx.createRadialGradient(cx, cy, coreRadius * 0.4, cx, cy, coreRadius * 2.5);
-        gradHalo.addColorStop(0, `rgba(255, 255, 255, ${0.4 * coreAlpha})`);
-        gradHalo.addColorStop(0.5, `rgba(255, 255, 255, ${0.12 * coreAlpha})`);
-        gradHalo.addColorStop(1, 'rgba(255, 255, 255, 0)');
-        ctx.fillStyle = gradHalo;
+      // --- 4. SCENE 3 & 4: DRAW THE CENTRAL NEW PLANET (WEBFLUX) ---
+      if (planetRadius > 0) {
+        // Outer Corona Glow
+        const coronaR = planetRadius * 2.6;
+        const gCorona = ctx.createRadialGradient(cx, cy, planetRadius * 0.6, cx, cy, coronaR);
+        gCorona.addColorStop(0, `rgba(255, 255, 255, ${planetAlpha * 0.45})`);
+        gCorona.addColorStop(0.5, `rgba(240, 245, 255, ${planetAlpha * 0.15})`);
+        gCorona.addColorStop(1, 'rgba(255, 255, 255, 0)');
+        ctx.fillStyle = gCorona;
         ctx.beginPath();
-        ctx.arc(cx, cy, coreRadius * 2.5, 0, Math.PI * 2);
+        ctx.arc(cx, cy, coronaR, 0, Math.PI * 2);
         ctx.fill();
 
-        // Solid luminous core
-        const gradCore = ctx.createRadialGradient(cx, cy, 0, cx, cy, coreRadius);
-        gradCore.addColorStop(0, `rgba(255, 255, 255, ${coreAlpha})`);
-        gradCore.addColorStop(0.7, `rgba(235, 240, 255, ${0.9 * coreAlpha})`);
-        gradCore.addColorStop(1, `rgba(180, 195, 230, ${0.5 * coreAlpha})`);
-        ctx.fillStyle = gradCore;
+        // Planetary Orbital Accretion Rings
+        ctx.save();
+        ctx.strokeStyle = `rgba(255, 255, 255, ${planetAlpha * 0.35})`;
+        ctx.lineWidth = 1.4;
         ctx.beginPath();
-        ctx.arc(cx, cy, coreRadius, 0, Math.PI * 2);
-        ctx.fill();
+        ctx.ellipse(cx, cy, planetRadius * 1.6, planetRadius * 0.45, -0.3, 0, Math.PI * 2);
+        ctx.stroke();
+        ctx.restore();
 
-        // Center Monogram 'W'
-        if (!hasExploded) {
+        // Radiant Planet Core Sphere
+        const gPlanet = ctx.createRadialGradient(cx, cy, 0, cx, cy, planetRadius);
+        gPlanet.addColorStop(0, '#FFFFFF');
+        gPlanet.addColorStop(0.5, `rgba(245, 248, 255, ${planetAlpha * 0.95})`);
+        gPlanet.addColorStop(0.85, `rgba(210, 225, 255, ${planetAlpha * 0.8})`);
+        gPlanet.addColorStop(1, `rgba(160, 185, 230, ${planetAlpha * 0.4})`);
+
+        ctx.save();
+        ctx.shadowColor = 'rgba(255, 255, 255, 0.9)';
+        ctx.shadowBlur = planetRadius * 0.7;
+        ctx.fillStyle = gPlanet;
+        ctx.beginPath();
+        ctx.arc(cx, cy, planetRadius, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.restore();
+
+        // Luminous "W" Core Glyph inside the Planet
+        if (planetRadius > 22 && elapsed < 4.5) {
           ctx.fillStyle = '#000000';
-          ctx.font = `900 ${isMobile ? '13px' : '17px'} Inter, sans-serif`;
+          ctx.font = `900 ${isMobile ? '16px' : '22px'} Inter, sans-serif`;
           ctx.textAlign = 'center';
           ctx.textBaseline = 'middle';
           ctx.fillText('W', cx, cy);
         }
       }
 
-      // --- DRAW CLIENT STARS & LABELS ---
-      clientStars.forEach((star) => {
-        if (elapsed >= star.launchTime) {
-          const starAlpha = hasExploded
-            ? Math.max(0, 1 - (elapsed - explosionTime) * 2.5)
-            : 1;
-
-          if (starAlpha > 0) {
-            // Star body
-            ctx.fillStyle = `rgba(255, 255, 255, ${starAlpha})`;
-            ctx.beginPath();
-            ctx.arc(star.currentX, star.currentY, isMobile ? 3 : 4, 0, Math.PI * 2);
-            ctx.fill();
-
-            // Star specular halo
-            ctx.fillStyle = `rgba(255, 255, 255, ${0.25 * starAlpha})`;
-            ctx.beginPath();
-            ctx.arc(star.currentX, star.currentY, isMobile ? 7 : 10, 0, Math.PI * 2);
-            ctx.fill();
-
-            // Client Business Pill Label
-            if (star.isAttached && !hasExploded) {
-              const labelX = star.currentX + (Math.cos(star.targetAngle) > 0 ? 10 : -10);
-              const labelY = star.currentY + (Math.sin(star.targetAngle) > 0 ? 10 : -10);
-              const align = Math.cos(star.targetAngle) > 0 ? 'left' : 'right';
-
-              ctx.fillStyle = '#FFFFFF';
-              ctx.font = `600 ${isMobile ? '9px' : '11px'} Inter, sans-serif`;
-              ctx.textAlign = align;
-              ctx.textBaseline = 'middle';
-              ctx.fillText(star.name, labelX, labelY);
-            }
+      // --- 5. SCENE 4 (4.5s - 5.0s): SUPERNOVA / BLOOM EFFECT ---
+      if (elapsed >= 4.5) {
+        if (!supernovaTriggered) {
+          supernovaTriggered = true;
+          // Spawn 70 radial supernova burst particles
+          for (let k = 0; k < 70; k++) {
+            const angle = (k / 70) * Math.PI * 2 + (Math.random() - 0.5) * 0.2;
+            const speed = 12 + Math.random() * 22;
+            supernovaSparks.push({
+              x: cx,
+              y: cy,
+              vx: Math.cos(angle) * speed,
+              vy: Math.sin(angle) * speed,
+              radius: 1.5 + Math.random() * 2.5,
+              alpha: 1.0,
+              decay: 0.022 + Math.random() * 0.025,
+            });
           }
         }
-      });
 
-      // --- DRAW EXPLOSION PARTICLES & SHOCKWAVE ---
-      if (hasExploded) {
-        const dtExp = elapsed - explosionTime;
+        const dtSupernova = elapsed - 4.5;
 
-        // Expanding shockwave ring
-        const shockRadius = dtExp * Math.max(width, height) * 0.9;
-        const shockAlpha = Math.max(0, 1 - dtExp * 2.2);
+        // Expanding Supernova Shockwave
+        const shockRadius = dtSupernova * Math.max(width, height) * 1.8;
+        const shockAlpha = Math.max(0, 1 - dtSupernova * 2.2);
         if (shockAlpha > 0) {
-          ctx.strokeStyle = `rgba(255, 255, 255, ${shockAlpha * 0.75})`;
-          ctx.lineWidth = 2.5;
+          ctx.strokeStyle = `rgba(255, 255, 255, ${shockAlpha * 0.85})`;
+          ctx.lineWidth = 3.0;
           ctx.beginPath();
           ctx.arc(cx, cy, shockRadius, 0, Math.PI * 2);
           ctx.stroke();
         }
 
-        // Flying burst particles
-        for (let i = 0; i < explosionParticles.length; i++) {
-          const p = explosionParticles[i];
-          p.x += p.vx;
-          p.y += p.vy;
-          p.alpha -= p.decay;
+        // Supernova Core Bloom Flash
+        const flashAlpha = Math.max(0, 1 - dtSupernova * 2.6) * 0.9;
+        if (flashAlpha > 0) {
+          const gFlash = ctx.createRadialGradient(cx, cy, 0, cx, cy, Math.max(width, height) * 0.7);
+          gFlash.addColorStop(0, `rgba(255, 255, 255, ${flashAlpha})`);
+          gFlash.addColorStop(0.3, `rgba(240, 245, 255, ${flashAlpha * 0.6})`);
+          gFlash.addColorStop(1, 'rgba(255, 255, 255, 0)');
+          ctx.fillStyle = gFlash;
+          ctx.fillRect(0, 0, width, height);
+        }
 
-          if (p.alpha > 0) {
-            ctx.fillStyle = `rgba(255, 255, 255, ${p.alpha})`;
+        // Draw outward supernova sparks
+        for (let i = 0; i < supernovaSparks.length; i++) {
+          const sp = supernovaSparks[i];
+          sp.x += sp.vx;
+          sp.y += sp.vy;
+          sp.alpha -= sp.decay;
+
+          if (sp.alpha > 0) {
+            ctx.fillStyle = `rgba(255, 255, 255, ${sp.alpha})`;
             ctx.beginPath();
-            ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+            ctx.arc(sp.x, sp.y, sp.radius, 0, Math.PI * 2);
             ctx.fill();
           }
         }
@@ -381,33 +485,36 @@ export default function GravityLoader() {
 
   return (
     <div
-      className={`fixed inset-0 z-[9999] bg-[#000000] flex flex-col items-center justify-between select-none pointer-events-auto transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+      className={`fixed inset-0 z-[9999] bg-[#000000] flex flex-col items-center justify-between select-none pointer-events-auto transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
         isExiting ? 'opacity-0 scale-105 pointer-events-none' : 'opacity-100 scale-100'
       }`}
-      aria-label="Gravity Loading Screen"
+      aria-label="Cinematic Gravity Loading Screen"
     >
       <canvas ref={canvasRef} className="absolute inset-0 w-full h-full pointer-events-none" />
 
-      {/* Top Header Badge */}
+      {/* Top Header Brand Badge */}
       <div className="w-full pt-6 sm:pt-8 px-6 sm:px-10 flex items-center justify-between z-10 pointer-events-none">
-        <div className="flex items-center gap-2">
-          <div className="w-6 h-6 rounded-md bg-white/10 border border-white/20 flex items-center justify-center text-white font-mono text-xs font-bold">
+        <div className="flex items-center gap-2.5">
+          <div className="w-8 h-8 rounded-lg bg-white text-black flex items-center justify-center font-mono text-sm font-black shadow-[0_0_15px_rgba(255,255,255,0.3)]">
             W
           </div>
-          <span className="font-mono text-[10px] tracking-widest uppercase text-zinc-400">
-            WebFlux Design Studio
+          <span className="font-mono text-[11px] tracking-widest uppercase text-white font-bold">
+            WebFlux
+          </span>
+          <span className="px-2 py-0.5 rounded-full text-[9px] font-mono tracking-widest uppercase bg-white/10 border border-white/20 text-zinc-400">
+            STUDIO
           </span>
         </div>
-        <div className="flex items-center gap-2 font-mono text-[10px] text-zinc-500 uppercase tracking-widest">
+        <div className="flex items-center gap-2 font-mono text-[10px] text-zinc-400 uppercase tracking-widest">
           <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
-          <span>Gravity Sync</span>
+          <span>Cinematic Physics</span>
         </div>
       </div>
 
       {/* Center UI Overlay (Percentage & Concept Subtext) */}
-      <div className="z-10 flex flex-col items-center justify-center text-center pointer-events-none mt-auto mb-16 sm:mb-20">
+      <div className="z-10 flex flex-col items-center justify-center text-center pointer-events-none mt-auto mb-14 sm:mb-18">
         <div className="flex items-baseline gap-1">
-          <span className="text-5xl sm:text-7xl md:text-8xl font-mono font-extrabold text-white tracking-tighter drop-shadow-[0_0_35px_rgba(255,255,255,0.4)]">
+          <span className="text-6xl sm:text-8xl md:text-9xl font-mono font-black text-white tracking-tighter drop-shadow-[0_0_40px_rgba(255,255,255,0.45)]">
             {percentage}
           </span>
           <span className="text-2xl sm:text-4xl font-mono font-bold text-zinc-500">
@@ -415,25 +522,25 @@ export default function GravityLoader() {
           </span>
         </div>
 
-        <div className="mt-2 flex items-center gap-2">
-          <span className="w-1 h-1 rounded-full bg-white animate-ping" />
-          <span className="font-mono text-[9px] sm:text-[10px] uppercase tracking-[0.22em] text-zinc-400 font-medium">
+        <div className="mt-2.5 flex items-center gap-2">
+          <span className="w-1.5 h-1.5 rounded-full bg-white animate-ping" />
+          <span className="font-mono text-[10px] sm:text-[11px] uppercase tracking-[0.24em] text-zinc-300 font-semibold">
             {statusText}
           </span>
         </div>
 
-        <div className="mt-1 text-[8px] sm:text-[9px] font-mono uppercase tracking-widest text-zinc-600">
-          Client Stars In Orbit • Supernova Ready
+        <div className="mt-1 text-[9px] sm:text-[10px] font-mono uppercase tracking-widest text-zinc-600">
+          Independent Businesses Converging • WebFlux Genesis
         </div>
       </div>
 
       {/* Bottom Footer Notice */}
       <div className="w-full pb-6 sm:pb-8 px-6 sm:px-10 flex items-center justify-between z-10 pointer-events-none">
-        <span className="font-mono text-[8px] sm:text-[9px] uppercase tracking-widest text-zinc-600">
-          Lead Architect: Shreyansh Singhal
+        <span className="font-mono text-[9px] uppercase tracking-widest text-zinc-500">
+          Physics Engine: Velocity &bull; Gravity &bull; Orbitals
         </span>
-        <span className="font-mono text-[8px] sm:text-[9px] uppercase tracking-widest text-zinc-600">
-          © {new Date().getFullYear()} WebFlux
+        <span className="font-mono text-[9px] uppercase tracking-widest text-zinc-500">
+          &copy; {new Date().getFullYear()} WebFlux Studio
         </span>
       </div>
     </div>

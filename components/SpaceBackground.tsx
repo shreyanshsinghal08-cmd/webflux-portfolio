@@ -71,15 +71,17 @@ export default function SpaceBackground() {
     resize();
 
     // 1. MATHEMATICAL STAR ENGINE INITIALIZATION
-    // 200 micro-sized stars operating with trigonometric orbital mechanics
-    const STAR_COUNT = 200;
+    // 240 visible, prominent stars operating with trigonometric orbital mechanics
+    const STAR_COUNT = 240;
     const stars: Star[] = [];
 
     for (let i = 0; i < STAR_COUNT; i++) {
-      // Depth simulation z: 0.15 (deep, faint, slow) to 1.0 (foreground, crisp, lively)
-      const z = Math.pow(Math.random(), 1.4) * 0.85 + 0.15;
-      const radius = 0.38 + z * 0.82; // 0.38px to 1.2px micro-stars
-      const baseAlpha = 0.22 + z * 0.68; // Deeper stars are softer, near stars are brilliant
+      // Depth simulation z: 0.15 (deep, gentle) to 1.0 (foreground, brilliant, large)
+      const z = Math.pow(Math.random(), 1.3) * 0.85 + 0.15;
+      // Upgraded base radius: 1.5px to 3.5px as requested
+      const radius = 1.5 + z * 2.0;
+      // Elevated opacity for deep rich visibility
+      const baseAlpha = 0.38 + z * 0.58;
 
       // Orbital parameters using sin/cos mechanics
       const orbitRadiusX = 25 + Math.random() * 80 * (1 - z * 0.4);
@@ -245,21 +247,33 @@ export default function SpaceBackground() {
         // Time-based organic twinkle using sinusoidal oscillation
         const twinkle = Math.sin(time * star.twinkleFreq + star.phase);
         const dynamicAlpha = Math.max(
-          0.12,
-          Math.min(1.0, star.baseAlpha * (0.68 + 0.32 * twinkle))
+          0.30,
+          Math.min(1.0, star.baseAlpha * (0.75 + 0.25 * twinkle))
         );
 
-        // Draw micro-star body
+        // Subtle glowing blur effect
+        ctx.save();
+        ctx.shadowColor = 'rgba(255, 255, 255, 0.75)';
+        ctx.shadowBlur = Math.max(3, star.radius * 2.2);
+
+        // Draw star core
         ctx.fillStyle = `rgba(255, 255, 255, ${dynamicAlpha})`;
         ctx.beginPath();
         ctx.arc(renderX, renderY, star.radius, 0, Math.PI * 2);
         ctx.fill();
+        ctx.restore();
 
-        // Subtle specular halo for prominent foreground stars (z > 0.85)
-        if (star.z > 0.82 && dynamicAlpha > 0.65) {
-          ctx.fillStyle = `rgba(255, 255, 255, ${dynamicAlpha * 0.14})`;
+        // Subtle glowing atmospheric halo to make space feel deep and populated
+        ctx.fillStyle = `rgba(255, 255, 255, ${dynamicAlpha * 0.18})`;
+        ctx.beginPath();
+        ctx.arc(renderX, renderY, star.radius * 2.4, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Extra brilliant glint on prominent foreground stars (z > 0.75)
+        if (star.z > 0.75 && dynamicAlpha > 0.6) {
+          ctx.fillStyle = `rgba(255, 255, 255, ${dynamicAlpha * 0.08})`;
           ctx.beginPath();
-          ctx.arc(renderX, renderY, star.radius * 2.3, 0, Math.PI * 2);
+          ctx.arc(renderX, renderY, star.radius * 4.2, 0, Math.PI * 2);
           ctx.fill();
         }
       }

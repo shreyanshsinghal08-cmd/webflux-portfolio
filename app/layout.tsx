@@ -75,17 +75,17 @@ export default function RootLayout({
         <header className="absolute top-0 left-0 right-0 z-30 px-6 sm:px-12 py-7 sm:py-9 flex items-center justify-between pointer-events-none">
           <Link
             href="/"
-            className="pointer-events-auto flex items-center gap-2.5 group cursor-pointer focus:outline-none"
+            className="pointer-events-auto flex items-center gap-3 sm:gap-4 group cursor-pointer focus:outline-none"
           >
-            <div className="w-8 h-8 rounded-lg bg-white/10 border border-white/20 flex items-center justify-center text-white font-heading font-black text-sm group-hover:bg-white group-hover:text-black transition-all">
+            <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-white text-black flex items-center justify-center font-heading font-black text-base sm:text-xl shadow-[0_0_25px_rgba(255,255,255,0.25)] group-hover:scale-105 group-hover:shadow-[0_0_35px_rgba(255,255,255,0.45)] transition-all duration-300">
               W
             </div>
-            <div className="flex flex-col">
-              <span className="font-heading font-extrabold text-sm tracking-tight text-white group-hover:text-zinc-200 transition-colors">
+            <div className="flex items-center gap-2.5 sm:gap-3">
+              <span className="font-heading font-black text-xl sm:text-2xl tracking-tight text-white group-hover:text-zinc-200 transition-colors">
                 WebFlux<span className="text-zinc-500">.</span>
               </span>
-              <span className="text-[9px] font-mono uppercase tracking-widest text-zinc-500 -mt-0.5">
-                Studio
+              <span className="px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-full text-[10px] sm:text-xs font-mono font-bold tracking-widest uppercase bg-white/10 border border-white/20 text-zinc-300 backdrop-blur-md">
+                STUDIO
               </span>
             </div>
           </Link>
