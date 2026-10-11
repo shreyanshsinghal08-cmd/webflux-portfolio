@@ -1748,7 +1748,7 @@
         </div>
         <div style="z-index: 10; display: flex; flex-direction: column; align-items: center; pointer-events: none; margin-top: auto; margin-bottom: 4rem;">
             <div style="display: flex; align-items: baseline; gap: 4px;">
-                <span id="gravity-pct" style="font-size: clamp(4rem, 12vw, 7.5rem); font-family: monospace; font-weight: 900; color: #ffffff; letter-spacing: -0.05em; text-shadow: 0 0 40px rgba(255,255,255,0.45);">1</span>
+                <span id="gravity-pct" style="font-size: clamp(5rem, 18vw, 9rem); font-family: monospace; font-weight: 900; color: #ffffff; letter-spacing: -0.05em; text-shadow: 0 0 50px rgba(255,255,255,0.65);">1</span>
                 <span style="font-size: clamp(1.8rem, 4vw, 2.8rem); font-family: monospace; font-weight: bold; color: #71717a;">%</span>
             </div>
             <div id="gravity-status" style="font-family: monospace; font-size: 10px; text-transform: uppercase; letter-spacing: 0.24em; color: #d4d4d8; margin-top: 0.6rem; font-weight: 600;">DETECTING DISTRIBUTED NODES</div>
@@ -2456,7 +2456,7 @@
         }
     
         
-                // 5-Second Cinematic Gravity Loader: Real Physics, 4 Scenes, Accretion into The New Planet (WebFlux)
+                        // 5-Second Cinematic Gravity Loader (Mobile-First Clarity & Force)
         (function initCinematicGravityLoader() {
             const loader = document.getElementById('gravity-loader');
             const canvas = document.getElementById('loader-canvas');
@@ -2485,7 +2485,7 @@
 
             const isMobile = width < 768;
             const cx = width / 2;
-            const cy = height / 2 - (isMobile ? 22 : 30);
+            const cy = height * (isMobile ? 0.40 : 0.44);
 
             const BUSINESS_NAMES = [
                 'Elite Academy', 'Artisan Café', 'Boutique Hotel', 'Apex Fitness',
@@ -2493,17 +2493,17 @@
                 'Biotech Labs', 'Studio Media', 'Orbit Retail', 'Stellar Freight',
                 'Apex Law', 'Quantum SaaS', 'Elysium Health', 'Arch Studio',
                 'Horizon Motors', 'Pulse Agency', 'Summit Capital', 'Titan Shield',
-                'Verve Roasters', 'Aether Robotics', 'Solstice Spa', 'Kinetix Labs',
-                'Nexus Cloud', 'Prism Creative'
+                'Verve Roasters', 'Aether Robotics', 'Solstice Spa', 'Kinetix Labs'
             ];
 
-            const baseDist = Math.min(width, height) * (isMobile ? 0.38 : 0.42);
+            const baseDist = Math.min(width, height) * (isMobile ? 0.36 : 0.40);
 
             const particles = BUSINESS_NAMES.map((name, i) => {
-                const angle = (i / BUSINESS_NAMES.length) * Math.PI * 2 + (Math.random() - 0.5) * 0.22;
-                const dist = baseDist + (i % 3) * (isMobile ? 18 : 32) + Math.random() * 20;
+                const angle = (i / BUSINESS_NAMES.length) * Math.PI * 2 + (Math.random() - 0.5) * 0.18;
+                const dist = baseDist + (i % 3) * (isMobile ? 22 : 36) + Math.random() * 18;
                 const startX = cx + Math.cos(angle) * dist;
                 const startY = cy + Math.sin(angle) * dist;
+                const nodeRadius = isMobile ? 6.0 + (i % 3) * 1.2 : 3.8 + (i % 4) * 0.7;
 
                 return {
                     id: i,
@@ -2512,7 +2512,7 @@
                     y: startY,
                     vx: 0,
                     vy: 0,
-                    radius: isMobile ? 3.2 + (i % 3) * 0.6 : 3.8 + (i % 4) * 0.7,
+                    radius: nodeRadius,
                     initialAngle: angle,
                     initialDist: dist,
                     ambientSpeed: (0.0003 + (i % 5) * 0.00015) * (i % 2 === 0 ? 1 : -1),
@@ -2533,17 +2533,16 @@
                 if (!startTime) startTime = timestamp;
                 const elapsed = Math.min((timestamp - startTime) / 1000, TOTAL_DURATION + 0.1);
 
-                // 1. Percentage & Status Synchronization
                 let currentPct = 1;
-                let currentStatus = 'DETECTING DISTRIBUTED NODES';
+                let currentStatus = 'DISCOVERING ENTERPRISE NODES';
 
                 if (elapsed < 2.0) {
                     currentPct = Math.min(30, Math.floor(1 + (elapsed / 2.0) * 29));
-                    currentStatus = elapsed < 1.0 ? 'DETECTING DISTRIBUTED NODES' : 'CALCULATING GRAVITATIONAL CONVERGENCE';
+                    currentStatus = elapsed < 1.0 ? 'DISCOVERING ENTERPRISE NODES' : 'CALCULATING GRAVITATIONAL CONVERGENCE';
                 } else if (elapsed < 4.0) {
                     const t = (elapsed - 2.0) / 2.0;
                     currentPct = Math.min(85, Math.floor(30 + Math.pow(t, 1.2) * 55));
-                    currentStatus = t < 0.6 ? 'GRAVITATIONAL ACCRETION ACTIVE' : 'INWARD ORBITAL COMPRESSION';
+                    currentStatus = t < 0.6 ? 'GRAVITATIONAL ACCRETION ACTIVE' : 'ORBITAL COMPRESSION DETECTED';
                 } else if (elapsed < 4.5) {
                     const t = (elapsed - 4.0) / 0.5;
                     currentPct = Math.min(99, Math.floor(85 + t * 14));
@@ -2556,7 +2555,6 @@
                 pctEl.textContent = currentPct;
                 if (statusEl) statusEl.textContent = currentStatus;
 
-                // Exit sequence
                 if (elapsed >= 4.6 && !exitTriggered) {
                     exitTriggered = true;
                     loader.style.opacity = '0';
@@ -2574,15 +2572,26 @@
                 ctx.fillStyle = '#000000';
                 ctx.fillRect(0, 0, width, height);
 
-                // Planet setup
-                const maxPlanetRadius = isMobile ? 48 : 66;
+                // Orbit guide
+                const guideAlpha = Math.max(0, (isMobile ? 0.14 : 0.08) - elapsed * 0.02);
+                if (guideAlpha > 0) {
+                    ctx.strokeStyle = 'rgba(255, 255, 255, ' + guideAlpha + ')';
+                    ctx.lineWidth = isMobile ? 1.5 : 1.0;
+                    ctx.setLineDash([6, 8]);
+                    ctx.beginPath();
+                    ctx.arc(cx, cy, baseDist, 0, Math.PI * 2);
+                    ctx.stroke();
+                    ctx.setLineDash([]);
+                }
+
+                const maxPlanetRadius = isMobile ? 54 : 68;
                 let planetRadius = 0;
                 let planetAlpha = 0;
 
                 if (elapsed >= 3.8) {
                     const planetProgress = Math.min((elapsed - 3.8) / 0.7, 1);
                     const easeOut = 1 - Math.pow(1 - planetProgress, 3);
-                    planetRadius = 6 + (maxPlanetRadius - 6) * easeOut;
+                    planetRadius = 8 + (maxPlanetRadius - 8) * easeOut;
                     planetAlpha = Math.min(1, (elapsed - 3.8) * 3);
                 }
 
@@ -2592,7 +2601,7 @@
 
                     if (elapsed < 2.0) {
                         const currentAngle = p.initialAngle + elapsed * p.ambientSpeed * Math.PI;
-                        const oscDist = p.initialDist + Math.sin(elapsed * p.radialOscSpeed + p.id) * 8;
+                        const oscDist = p.initialDist + Math.sin(elapsed * p.radialOscSpeed + p.id) * 10;
                         p.x = cx + Math.cos(currentAngle) * oscDist;
                         p.y = cy + Math.sin(currentAngle) * oscDist;
                     } else if (elapsed < 4.0) {
@@ -2602,23 +2611,39 @@
                         const angle = Math.atan2(dy, dx);
 
                         const timeProgress = (elapsed - 2.0) / 2.0;
-                        const force = (0.8 + 8.5 * Math.pow(timeProgress, 1.8)) * (360 / Math.max(dist, 40));
+                        const force = (1.0 + 9.5 * Math.pow(timeProgress, 1.8)) * (380 / Math.max(dist, 35));
                         const swirl = (1 - timeProgress) * 0.45;
                         const perpAngle = angle + Math.PI / 2;
 
-                        p.vx += Math.cos(angle) * force * 0.14 + Math.cos(perpAngle) * swirl;
-                        p.vy += Math.sin(angle) * force * 0.14 + Math.sin(perpAngle) * swirl;
+                        p.vx += Math.cos(angle) * force * 0.15 + Math.cos(perpAngle) * swirl;
+                        p.vy += Math.sin(angle) * force * 0.15 + Math.sin(perpAngle) * swirl;
                         p.vx *= 0.93;
                         p.vy *= 0.93;
                         p.x += p.vx;
                         p.y += p.vy;
 
                         p.trail.unshift({ x: p.x, y: p.y });
-                        if (p.trail.length > 10) p.trail.pop();
+                        if (p.trail.length > 12) p.trail.pop();
 
-                        if (dist < 18) {
+                        // Visible connection lines
+                        const lineAlpha = (isMobile ? 0.65 : 0.35) * Math.sin(timeProgress * Math.PI);
+                        if (lineAlpha > 0.05) {
+                            ctx.save();
+                            ctx.strokeStyle = 'rgba(255, 255, 255, ' + lineAlpha + ')';
+                            ctx.lineWidth = isMobile ? 1.6 : 1.0;
+                            ctx.beginPath();
+                            ctx.moveTo(p.x, p.y);
+                            const midX = (p.x + cx) / 2;
+                            const midY = (p.y + cy) / 2;
+                            const curveOffset = Math.sin(p.initialAngle * 3) * (isMobile ? 18 : 25);
+                            ctx.quadraticCurveTo(midX + Math.cos(perpAngle) * curveOffset, midY + Math.sin(perpAngle) * curveOffset, cx, cy);
+                            ctx.stroke();
+                            ctx.restore();
+                        }
+
+                        if (dist < (isMobile ? 24 : 18)) {
                             p.merged = true;
-                            ripples.push({ x: cx, y: cy, radius: 4, maxRadius: 36, alpha: 0.8, growth: 1.8 });
+                            ripples.push({ x: cx, y: cy, radius: 6, maxRadius: (isMobile ? 42 : 32) + Math.random() * 20, alpha: 0.95, growth: 2.2 });
                         }
                     } else {
                         const dx = cx - p.x;
@@ -2626,15 +2651,15 @@
                         const dist = Math.sqrt(dx * dx + dy * dy);
                         const angle = Math.atan2(dy, dx);
 
-                        const force = 32 * (250 / Math.max(dist, 10));
-                        p.vx += Math.cos(angle) * force * 0.16;
-                        p.vy += Math.sin(angle) * force * 0.16;
+                        const force = 36 * (280 / Math.max(dist, 10));
+                        p.vx += Math.cos(angle) * force * 0.18;
+                        p.vy += Math.sin(angle) * force * 0.18;
                         p.x += p.vx;
                         p.y += p.vy;
 
-                        if (dist < Math.max(planetRadius, 14)) {
+                        if (dist < Math.max(planetRadius, 18)) {
                             p.merged = true;
-                            ripples.push({ x: cx, y: cy, radius: planetRadius * 0.5, maxRadius: planetRadius * 1.5, alpha: 0.9, growth: 2.2 });
+                            ripples.push({ x: cx, y: cy, radius: planetRadius * 0.5, maxRadius: planetRadius * 1.6, alpha: 1.0, growth: 2.6 });
                         }
                     }
 
@@ -2645,34 +2670,35 @@
                         for (let j = 1; j < p.trail.length; j++) {
                             ctx.lineTo(p.trail[j].x, p.trail[j].y);
                         }
-                        ctx.strokeStyle = 'rgba(255, 255, 255, ' + Math.min(0.35, (elapsed - 2.0) * 0.25) + ')';
-                        ctx.lineWidth = 1.2;
+                        ctx.strokeStyle = 'rgba(255, 255, 255, ' + Math.min(isMobile ? 0.55 : 0.35, (elapsed - 2.0) * 0.3) + ')';
+                        ctx.lineWidth = isMobile ? 1.8 : 1.2;
                         ctx.stroke();
                     }
 
-                    // Glow Body
+                    // Glowing Node Body
                     ctx.save();
-                    ctx.shadowColor = 'rgba(255, 255, 255, 0.85)';
-                    ctx.shadowBlur = Math.max(4, p.radius * 2.2);
+                    ctx.shadowColor = 'rgba(255, 255, 255, 0.95)';
+                    ctx.shadowBlur = Math.max(isMobile ? 8 : 4, p.radius * (isMobile ? 2.6 : 2.0));
                     ctx.fillStyle = '#FFFFFF';
                     ctx.beginPath();
                     ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
                     ctx.fill();
                     ctx.restore();
 
-                    ctx.fillStyle = 'rgba(255, 255, 255, 0.22)';
+                    ctx.fillStyle = 'rgba(255, 255, 255, ' + (isMobile ? 0.35 : 0.22) + ')';
                     ctx.beginPath();
-                    ctx.arc(p.x, p.y, p.radius * 2.2, 0, Math.PI * 2);
+                    ctx.arc(p.x, p.y, p.radius * (isMobile ? 2.6 : 2.2), 0, Math.PI * 2);
                     ctx.fill();
 
-                    if (elapsed < 2.0) {
+                    // Desktop labels only
+                    if (!isMobile && elapsed < 2.0) {
                         const labelAlpha = Math.max(0, 0.85 - elapsed * 0.25);
                         const isRight = p.x >= cx;
                         ctx.fillStyle = 'rgba(255, 255, 255, ' + labelAlpha + ')';
-                        ctx.font = '600 ' + (isMobile ? '8px' : '10px') + ' Inter, sans-serif';
+                        ctx.font = '600 10px Inter, sans-serif';
                         ctx.textAlign = isRight ? 'left' : 'right';
                         ctx.textBaseline = 'middle';
-                        ctx.fillText(p.name, p.x + (isRight ? 10 : -10), p.y);
+                        ctx.fillText(p.name, p.x + (isRight ? 12 : -12), p.y);
                     }
                 });
 
@@ -2680,12 +2706,12 @@
                 for (let i = ripples.length - 1; i >= 0; i--) {
                     const r = ripples[i];
                     r.radius += r.growth;
-                    r.alpha -= 0.035;
+                    r.alpha -= 0.032;
                     if (r.alpha <= 0 || r.radius >= r.maxRadius) {
                         ripples.splice(i, 1);
                     } else {
                         ctx.strokeStyle = 'rgba(255, 255, 255, ' + r.alpha + ')';
-                        ctx.lineWidth = 1.2;
+                        ctx.lineWidth = isMobile ? 2.0 : 1.3;
                         ctx.beginPath();
                         ctx.arc(r.x, r.y, r.radius, 0, Math.PI * 2);
                         ctx.stroke();
@@ -2694,10 +2720,10 @@
 
                 // Central New Planet (WebFlux)
                 if (planetRadius > 0) {
-                    const coronaR = planetRadius * 2.6;
-                    const gCorona = ctx.createRadialGradient(cx, cy, planetRadius * 0.6, cx, cy, coronaR);
-                    gCorona.addColorStop(0, 'rgba(255, 255, 255, ' + (planetAlpha * 0.45) + ')');
-                    gCorona.addColorStop(0.5, 'rgba(240, 245, 255, ' + (planetAlpha * 0.15) + ')');
+                    const coronaR = planetRadius * 2.8;
+                    const gCorona = ctx.createRadialGradient(cx, cy, planetRadius * 0.5, cx, cy, coronaR);
+                    gCorona.addColorStop(0, 'rgba(255, 255, 255, ' + (planetAlpha * 0.55) + ')');
+                    gCorona.addColorStop(0.45, 'rgba(240, 245, 255, ' + (planetAlpha * 0.22) + ')');
                     gCorona.addColorStop(1, 'rgba(255, 255, 255, 0)');
                     ctx.fillStyle = gCorona;
                     ctx.beginPath();
@@ -2705,50 +2731,51 @@
                     ctx.fill();
 
                     ctx.save();
-                    ctx.strokeStyle = 'rgba(255, 255, 255, ' + (planetAlpha * 0.35) + ')';
-                    ctx.lineWidth = 1.4;
+                    ctx.strokeStyle = 'rgba(255, 255, 255, ' + (planetAlpha * 0.45) + ')';
+                    ctx.lineWidth = isMobile ? 2.0 : 1.5;
                     ctx.beginPath();
-                    ctx.ellipse(cx, cy, planetRadius * 1.6, planetRadius * 0.45, -0.3, 0, Math.PI * 2);
+                    ctx.ellipse(cx, cy, planetRadius * 1.65, planetRadius * 0.48, -0.3, 0, Math.PI * 2);
                     ctx.stroke();
                     ctx.restore();
 
                     const gPlanet = ctx.createRadialGradient(cx, cy, 0, cx, cy, planetRadius);
                     gPlanet.addColorStop(0, '#FFFFFF');
-                    gPlanet.addColorStop(0.5, 'rgba(245, 248, 255, ' + (planetAlpha * 0.95) + ')');
-                    gPlanet.addColorStop(0.85, 'rgba(210, 225, 255, ' + (planetAlpha * 0.8) + ')');
-                    gPlanet.addColorStop(1, 'rgba(160, 185, 230, ' + (planetAlpha * 0.4) + ')');
+                    gPlanet.addColorStop(0.5, 'rgba(245, 248, 255, ' + (planetAlpha * 0.98) + ')');
+                    gPlanet.addColorStop(0.85, 'rgba(210, 225, 255, ' + (planetAlpha * 0.85) + ')');
+                    gPlanet.addColorStop(1, 'rgba(160, 185, 230, ' + (planetAlpha * 0.45) + ')');
 
                     ctx.save();
-                    ctx.shadowColor = 'rgba(255, 255, 255, 0.9)';
-                    ctx.shadowBlur = planetRadius * 0.7;
+                    ctx.shadowColor = 'rgba(255, 255, 255, 1.0)';
+                    ctx.shadowBlur = planetRadius * 0.8;
                     ctx.fillStyle = gPlanet;
                     ctx.beginPath();
                     ctx.arc(cx, cy, planetRadius, 0, Math.PI * 2);
                     ctx.fill();
                     ctx.restore();
 
-                    if (planetRadius > 22 && elapsed < 4.5) {
+                    if (planetRadius > 20 && elapsed < 4.5) {
                         ctx.fillStyle = '#000000';
-                        ctx.font = '900 ' + (isMobile ? '16px' : '22px') + ' Inter, sans-serif';
+                        ctx.font = '900 ' + (isMobile ? '20px' : '24px') + ' Inter, sans-serif';
                         ctx.textAlign = 'center';
                         ctx.textBaseline = 'middle';
                         ctx.fillText('W', cx, cy);
                     }
                 }
 
-                // Supernova & Bloom
+                // Supernova Burst
                 if (elapsed >= 4.5) {
                     if (!supernovaTriggered) {
                         supernovaTriggered = true;
-                        for (let k = 0; k < 70; k++) {
-                            const angle = (k / 70) * Math.PI * 2 + (Math.random() - 0.5) * 0.2;
-                            const speed = 12 + Math.random() * 22;
+                        const sparkCount = isMobile ? 55 : 75;
+                        for (let k = 0; k < sparkCount; k++) {
+                            const angle = (k / sparkCount) * Math.PI * 2 + (Math.random() - 0.5) * 0.2;
+                            const speed = (isMobile ? 10 : 12) + Math.random() * 22;
                             supernovaSparks.push({
                                 x: cx,
                                 y: cy,
                                 vx: Math.cos(angle) * speed,
                                 vy: Math.sin(angle) * speed,
-                                radius: 1.5 + Math.random() * 2.5,
+                                radius: (isMobile ? 2.0 : 1.5) + Math.random() * 2.8,
                                 alpha: 1.0,
                                 decay: 0.022 + Math.random() * 0.025
                             });
@@ -2759,18 +2786,18 @@
                     const shockRadius = dtSupernova * Math.max(width, height) * 1.8;
                     const shockAlpha = Math.max(0, 1 - dtSupernova * 2.2);
                     if (shockAlpha > 0) {
-                        ctx.strokeStyle = 'rgba(255, 255, 255, ' + (shockAlpha * 0.85) + ')';
-                        ctx.lineWidth = 3.0;
+                        ctx.strokeStyle = 'rgba(255, 255, 255, ' + (shockAlpha * 0.9) + ')';
+                        ctx.lineWidth = isMobile ? 3.5 : 3.0;
                         ctx.beginPath();
                         ctx.arc(cx, cy, shockRadius, 0, Math.PI * 2);
                         ctx.stroke();
                     }
 
-                    const flashAlpha = Math.max(0, 1 - dtSupernova * 2.6) * 0.9;
+                    const flashAlpha = Math.max(0, 1 - dtSupernova * 2.6) * 0.92;
                     if (flashAlpha > 0) {
                         const gFlash = ctx.createRadialGradient(cx, cy, 0, cx, cy, Math.max(width, height) * 0.7);
                         gFlash.addColorStop(0, 'rgba(255, 255, 255, ' + flashAlpha + ')');
-                        gFlash.addColorStop(0.3, 'rgba(240, 245, 255, ' + (flashAlpha * 0.6) + ')');
+                        gFlash.addColorStop(0.3, 'rgba(240, 245, 255, ' + (flashAlpha * 0.65) + ')');
                         gFlash.addColorStop(1, 'rgba(255, 255, 255, 0)');
                         ctx.fillStyle = gFlash;
                         ctx.fillRect(0, 0, width, height);
@@ -2796,7 +2823,7 @@
         })();
 
     
-                // Depth Fog + Light Beams: Living Void Atmosphere Engine
+                // Multi-Directional Depth Fog + Light Beams (Top, Left, Right, Corners)
         (function initAtmosphereEngine() {
             const canvas = document.getElementById('space-background-canvas');
             if (!canvas) return;
@@ -2822,29 +2849,32 @@
 
             const isMobile = width < 768;
 
-            // 1. Depth Fog Clusters
-            const FOG_COUNT = isMobile ? 4 : 6;
+            // Fog Clusters (Higher alpha on mobile for rich depth)
+            const FOG_COUNT = isMobile ? 5 : 6;
             const fogClusters = [];
 
             for (let i = 0; i < FOG_COUNT; i++) {
                 const depth = i % 3;
                 const speedMult = depth === 0 ? 0.04 : depth === 1 ? 0.08 : 0.12;
-                const baseAlpha = depth === 0 ? 0.04 : depth === 1 ? 0.055 : 0.035;
-                const baseRadiusX = (width * 0.45 + (i % 3) * (width * 0.2)) * (isMobile ? 1.1 : 1.0);
-                const baseRadiusY = baseRadiusX * (0.42 + Math.random() * 0.22);
+                const baseAlpha = isMobile
+                    ? (depth === 0 ? 0.09 : depth === 1 ? 0.125 : 0.085)
+                    : (depth === 0 ? 0.045 : depth === 1 ? 0.06 : 0.038);
+
+                const baseRadiusX = (width * (isMobile ? 0.65 : 0.45) + (i % 3) * (width * 0.25));
+                const baseRadiusY = baseRadiusX * (isMobile ? 0.55 : 0.44);
 
                 fogClusters.push({
                     x: Math.random() * width,
-                    y: (height * 0.15) + (i / FOG_COUNT) * (height * 0.7) + (Math.random() - 0.5) * 120,
-                    vx: (0.05 + Math.random() * 0.08) * speedMult * (i % 2 === 0 ? 1 : -1),
-                    vy: (Math.random() - 0.5) * 0.03 * speedMult,
+                    y: (height * 0.1) + (i / FOG_COUNT) * (height * 0.8) + (Math.random() - 0.5) * 100,
+                    vx: (0.06 + Math.random() * 0.08) * speedMult * (i % 2 === 0 ? 1 : -1),
+                    vy: (Math.random() - 0.5) * 0.04 * speedMult,
                     baseRadiusX: baseRadiusX,
                     baseRadiusY: baseRadiusY,
-                    rotation: (Math.random() - 0.5) * 0.2,
-                    rotSpeed: (Math.random() - 0.5) * 0.00012,
+                    rotation: (Math.random() - 0.5) * 0.25,
+                    rotSpeed: (Math.random() - 0.5) * 0.00015,
                     baseAlpha: baseAlpha,
                     pulsePhase: Math.random() * Math.PI * 2,
-                    pulseSpeed: 0.0004 + Math.random() * 0.0005,
+                    pulseSpeed: 0.0005 + Math.random() * 0.0005,
                     depth: depth
                 });
             }
@@ -2861,35 +2891,64 @@
                 targetParallaxY = ny * 20;
             }, { passive: true });
 
-            // 2. Light Beams (God Rays)
-            const BEAM_COUNT = isMobile ? 2 : 3;
+            // Multi-Directional Beams
+            const BEAM_COUNT = isMobile ? 3 : 4;
             const lightBeams = [];
-            const INITIAL_SPECS = [
-                { normX: 0.22, angle: 0.38, maxAlpha: 0.052, delay: 0.5 },
-                { normX: 0.68, angle: -0.32, maxAlpha: 0.045, delay: 8.0 },
-                { normX: 0.45, angle: 0.18, maxAlpha: 0.038, delay: 16.0 }
-            ];
+
+            function setupBeamGeometry(b, origin) {
+                b.originType = origin;
+                if (origin === 'top') {
+                    b.normPos = Math.random() * 0.7 + 0.15;
+                    b.angle = Math.PI * 0.5 + (Math.random() - 0.5) * 0.65;
+                    b.length = height * 1.5;
+                } else if (origin === 'left') {
+                    b.normPos = Math.random() * 0.55 + 0.1;
+                    b.angle = 0.45 + (Math.random() - 0.5) * 0.35;
+                    b.length = Math.max(width, height) * 1.4;
+                } else if (origin === 'right') {
+                    b.normPos = Math.random() * 0.55 + 0.1;
+                    b.angle = Math.PI - 0.45 - (Math.random() - 0.5) * 0.35;
+                    b.length = Math.max(width, height) * 1.4;
+                } else if (origin === 'corner-left') {
+                    b.normPos = 0;
+                    b.angle = 0.72 + (Math.random() - 0.5) * 0.2;
+                    b.length = Math.max(width, height) * 1.6;
+                } else {
+                    b.normPos = 1;
+                    b.angle = Math.PI - 0.72 - (Math.random() - 0.5) * 0.2;
+                    b.length = Math.max(width, height) * 1.6;
+                }
+
+                b.widthOrigin = width * (isMobile ? 0.10 + Math.random() * 0.05 : 0.045 + Math.random() * 0.025);
+                b.widthEnd = width * (isMobile ? 0.55 + Math.random() * 0.25 : 0.32 + Math.random() * 0.12);
+                b.maxAlpha = isMobile ? (0.11 + Math.random() * 0.04) : (0.05 + Math.random() * 0.025);
+            }
+
+            const ORIGIN_SEQ = ['top', 'left', 'right', 'corner-left'];
 
             for (let i = 0; i < BEAM_COUNT; i++) {
-                const spec = INITIAL_SPECS[i];
-                lightBeams.push({
+                const b = {
                     id: i,
-                    sourceNormX: spec.normX,
-                    baseAngle: spec.angle,
-                    angleSwaySpeed: 0.00025 + i * 0.00008,
-                    angleSwayAmp: 0.06,
-                    widthTop: width * (isMobile ? 0.06 : 0.04),
-                    widthBottom: width * (isMobile ? 0.38 : 0.32),
-                    maxAlpha: isMobile ? spec.maxAlpha * 0.8 : spec.maxAlpha,
-                    sweepSpeed: 0.00004 * (i % 2 === 0 ? 1 : -1),
+                    originType: ORIGIN_SEQ[i % ORIGIN_SEQ.length],
+                    normPos: 0.3,
+                    angle: Math.PI * 0.5,
+                    angleSwaySpeed: 0.00025 + i * 0.0001,
+                    angleSwayAmp: 0.07,
+                    widthOrigin: 40,
+                    widthEnd: 300,
+                    length: height * 1.5,
+                    maxAlpha: 0.06,
+                    sweepSpeed: 0.00005 * (i % 2 === 0 ? 1 : -1),
                     state: i === 0 ? 'entering' : 'dormant',
-                    stateTimer: i === 0 ? 0 : spec.delay,
-                    enterDuration: 5.0 + Math.random() * 2.0,
-                    activeDuration: 10.0 + Math.random() * 6.0,
-                    exitDuration: 5.0 + Math.random() * 2.0,
-                    dormantDuration: 8.0 + Math.random() * 12.0,
+                    stateTimer: i === 0 ? 0 : (i * 6.0),
+                    enterDuration: 4.5 + Math.random() * 2.0,
+                    activeDuration: 9.0 + Math.random() * 5.0,
+                    exitDuration: 4.5 + Math.random() * 2.0,
+                    dormantDuration: 7.0 + Math.random() * 9.0,
                     currentAlpha: 0
-                });
+                };
+                setupBeamGeometry(b, b.originType);
+                lightBeams.push(b);
             }
 
             let lastTime = performance.now();
@@ -2923,7 +2982,7 @@
                     const renderY = fog.y + currentParallaxY * pWeight;
 
                     const pulse = Math.sin(time * fog.pulseSpeed + fog.pulsePhase);
-                    const dynamicAlpha = fog.baseAlpha * (0.8 + 0.2 * pulse);
+                    const dynamicAlpha = fog.baseAlpha * (0.85 + 0.15 * pulse);
                     const radX = fog.baseRadiusX * (0.95 + 0.05 * pulse);
                     const radY = fog.baseRadiusY * (0.95 + 0.05 * pulse);
 
@@ -2934,8 +2993,8 @@
 
                     const grad = ctx.createRadialGradient(0, 0, 0, 0, 0, radX);
                     grad.addColorStop(0, 'rgba(255, 255, 255, ' + dynamicAlpha + ')');
-                    grad.addColorStop(0.35, 'rgba(240, 245, 255, ' + (dynamicAlpha * 0.65) + ')');
-                    grad.addColorStop(0.7, 'rgba(220, 230, 245, ' + (dynamicAlpha * 0.22) + ')');
+                    grad.addColorStop(0.35, 'rgba(240, 245, 255, ' + (dynamicAlpha * 0.72) + ')');
+                    grad.addColorStop(0.7, 'rgba(220, 230, 245, ' + (dynamicAlpha * 0.28) + ')');
                     grad.addColorStop(1, 'rgba(255, 255, 255, 0)');
 
                     ctx.fillStyle = grad;
@@ -2945,7 +3004,7 @@
                     ctx.restore();
                 }
 
-                // Render Beams
+                // Render Multi-Directional Beams
                 for (let j = 0; j < lightBeams.length; j++) {
                     const beam = lightBeams[j];
                     beam.stateTimer += dt;
@@ -2955,7 +3014,8 @@
                         if (beam.stateTimer >= beam.dormantDuration) {
                             beam.state = 'entering';
                             beam.stateTimer = 0;
-                            beam.sourceNormX = Math.max(0.12, Math.min(0.88, beam.sourceNormX + (Math.random() - 0.5) * 0.2));
+                            const allEdges = ['top', 'left', 'right', 'corner-left', 'corner-right'];
+                            setupBeamGeometry(beam, allEdges[Math.floor(Math.random() * allEdges.length)]);
                         }
                     } else if (beam.state === 'entering') {
                         const prog = Math.min(beam.stateTimer / beam.enterDuration, 1);
@@ -2976,34 +3036,50 @@
                         if (prog >= 1) {
                             beam.state = 'dormant';
                             beam.stateTimer = 0;
-                            beam.dormantDuration = 8.0 + Math.random() * 12.0;
+                            beam.dormantDuration = 6.0 + Math.random() * 10.0;
                         }
                     }
 
                     if (beam.currentAlpha <= 0.001) continue;
 
-                    beam.sourceNormX += beam.sweepSpeed;
-                    if (beam.sourceNormX < 0.05 || beam.sourceNormX > 0.95) {
+                    beam.normPos += beam.sweepSpeed;
+                    if (beam.normPos < 0.08 || beam.normPos > 0.92) {
                         beam.sweepSpeed *= -1;
                     }
 
-                    const angleSway = Math.sin(time * beam.angleSwaySpeed + beam.id * 2.1) * beam.angleSwayAmp;
-                    const currentAngle = beam.baseAngle + angleSway;
+                    const angleSway = Math.sin(time * beam.angleSwaySpeed + beam.id * 2.2) * beam.angleSwayAmp;
+                    const currentAngle = beam.angle + angleSway;
 
-                    const originX = beam.sourceNormX * width + currentParallaxX * 0.15;
-                    const originY = -50;
-                    const beamLength = height * 1.5;
+                    let originX = 0;
+                    let originY = 0;
 
-                    const dirX = Math.sin(currentAngle);
-                    const dirY = Math.cos(currentAngle);
-                    const endCenterX = originX + dirX * beamLength;
-                    const endCenterY = originY + dirY * beamLength;
+                    if (beam.originType === 'top') {
+                        originX = beam.normPos * width + currentParallaxX * 0.15;
+                        originY = -50;
+                    } else if (beam.originType === 'left') {
+                        originX = -50;
+                        originY = beam.normPos * height + currentParallaxY * 0.15;
+                    } else if (beam.originType === 'right') {
+                        originX = width + 50;
+                        originY = beam.normPos * height + currentParallaxY * 0.15;
+                    } else if (beam.originType === 'corner-left') {
+                        originX = -40;
+                        originY = -40;
+                    } else {
+                        originX = width + 40;
+                        originY = -40;
+                    }
+
+                    const dirX = Math.cos(currentAngle);
+                    const dirY = Math.sin(currentAngle);
+                    const endCenterX = originX + dirX * beam.length;
+                    const endCenterY = originY + dirY * beam.length;
 
                     const perpX = -dirY;
                     const perpY = dirX;
 
-                    const halfTop = beam.widthTop * 0.5;
-                    const halfBottom = beam.widthBottom * 0.5;
+                    const halfTop = beam.widthOrigin * 0.5;
+                    const halfBottom = beam.widthEnd * 0.5;
 
                     const p1x = originX - perpX * halfTop;
                     const p1y = originY - perpY * halfTop;
@@ -3017,9 +3093,9 @@
                     ctx.save();
                     const shaftGrad = ctx.createLinearGradient(originX, originY, endCenterX, endCenterY);
                     shaftGrad.addColorStop(0, 'rgba(255, 255, 255, 0)');
-                    shaftGrad.addColorStop(0.18, 'rgba(255, 255, 255, ' + (beam.currentAlpha * 0.95) + ')');
-                    shaftGrad.addColorStop(0.45, 'rgba(240, 245, 255, ' + (beam.currentAlpha * 0.7) + ')');
-                    shaftGrad.addColorStop(0.8, 'rgba(220, 230, 245, ' + (beam.currentAlpha * 0.2) + ')');
+                    shaftGrad.addColorStop(0.18, 'rgba(255, 255, 255, ' + (beam.currentAlpha * 0.98) + ')');
+                    shaftGrad.addColorStop(0.45, 'rgba(240, 245, 255, ' + (beam.currentAlpha * 0.72) + ')');
+                    shaftGrad.addColorStop(0.78, 'rgba(220, 230, 245, ' + (beam.currentAlpha * 0.25) + ')');
                     shaftGrad.addColorStop(1, 'rgba(255, 255, 255, 0)');
 
                     ctx.fillStyle = shaftGrad;
@@ -3045,8 +3121,8 @@
 
                     const coreGrad = ctx.createLinearGradient(originX, originY, endCenterX, endCenterY);
                     coreGrad.addColorStop(0, 'rgba(255, 255, 255, 0)');
-                    coreGrad.addColorStop(0.22, 'rgba(255, 255, 255, ' + (beam.currentAlpha * 0.6) + ')');
-                    coreGrad.addColorStop(0.65, 'rgba(245, 250, 255, ' + (beam.currentAlpha * 0.25) + ')');
+                    coreGrad.addColorStop(0.2, 'rgba(255, 255, 255, ' + (beam.currentAlpha * 0.65) + ')');
+                    coreGrad.addColorStop(0.65, 'rgba(245, 250, 255, ' + (beam.currentAlpha * 0.28) + ')');
                     coreGrad.addColorStop(1, 'rgba(255, 255, 255, 0)');
 
                     ctx.fillStyle = coreGrad;
