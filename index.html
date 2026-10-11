@@ -1722,15 +1722,28 @@
 </head>
 <body>
 
-    <!-- Gravity-Fall Loading Screen (Simulates physical gravity drop and impact on load) -->
+        <!-- Notebook Concept Gravity Loader: Client stars connecting to WebFlux central ball, 100% explosion -->
     <div id="gravity-loader" style="position: fixed; inset: 0; z-index: 9999; background: #000000; display: flex; flex-direction: column; align-items: center; justify-content: space-between; user-select: none; transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);">
-        <div style="width: 100%; padding: 2rem; display: flex; align-items: center; justify-content: space-between; z-index: 10;">
+        <canvas id="loader-canvas" style="position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none;"></canvas>
+        <div style="width: 100%; padding: 1.5rem 2rem; display: flex; align-items: center; justify-content: space-between; z-index: 10; pointer-events: none;">
             <div style="display: flex; align-items: center; gap: 0.5rem;">
                 <div style="width: 24px; height: 24px; border-radius: 6px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center; color: #fff; font-family: monospace; font-size: 12px; font-weight: bold;">W</div>
-                <span style="font-family: monospace; font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: #a1a1aa;">WebFlux Gravity Engine</span>
+                <span style="font-family: monospace; font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: #a1a1aa;">WebFlux Design Studio</span>
             </div>
-            <div style="font-family: monospace; font-size: 10px; color: #71717a; text-transform: uppercase; letter-spacing: 0.15em;">Calibrating &bull; 60fps</div>
+            <div style="font-family: monospace; font-size: 10px; color: #71717a; text-transform: uppercase; letter-spacing: 0.15em;">Gravity Sync</div>
         </div>
+        <div style="z-index: 10; display: flex; flex-direction: column; align-items: center; pointer-events: none; margin-top: auto; margin-bottom: 4rem;">
+            <div style="display: flex; align-items: baseline; gap: 4px;">
+                <span id="gravity-pct" style="font-size: clamp(3.5rem, 10vw, 6.5rem); font-family: monospace; font-weight: 800; color: #ffffff; letter-spacing: -0.05em; text-shadow: 0 0 35px rgba(255,255,255,0.4);">1</span>
+                <span style="font-size: clamp(1.5rem, 3.5vw, 2.5rem); font-family: monospace; font-weight: bold; color: #71717a;">%</span>
+            </div>
+            <div id="gravity-status" style="font-family: monospace; font-size: 10px; text-transform: uppercase; letter-spacing: 0.22em; color: #a1a1aa; margin-top: 0.5rem;">GRAVITY CORE INITIALIZING</div>
+            <div style="font-family: monospace; font-size: 9px; text-transform: uppercase; letter-spacing: 0.15em; color: #52525b; margin-top: 0.25rem;">Client Stars In Orbit &bull; Supernova Ready</div>
+        </div>
+        <div style="width: 100%; padding-bottom: 1.5rem; display: flex; justify-content: center; z-index: 10; pointer-events: none;">
+            <span style="font-family: monospace; font-size: 9px; text-transform: uppercase; letter-spacing: 0.2em; color: #52525b;">Lead Architect: Shreyansh Singhal &bull; &copy; 2026 WebFlux</span>
+        </div>
+    </div>
         <div id="gravity-number-box" style="position: absolute; left: 50%; transform: translate(-50%, -50%); display: flex; flex-direction: column; align-items: center; z-index: 20; will-change: transform;">
             <div style="display: flex; align-items: baseline;">
                 <span id="gravity-pct" style="font-size: clamp(3.5rem, 12vw, 7.5rem); font-family: monospace; font-weight: 800; color: #ffffff; letter-spacing: -0.05em; text-shadow: 0 0 35px rgba(255,255,255,0.4);">1</span>
@@ -2114,7 +2127,7 @@
             </div>
             <div class="webora-faq-list" style="max-width: 768px; margin: 0 auto; border-top: 1px solid rgba(255,255,255,0.08); border-bottom: 1px solid rgba(255,255,255,0.08);">
                 <div class="webora-faq-item" style="border-bottom: 1px solid rgba(255,255,255,0.08);">
-                    <button class="webora-faq-trigger" style="width: 100%; padding: 1.4rem 0; background: none; border: none; text-align: left; display: flex; align-items: center; justify-content: space-between; gap: 1rem; cursor: pointer; color: #ffffff; font-family: var(--font-heading, sans-serif); font-size: 1.05rem; font-weight: 600;">
+                    <button class="webora-faq-trigger" onclick="toggleFaqAccordion(this)" style="width: 100%; padding: 1.4rem 0; background: none; border: none; text-align: left; display: flex; align-items: center; justify-content: space-between; gap: 1rem; cursor: pointer; color: #ffffff; font-family: var(--font-heading, sans-serif); font-size: 1.05rem; font-weight: 600;">
                         <span>What is WebFlux Design?</span>
                         <i class="fas fa-chevron-down" style="color: #71717a; transition: transform 0.3s ease; font-size: 0.85rem;"></i>
                     </button>
@@ -2123,7 +2136,7 @@
                     </div>
                 </div>
                 <div class="webora-faq-item" style="border-bottom: 1px solid rgba(255,255,255,0.08);">
-                    <button class="webora-faq-trigger" style="width: 100%; padding: 1.4rem 0; background: none; border: none; text-align: left; display: flex; align-items: center; justify-content: space-between; gap: 1rem; cursor: pointer; color: #ffffff; font-family: var(--font-heading, sans-serif); font-size: 1.05rem; font-weight: 600;">
+                    <button class="webora-faq-trigger" onclick="toggleFaqAccordion(this)" style="width: 100%; padding: 1.4rem 0; background: none; border: none; text-align: left; display: flex; align-items: center; justify-content: space-between; gap: 1rem; cursor: pointer; color: #ffffff; font-family: var(--font-heading, sans-serif); font-size: 1.05rem; font-weight: 600;">
                         <span>How is this different from standard templates or themes?</span>
                         <i class="fas fa-chevron-down" style="color: #71717a; transition: transform 0.3s ease; font-size: 0.85rem;"></i>
                     </button>
@@ -2132,7 +2145,7 @@
                     </div>
                 </div>
                 <div class="webora-faq-item" style="border-bottom: 1px solid rgba(255,255,255,0.08);">
-                    <button class="webora-faq-trigger" style="width: 100%; padding: 1.4rem 0; background: none; border: none; text-align: left; display: flex; align-items: center; justify-content: space-between; gap: 1rem; cursor: pointer; color: #ffffff; font-family: var(--font-heading, sans-serif); font-size: 1.05rem; font-weight: 600;">
+                    <button class="webora-faq-trigger" onclick="toggleFaqAccordion(this)" style="width: 100%; padding: 1.4rem 0; background: none; border: none; text-align: left; display: flex; align-items: center; justify-content: space-between; gap: 1rem; cursor: pointer; color: #ffffff; font-family: var(--font-heading, sans-serif); font-size: 1.05rem; font-weight: 600;">
                         <span>How is it different from generic AI website builders?</span>
                         <i class="fas fa-chevron-down" style="color: #71717a; transition: transform 0.3s ease; font-size: 0.85rem;"></i>
                     </button>
@@ -2141,7 +2154,7 @@
                     </div>
                 </div>
                 <div class="webora-faq-item" style="border-bottom: 1px solid rgba(255,255,255,0.08);">
-                    <button class="webora-faq-trigger" style="width: 100%; padding: 1.4rem 0; background: none; border: none; text-align: left; display: flex; align-items: center; justify-content: space-between; gap: 1rem; cursor: pointer; color: #ffffff; font-family: var(--font-heading, sans-serif); font-size: 1.05rem; font-weight: 600;">
+                    <button class="webora-faq-trigger" onclick="toggleFaqAccordion(this)" style="width: 100%; padding: 1.4rem 0; background: none; border: none; text-align: left; display: flex; align-items: center; justify-content: space-between; gap: 1rem; cursor: pointer; color: #ffffff; font-family: var(--font-heading, sans-serif); font-size: 1.05rem; font-weight: 600;">
                         <span>What do I actually get when the project is done?</span>
                         <i class="fas fa-chevron-down" style="color: #71717a; transition: transform 0.3s ease; font-size: 0.85rem;"></i>
                     </button>
@@ -2150,7 +2163,7 @@
                     </div>
                 </div>
                 <div class="webora-faq-item" style="border-bottom: 1px solid rgba(255,255,255,0.08);">
-                    <button class="webora-faq-trigger" style="width: 100%; padding: 1.4rem 0; background: none; border: none; text-align: left; display: flex; align-items: center; justify-content: space-between; gap: 1rem; cursor: pointer; color: #ffffff; font-family: var(--font-heading, sans-serif); font-size: 1.05rem; font-weight: 600;">
+                    <button class="webora-faq-trigger" onclick="toggleFaqAccordion(this)" style="width: 100%; padding: 1.4rem 0; background: none; border: none; text-align: left; display: flex; align-items: center; justify-content: space-between; gap: 1rem; cursor: pointer; color: #ffffff; font-family: var(--font-heading, sans-serif); font-size: 1.05rem; font-weight: 600;">
                         <span>Can I bring my existing branding and assets?</span>
                         <i class="fas fa-chevron-down" style="color: #71717a; transition: transform 0.3s ease; font-size: 0.85rem;"></i>
                     </button>
@@ -2159,7 +2172,7 @@
                     </div>
                 </div>
                 <div class="webora-faq-item" style="border-bottom: 1px solid rgba(255,255,255,0.08);">
-                    <button class="webora-faq-trigger" style="width: 100%; padding: 1.4rem 0; background: none; border: none; text-align: left; display: flex; align-items: center; justify-content: space-between; gap: 1rem; cursor: pointer; color: #ffffff; font-family: var(--font-heading, sans-serif); font-size: 1.05rem; font-weight: 600;">
+                    <button class="webora-faq-trigger" onclick="toggleFaqAccordion(this)" style="width: 100%; padding: 1.4rem 0; background: none; border: none; text-align: left; display: flex; align-items: center; justify-content: space-between; gap: 1rem; cursor: pointer; color: #ffffff; font-family: var(--font-heading, sans-serif); font-size: 1.05rem; font-weight: 600;">
                         <span>Do you handle backend logic or just frontend?</span>
                         <i class="fas fa-chevron-down" style="color: #71717a; transition: transform 0.3s ease; font-size: 0.85rem;"></i>
                     </button>
@@ -2168,7 +2181,7 @@
                     </div>
                 </div>
                 <div class="webora-faq-item" style="border-bottom: 1px solid rgba(255,255,255,0.08);">
-                    <button class="webora-faq-trigger" style="width: 100%; padding: 1.4rem 0; background: none; border: none; text-align: left; display: flex; align-items: center; justify-content: space-between; gap: 1rem; cursor: pointer; color: #ffffff; font-family: var(--font-heading, sans-serif); font-size: 1.05rem; font-weight: 600;">
+                    <button class="webora-faq-trigger" onclick="toggleFaqAccordion(this)" style="width: 100%; padding: 1.4rem 0; background: none; border: none; text-align: left; display: flex; align-items: center; justify-content: space-between; gap: 1rem; cursor: pointer; color: #ffffff; font-family: var(--font-heading, sans-serif); font-size: 1.05rem; font-weight: 600;">
                         <span>What does a custom project cost?</span>
                         <i class="fas fa-chevron-down" style="color: #71717a; transition: transform 0.3s ease; font-size: 0.85rem;"></i>
                     </button>
@@ -2177,7 +2190,7 @@
                     </div>
                 </div>
                 <div class="webora-faq-item" style="border-bottom: 1px solid rgba(255,255,255,0.08);">
-                    <button class="webora-faq-trigger" style="width: 100%; padding: 1.4rem 0; background: none; border: none; text-align: left; display: flex; align-items: center; justify-content: space-between; gap: 1rem; cursor: pointer; color: #ffffff; font-family: var(--font-heading, sans-serif); font-size: 1.05rem; font-weight: 600;">
+                    <button class="webora-faq-trigger" onclick="toggleFaqAccordion(this)" style="width: 100%; padding: 1.4rem 0; background: none; border: none; text-align: left; display: flex; align-items: center; justify-content: space-between; gap: 1rem; cursor: pointer; color: #ffffff; font-family: var(--font-heading, sans-serif); font-size: 1.05rem; font-weight: 600;">
                         <span>What is the timeline from start to launch?</span>
                         <i class="fas fa-chevron-down" style="color: #71717a; transition: transform 0.3s ease; font-size: 0.85rem;"></i>
                     </button>
@@ -2442,59 +2455,272 @@
             });
         }
     
-        // Gravity Fall Loader Physics Animation
-        (function initGravityLoader() {
+        
+        // Notebook Concept Gravity Loader Simulation (Client stars flying in, attaching with curved lines, 100% explosion)
+        (function initNotebookGravityLoader() {
             const loader = document.getElementById('gravity-loader');
+            const canvas = document.getElementById('loader-canvas');
             const pctEl = document.getElementById('gravity-pct');
-            const numBox = document.getElementById('gravity-number-box');
             const statusEl = document.getElementById('gravity-status');
-            const groundLine = document.getElementById('ground-line');
-            if (!loader || !pctEl || !numBox) return;
+            if (!loader || !canvas || !pctEl) return;
 
             document.body.style.overflow = 'hidden';
-            const duration = 1400;
-            const topVh = 8;
-            const groundVh = 76;
-            let start = null;
+            const ctx = canvas.getContext('2d', { alpha: true });
+            if (!ctx) return;
 
-            function step(timestamp) {
-                if (!start) start = timestamp;
-                const elapsed = timestamp - start;
-                const progress = Math.min(elapsed / duration, 1);
-                const gravityY = Math.pow(progress, 2.2);
-                const currentY = topVh + gravityY * (groundVh - topVh);
-                const pct = Math.min(100, Math.max(1, Math.floor(1 + 99 * Math.pow(progress, 1.85))));
+            let width = window.innerWidth;
+            let height = window.innerHeight;
+            const dpr = Math.min(window.devicePixelRatio || 1, 2);
 
+            function resize() {
+                width = window.innerWidth;
+                height = window.innerHeight;
+                canvas.width = width * dpr;
+                canvas.height = height * dpr;
+                ctx.setTransform(1, 0, 0, 1, 0, 0);
+                ctx.scale(dpr, dpr);
+            }
+            resize();
+            window.addEventListener('resize', resize);
+
+            const isMobile = width < 768;
+            const cx = width / 2;
+            const cy = height / 2 - (isMobile ? 24 : 32);
+
+            const CLIENT_SPECS = [
+                { name: 'Artisan Café', angle: 0.35, launch: 0.15 },
+                { name: 'Fitness & Gym', angle: 1.15, launch: 0.38 },
+                { name: 'Fine Dining', angle: 1.95, launch: 0.62 },
+                { name: 'Luxury Salon', angle: 2.75, launch: 0.88 },
+                { name: 'Apex Academy', angle: 3.55, launch: 1.12 },
+                { name: 'Boutique Hotel', angle: 4.35, launch: 1.36 },
+                { name: 'Real Estate', angle: 5.15, launch: 1.62 },
+                { name: 'Tech Startup', angle: 5.95, launch: 1.88 },
+            ];
+
+            const stars = CLIENT_SPECS.map((spec, i) => {
+                const targetDist = isMobile ? 85 + (i % 3) * 22 : 140 + (i % 3) * 40;
+                const spawnAngle = spec.angle + (Math.random() - 0.5) * 0.8;
+                const spawnDist = Math.max(width, height) * 0.85 + 100;
+                const startX = cx + Math.cos(spawnAngle) * spawnDist;
+                const startY = cy + Math.sin(spawnAngle) * spawnDist;
+                const expAngle = spec.angle + (Math.random() - 0.5) * 0.3;
+                const expSpeed = 12 + Math.random() * 14;
+
+                return {
+                    name: spec.name,
+                    targetAngle: spec.angle,
+                    targetDist: targetDist,
+                    startX: startX,
+                    startY: startY,
+                    launchTime: spec.launch,
+                    flightDuration: 0.55,
+                    currentX: startX,
+                    currentY: startY,
+                    isAttached: false,
+                    explodeVx: Math.cos(expAngle) * expSpeed,
+                    explodeVy: Math.sin(expAngle) * expSpeed
+                };
+            });
+
+            const particles = [];
+            let hasExploded = false;
+            let explosionTime = 0;
+            const EXPLODE_TIME = 2.45;
+            let startTime = null;
+
+            function loop(timestamp) {
+                if (!startTime) startTime = timestamp;
+                const elapsed = (timestamp - startTime) / 1000;
+
+                ctx.clearRect(0, 0, width, height);
+                ctx.fillStyle = '#000000';
+                ctx.fillRect(0, 0, width, height);
+
+                let attachedCount = 0;
+
+                stars.forEach(star => {
+                    if (elapsed >= star.launchTime) {
+                        const t = Math.min((elapsed - star.launchTime) / star.flightDuration, 1);
+                        const easeOut = 1 - Math.pow(1 - t, 3);
+                        const targetX = cx + Math.cos(star.targetAngle) * star.targetDist;
+                        const targetY = cy + Math.sin(star.targetAngle) * star.targetDist;
+
+                        if (hasExploded) {
+                            star.currentX += star.explodeVx * 1.35;
+                            star.currentY += star.explodeVy * 1.35;
+                        } else {
+                            const perpAngle = star.targetAngle + Math.PI / 2;
+                            const curveArch = (1 - easeOut) * Math.sin(easeOut * Math.PI) * 70;
+                            star.currentX = star.startX + (targetX - star.startX) * easeOut + Math.cos(perpAngle) * curveArch;
+                            star.currentY = star.startY + (targetY - star.startY) * easeOut + Math.sin(perpAngle) * curveArch;
+                        }
+
+                        if (t >= 1) star.isAttached = true;
+                    }
+                    if (star.isAttached) attachedCount++;
+                });
+
+                let pct = 1;
+                if (attachedCount === 0) pct = Math.min(10, Math.floor(1 + elapsed * 10));
+                else if (attachedCount <= 2) pct = 15 + Math.floor((attachedCount / 2) * 12);
+                else if (attachedCount <= 4) pct = 28 + Math.floor(((attachedCount - 2) / 2) * 24);
+                else if (attachedCount <= 6) pct = 54 + Math.floor(((attachedCount - 4) / 2) * 22);
+                else if (attachedCount < stars.length) pct = 78 + Math.floor(((attachedCount - 6) / 2) * 18);
+                else pct = 100;
+
+                pct = Math.min(100, Math.max(1, pct));
                 pctEl.textContent = pct;
-                numBox.style.top = currentY + 'vh';
-                const scaleY = 1 + gravityY * 0.14;
-                const scaleX = 1 - gravityY * 0.08;
-                numBox.style.transform = 'translate(-50%, -50%) scale(' + scaleX + ', ' + scaleY + ')';
 
-                if (progress < 1) {
-                    requestAnimationFrame(step);
-                } else {
-                    pctEl.textContent = 100;
-                    if (statusEl) statusEl.textContent = 'Terminal Velocity Reached';
-                    numBox.style.top = groundVh + 'vh';
-                    numBox.style.transform = 'translate(-50%, -50%) scale(1.18, 0.85)';
-                    if (groundLine) {
-                        groundLine.style.boxShadow = '0 0 35px rgba(255,255,255,0.9), 0 0 70px rgba(255,255,255,0.5)';
-                        groundLine.style.transform = 'scaleX(1.12)';
+                if (pct < 25 && statusEl) statusEl.textContent = 'GRAVITY CORE INITIALIZING';
+                else if (pct < 75 && statusEl) statusEl.textContent = 'CONNECTING CLIENTS (' + attachedCount + '/' + stars.length + ')';
+                else if (pct < 100 && statusEl) statusEl.textContent = 'ORBITAL LOCK ACHIEVED';
+                else if (statusEl) statusEl.textContent = 'SUPERNOVA TRIGGERED';
+
+                if (elapsed >= EXPLODE_TIME && !hasExploded) {
+                    hasExploded = true;
+                    explosionTime = elapsed;
+                    for (let i = 0; i < 80; i++) {
+                        const ang = Math.random() * Math.PI * 2;
+                        const spd = 6 + Math.random() * 22;
+                        particles.push({
+                            x: cx, y: cy,
+                            vx: Math.cos(ang) * spd,
+                            vy: Math.sin(ang) * spd,
+                            radius: 1 + Math.random() * 2.8,
+                            alpha: 1,
+                            decay: 0.018 + Math.random() * 0.025
+                        });
                     }
                     setTimeout(() => {
                         loader.style.opacity = '0';
-                        loader.style.transform = 'translateY(-30px)';
+                        loader.style.transform = 'scale(1.05)';
                         loader.style.pointerEvents = 'none';
-                    }, 280);
+                    }, 320);
                     setTimeout(() => {
                         loader.style.display = 'none';
                         document.body.style.overflow = '';
-                    }, 950);
+                    }, 900);
                 }
+
+                // Draw curved lines
+                if (!hasExploded) {
+                    stars.forEach(star => {
+                        if (elapsed >= star.launchTime) {
+                            const t = Math.min((elapsed - star.launchTime) / star.flightDuration, 1);
+                            const lineAlpha = star.isAttached ? 0.45 : t * 0.25;
+                            const midX = (star.currentX + cx) / 2;
+                            const midY = (star.currentY + cy) / 2;
+                            const perpAngle = star.targetAngle + Math.PI / 2;
+                            const curveOffset = Math.sin(star.targetAngle * 3) * 25;
+                            const ctrlX = midX + Math.cos(perpAngle) * curveOffset;
+                            const ctrlY = midY + Math.sin(perpAngle) * curveOffset;
+
+                            ctx.strokeStyle = 'rgba(255, 255, 255, ' + lineAlpha + ')';
+                            ctx.lineWidth = star.isAttached ? 1.2 : 0.8;
+                            ctx.beginPath();
+                            ctx.moveTo(star.currentX, star.currentY);
+                            ctx.quadraticCurveTo(ctrlX, ctrlY, cx, cy);
+                            ctx.stroke();
+                        }
+                    });
+                }
+
+                // Draw central ball
+                const coreBase = isMobile ? 26 : 36;
+                const coreScale = hasExploded ? 1 + (elapsed - explosionTime) * 4 : 1 + Math.sin(elapsed * 4) * 0.04;
+                const coreR = coreBase * coreScale;
+                const coreAlpha = hasExploded ? Math.max(0, 1 - (elapsed - explosionTime) * 3) : 1;
+
+                if (coreAlpha > 0) {
+                    const gHalo = ctx.createRadialGradient(cx, cy, coreR * 0.4, cx, cy, coreR * 2.5);
+                    gHalo.addColorStop(0, 'rgba(255, 255, 255, ' + (0.4 * coreAlpha) + ')');
+                    gHalo.addColorStop(0.5, 'rgba(255, 255, 255, ' + (0.12 * coreAlpha) + ')');
+                    gHalo.addColorStop(1, 'rgba(255, 255, 255, 0)');
+                    ctx.fillStyle = gHalo;
+                    ctx.beginPath();
+                    ctx.arc(cx, cy, coreR * 2.5, 0, Math.PI * 2);
+                    ctx.fill();
+
+                    const gCore = ctx.createRadialGradient(cx, cy, 0, cx, cy, coreR);
+                    gCore.addColorStop(0, 'rgba(255, 255, 255, ' + coreAlpha + ')');
+                    gCore.addColorStop(0.7, 'rgba(235, 240, 255, ' + (0.9 * coreAlpha) + ')');
+                    gCore.addColorStop(1, 'rgba(180, 195, 230, ' + (0.5 * coreAlpha) + ')');
+                    ctx.fillStyle = gCore;
+                    ctx.beginPath();
+                    ctx.arc(cx, cy, coreR, 0, Math.PI * 2);
+                    ctx.fill();
+
+                    if (!hasExploded) {
+                        ctx.fillStyle = '#000000';
+                        ctx.font = '900 ' + (isMobile ? '13px' : '17px') + ' Inter, sans-serif';
+                        ctx.textAlign = 'center';
+                        ctx.textBaseline = 'middle';
+                        ctx.fillText('W', cx, cy);
+                    }
+                }
+
+                // Draw client stars and labels
+                stars.forEach(star => {
+                    if (elapsed >= star.launchTime) {
+                        const starAlpha = hasExploded ? Math.max(0, 1 - (elapsed - explosionTime) * 2.5) : 1;
+                        if (starAlpha > 0) {
+                            ctx.fillStyle = 'rgba(255, 255, 255, ' + starAlpha + ')';
+                            ctx.beginPath();
+                            ctx.arc(star.currentX, star.currentY, isMobile ? 3 : 4, 0, Math.PI * 2);
+                            ctx.fill();
+
+                            ctx.fillStyle = 'rgba(255, 255, 255, ' + (0.25 * starAlpha) + ')';
+                            ctx.beginPath();
+                            ctx.arc(star.currentX, star.currentY, isMobile ? 7 : 10, 0, Math.PI * 2);
+                            ctx.fill();
+
+                            if (star.isAttached && !hasExploded) {
+                                const lx = star.currentX + (Math.cos(star.targetAngle) > 0 ? 10 : -10);
+                                const ly = star.currentY + (Math.sin(star.targetAngle) > 0 ? 10 : -10);
+                                const align = Math.cos(star.targetAngle) > 0 ? 'left' : 'right';
+                                ctx.fillStyle = '#FFFFFF';
+                                ctx.font = '600 ' + (isMobile ? '9px' : '11px') + ' Inter, sans-serif';
+                                ctx.textAlign = align;
+                                ctx.textBaseline = 'middle';
+                                ctx.fillText(star.name, lx, ly);
+                            }
+                        }
+                    }
+                });
+
+                // Draw particles
+                if (hasExploded) {
+                    const dtExp = elapsed - explosionTime;
+                    const shockR = dtExp * Math.max(width, height) * 0.9;
+                    const shockAlpha = Math.max(0, 1 - dtExp * 2.2);
+                    if (shockAlpha > 0) {
+                        ctx.strokeStyle = 'rgba(255, 255, 255, ' + (shockAlpha * 0.75) + ')';
+                        ctx.lineWidth = 2.5;
+                        ctx.beginPath();
+                        ctx.arc(cx, cy, shockR, 0, Math.PI * 2);
+                        ctx.stroke();
+                    }
+
+                    for (let i = 0; i < particles.length; i++) {
+                        const p = particles[i];
+                        p.x += p.vx;
+                        p.y += p.vy;
+                        p.alpha -= p.decay;
+                        if (p.alpha > 0) {
+                            ctx.fillStyle = 'rgba(255, 255, 255, ' + p.alpha + ')';
+                            ctx.beginPath();
+                            ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                            ctx.fill();
+                        }
+                    }
+                }
+
+                requestAnimationFrame(loop);
             }
-            requestAnimationFrame(step);
+            requestAnimationFrame(loop);
         })();
+
 
     
         // Mathematical Space Engine (Trigonometric Orbital Mechanics + Cursor Reaction)
@@ -2710,6 +2936,30 @@
             }
             requestAnimationFrame(render);
         })();
+
+    
+        // Bulletproof Webora-Style FAQ Accordion Toggle
+        function toggleFaqAccordion(btn) {
+            const item = btn.closest('.webora-faq-item');
+            if (!item) return;
+            const answer = item.querySelector('.webora-faq-answer');
+            const icon = btn.querySelector('.fa-chevron-down') || btn.querySelector('i');
+            const isCurrentlyOpen = answer.style.display === 'block';
+
+            // Close all items
+            document.querySelectorAll('.webora-faq-item .webora-faq-answer').forEach(el => {
+                el.style.display = 'none';
+            });
+            document.querySelectorAll('.webora-faq-item .webora-faq-trigger i').forEach(el => {
+                el.style.transform = 'rotate(0deg)';
+            });
+
+            // If not open, open it
+            if (!isCurrentlyOpen) {
+                answer.style.display = 'block';
+                if (icon) icon.style.transform = 'rotate(180deg)';
+            }
+        }
 
     </script>
 </body>

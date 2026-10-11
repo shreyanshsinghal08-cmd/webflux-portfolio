@@ -258,7 +258,7 @@ export default function WebFluxHomePage() {
   }, []);
 
   return (
-    <div className="space-y-28 sm:space-y-44 max-w-6xl mx-auto px-4 sm:px-8 lg:px-10 pb-28">
+    <div className="space-y-28 sm:space-y-44 max-w-6xl mx-auto px-4 sm:px-8 lg:px-10 pb-44 sm:pb-32">
       {/* ==================================================
           1. HERO SECTION (MINIMAL, POWERFUL & CENTERED - WEBORA STYLE)
           ================================================== */}
@@ -810,47 +810,51 @@ export default function WebFluxHomePage() {
       </section>
 
       {/* ==================================================
-          6. FAQ SECTION (#faq - WEBORA STYLE VERTICAL ACCORDION LIST)
+          6. FAQ SECTION (#faq - WEBORA STYLE ACCORDION LIST)
           ================================================== */}
       <section id="faq" className="scroll-mt-28 reveal-on-scroll">
-        <div className="text-center max-w-3xl mx-auto mb-14">
+        <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-14">
           <h2 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-heading font-extrabold text-white tracking-[-0.03em]">
             Frequently asked questions
           </h2>
-          <p className="text-sm sm:text-base text-zinc-400 mt-3 max-w-xl mx-auto font-normal">
+          <p className="text-xs sm:text-base text-zinc-400 mt-2 sm:mt-3 max-w-xl mx-auto font-normal">
             Everything you need to know about WebFlux Design and our process.
           </p>
         </div>
 
-        {/* Webora.com Style: Sleek vertical list with thin subtle borders & smooth accordion */}
+        {/* Webora.com Style: Sleek vertical list with thin subtle borders & smooth grid accordion */}
         <div className="max-w-3xl mx-auto divide-y divide-white/[0.08] border-t border-b border-white/[0.08]">
           {faqs.map((faq, idx) => {
             const isOpen = openFaq === idx;
             return (
               <div key={idx} className="transition-colors">
                 <button
-                  onClick={() => setOpenFaq(isOpen ? null : idx)}
-                  className="w-full py-5 sm:py-6 text-left flex items-center justify-between gap-6 cursor-pointer group focus:outline-none"
+                  type="button"
+                  onClick={() => setOpenFaq((prev) => (prev === idx ? null : idx))}
+                  className="w-full py-4 sm:py-6 text-left flex items-center justify-between gap-3 sm:gap-6 cursor-pointer group focus:outline-none select-none"
                   aria-expanded={isOpen}
                 >
-                  <span className="font-heading font-semibold text-base sm:text-lg text-white group-hover:text-zinc-200 transition-colors">
+                  <span className="font-heading font-semibold text-sm sm:text-base md:text-lg text-white group-hover:text-zinc-200 transition-colors pr-2">
                     {faq.q}
                   </span>
-                  <ChevronDown
-                    size={18}
-                    className={`text-zinc-500 group-hover:text-white shrink-0 transition-transform duration-300 ${
-                      isOpen ? 'rotate-180 text-white' : ''
+                  <div
+                    className={`w-7 h-7 rounded-full bg-white/[0.04] border border-white/10 flex items-center justify-center text-zinc-400 shrink-0 transition-all duration-300 group-hover:border-white/30 group-hover:text-white ${
+                      isOpen ? 'rotate-180 bg-white text-black border-transparent shadow-md' : ''
                     }`}
-                  />
+                  >
+                    <ChevronDown size={14} />
+                  </div>
                 </button>
                 <div
-                  className={`overflow-hidden transition-all duration-300 ease-out ${
-                    isOpen ? 'max-h-96 pb-6 pt-1 opacity-100' : 'max-h-0 pb-0 pt-0 opacity-0 pointer-events-none'
+                  className={`grid transition-[grid-template-rows,opacity] duration-300 ease-out ${
+                    isOpen ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0 pointer-events-none'
                   }`}
                 >
-                  <p className="text-xs sm:text-sm text-zinc-400 font-normal leading-relaxed">
-                    {faq.a}
-                  </p>
+                  <div className="overflow-hidden">
+                    <p className="text-xs sm:text-sm text-zinc-400 font-normal leading-relaxed pb-5 sm:pb-6 pt-1">
+                      {faq.a}
+                    </p>
+                  </div>
                 </div>
               </div>
             );
@@ -861,9 +865,9 @@ export default function WebFluxHomePage() {
       {/* ==================================================
           7. CONTACT SECTION (#contact)
           ================================================== */}
-      <section id="contact" className="scroll-mt-28 reveal-on-scroll">
-        <div className="text-center max-w-3xl mx-auto mb-14">
-          <div className="pill-badge mb-4">
+      <section id="contact" className="scroll-mt-28 reveal-on-scroll pb-12 sm:pb-0">
+        <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-14">
+          <div className="pill-badge mb-3 sm:mb-4">
             <span>✦ Direct Channel &bull; Start Your Project</span>
           </div>
           <h2 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-heading font-extrabold text-white tracking-[-0.03em]">
@@ -874,16 +878,16 @@ export default function WebFluxHomePage() {
             <span className="section-word section-word-pop word-delay-5">will</span>{' '}
             <span className="section-word section-word-right word-delay-6">ship.</span>
           </h2>
-          <p className="text-sm sm:text-base text-zinc-400 mt-3 max-w-xl mx-auto font-normal">
+          <p className="text-xs sm:text-base text-zinc-400 mt-2 sm:mt-3 max-w-xl mx-auto font-normal">
             Connect directly with Lead Architect Shreyansh Singhal. We review your requirements and provide preliminary demo architecture within 24 hours.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-          {/* Direct Channels */}
-          <div className="lg:col-span-5 bento-card p-5 sm:p-8 space-y-6">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-8 items-start">
+          {/* Direct Channels Card */}
+          <div className="lg:col-span-5 bento-card p-4 sm:p-7 space-y-4 sm:space-y-6 w-full overflow-hidden">
             <div>
-              <h3 className="text-xl font-heading font-bold text-white">
+              <h3 className="text-lg sm:text-xl font-heading font-bold text-white">
                 Engineering Desk
               </h3>
               <p className="text-xs text-zinc-400 mt-1 leading-relaxed font-normal">
@@ -891,65 +895,65 @@ export default function WebFluxHomePage() {
               </p>
             </div>
 
-            <div className="space-y-3">
+            <div className="space-y-2.5 sm:space-y-3">
               <a
                 href="https://wa.me/918302589297"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-4 p-4 rounded-xl bg-white/[0.02] border border-white/[0.08] hover:border-white/30 hover:bg-white/[0.05] transition-all group"
+                className="flex items-center gap-3 sm:gap-4 p-3 sm:p-4 rounded-xl bg-white/[0.02] border border-white/[0.08] hover:border-white/30 hover:bg-white/[0.05] transition-all group"
               >
-                <div className="w-9 h-9 rounded-xl bg-white/10 border border-white/20 flex items-center justify-center text-white">
-                  <Phone size={16} />
+                <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-white/10 border border-white/20 flex items-center justify-center text-white shrink-0">
+                  <Phone size={15} />
                 </div>
-                <div>
-                  <div className="text-[10px] font-mono uppercase text-zinc-500">
+                <div className="min-w-0 flex-1">
+                  <div className="text-[9px] sm:text-[10px] font-mono uppercase text-zinc-500">
                     WhatsApp Chat &bull; Priority
                   </div>
                   <div className="text-xs sm:text-sm font-semibold text-white group-hover:text-zinc-200 transition-colors">
                     +91 8302589297
                   </div>
                 </div>
-                <ArrowUpRight size={14} className="ml-auto text-zinc-600 group-hover:text-white transition-colors" />
+                <ArrowUpRight size={13} className="ml-auto text-zinc-600 group-hover:text-white transition-colors shrink-0" />
               </a>
 
               <a
                 href="mailto:shreyanshsinghal08@gmail.com"
-                className="flex items-center gap-4 p-4 rounded-xl bg-white/[0.02] border border-white/[0.08] hover:border-white/30 hover:bg-white/[0.05] transition-all group"
+                className="flex items-center gap-3 sm:gap-4 p-3 sm:p-4 rounded-xl bg-white/[0.02] border border-white/[0.08] hover:border-white/30 hover:bg-white/[0.05] transition-all group"
               >
-                <div className="w-9 h-9 rounded-xl bg-white/10 border border-white/20 flex items-center justify-center text-white">
-                  <Mail size={16} />
+                <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-white/10 border border-white/20 flex items-center justify-center text-white shrink-0">
+                  <Mail size={15} />
                 </div>
-                <div>
-                  <div className="text-[10px] font-mono uppercase text-zinc-500">
+                <div className="min-w-0 flex-1">
+                  <div className="text-[9px] sm:text-[10px] font-mono uppercase text-zinc-500">
                     Primary Email
                   </div>
-                  <div className="text-xs sm:text-sm font-semibold text-white group-hover:text-zinc-200 transition-colors">
+                  <div className="text-xs sm:text-sm font-semibold text-white group-hover:text-zinc-200 transition-colors truncate break-all sm:break-normal">
                     shreyanshsinghal08@gmail.com
                   </div>
                 </div>
-                <ArrowUpRight size={14} className="ml-auto text-zinc-600 group-hover:text-white transition-colors" />
+                <ArrowUpRight size={13} className="ml-auto text-zinc-600 group-hover:text-white transition-colors shrink-0" />
               </a>
 
-              <div className="flex items-center gap-4 p-4 rounded-xl bg-white/[0.02] border border-white/[0.08]">
-                <div className="w-9 h-9 rounded-xl bg-white/10 border border-white/20 flex items-center justify-center text-white">
-                  <MapPin size={16} />
+              <div className="flex items-center gap-3 sm:gap-4 p-3 sm:p-4 rounded-xl bg-white/[0.02] border border-white/[0.08]">
+                <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-white/10 border border-white/20 flex items-center justify-center text-white shrink-0">
+                  <MapPin size={15} />
                 </div>
-                <div>
-                  <div className="text-[10px] font-mono uppercase text-zinc-500">
+                <div className="min-w-0 flex-1">
+                  <div className="text-[9px] sm:text-[10px] font-mono uppercase text-zinc-500">
                     Studio Headquarters
                   </div>
                   <div className="text-xs sm:text-sm font-semibold text-white">
-                    Rajasthan, India &bull; Serving Worldwide
+                    Rajasthan, India &bull; Worldwide
                   </div>
                 </div>
               </div>
 
-              <div className="flex items-center gap-4 p-4 rounded-xl bg-white/[0.02] border border-white/[0.08]">
-                <div className="w-9 h-9 rounded-xl bg-white/10 border border-white/20 flex items-center justify-center text-white">
-                  <Clock size={16} />
+              <div className="flex items-center gap-3 sm:gap-4 p-3 sm:p-4 rounded-xl bg-white/[0.02] border border-white/[0.08]">
+                <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-white/10 border border-white/20 flex items-center justify-center text-white shrink-0">
+                  <Clock size={15} />
                 </div>
-                <div>
-                  <div className="text-[10px] font-mono uppercase text-zinc-500">
+                <div className="min-w-0 flex-1">
+                  <div className="text-[9px] sm:text-[10px] font-mono uppercase text-zinc-500">
                     Operational Hours
                   </div>
                   <div className="text-xs sm:text-sm font-semibold text-white">
@@ -960,20 +964,21 @@ export default function WebFluxHomePage() {
             </div>
           </div>
 
-          {/* Contact Inquiry Form */}
-          <div className="lg:col-span-7 bento-card p-5 sm:p-8">
+          {/* Contact Inquiry Form Card */}
+          <div className="lg:col-span-7 bento-card p-4 sm:p-7 w-full overflow-hidden">
             {formSubmitted ? (
-              <div className="p-8 text-center space-y-4">
-                <div className="w-14 h-14 rounded-full bg-white/10 border border-white/30 flex items-center justify-center text-white mx-auto shadow-lg">
-                  <CheckCircle2 size={30} />
+              <div className="p-6 sm:p-8 text-center space-y-4">
+                <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-white/10 border border-white/30 flex items-center justify-center text-white mx-auto shadow-lg">
+                  <CheckCircle2 size={26} />
                 </div>
-                <h4 className="text-xl font-heading font-bold text-white">
+                <h4 className="text-lg sm:text-xl font-heading font-bold text-white">
                   Transmission Confirmed
                 </h4>
                 <p className="text-xs sm:text-sm text-zinc-400 max-w-md mx-auto font-normal">
                   Thank you. Your project scope has been received. Lead Architect Shreyansh will reach out via WhatsApp or Email within a few hours.
                 </p>
                 <button
+                  type="button"
                   onClick={() => setFormSubmitted(false)}
                   className="btn-secondary text-xs uppercase tracking-wider py-2.5 px-6"
                 >
@@ -981,9 +986,9 @@ export default function WebFluxHomePage() {
                 </button>
               </div>
             ) : (
-              <form onSubmit={handleContactSubmit} className="space-y-4">
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div>
+              <form onSubmit={handleContactSubmit} className="space-y-3.5 sm:space-y-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+                  <div className="w-full">
                     <label className="block text-[11px] font-mono uppercase tracking-wider text-zinc-400 mb-1.5">
                       Full Name *
                     </label>
@@ -992,10 +997,10 @@ export default function WebFluxHomePage() {
                       name="name"
                       required
                       placeholder="e.g. Dr. Rajesh Kumar"
-                      className="glass-input text-xs"
+                      className="glass-input text-xs sm:text-sm py-3 px-3.5 w-full rounded-xl"
                     />
                   </div>
-                  <div>
+                  <div className="w-full">
                     <label className="block text-[11px] font-mono uppercase tracking-wider text-zinc-400 mb-1.5">
                       Email Address *
                     </label>
@@ -1004,13 +1009,13 @@ export default function WebFluxHomePage() {
                       name="email"
                       required
                       placeholder="rajesh@institution.org"
-                      className="glass-input text-xs"
+                      className="glass-input text-xs sm:text-sm py-3 px-3.5 w-full rounded-xl"
                     />
                   </div>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+                  <div className="w-full">
                     <label className="block text-[11px] font-mono uppercase tracking-wider text-zinc-400 mb-1.5">
                       Phone / WhatsApp *
                     </label>
@@ -1019,17 +1024,17 @@ export default function WebFluxHomePage() {
                       name="phone"
                       required
                       placeholder="+91 98765 43210"
-                      className="glass-input text-xs"
+                      className="glass-input text-xs sm:text-sm py-3 px-3.5 w-full rounded-xl"
                     />
                   </div>
-                  <div>
+                  <div className="w-full">
                     <label className="block text-[11px] font-mono uppercase tracking-wider text-zinc-400 mb-1.5">
                       Service Required *
                     </label>
                     <select
                       name="service"
                       required
-                      className="glass-input text-xs"
+                      className="glass-input text-xs sm:text-sm py-3 px-3.5 w-full rounded-xl"
                       defaultValue="School Website Portal"
                     >
                       <option value="School Website Portal" className="bg-[#050505] text-white">
@@ -1057,7 +1062,7 @@ export default function WebFluxHomePage() {
                   </div>
                 </div>
 
-                <div>
+                <div className="w-full">
                   <label className="block text-[11px] font-mono uppercase tracking-wider text-zinc-400 mb-1.5">
                     Project Scope &amp; Vision *
                   </label>
@@ -1066,17 +1071,19 @@ export default function WebFluxHomePage() {
                     required
                     rows={4}
                     placeholder="Describe your school, coaching institute, or project requirements..."
-                    className="glass-input text-xs resize-none"
+                    className="glass-input text-xs sm:text-sm py-3 px-3.5 w-full rounded-xl resize-none"
                   />
                 </div>
 
-                <button
-                  type="submit"
-                  className="btn-primary btn-crazy-spring w-full text-xs uppercase tracking-wider py-3.5 justify-center shadow-lg"
-                >
-                  <Send size={14} className="btn-icon-kick" />
-                  <span>Request Free Demo Prototype</span>
-                </button>
+                <div className="pt-2">
+                  <button
+                    type="submit"
+                    className="btn-primary btn-crazy-spring w-full text-xs sm:text-sm uppercase tracking-wider py-4 sm:py-3.5 justify-center shadow-xl font-bold cursor-pointer"
+                  >
+                    <Send size={14} className="btn-icon-kick" />
+                    <span>Request Free Demo Prototype</span>
+                  </button>
+                </div>
               </form>
             )}
           </div>

@@ -1,168 +1,439 @@
 'use client';
 
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+
+interface ClientStar {
+  name: string;
+  category: string;
+  targetAngle: number;
+  targetDist: number;
+  startX: number;
+  startY: number;
+  launchTime: number; // in seconds
+  flightDuration: number;
+  currentX: number;
+  currentY: number;
+  isAttached: boolean;
+  attachTime: number;
+  explodeVx: number;
+  explodeVy: number;
+}
+
+interface ExplosionParticle {
+  x: number;
+  y: number;
+  vx: number;
+  vy: number;
+  radius: number;
+  alpha: number;
+  decay: number;
+}
 
 export default function GravityLoader() {
+  const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const [percentage, setPercentage] = useState(1);
-  const [fallProgress, setFallProgress] = useState(0); // 0 (top) to 1 (ground)
-  const [isImpact, setIsImpact] = useState(false);
+  const [statusText, setStatusText] = useState('ALIGNING VOID CORE');
   const [isExiting, setIsExiting] = useState(false);
   const [isComplete, setIsComplete] = useState(false);
-
-  const requestRef = useRef<number | null>(null);
-  const startTimeRef = useRef<number | null>(null);
 
   useEffect(() => {
     // Lock scroll during loading sequence
     document.body.style.overflow = 'hidden';
 
-    const FALL_DURATION = 1400; // 1.4s physical acceleration
+    const canvas = canvasRef.current;
+    if (!canvas) return;
 
-    const animate = (timestamp: number) => {
-      if (!startTimeRef.current) startTimeRef.current = timestamp;
-      const elapsed = timestamp - startTimeRef.current;
-      const progress = Math.min(elapsed / FALL_DURATION, 1);
+    const ctx = canvas.getContext('2d', { alpha: true });
+    if (!ctx) return;
 
-      // Real gravity acceleration: y proportional to t^2
-      // Using quadratic/exponential acceleration curve
-      const gravityY = Math.pow(progress, 2.2);
-      setFallProgress(gravityY);
+    let animId: number;
+    let width = (canvas.width = window.innerWidth);
+    let height = (canvas.height = window.innerHeight);
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
 
-      // Rapidly ticking percentage: 1% -> 25% -> 50% -> 75% -> 100%
-      const currentPct = Math.min(100, Math.max(1, Math.floor(1 + 99 * Math.pow(progress, 1.85))));
-      setPercentage(currentPct);
+    const resize = () => {
+      width = window.innerWidth;
+      height = window.innerHeight;
+      canvas.width = width * dpr;
+      canvas.height = height * dpr;
+      canvas.style.width = `${width}px`;
+      canvas.style.height = `${height}px`;
+      ctx.setTransform(1, 0, 0, 1, 0, 0);
+      ctx.scale(dpr, dpr);
+    };
 
-      if (progress < 1) {
-        requestRef.current = requestAnimationFrame(animate);
+    resize();
+    window.addEventListener('resize', resize);
+
+    const isMobile = width < 768;
+    const cx = width / 2;
+    const cy = height / 2 - (isMobile ? 24 : 32);
+
+    // 8 Diverse client business archetypes as per notebook concept
+    const CLIENT_SPECS = [
+      { name: 'Artisan Café', category: 'F&B', angle: 0.35, launch: 0.15 },
+      { name: 'Fitness & Gym', category: 'Health', angle: 1.15, launch: 0.38 },
+      { name: 'Fine Dining', category: 'Luxury', angle: 1.95, launch: 0.62 },
+      { name: 'Luxury Salon', category: 'Beauty', angle: 2.75, launch: 0.88 },
+      { name: 'Apex Academy', category: 'Education', angle: 3.55, launch: 1.12 },
+      { name: 'Boutique Hotel', category: 'Hospitality', angle: 4.35, launch: 1.36 },
+      { name: 'Real Estate', category: 'Commercial', angle: 5.15, launch: 1.62 },
+      { name: 'Tech Startup', category: 'SaaS', angle: 5.95, launch: 1.88 },
+    ];
+
+    const clientStars: ClientStar[] = CLIENT_SPECS.map((spec, i) => {
+      const targetDist = isMobile ? 85 + (i % 3) * 22 : 140 + (i % 3) * 40;
+      // Spawn far outside screen
+      const spawnAngle = spec.angle + (Math.random() - 0.5) * 0.8;
+      const spawnDist = Math.max(width, height) * 0.85 + 100;
+      const startX = cx + Math.cos(spawnAngle) * spawnDist;
+      const startY = cy + Math.sin(spawnAngle) * spawnDist;
+
+      // Explosion outward trajectory
+      const expAngle = spec.angle + (Math.random() - 0.5) * 0.3;
+      const expSpeed = 12 + Math.random() * 14;
+
+      return {
+        name: spec.name,
+        category: spec.category,
+        targetAngle: spec.angle,
+        targetDist,
+        startX,
+        startY,
+        launchTime: spec.launch,
+        flightDuration: 0.55,
+        currentX: startX,
+        currentY: startY,
+        isAttached: false,
+        attachTime: 0,
+        explodeVx: Math.cos(expAngle) * expSpeed,
+        explodeVy: Math.sin(expAngle) * expSpeed,
+      };
+    });
+
+    const explosionParticles: ExplosionParticle[] = [];
+    let hasExploded = false;
+    let explosionTime = 0;
+    const EXPLOSION_TRIGGER_TIME = 2.45; // seconds
+    let startTime: number | null = null;
+
+    const render = (timestamp: number) => {
+      if (!startTime) startTime = timestamp;
+      const elapsed = (timestamp - startTime) / 1000; // in seconds
+
+      ctx.clearRect(0, 0, width, height);
+
+      // Deep void black background
+      ctx.fillStyle = '#000000';
+      ctx.fillRect(0, 0, width, height);
+
+      // Calculate progress percentage based on attached client stars
+      let attachedCount = 0;
+
+      // Update client stars
+      clientStars.forEach((star) => {
+        if (elapsed >= star.launchTime) {
+          const t = Math.min((elapsed - star.launchTime) / star.flightDuration, 1);
+          // Ease-out cubic curve for gravity pull towards center ball
+          const easeOut = 1 - Math.pow(1 - t, 3);
+
+          const targetX = cx + Math.cos(star.targetAngle) * star.targetDist;
+          const targetY = cy + Math.sin(star.targetAngle) * star.targetDist;
+
+          if (hasExploded) {
+            // Accelerate outwards during explosion
+            const dtExplode = elapsed - explosionTime;
+            star.currentX += star.explodeVx * 1.35;
+            star.currentY += star.explodeVy * 1.35;
+          } else {
+            // Parabolic fly-in towards target orbit
+            const perpAngle = star.targetAngle + Math.PI / 2;
+            const curveArch = (1 - easeOut) * Math.sin(easeOut * Math.PI) * 70;
+            star.currentX = star.startX + (targetX - star.startX) * easeOut + Math.cos(perpAngle) * curveArch;
+            star.currentY = star.startY + (targetY - star.startY) * easeOut + Math.sin(perpAngle) * curveArch;
+          }
+
+          if (t >= 1) {
+            if (!star.isAttached) {
+              star.isAttached = true;
+              star.attachTime = elapsed;
+            }
+          }
+        }
+
+        if (star.isAttached) {
+          attachedCount++;
+        }
+      });
+
+      // Synchronize percentage with client connections: 1% -> 25% -> 50% -> 75% -> 100%
+      let calculatedPct = 1;
+      if (attachedCount === 0) {
+        calculatedPct = Math.min(10, Math.floor(1 + elapsed * 10));
+      } else if (attachedCount <= 2) {
+        calculatedPct = 15 + Math.floor((attachedCount / 2) * 12);
+      } else if (attachedCount <= 4) {
+        calculatedPct = 28 + Math.floor(((attachedCount - 2) / 2) * 24);
+      } else if (attachedCount <= 6) {
+        calculatedPct = 54 + Math.floor(((attachedCount - 4) / 2) * 22);
+      } else if (attachedCount < clientStars.length) {
+        calculatedPct = 78 + Math.floor(((attachedCount - 6) / 2) * 18);
       } else {
-        // Physical impact moment at ground (100%)
-        setPercentage(100);
-        setFallProgress(1);
-        setIsImpact(true);
+        calculatedPct = 100;
+      }
 
-        // Subtle impact shockwave pause, then smooth cinematic exit
+      calculatedPct = Math.min(100, Math.max(1, calculatedPct));
+      setPercentage(calculatedPct);
+
+      if (calculatedPct < 25) {
+        setStatusText('GRAVITY CORE INITIALIZING');
+      } else if (calculatedPct < 75) {
+        setStatusText(`CONNECTING CLIENTS (${attachedCount}/${clientStars.length})`);
+      } else if (calculatedPct < 100) {
+        setStatusText('ORBITAL LOCK ACHIEVED');
+      } else {
+        setStatusText('SUPERNOVA TRIGGERED');
+      }
+
+      // Check for 100% Explosion Trigger
+      if (elapsed >= EXPLOSION_TRIGGER_TIME && !hasExploded) {
+        hasExploded = true;
+        explosionTime = elapsed;
+
+        // Spawn 80 radial explosion particles
+        for (let i = 0; i < 80; i++) {
+          const angle = Math.random() * Math.PI * 2;
+          const speed = 6 + Math.random() * 22;
+          explosionParticles.push({
+            x: cx,
+            y: cy,
+            vx: Math.cos(angle) * speed,
+            vy: Math.sin(angle) * speed,
+            radius: 1 + Math.random() * 2.8,
+            alpha: 1,
+            decay: 0.018 + Math.random() * 0.025,
+          });
+        }
+
+        // Trigger smooth fade-out and reveal of actual website
         setTimeout(() => {
           setIsExiting(true);
-        }, 280);
+        }, 320);
 
-        // Teardown and restore document scroll
         setTimeout(() => {
           setIsComplete(true);
           document.body.style.overflow = '';
-        }, 950);
+        }, 900);
       }
+
+      // --- DRAW CURVED CONNECTION LINES (From client stars to central ball) ---
+      if (!hasExploded) {
+        clientStars.forEach((star) => {
+          if (elapsed >= star.launchTime) {
+            const t = Math.min((elapsed - star.launchTime) / star.flightDuration, 1);
+            const lineAlpha = star.isAttached ? 0.45 : t * 0.25;
+
+            // Draw curved organic connection bezier
+            const midX = (star.currentX + cx) / 2;
+            const midY = (star.currentY + cy) / 2;
+            const perpAngle = star.targetAngle + Math.PI / 2;
+            const curveOffset = Math.sin(star.targetAngle * 3) * 25;
+            const ctrlX = midX + Math.cos(perpAngle) * curveOffset;
+            const ctrlY = midY + Math.sin(perpAngle) * curveOffset;
+
+            ctx.strokeStyle = `rgba(255, 255, 255, ${lineAlpha})`;
+            ctx.lineWidth = star.isAttached ? 1.2 : 0.8;
+            ctx.beginPath();
+            ctx.moveTo(star.currentX, star.currentY);
+            ctx.quadraticCurveTo(ctrlX, ctrlY, cx, cy);
+            ctx.stroke();
+          }
+        });
+      }
+
+      // --- DRAW CENTRAL WEBFLUX BALL (The Core) ---
+      const coreBaseRadius = isMobile ? 26 : 36;
+      let coreScale = 1;
+
+      if (!hasExploded) {
+        // Subtle breathing pulse
+        coreScale = 1 + Math.sin(elapsed * 4) * 0.04;
+      } else {
+        // Expansion flash during supernova
+        const dtExp = elapsed - explosionTime;
+        coreScale = 1 + dtExp * 4;
+      }
+
+      const coreRadius = coreBaseRadius * coreScale;
+      const coreAlpha = hasExploded ? Math.max(0, 1 - (elapsed - explosionTime) * 3) : 1;
+
+      if (coreAlpha > 0) {
+        // Outer glowing halo
+        const gradHalo = ctx.createRadialGradient(cx, cy, coreRadius * 0.4, cx, cy, coreRadius * 2.5);
+        gradHalo.addColorStop(0, `rgba(255, 255, 255, ${0.4 * coreAlpha})`);
+        gradHalo.addColorStop(0.5, `rgba(255, 255, 255, ${0.12 * coreAlpha})`);
+        gradHalo.addColorStop(1, 'rgba(255, 255, 255, 0)');
+        ctx.fillStyle = gradHalo;
+        ctx.beginPath();
+        ctx.arc(cx, cy, coreRadius * 2.5, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Solid luminous core
+        const gradCore = ctx.createRadialGradient(cx, cy, 0, cx, cy, coreRadius);
+        gradCore.addColorStop(0, `rgba(255, 255, 255, ${coreAlpha})`);
+        gradCore.addColorStop(0.7, `rgba(235, 240, 255, ${0.9 * coreAlpha})`);
+        gradCore.addColorStop(1, `rgba(180, 195, 230, ${0.5 * coreAlpha})`);
+        ctx.fillStyle = gradCore;
+        ctx.beginPath();
+        ctx.arc(cx, cy, coreRadius, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Center Monogram 'W'
+        if (!hasExploded) {
+          ctx.fillStyle = '#000000';
+          ctx.font = `900 ${isMobile ? '13px' : '17px'} Inter, sans-serif`;
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'middle';
+          ctx.fillText('W', cx, cy);
+        }
+      }
+
+      // --- DRAW CLIENT STARS & LABELS ---
+      clientStars.forEach((star) => {
+        if (elapsed >= star.launchTime) {
+          const starAlpha = hasExploded
+            ? Math.max(0, 1 - (elapsed - explosionTime) * 2.5)
+            : 1;
+
+          if (starAlpha > 0) {
+            // Star body
+            ctx.fillStyle = `rgba(255, 255, 255, ${starAlpha})`;
+            ctx.beginPath();
+            ctx.arc(star.currentX, star.currentY, isMobile ? 3 : 4, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Star specular halo
+            ctx.fillStyle = `rgba(255, 255, 255, ${0.25 * starAlpha})`;
+            ctx.beginPath();
+            ctx.arc(star.currentX, star.currentY, isMobile ? 7 : 10, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Client Business Pill Label
+            if (star.isAttached && !hasExploded) {
+              const labelX = star.currentX + (Math.cos(star.targetAngle) > 0 ? 10 : -10);
+              const labelY = star.currentY + (Math.sin(star.targetAngle) > 0 ? 10 : -10);
+              const align = Math.cos(star.targetAngle) > 0 ? 'left' : 'right';
+
+              ctx.fillStyle = '#FFFFFF';
+              ctx.font = `600 ${isMobile ? '9px' : '11px'} Inter, sans-serif`;
+              ctx.textAlign = align;
+              ctx.textBaseline = 'middle';
+              ctx.fillText(star.name, labelX, labelY);
+            }
+          }
+        }
+      });
+
+      // --- DRAW EXPLOSION PARTICLES & SHOCKWAVE ---
+      if (hasExploded) {
+        const dtExp = elapsed - explosionTime;
+
+        // Expanding shockwave ring
+        const shockRadius = dtExp * Math.max(width, height) * 0.9;
+        const shockAlpha = Math.max(0, 1 - dtExp * 2.2);
+        if (shockAlpha > 0) {
+          ctx.strokeStyle = `rgba(255, 255, 255, ${shockAlpha * 0.75})`;
+          ctx.lineWidth = 2.5;
+          ctx.beginPath();
+          ctx.arc(cx, cy, shockRadius, 0, Math.PI * 2);
+          ctx.stroke();
+        }
+
+        // Flying burst particles
+        for (let i = 0; i < explosionParticles.length; i++) {
+          const p = explosionParticles[i];
+          p.x += p.vx;
+          p.y += p.vy;
+          p.alpha -= p.decay;
+
+          if (p.alpha > 0) {
+            ctx.fillStyle = `rgba(255, 255, 255, ${p.alpha})`;
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+            ctx.fill();
+          }
+        }
+      }
+
+      animId = requestAnimationFrame(render);
     };
 
-    requestRef.current = requestAnimationFrame(animate);
+    animId = requestAnimationFrame(render);
 
     return () => {
-      if (requestRef.current) cancelAnimationFrame(requestRef.current);
+      cancelAnimationFrame(animId);
+      window.removeEventListener('resize', resize);
       document.body.style.overflow = '';
     };
   }, []);
 
   if (isComplete) return null;
 
-  // Calculate dynamic vertical translation from 6vh (top) down to 78vh (ground line)
-  const topVh = 8;
-  const groundVh = 76;
-  const currentYVh = topVh + fallProgress * (groundVh - topVh);
-
-  // Aerodynamic stretch while falling, squash on impact
-  const scaleY = isImpact ? 0.85 : 1 + fallProgress * 0.14;
-  const scaleX = isImpact ? 1.18 : 1 - fallProgress * 0.08;
-
   return (
     <div
       className={`fixed inset-0 z-[9999] bg-[#000000] flex flex-col items-center justify-between select-none pointer-events-auto transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] ${
-        isExiting ? 'opacity-0 -translate-y-12 pointer-events-none' : 'opacity-100 translate-y-0'
+        isExiting ? 'opacity-0 scale-105 pointer-events-none' : 'opacity-100 scale-100'
       }`}
-      aria-label="System Initializing"
+      aria-label="Gravity Loading Screen"
     >
-      {/* Background Ambience Void */}
-      <div className="absolute inset-0 bg-radial-gradient pointer-events-none opacity-40" />
+      <canvas ref={canvasRef} className="absolute inset-0 w-full h-full pointer-events-none" />
 
-      {/* Top Header Stamp */}
-      <div className="w-full pt-8 px-8 flex items-center justify-between z-10">
+      {/* Top Header Badge */}
+      <div className="w-full pt-6 sm:pt-8 px-6 sm:px-10 flex items-center justify-between z-10 pointer-events-none">
         <div className="flex items-center gap-2">
           <div className="w-6 h-6 rounded-md bg-white/10 border border-white/20 flex items-center justify-center text-white font-mono text-xs font-bold">
             W
           </div>
           <span className="font-mono text-[10px] tracking-widest uppercase text-zinc-400">
-            WebFlux Gravity Engine
+            WebFlux Design Studio
           </span>
         </div>
         <div className="flex items-center gap-2 font-mono text-[10px] text-zinc-500 uppercase tracking-widest">
           <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
-          <span>Calibrating • 60fps</span>
+          <span>Gravity Sync</span>
         </div>
       </div>
 
-      {/* Physics Falling Percentage Element */}
-      <div
-        className="absolute left-1/2 -translate-x-1/2 flex flex-col items-center justify-center will-change-transform z-20"
-        style={{
-          top: `${currentYVh}vh`,
-          transform: `translate(-50%, -50%) scale(${scaleX}, ${scaleY})`,
-          transition: isImpact ? 'transform 0.15s cubic-bezier(0.34, 1.56, 0.64, 1)' : 'none',
-        }}
-      >
-        {/* Kinetic Percentage Display */}
-        <div className="relative flex items-baseline">
-          <span className="text-6xl sm:text-8xl md:text-9xl font-mono font-extrabold text-white tracking-tighter drop-shadow-[0_0_35px_rgba(255,255,255,0.4)]">
+      {/* Center UI Overlay (Percentage & Concept Subtext) */}
+      <div className="z-10 flex flex-col items-center justify-center text-center pointer-events-none mt-auto mb-16 sm:mb-20">
+        <div className="flex items-baseline gap-1">
+          <span className="text-5xl sm:text-7xl md:text-8xl font-mono font-extrabold text-white tracking-tighter drop-shadow-[0_0_35px_rgba(255,255,255,0.4)]">
             {percentage}
           </span>
-          <span className="text-2xl sm:text-4xl font-mono font-bold text-zinc-500 ml-1.5">
+          <span className="text-2xl sm:text-4xl font-mono font-bold text-zinc-500">
             %
           </span>
         </div>
 
-        {/* Status Indicator */}
-        <span className="font-mono text-[9px] sm:text-[10px] uppercase tracking-[0.25em] text-zinc-400 mt-1">
-          {percentage < 100 ? 'Synchronizing Void' : 'Terminal Velocity Reached'}
-        </span>
-      </div>
-
-      {/* Earth / Ground Line at Bottom (76vh) */}
-      <div
-        className="absolute left-1/2 -translate-x-1/2 flex flex-col items-center justify-center pointer-events-none z-10"
-        style={{ top: `${groundVh}vh` }}
-      >
-        {/* Impact Shockwave Pulse (Expands upon impact) */}
-        {isImpact && (
-          <div className="absolute -top-10 w-72 sm:w-96 h-20 bg-white/20 rounded-full blur-2xl animate-ping pointer-events-none" />
-        )}
-
-        {/* Sleek Minimal Glowing Earth / Ground Horizon Line */}
-        <div className="relative flex items-center justify-center">
-          {/* Subtle Curved Ground Arc */}
-          <div
-            className={`w-[280px] sm:w-[480px] md:w-[620px] h-[1px] bg-gradient-to-r from-transparent via-white to-transparent transition-all duration-300 ${
-              isImpact
-                ? 'shadow-[0_0_30px_rgba(255,255,255,0.9),0_0_60px_rgba(255,255,255,0.5)] scale-x-110'
-                : 'shadow-[0_0_15px_rgba(255,255,255,0.35)] opacity-80'
-            }`}
-          />
-          {/* Soft Ground Horizon Glow */}
-          <div
-            className={`absolute -top-1 w-32 sm:w-48 h-3 bg-white/30 rounded-full blur-sm transition-opacity duration-200 ${
-              isImpact ? 'opacity-100 scale-125' : 'opacity-40'
-            }`}
-          />
+        <div className="mt-2 flex items-center gap-2">
+          <span className="w-1 h-1 rounded-full bg-white animate-ping" />
+          <span className="font-mono text-[9px] sm:text-[10px] uppercase tracking-[0.22em] text-zinc-400 font-medium">
+            {statusText}
+          </span>
         </div>
 
-        {/* Ground Subtext */}
-        <div className="mt-4 flex items-center gap-2 font-mono text-[9px] uppercase tracking-widest text-zinc-600">
-          <span>SURFACE HORIZON</span>
-          <span>•</span>
-          <span>0.00 M</span>
+        <div className="mt-1 text-[8px] sm:text-[9px] font-mono uppercase tracking-widest text-zinc-600">
+          Client Stars In Orbit • Supernova Ready
         </div>
       </div>
 
       {/* Bottom Footer Notice */}
-      <div className="w-full pb-8 px-8 flex items-center justify-center z-10">
-        <span className="font-mono text-[9px] uppercase tracking-widest text-zinc-600">
-          © {new Date().getFullYear()} WebFlux Studio • Elite Interface Architecture
+      <div className="w-full pb-6 sm:pb-8 px-6 sm:px-10 flex items-center justify-between z-10 pointer-events-none">
+        <span className="font-mono text-[8px] sm:text-[9px] uppercase tracking-widest text-zinc-600">
+          Lead Architect: Shreyansh Singhal
+        </span>
+        <span className="font-mono text-[8px] sm:text-[9px] uppercase tracking-widest text-zinc-600">
+          © {new Date().getFullYear()} WebFlux
         </span>
       </div>
     </div>
