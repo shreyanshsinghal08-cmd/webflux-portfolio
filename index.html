@@ -1555,9 +1555,13 @@
         /* ==================================================
            9. FLOATING CIRCULAR NAVIGATION (WEBORA STYLE)
            ================================================== */
+        @keyframes cyanPulseRing {
+            0%, 100% { transform: scale(1); opacity: 0.35; }
+            50% { transform: scale(1.08); opacity: 0.85; }
+        }
         .floating-menu-btn {
             position: fixed;
-            bottom: 160px;
+            bottom: 144px;
             right: 32px;
             width: 58px;
             height: 58px;
@@ -1577,13 +1581,30 @@
             box-shadow: 0 20px 50px rgba(0, 0, 0, 0.95), inset 0 1px 0 rgba(255, 255, 255, 0.15);
             transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
         }
+        .floating-menu-btn::before {
+            content: '';
+            position: absolute;
+            inset: -4px;
+            border-radius: 50%;
+            border: 1px solid rgba(34, 211, 238, 0.45);
+            animation: cyanPulseRing 2.4s ease-in-out infinite;
+            pointer-events-none;
+        }
         .floating-menu-btn:hover {
             transform: scale(1.06);
             border-color: rgba(255, 255, 255, 0.5);
         }
+        .floating-menu-btn:hover i {
+            transform: rotate(45deg);
+            transition: transform 0.4s ease-out;
+        }
         .floating-menu-panel {
             position: fixed;
-            bottom: 228px;
+            bottom: 212px;
+            right: 32px;
+        .floating-menu-panel {
+            position: fixed;
+            bottom: 212px;
             right: 32px;
             width: 290px;
             background: rgba(10, 10, 10, 0.96);
@@ -1662,6 +1683,27 @@
             font-size: 0.78rem;
             color: #71717A;
             margin-right: 8px;
+        }
+
+        
+        .intent-pill-btn {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            padding: 12px 10px;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .intent-pill-btn:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(34, 211, 238, 0.4);
+            transform: translateY(-2px) scale(1.02);
+        }
+        .intent-pill-btn.active {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(34, 211, 238, 0.6);
+            box-shadow: 0 0 15px rgba(34, 211, 238, 0.2);
         }
 
         /* Floating WhatsApp Button */
@@ -1743,7 +1785,7 @@
             </div>
             <div style="font-family: monospace; font-size: 10px; color: #a1a1aa; text-transform: uppercase; letter-spacing: 0.18em; display: flex; align-items: center; gap: 6px;">
                 <span style="width: 6px; height: 6px; border-radius: 50%; background: #ffffff; display: inline-block;"></span>
-                <span>Cinematic Physics</span>
+                <span>Express 2.2s Engine</span>
             </div>
         </div>
         <div style="z-index: 10; display: flex; flex-direction: column; align-items: center; pointer-events: none; margin-top: auto; margin-bottom: 4rem;">
@@ -1801,6 +1843,36 @@
                     <span>Explore Portfolio</span>
                     <i class="fas fa-arrow-up-right-from-square btn-icon-kick"></i>
                 </a>
+            </div>
+
+            <!-- Sleek Hero Intent Picker Glass Card -->
+            <div class="hero-intent-card" style="margin-top: 3.5rem; width: 100%; max-width: 760px; margin-left: auto; margin-right: auto; background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 18px; padding: 1.5rem; box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), inset 0 1px 0 rgba(255, 255, 255, 0.1); text-align: center;">
+                <div style="display: flex; align-items: center; justify-content: center; gap: 0.5rem; margin-bottom: 1rem;">
+                    <span style="width: 6px; height: 6px; border-radius: 50%; background: #22d3ee; display: inline-block;"></span>
+                    <span style="font-weight: 600; font-size: 0.84rem; color: #d4d4d8; letter-spacing: 0.03em;">What type of website are you building?</span>
+                </div>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 0.75rem;">
+                    <button type="button" class="intent-pill-btn" onclick="selectIntent('School / Institute Website')">
+                        <span style="font-size: 1.35rem; margin-bottom: 0.3rem; display: block;">🎓</span>
+                        <span style="font-weight: 700; font-size: 0.76rem; color: #fff; display: block;">School / Institute</span>
+                        <span style="font-family: monospace; font-size: 0.62rem; color: #71717a; display: block;">Admissions &amp; Portal</span>
+                    </button>
+                    <button type="button" class="intent-pill-btn" onclick="selectIntent('Business / Brand Website')">
+                        <span style="font-size: 1.35rem; margin-bottom: 0.3rem; display: block;">💼</span>
+                        <span style="font-weight: 700; font-size: 0.76rem; color: #fff; display: block;">Business / Brand</span>
+                        <span style="font-family: monospace; font-size: 0.62rem; color: #71717a; display: block;">Corporate &amp; Identity</span>
+                    </button>
+                    <button type="button" class="intent-pill-btn" onclick="selectIntent('Custom Web App / SaaS')">
+                        <span style="font-size: 1.35rem; margin-bottom: 0.3rem; display: block;">🚀</span>
+                        <span style="font-weight: 700; font-size: 0.76rem; color: #fff; display: block;">Custom Web App / SaaS</span>
+                        <span style="font-family: monospace; font-size: 0.62rem; color: #71717a; display: block;">Full-Stack 60fps</span>
+                    </button>
+                    <button type="button" class="intent-pill-btn" onclick="selectIntent('Redesign Existing Site')">
+                        <span style="font-size: 1.35rem; margin-bottom: 0.3rem; display: block;">🔄</span>
+                        <span style="font-weight: 700; font-size: 0.76rem; color: #fff; display: block;">Redesign Existing Site</span>
+                        <span style="font-family: monospace; font-size: 0.62rem; color: #71717a; display: block;">Performance Upgrade</span>
+                    </button>
+                </div>
             </div>
         </div>
     </section>
@@ -2265,12 +2337,13 @@
                             <div class="form-group">
                                 <label for="service">PROJECT CATEGORY</label>
                                 <select id="service" name="service" required>
-                                    <option value="" style="background: #000; color: #fff;">Select Category</option>
-                                    <option value="school" style="background: #000; color: #fff;">School &amp; Educational Portal</option>
-                                    <option value="coaching" style="background: #000; color: #fff;">Coaching Institute Website</option>
-                                    <option value="commercial" style="background: #000; color: #fff;">Commercial Business / SaaS</option>
-                                    <option value="luxury" style="background: #000; color: #fff;">Luxury Media Kit / Real Estate</option>
-                                    <option value="other" style="background: #000; color: #fff;">Custom Web Architecture</option>
+                                    <option value="School / Institute Website" style="background: #000; color: #fff;">School / Institute Website</option>
+                                    <option value="Business / Brand Website" style="background: #000; color: #fff;">Business / Brand Website</option>
+                                    <option value="Custom Web App / SaaS" style="background: #000; color: #fff;">Custom Web App / SaaS</option>
+                                    <option value="Redesign Existing Site" style="background: #000; color: #fff;">Redesign Existing Site</option>
+                                    <option value="Luxury Real Estate Showcase" style="background: #000; color: #fff;">Luxury Real Estate Showcase</option>
+                                    <option value="Commercial E-Commerce Store" style="background: #000; color: #fff;">Commercial E-Commerce Store</option>
+                                    <option value="Other Custom Web Project" style="background: #000; color: #fff;">Other Custom Web Project</option>
                                 </select>
                             </div>
                         </div>
@@ -2278,10 +2351,13 @@
                             <label for="message">PROJECT BRIEF</label>
                             <textarea id="message" name="message" placeholder="Describe your goals, desired timeline, and reference requirements..." required></textarea>
                         </div>
-                        <button type="submit" class="btn btn-primary btn-crazy-spring" style="width: 100%;">
-                            <span>Submit Project Scope</span>
-                            <i class="fas fa-paper-plane btn-icon-kick"></i>
-                        </button>
+                        <div style="position: relative; width: 100%;">
+                            <canvas id="silver-dust-canvas" style="position: absolute; inset: -40px; width: calc(100% + 80px); height: calc(100% + 80px); pointer-events: none; z-index: 30; display: none;"></canvas>
+                            <button type="submit" id="submitBtn" class="btn btn-primary btn-crazy-spring" style="width: 100%; position: relative;">
+                                <span>Submit Project Scope</span>
+                                <i class="fas fa-paper-plane btn-icon-kick"></i>
+                            </button>
+                        </div>
                     </form>
                 </div>
             </div>
@@ -2381,6 +2457,86 @@
 
     <!-- Client-Side Scripts -->
     <script>
+        
+        // Intent Selector routing to contact dropdown
+        function selectIntent(val) {
+            const serviceSelect = document.getElementById('service');
+            if (serviceSelect) {
+                serviceSelect.value = val;
+            }
+            const contact = document.getElementById('contact');
+            if (contact) {
+                contact.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        // Silver Dust 1.5s Burst on Form Submit
+        (function initSilverDustForm() {
+            const form = document.getElementById('contactForm');
+            const canvas = document.getElementById('silver-dust-canvas');
+            const submitBtn = document.getElementById('submitBtn');
+            if (!form || !canvas) return;
+
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                canvas.style.display = 'block';
+                if (submitBtn) {
+                    submitBtn.querySelector('span').textContent = 'Architecting Transmission...';
+                }
+
+                const ctx = canvas.getContext('2d');
+                canvas.width = canvas.offsetWidth;
+                canvas.height = canvas.offsetHeight;
+                const cx = canvas.width / 2;
+                const cy = canvas.height / 2;
+
+                const particles = [];
+                for (let i = 0; i < 90; i++) {
+                    const angle = Math.random() * Math.PI * 2;
+                    const speed = 2 + Math.random() * 8;
+                    particles.push({
+                        x: cx, y: cy,
+                        vx: Math.cos(angle) * speed,
+                        vy: Math.sin(angle) * speed,
+                        radius: 1 + Math.random() * 2.5,
+                        alpha: 1,
+                        decay: 0.02 + Math.random() * 0.02
+                    });
+                }
+
+                let animId;
+                function draw() {
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    let alive = false;
+                    for (let p of particles) {
+                        p.x += p.vx;
+                        p.y += p.vy;
+                        p.vx *= 0.94;
+                        p.vy *= 0.94;
+                        p.alpha -= p.decay;
+                        if (p.alpha > 0) {
+                            alive = true;
+                            ctx.fillStyle = 'rgba(255, 255, 255, ' + p.alpha + ')';
+                            ctx.beginPath();
+                            ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                            ctx.fill();
+                        }
+                    }
+                    if (alive) animId = requestAnimationFrame(draw);
+                }
+                draw();
+
+                setTimeout(() => {
+                    cancelAnimationFrame(animId);
+                    canvas.style.display = 'none';
+                    form.reset();
+                    if (submitBtn) {
+                        submitBtn.querySelector('span').textContent = 'Transmission Confirmed ✓';
+                    }
+                }, 1500);
+            });
+        })();
+
         // Floating Menu toggle
         function toggleFloatingMenu() {
             const panel = document.getElementById('floatingMenuPanel');
@@ -2527,7 +2683,7 @@
             let supernovaTriggered = false;
             let exitTriggered = false;
             let startTime = null;
-            const TOTAL_DURATION = 5.0;
+            const TOTAL_DURATION = 2.2;
 
             function loop(timestamp) {
                 if (!startTime) startTime = timestamp;
@@ -2536,16 +2692,16 @@
                 let currentPct = 1;
                 let currentStatus = 'DISCOVERING ENTERPRISE NODES';
 
-                if (elapsed < 2.0) {
-                    currentPct = Math.min(30, Math.floor(1 + (elapsed / 2.0) * 29));
-                    currentStatus = elapsed < 1.0 ? 'DISCOVERING ENTERPRISE NODES' : 'CALCULATING GRAVITATIONAL CONVERGENCE';
-                } else if (elapsed < 4.0) {
-                    const t = (elapsed - 2.0) / 2.0;
-                    currentPct = Math.min(85, Math.floor(30 + Math.pow(t, 1.2) * 55));
-                    currentStatus = t < 0.6 ? 'GRAVITATIONAL ACCRETION ACTIVE' : 'ORBITAL COMPRESSION DETECTED';
-                } else if (elapsed < 4.5) {
-                    const t = (elapsed - 4.0) / 0.5;
-                    currentPct = Math.min(99, Math.floor(85 + t * 14));
+                if (elapsed < 0.7) {
+                    currentPct = Math.min(35, Math.floor(1 + (elapsed / 0.7) * 34));
+                    currentStatus = elapsed < 0.35 ? 'DETECTING DISTRIBUTED NODES' : 'CALCULATING GRAVITATIONAL CONVERGENCE';
+                } else if (elapsed < 1.6) {
+                    const t = (elapsed - 0.7) / 0.9;
+                    currentPct = Math.min(85, Math.floor(35 + Math.pow(t, 1.2) * 53));
+                    currentStatus = t < 0.5 ? 'GRAVITATIONAL ACCRETION ACTIVE' : 'ORBITAL COMPRESSION DETECTED';
+                } else if (elapsed < 1.9) {
+                    const t = (elapsed - 1.6) / 0.3;
+                    currentPct = Math.min(99, Math.floor(88 + t * 11));
                     currentStatus = 'PLANETARY GENESIS • WEBFLUX CORE';
                 } else {
                     currentPct = 100;
@@ -2555,14 +2711,14 @@
                 pctEl.textContent = currentPct;
                 if (statusEl) statusEl.textContent = currentStatus;
 
-                if (elapsed >= 4.6 && !exitTriggered) {
+                if (elapsed >= 1.95 && !exitTriggered) {
                     exitTriggered = true;
                     loader.style.opacity = '0';
                     loader.style.transform = 'scale(1.05)';
                     loader.style.pointerEvents = 'none';
                 }
 
-                if (elapsed >= 5.0) {
+                if (elapsed >= TOTAL_DURATION) {
                     loader.style.display = 'none';
                     document.body.style.overflow = '';
                     return;
@@ -2588,8 +2744,8 @@
                 let planetRadius = 0;
                 let planetAlpha = 0;
 
-                if (elapsed >= 3.8) {
-                    const planetProgress = Math.min((elapsed - 3.8) / 0.7, 1);
+                if (elapsed >= 1.55) {
+                    const planetProgress = Math.min((elapsed - 1.55) / 0.35, 1);
                     const easeOut = 1 - Math.pow(1 - planetProgress, 3);
                     planetRadius = 8 + (maxPlanetRadius - 8) * easeOut;
                     planetAlpha = Math.min(1, (elapsed - 3.8) * 3);
@@ -2753,7 +2909,7 @@
                     ctx.fill();
                     ctx.restore();
 
-                    if (planetRadius > 20 && elapsed < 4.5) {
+                    if (planetRadius > 20 && elapsed < 1.9) {
                         ctx.fillStyle = '#000000';
                         ctx.font = '900 ' + (isMobile ? '20px' : '24px') + ' Inter, sans-serif';
                         ctx.textAlign = 'center';
@@ -2763,7 +2919,7 @@
                 }
 
                 // Supernova Burst
-                if (elapsed >= 4.5) {
+                if (elapsed >= 1.9) {
                     if (!supernovaTriggered) {
                         supernovaTriggered = true;
                         const sparkCount = isMobile ? 55 : 75;
@@ -2782,7 +2938,7 @@
                         }
                     }
 
-                    const dtSupernova = elapsed - 4.5;
+                    const dtSupernova = elapsed - 1.9;
                     const shockRadius = dtSupernova * Math.max(width, height) * 1.8;
                     const shockAlpha = Math.max(0, 1 - dtSupernova * 2.2);
                     if (shockAlpha > 0) {

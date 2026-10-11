@@ -84,9 +84,9 @@ export default function FloatingNav() {
         />
       )}
 
-      {/* Floating Menu Controller positioned cleanly in bottom-right corner */}
-      <div className="fixed bottom-24 right-4 sm:bottom-36 sm:right-8 z-50 flex flex-col items-end select-none">
-        {/* Expanded Vertical Menu (Spring-like smooth tactile motion) */}
+      {/* Floating Menu Controller safely anchored at fixed bottom-36 right-8 */}
+      <div className="fixed bottom-32 right-6 sm:bottom-36 sm:right-8 z-50 flex flex-col items-end select-none">
+        {/* Expanded Vertical Glass Stack Menu */}
         <div
           className={`mb-3 w-[calc(100vw-32px)] max-w-[300px] sm:w-80 sm:max-w-none rounded-2xl bg-[#0a0a0a]/95 backdrop-blur-3xl border border-white/10 shadow-[0_25px_60px_rgba(0,0,0,0.95),inset_0_1px_0_rgba(255,255,255,0.1)] p-3 menu-spring-panel origin-bottom-right ${
             isOpen
@@ -98,7 +98,7 @@ export default function FloatingNav() {
           {/* Header Bar */}
           <div className="px-3 py-2 mb-2 flex items-center justify-between border-b border-white/[0.08]">
             <div className="flex items-center gap-2">
-              <span className="w-1.5 h-1.5 rounded-full bg-white animate-soft-pulse" />
+              <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
               <span className="font-mono text-[11px] uppercase tracking-wider text-white font-semibold">
                 WebFlux Navigation
               </span>
@@ -174,28 +174,35 @@ export default function FloatingNav() {
           </div>
         </div>
 
-        {/* Circular Floating Trigger Button with Pulsing Glow */}
+        {/* Circular Floating Compass Trigger Button with Breathing Cyan Pulse Ring */}
         <button
           onClick={() => setIsOpen(!isOpen)}
           aria-label={isOpen ? 'Close menu' : 'Open menu'}
           aria-expanded={isOpen}
           className="relative group w-12 h-12 sm:w-16 sm:h-16 rounded-full bg-[#050505]/90 backdrop-blur-2xl border border-white/20 hover:border-white/50 text-white flex items-center justify-center btn-menu-pulse hover:scale-105 active:scale-95 transition-all duration-300 cursor-pointer focus:outline-none shadow-2xl"
         >
+          {/* Breathing cyan pulse ring */}
+          <span className="absolute -inset-1 rounded-full border border-cyan-400/40 animate-pulse pointer-events-none" />
+          <span className="absolute -inset-2.5 rounded-full border border-cyan-500/20 blur-[2px] animate-pulse pointer-events-none" />
+
           {/* Subtle outer specular ring */}
           <span className="absolute inset-0 rounded-full border border-white/10 pointer-events-none" />
 
           {/* Inner smooth rotating icon */}
           <div
             className={`transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
-              isOpen ? 'rotate-90 scale-90' : 'rotate-0 scale-100 group-hover:rotate-12'
+              isOpen ? 'rotate-90 scale-90' : 'rotate-0 scale-100'
             }`}
           >
             {isOpen ? (
               <X size={20} className="text-white" />
             ) : (
               <div className="flex flex-col items-center justify-center gap-0.5">
-                <Compass size={18} className="text-white" />
-                <span className="text-[7px] sm:text-[8px] font-mono tracking-widest uppercase font-bold text-zinc-400">
+                <Compass
+                  size={19}
+                  className="text-white transition-transform duration-500 ease-out group-hover:rotate-45"
+                />
+                <span className="text-[7px] sm:text-[8px] font-mono tracking-widest uppercase font-bold text-zinc-300">
                   MENU
                 </span>
               </div>
@@ -204,13 +211,13 @@ export default function FloatingNav() {
         </button>
       </div>
 
-      {/* Floating WhatsApp Widget at bottom-5 right-4 / bottom-8 right-8 */}
+      {/* Floating WhatsApp Widget safely positioned at bottom-6 right-8 */}
       <a
         href="https://wa.me/918302589297"
         target="_blank"
         rel="noopener noreferrer"
         aria-label="Direct WhatsApp Consultation"
-        className="fixed bottom-5 right-4 sm:bottom-8 sm:right-8 z-40 group w-12 h-12 sm:w-16 sm:h-16 rounded-full bg-[#0a0a0a]/90 backdrop-blur-2xl border border-white/20 hover:border-white/60 text-white flex items-center justify-center shadow-[0_15px_40px_rgba(0,0,0,0.9),inset_0_1px_0_rgba(255,255,255,0.15)] hover:scale-105 active:scale-95 transition-all duration-300"
+        className="fixed bottom-6 right-6 sm:bottom-6 sm:right-8 z-40 group w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-[#0a0a0a]/90 backdrop-blur-2xl border border-white/20 hover:border-white/60 text-white flex items-center justify-center shadow-[0_15px_40px_rgba(0,0,0,0.9),inset_0_1px_0_rgba(255,255,255,0.15)] hover:scale-105 active:scale-95 transition-all duration-300"
       >
         <span className="absolute inset-0 rounded-full border border-white/10 pointer-events-none" />
         <div className="flex flex-col items-center justify-center gap-0.5">

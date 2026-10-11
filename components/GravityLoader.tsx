@@ -47,7 +47,7 @@ export default function GravityLoader() {
   const [isComplete, setIsComplete] = useState(false);
 
   useEffect(() => {
-    // Lock scroll during 5-second cinematic loading sequence
+    // Lock scroll during 2.2-second express cinematic loading sequence
     document.body.style.overflow = 'hidden';
 
     const canvas = canvasRef.current;
@@ -117,7 +117,7 @@ export default function GravityLoader() {
       const startX = cx + Math.cos(angle) * dist;
       const startY = cy + Math.sin(angle) * dist;
 
-      // UPGRADE: Much larger nodes on mobile (6.5px to 8.5px) for high visibility
+      // Larger nodes on mobile for crisp high visibility
       const nodeRadius = isMobile ? 6.0 + (i % 3) * 1.2 : 3.8 + (i % 4) * 0.7;
 
       return {
@@ -131,8 +131,8 @@ export default function GravityLoader() {
         radius: nodeRadius,
         initialAngle: angle,
         initialDist: dist,
-        ambientSpeed: (0.0003 + (i % 5) * 0.00015) * (i % 2 === 0 ? 1 : -1),
-        radialOscSpeed: 1.2 + Math.random() * 0.8,
+        ambientSpeed: (0.0008 + (i % 5) * 0.0003) * (i % 2 === 0 ? 1 : -1),
+        radialOscSpeed: 2.2 + Math.random() * 1.2,
         merged: false,
         mergeTime: 0,
         trail: [],
@@ -146,32 +146,32 @@ export default function GravityLoader() {
     let completedTriggered = false;
 
     let startTime: number | null = null;
-    const TOTAL_DURATION = 5.0; // Exactly 5.0s
+    const TOTAL_DURATION = 2.2; // Express 2.2s Loading Sequence
 
     const render = (timestamp: number) => {
       if (!startTime) startTime = timestamp;
       const elapsed = Math.min((timestamp - startTime) / 1000, TOTAL_DURATION + 0.1);
 
-      // --- 1. TIMELINE SYNCHRONIZATION ---
+      // --- 1. EXPRESS TIMELINE SYNCHRONIZATION (0.0s - 2.2s) ---
       let currentPct = 1;
-      let currentStatus = 'DISCOVERING ENTERPRISE NODES';
+      let currentStatus = 'DETECTING DISTRIBUTED NODES';
 
-      if (elapsed < 2.0) {
-        // Scene 1: 1% -> 30%
-        currentPct = Math.min(30, Math.floor(1 + (elapsed / 2.0) * 29));
-        currentStatus = elapsed < 1.0 ? 'DISCOVERING ENTERPRISE NODES' : 'CALCULATING GRAVITATIONAL CONVERGENCE';
-      } else if (elapsed < 4.0) {
-        // Scene 2: 30% -> 85%
-        const t = (elapsed - 2.0) / 2.0;
-        currentPct = Math.min(85, Math.floor(30 + Math.pow(t, 1.2) * 55));
-        currentStatus = t < 0.6 ? 'GRAVITATIONAL ACCRETION ACTIVE' : 'ORBITAL COMPRESSION DETECTED';
-      } else if (elapsed < 4.5) {
-        // Scene 3: 85% -> 99%
-        const t = (elapsed - 4.0) / 0.5;
-        currentPct = Math.min(99, Math.floor(85 + t * 14));
+      if (elapsed < 0.7) {
+        // Scene 1 (0.0s - 0.7s): 1% -> 35%
+        currentPct = Math.min(35, Math.floor(1 + (elapsed / 0.7) * 34));
+        currentStatus = elapsed < 0.35 ? 'DETECTING DISTRIBUTED NODES' : 'CALCULATING GRAVITATIONAL CONVERGENCE';
+      } else if (elapsed < 1.6) {
+        // Scene 2 (0.7s - 1.6s): 35% -> 88%
+        const t = (elapsed - 0.7) / 0.9;
+        currentPct = Math.min(88, Math.floor(35 + Math.pow(t, 1.2) * 53));
+        currentStatus = t < 0.5 ? 'GRAVITATIONAL ACCRETION ACTIVE' : 'ORBITAL COMPRESSION DETECTED';
+      } else if (elapsed < 1.9) {
+        // Scene 3 (1.6s - 1.9s): 88% -> 99%
+        const t = (elapsed - 1.6) / 0.3;
+        currentPct = Math.min(99, Math.floor(88 + t * 11));
         currentStatus = 'PLANETARY GENESIS • WEBFLUX CORE';
       } else {
-        // Scene 4: 100%
+        // Scene 4 (1.9s - 2.2s): 100%
         currentPct = 100;
         currentStatus = 'SUPERNOVA BURST • SYSTEM READY';
       }
@@ -179,12 +179,12 @@ export default function GravityLoader() {
       setPercentage(currentPct);
       setStatusText(currentStatus);
 
-      if (elapsed >= 4.6 && !exitTriggered) {
+      if (elapsed >= 1.95 && !exitTriggered) {
         exitTriggered = true;
         setIsExiting(true);
       }
 
-      if (elapsed >= 5.0 && !completedTriggered) {
+      if (elapsed >= TOTAL_DURATION && !completedTriggered) {
         completedTriggered = true;
         setIsComplete(true);
         document.body.style.overflow = '';
@@ -196,7 +196,7 @@ export default function GravityLoader() {
       ctx.fillRect(0, 0, width, height);
 
       // --- 2. GRAVITATIONAL FIELD ORBIT GUIDE ---
-      const guideAlpha = Math.max(0, (isMobile ? 0.14 : 0.08) - elapsed * 0.02);
+      const guideAlpha = Math.max(0, (isMobile ? 0.14 : 0.08) - elapsed * 0.04);
       if (guideAlpha > 0) {
         ctx.strokeStyle = `rgba(255, 255, 255, ${guideAlpha})`;
         ctx.lineWidth = isMobile ? 1.5 : 1.0;
@@ -212,49 +212,49 @@ export default function GravityLoader() {
       let planetRadius = 0;
       let planetAlpha = 0;
 
-      if (elapsed >= 3.8) {
-        const planetProgress = Math.min((elapsed - 3.8) / 0.7, 1);
+      if (elapsed >= 1.55) {
+        const planetProgress = Math.min((elapsed - 1.55) / 0.35, 1);
         const easeOut = 1 - Math.pow(1 - planetProgress, 3);
         planetRadius = 8 + (maxPlanetRadius - 8) * easeOut;
-        planetAlpha = Math.min(1, (elapsed - 3.8) * 3);
+        planetAlpha = Math.min(1, (elapsed - 1.55) * 4);
       }
 
       // --- 4. UPDATE & DRAW PARTICLES ---
       particles.forEach((p) => {
         if (p.merged) return;
 
-        if (elapsed < 2.0) {
-          // Scene 1: Ambient Drift
-          const currentAngle = p.initialAngle + elapsed * p.ambientSpeed * Math.PI;
-          const oscDist = p.initialDist + Math.sin(elapsed * p.radialOscSpeed + p.id) * 10;
+        if (elapsed < 0.7) {
+          // Scene 1: Rapid Orbital Drift
+          const currentAngle = p.initialAngle + elapsed * p.ambientSpeed * Math.PI * 2;
+          const oscDist = p.initialDist + Math.sin(elapsed * p.radialOscSpeed + p.id) * 8;
           p.x = cx + Math.cos(currentAngle) * oscDist;
           p.y = cy + Math.sin(currentAngle) * oscDist;
-        } else if (elapsed < 4.0) {
-          // Scene 2: Strong Inward Acceleration with Physics Vectors
+        } else if (elapsed < 1.6) {
+          // Scene 2: High-velocity Inward Gravity Accretion
           const dx = cx - p.x;
           const dy = cy - p.y;
           const dist = Math.sqrt(dx * dx + dy * dy);
           const angle = Math.atan2(dy, dx);
 
-          const timeProgress = (elapsed - 2.0) / 2.0;
-          const force = (1.0 + 9.5 * Math.pow(timeProgress, 1.8)) * (380 / Math.max(dist, 35));
+          const timeProgress = (elapsed - 0.7) / 0.9;
+          const force = (2.2 + 16.0 * Math.pow(timeProgress, 1.8)) * (420 / Math.max(dist, 20));
 
           const swirl = (1 - timeProgress) * 0.45;
           const perpAngle = angle + Math.PI / 2;
 
-          p.vx += Math.cos(angle) * force * 0.15 + Math.cos(perpAngle) * swirl;
-          p.vy += Math.sin(angle) * force * 0.15 + Math.sin(perpAngle) * swirl;
+          p.vx += Math.cos(angle) * force * 0.22 + Math.cos(perpAngle) * swirl;
+          p.vy += Math.sin(angle) * force * 0.22 + Math.sin(perpAngle) * swirl;
 
-          p.vx *= 0.93;
-          p.vy *= 0.93;
+          p.vx *= 0.90;
+          p.vy *= 0.90;
 
           p.x += p.vx;
           p.y += p.vy;
 
           p.trail.unshift({ x: p.x, y: p.y });
-          if (p.trail.length > 12) p.trail.pop();
+          if (p.trail.length > 10) p.trail.pop();
 
-          // STRONGER CONNECTION LINES (Visual pull towards center)
+          // Visual pull vectors towards center
           const lineAlpha = (isMobile ? 0.65 : 0.35) * Math.sin(timeProgress * Math.PI);
           if (lineAlpha > 0.05) {
             ctx.save();
@@ -270,7 +270,7 @@ export default function GravityLoader() {
             ctx.restore();
           }
 
-          if (dist < (isMobile ? 24 : 18)) {
+          if (dist < (isMobile ? 26 : 20)) {
             p.merged = true;
             p.mergeTime = elapsed;
             ripples.push({
@@ -279,19 +279,19 @@ export default function GravityLoader() {
               radius: 6,
               maxRadius: (isMobile ? 42 : 32) + Math.random() * 20,
               alpha: 0.95,
-              growth: 2.2,
+              growth: 3.2,
             });
           }
         } else {
-          // Scene 3: Rapid Collision Fusion
+          // Scene 3: Final Rapid Fusion
           const dx = cx - p.x;
           const dy = cy - p.y;
           const dist = Math.sqrt(dx * dx + dy * dy);
           const angle = Math.atan2(dy, dx);
 
-          const force = 36 * (280 / Math.max(dist, 10));
-          p.vx += Math.cos(angle) * force * 0.18;
-          p.vy += Math.sin(angle) * force * 0.18;
+          const force = 48 * (300 / Math.max(dist, 8));
+          p.vx += Math.cos(angle) * force * 0.22;
+          p.vy += Math.sin(angle) * force * 0.22;
           p.x += p.vx;
           p.y += p.vy;
 
@@ -304,7 +304,7 @@ export default function GravityLoader() {
               radius: planetRadius * 0.5,
               maxRadius: planetRadius * 1.6,
               alpha: 1.0,
-              growth: 2.6,
+              growth: 3.8,
             });
           }
         }
@@ -316,12 +316,12 @@ export default function GravityLoader() {
           for (let j = 1; j < p.trail.length; j++) {
             ctx.lineTo(p.trail[j].x, p.trail[j].y);
           }
-          ctx.strokeStyle = `rgba(255, 255, 255, ${Math.min(isMobile ? 0.55 : 0.35, (elapsed - 2.0) * 0.3)})`;
+          ctx.strokeStyle = `rgba(255, 255, 255, ${Math.min(isMobile ? 0.55 : 0.35, (elapsed - 0.7) * 0.5)})`;
           ctx.lineWidth = isMobile ? 1.8 : 1.2;
           ctx.stroke();
         }
 
-        // Draw Glowing Node Body (High mobile impact)
+        // Draw Glowing Node Body
         ctx.save();
         ctx.shadowColor = 'rgba(255, 255, 255, 0.95)';
         ctx.shadowBlur = Math.max(isMobile ? 8 : 4, p.radius * (isMobile ? 2.6 : 2.0));
@@ -332,15 +332,15 @@ export default function GravityLoader() {
         ctx.fill();
         ctx.restore();
 
-        // Atmospheric Halo
+        // Halo
         ctx.fillStyle = `rgba(255, 255, 255, ${isMobile ? 0.35 : 0.22})`;
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.radius * (isMobile ? 2.6 : 2.2), 0, Math.PI * 2);
         ctx.fill();
 
-        // Render business name labels ONLY on desktop (keep mobile 100% clean and un-cluttered)
-        if (!isMobile && elapsed < 2.0) {
-          const labelAlpha = Math.max(0, 0.85 - elapsed * 0.25);
+        // Render business name labels on desktop
+        if (!isMobile && elapsed < 0.7) {
+          const labelAlpha = Math.max(0, 0.85 - elapsed * 0.7);
           const isRight = p.x >= cx;
           ctx.fillStyle = `rgba(255, 255, 255, ${labelAlpha})`;
           ctx.font = '600 10px Inter, sans-serif';
@@ -354,7 +354,7 @@ export default function GravityLoader() {
       for (let i = ripples.length - 1; i >= 0; i--) {
         const r = ripples[i];
         r.radius += r.growth;
-        r.alpha -= 0.032;
+        r.alpha -= 0.05;
 
         if (r.alpha <= 0 || r.radius >= r.maxRadius) {
           ripples.splice(i, 1);
@@ -367,7 +367,7 @@ export default function GravityLoader() {
         }
       }
 
-      // --- 6. DRAW CENTRAL NEW PLANET (WEBFLUX) ---
+      // --- 6. DRAW CENTRAL CORE PLANET (WEBFLUX) ---
       if (planetRadius > 0) {
         // Corona Glow
         const coronaR = planetRadius * 2.8;
@@ -406,7 +406,7 @@ export default function GravityLoader() {
         ctx.restore();
 
         // Luminous 'W' Core Monogram
-        if (planetRadius > 20 && elapsed < 4.5) {
+        if (planetRadius > 20 && elapsed < 1.9) {
           ctx.fillStyle = '#000000';
           ctx.font = `900 ${isMobile ? '20px' : '24px'} Inter, sans-serif`;
           ctx.textAlign = 'center';
@@ -415,14 +415,14 @@ export default function GravityLoader() {
         }
       }
 
-      // --- 7. SUPERNOVA BURST (4.5s - 5.0s) ---
-      if (elapsed >= 4.5) {
+      // --- 7. SUPERNOVA BURST & LIGHT BLOOM (1.9s - 2.2s) ---
+      if (elapsed >= 1.9) {
         if (!supernovaTriggered) {
           supernovaTriggered = true;
-          const sparkCount = isMobile ? 55 : 75;
+          const sparkCount = isMobile ? 60 : 80;
           for (let k = 0; k < sparkCount; k++) {
             const angle = (k / sparkCount) * Math.PI * 2 + (Math.random() - 0.5) * 0.2;
-            const speed = (isMobile ? 10 : 12) + Math.random() * 22;
+            const speed = (isMobile ? 12 : 15) + Math.random() * 25;
             supernovaSparks.push({
               x: cx,
               y: cy,
@@ -430,14 +430,14 @@ export default function GravityLoader() {
               vy: Math.sin(angle) * speed,
               radius: (isMobile ? 2.0 : 1.5) + Math.random() * 2.8,
               alpha: 1.0,
-              decay: 0.022 + Math.random() * 0.025,
+              decay: 0.045 + Math.random() * 0.035,
             });
           }
         }
 
-        const dtSupernova = elapsed - 4.5;
-        const shockRadius = dtSupernova * Math.max(width, height) * 1.8;
-        const shockAlpha = Math.max(0, 1 - dtSupernova * 2.2);
+        const dtSupernova = elapsed - 1.9;
+        const shockRadius = dtSupernova * Math.max(width, height) * 2.8;
+        const shockAlpha = Math.max(0, 1 - dtSupernova * 3.5);
         if (shockAlpha > 0) {
           ctx.strokeStyle = `rgba(255, 255, 255, ${shockAlpha * 0.9})`;
           ctx.lineWidth = isMobile ? 3.5 : 3.0;
@@ -446,7 +446,7 @@ export default function GravityLoader() {
           ctx.stroke();
         }
 
-        const flashAlpha = Math.max(0, 1 - dtSupernova * 2.6) * 0.92;
+        const flashAlpha = Math.max(0, 1 - dtSupernova * 4.0) * 0.95;
         if (flashAlpha > 0) {
           const gFlash = ctx.createRadialGradient(cx, cy, 0, cx, cy, Math.max(width, height) * 0.7);
           gFlash.addColorStop(0, `rgba(255, 255, 255, ${flashAlpha})`);
@@ -487,10 +487,10 @@ export default function GravityLoader() {
 
   return (
     <div
-      className={`fixed inset-0 z-[9999] bg-[#000000] flex flex-col items-center justify-between select-none pointer-events-auto transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+      className={`fixed inset-0 z-[9999] bg-[#000000] flex flex-col items-center justify-between select-none pointer-events-auto transition-all duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] ${
         isExiting ? 'opacity-0 scale-105 pointer-events-none' : 'opacity-100 scale-100'
       }`}
-      aria-label="Cinematic Gravity Loading Screen"
+      aria-label="Express Gravity Loading Screen"
     >
       <canvas ref={canvasRef} className="absolute inset-0 w-full h-full pointer-events-none" />
 
@@ -508,12 +508,12 @@ export default function GravityLoader() {
           </span>
         </div>
         <div className="flex items-center gap-2 font-mono text-[9px] sm:text-[10px] text-zinc-400 uppercase tracking-widest">
-          <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
-          <span>Cinematic Physics</span>
+          <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
+          <span>Express 2.2s Engine</span>
         </div>
       </div>
 
-      {/* Center UI Overlay (Massive High-Impact Mobile Percentage) */}
+      {/* Center UI Overlay (High-Impact Mobile & Desktop Percentage) */}
       <div className="z-10 flex flex-col items-center justify-center text-center pointer-events-none mt-auto mb-16 sm:mb-20 px-4">
         <div className="flex items-baseline justify-center gap-1 sm:gap-2">
           <span className="text-7xl sm:text-8xl md:text-9xl font-mono font-black text-white tracking-tighter drop-shadow-[0_0_50px_rgba(255,255,255,0.6)]">
@@ -539,7 +539,7 @@ export default function GravityLoader() {
       {/* Bottom Footer Notice */}
       <div className="w-full pb-5 sm:pb-8 px-5 sm:px-10 flex items-center justify-between z-10 pointer-events-none">
         <span className="font-mono text-[8px] sm:text-[9px] uppercase tracking-widest text-zinc-500">
-          Physics Engine: Velocity &bull; Gravity &bull; Orbitals
+          Physics Engine: Express Accretion &bull; Orbitals &bull; Supernova Core
         </span>
         <span className="font-mono text-[8px] sm:text-[9px] uppercase tracking-widest text-zinc-500">
           &copy; {new Date().getFullYear()} WebFlux Studio

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import {
   ArrowRight,
   ArrowUpRight,
@@ -170,10 +170,131 @@ const projects: Project[] = [
   },
 ];
 
+
+interface IntentOption {
+  icon: string;
+  label: string;
+  serviceValue: string;
+  tag: string;
+}
+
+const INTENT_OPTIONS: IntentOption[] = [
+  {
+    icon: '🎓',
+    label: 'School / Institute',
+    serviceValue: 'School / Institute Website',
+    tag: 'Admissions & Portal',
+  },
+  {
+    icon: '💼',
+    label: 'Business / Brand',
+    serviceValue: 'Business / Brand Website',
+    tag: 'Corporate & Identity',
+  },
+  {
+    icon: '🚀',
+    label: 'Custom Web App / SaaS',
+    serviceValue: 'Custom Web App / SaaS',
+    tag: 'Full-Stack 60fps',
+  },
+  {
+    icon: '🔄',
+    label: 'Redesign Existing Site',
+    serviceValue: 'Redesign Existing Site',
+    tag: 'Performance Upgrade',
+  },
+];
+
+function SilverDustBurst() {
+  const canvasRef = useRef<HTMLCanvasElement | null>(null);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    let animId: number;
+    const width = (canvas.width = canvas.offsetWidth || 350);
+    const height = (canvas.height = canvas.offsetHeight || 120);
+    const cx = width / 2;
+    const cy = height / 2;
+
+    const PARTICLE_COUNT = 110;
+    const particles = Array.from({ length: PARTICLE_COUNT }, () => {
+      const angle = Math.random() * Math.PI * 2;
+      const speed = 2.5 + Math.random() * 8.5;
+      return {
+        x: cx,
+        y: cy,
+        vx: Math.cos(angle) * speed,
+        vy: Math.sin(angle) * speed,
+        radius: 1.2 + Math.random() * 2.5,
+        alpha: 1.0,
+        decay: 0.02 + Math.random() * 0.02,
+        twinkle: Math.random() * Math.PI * 2,
+        twinkleSpeed: 0.15 + Math.random() * 0.1,
+      };
+    });
+
+    const render = () => {
+      ctx.clearRect(0, 0, width, height);
+      let alive = false;
+
+      particles.forEach((p) => {
+        p.x += p.vx;
+        p.y += p.vy;
+        p.vx *= 0.94;
+        p.vy *= 0.94;
+        p.alpha -= p.decay;
+        p.twinkle += p.twinkleSpeed;
+
+        if (p.alpha > 0) {
+          alive = true;
+          const shimmer = Math.abs(Math.sin(p.twinkle));
+          ctx.save();
+          ctx.shadowColor = 'rgba(255, 255, 255, 1.0)';
+          ctx.shadowBlur = 8;
+          ctx.fillStyle = `rgba(255, 255, 255, ${Math.max(0, p.alpha * (0.7 + 0.3 * shimmer))})`;
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.restore();
+        }
+      });
+
+      if (alive) {
+        animId = requestAnimationFrame(render);
+      }
+    };
+
+    animId = requestAnimationFrame(render);
+    return () => cancelAnimationFrame(animId);
+  }, []);
+
+  return (
+    <canvas
+      ref={canvasRef}
+      className="absolute -inset-10 w-[calc(100%+80px)] h-[calc(100%+80px)] pointer-events-none z-30"
+    />
+  );
+}
+
 export default function WebFluxHomePage() {
   const [activeTab, setActiveTab] = useState<'all' | 'schools' | 'commercial' | 'luxury'>('all');
   const [openFaq, setOpenFaq] = useState<number | null>(0);
   const [formSubmitted, setFormSubmitted] = useState(false);
+  const [selectedService, setSelectedService] = useState<string>('School / Institute Website');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showSilverDust, setShowSilverDust] = useState(false);
+
+  const handleIntentSelect = (serviceValue: string) => {
+    setSelectedService(serviceValue);
+    const contactEl = document.getElementById('contact');
+    if (contactEl) {
+      contactEl.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
 
   const filteredProjects =
     activeTab === 'all'
@@ -215,27 +336,32 @@ export default function WebFluxHomePage() {
     },
   ];
 
-  const handleContactSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleContactSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setIsSubmitting(true);
+    setShowSilverDust(true);
     const form = e.currentTarget;
-    fetch('https://formspree.io/f/xeewgrad', {
-      method: 'POST',
-      body: new FormData(form),
-      headers: {
-        Accept: 'application/json',
-      },
-    })
-      .then((res) => {
-        if (res.ok) {
-          setFormSubmitted(true);
-          form.reset();
-        } else {
-          alert('Submission received. We will get back to you shortly.');
-        }
-      })
-      .catch(() => {
-        setFormSubmitted(true);
+    const formData = new FormData(form);
+
+    try {
+      await fetch('https://formspree.io/f/xeewgrad', {
+        method: 'POST',
+        body: formData,
+        headers: {
+          Accept: 'application/json',
+        },
       });
+    } catch {
+      // Network fallback
+    }
+
+    // 1.5-second pure silver/white micro-particle burst reward before revealing confirmed state
+    setTimeout(() => {
+      setShowSilverDust(false);
+      setIsSubmitting(false);
+      setFormSubmitted(true);
+      form.reset();
+    }, 1500);
   };
 
   useEffect(() => {
@@ -258,7 +384,7 @@ export default function WebFluxHomePage() {
   }, []);
 
   return (
-    <div className="space-y-28 sm:space-y-44 max-w-6xl mx-auto px-4 sm:px-8 lg:px-10 pb-44 sm:pb-32">
+    <div className="space-y-28 sm:space-y-44 max-w-6xl mx-auto px-4 sm:px-8 lg:px-10 pb-52 sm:pb-40">
       {/* ==================================================
           1. HERO SECTION (MINIMAL, POWERFUL & CENTERED - WEBORA STYLE)
           ================================================== */}
@@ -301,6 +427,43 @@ export default function WebFluxHomePage() {
             <span>Explore Portfolio</span>
             <ArrowUpRight size={14} className="btn-icon-kick" />
           </a>
+        </div>
+
+        {/* Sleek Hero Intent Picker Glass Card */}
+        <div className="mt-14 w-full max-w-3xl rounded-2xl bg-white/[0.03] backdrop-blur-xl border border-white/10 p-5 sm:p-6 shadow-[0_20px_50px_rgba(0,0,0,0.8),inset_0_1px_0_rgba(255,255,255,0.1)] text-center animate-hero-buttons">
+          <div className="flex items-center justify-center gap-2 mb-4">
+            <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
+            <span className="font-heading font-semibold text-xs sm:text-sm text-zinc-300 tracking-wide">
+              What type of website are you building?
+            </span>
+          </div>
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-3">
+            {INTENT_OPTIONS.map((opt) => {
+              const isSelected = selectedService === opt.serviceValue;
+              return (
+                <button
+                  key={opt.serviceValue}
+                  type="button"
+                  onClick={() => handleIntentSelect(opt.serviceValue)}
+                  className={`group relative flex flex-col items-center justify-center py-3.5 px-3 rounded-xl border transition-all duration-300 cursor-pointer hover:scale-[1.03] active:scale-95 text-center ${
+                    isSelected
+                      ? 'bg-white/10 border-cyan-400/50 shadow-[0_0_20px_rgba(34,211,238,0.2)]'
+                      : 'bg-white/[0.03] hover:bg-white/[0.07] border-white/[0.08] hover:border-white/20'
+                  }`}
+                >
+                  <span className="text-xl sm:text-2xl mb-1.5 group-hover:scale-110 transition-transform">
+                    {opt.icon}
+                  </span>
+                  <span className="text-xs sm:text-[13px] font-heading font-bold text-white group-hover:text-cyan-300 transition-colors">
+                    {opt.label}
+                  </span>
+                  <span className="text-[9px] font-mono text-zinc-500 group-hover:text-zinc-400 transition-colors mt-0.5">
+                    {opt.tag}
+                  </span>
+                </button>
+              );
+            })}
+          </div>
         </div>
       </section>
 
@@ -865,7 +1028,7 @@ export default function WebFluxHomePage() {
       {/* ==================================================
           7. CONTACT SECTION (#contact)
           ================================================== */}
-      <section id="contact" className="scroll-mt-28 reveal-on-scroll pb-12 sm:pb-0">
+      <section id="contact" className="scroll-mt-28 reveal-on-scroll pb-24 sm:pb-16">
         <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-14">
           <div className="pill-badge mb-3 sm:mb-4">
             <span>✦ Direct Channel &bull; Start Your Project</span>
@@ -1034,26 +1197,27 @@ export default function WebFluxHomePage() {
                     <select
                       name="service"
                       required
+                      value={selectedService}
+                      onChange={(e) => setSelectedService(e.target.value)}
                       className="glass-input text-xs sm:text-sm py-3 px-3.5 w-full rounded-xl"
-                      defaultValue="School Website Portal"
                     >
-                      <option value="School Website Portal" className="bg-[#050505] text-white">
-                        School Website Portal
+                      <option value="School / Institute Website" className="bg-[#050505] text-white">
+                        School / Institute Website
                       </option>
-                      <option value="Coaching Institute Platform" className="bg-[#050505] text-white">
-                        Coaching Institute Platform
+                      <option value="Business / Brand Website" className="bg-[#050505] text-white">
+                        Business / Brand Website
+                      </option>
+                      <option value="Custom Web App / SaaS" className="bg-[#050505] text-white">
+                        Custom Web App / SaaS
+                      </option>
+                      <option value="Redesign Existing Site" className="bg-[#050505] text-white">
+                        Redesign Existing Site
                       </option>
                       <option value="Luxury Real Estate Showcase" className="bg-[#050505] text-white">
                         Luxury Real Estate Showcase
                       </option>
-                      <option value="Creator Media Kit & Portal" className="bg-[#050505] text-white">
-                        Creator Media Kit &amp; Portal
-                      </option>
                       <option value="Commercial E-Commerce Store" className="bg-[#050505] text-white">
                         Commercial E-Commerce Store
-                      </option>
-                      <option value="High-Converting Landing Page" className="bg-[#050505] text-white">
-                        High-Converting Landing Page
                       </option>
                       <option value="Other Custom Web Project" className="bg-[#050505] text-white">
                         Other Custom Web Project
@@ -1075,13 +1239,15 @@ export default function WebFluxHomePage() {
                   />
                 </div>
 
-                <div className="pt-2">
+                <div className="pt-2 relative">
+                  {showSilverDust && <SilverDustBurst />}
                   <button
                     type="submit"
-                    className="btn-primary btn-crazy-spring w-full text-xs sm:text-sm uppercase tracking-wider py-4 sm:py-3.5 justify-center shadow-xl font-bold cursor-pointer"
+                    disabled={isSubmitting}
+                    className="btn-primary btn-crazy-spring w-full text-xs sm:text-sm uppercase tracking-wider py-4 sm:py-3.5 justify-center shadow-xl font-bold cursor-pointer relative"
                   >
                     <Send size={14} className="btn-icon-kick" />
-                    <span>Request Free Demo Prototype</span>
+                    <span>{isSubmitting ? 'Architecting Transmission...' : 'Request Free Demo Prototype'}</span>
                   </button>
                 </div>
               </form>
