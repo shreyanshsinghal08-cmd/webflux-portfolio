@@ -64,6 +64,11 @@
     color: #A1A1AA;
   }
 
+  a, a:visited {
+    color: inherit;
+    text-decoration: none;
+  }
+
   /* Faint Webora-Style Grid Background */
   .bg-webora-grid {
     position: fixed;
