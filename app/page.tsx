@@ -384,7 +384,7 @@ export default function WebFluxHomePage() {
   }, []);
 
   return (
-    <div className="space-y-28 sm:space-y-44 max-w-6xl mx-auto px-4 sm:px-8 lg:px-10 pb-52 sm:pb-40">
+    <div className="space-y-28 sm:space-y-44 max-w-6xl mx-auto px-4 sm:px-8 lg:px-10 pb-56 sm:pb-40">
       {/* ==================================================
           1. HERO SECTION (MINIMAL, POWERFUL & CENTERED - WEBORA STYLE)
           ================================================== */}
@@ -473,9 +473,9 @@ export default function WebFluxHomePage() {
           ultra-thin inner border, subtle white radial glow inside
           ================================================== */}
       <section id="about" className="scroll-mt-28 reveal-on-scroll">
-        <div className="bento-card p-5 sm:p-14 relative overflow-hidden">
+        <div className="bento-card p-5 sm:p-14 relative">
           {/* Subtle White Radial Glow inside */}
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[500px] h-[300px] bg-white/[0.035] rounded-full blur-[90px] pointer-events-none" />
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-[500px] h-[300px] bg-white/[0.035] rounded-full blur-[90px] pointer-events-none" />
 
           {/* Bento Header */}
           <div className="relative z-10 max-w-3xl mb-12">
@@ -539,19 +539,19 @@ export default function WebFluxHomePage() {
             <span className="font-mono text-xs text-zinc-500">
               Studio: Rajasthan, India &bull; Worldwide Engagements
             </span>
-            <div className="flex items-center gap-3">
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full sm:w-auto">
               <a
                 href="https://wa.me/918302589297"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn-primary btn-crazy-spring text-xs uppercase tracking-wider py-2.5 px-6"
+                className="btn-primary btn-crazy-spring text-xs uppercase tracking-wider py-2.5 px-4 sm:px-6 w-full sm:w-auto justify-center text-center"
               >
                 <span>Direct WhatsApp</span>
                 <ArrowRight size={13} className="btn-icon-kick" />
               </a>
               <a
                 href="mailto:shreyanshsinghal08@gmail.com"
-                className="btn-secondary btn-crazy-spring text-xs uppercase tracking-wider py-2.5 px-6 font-mono"
+                className="btn-secondary btn-crazy-spring text-xs uppercase tracking-wider py-2.5 px-4 sm:px-6 font-mono w-full sm:w-auto justify-center text-center"
               >
                 <span>Email Desk</span>
               </a>
@@ -607,7 +607,7 @@ export default function WebFluxHomePage() {
           {filteredProjects.map((p) => (
             <div
               key={p.id}
-              className="bento-card overflow-hidden flex flex-col group p-4"
+              className="bento-card flex flex-col group p-4 sm:p-5"
             >
               {/* Media Container */}
               <div className="relative aspect-video w-full rounded-xl overflow-hidden bg-black border border-white/[0.08]">
@@ -859,7 +859,7 @@ export default function WebFluxHomePage() {
 
           {/* Standard Plan (Featured) */}
           <div className="bento-card p-5 sm:p-8 flex flex-col justify-between relative border-white/30 shadow-[0_20px_50px_rgba(0,0,0,0.9),inset_0_1px_0_rgba(255,255,255,0.2)] md:scale-105 z-10 bg-black/80">
-            <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 rounded-full bg-white px-4 py-1 text-[10px] font-mono uppercase tracking-wider font-bold text-black shadow-md">
+            <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 rounded-full bg-white px-3 sm:px-4 py-0.5 sm:py-1 text-[9px] sm:text-[10px] font-mono uppercase tracking-wider font-bold text-black shadow-md max-w-[92%] truncate text-center">
               Most Popular &bull; Schools &amp; Institutes
             </div>
             <div>
@@ -994,14 +994,14 @@ export default function WebFluxHomePage() {
                 <button
                   type="button"
                   onClick={() => setOpenFaq((prev) => (prev === idx ? null : idx))}
-                  className="w-full py-4 sm:py-6 text-left flex items-center justify-between gap-3 sm:gap-6 cursor-pointer group focus:outline-none select-none"
+                  className="w-full py-4 sm:py-6 text-left flex items-start sm:items-center justify-between gap-3 sm:gap-6 cursor-pointer group focus:outline-none select-none"
                   aria-expanded={isOpen}
                 >
-                  <span className="font-heading font-semibold text-sm sm:text-base md:text-lg text-white group-hover:text-zinc-200 transition-colors pr-2">
+                  <span className="font-heading font-semibold text-sm sm:text-base md:text-lg text-white group-hover:text-zinc-200 transition-colors pr-2 break-words">
                     {faq.q}
                   </span>
                   <div
-                    className={`w-7 h-7 rounded-full bg-white/[0.04] border border-white/10 flex items-center justify-center text-zinc-400 shrink-0 transition-all duration-300 group-hover:border-white/30 group-hover:text-white ${
+                    className={`w-7 h-7 rounded-full bg-white/[0.04] border border-white/10 flex items-center justify-center text-zinc-400 shrink-0 transition-all duration-300 group-hover:border-white/30 group-hover:text-white mt-0.5 sm:mt-0 ${
                       isOpen ? 'rotate-180 bg-white text-black border-transparent shadow-md' : ''
                     }`}
                   >
@@ -1013,7 +1013,7 @@ export default function WebFluxHomePage() {
                     isOpen ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0 pointer-events-none'
                   }`}
                 >
-                  <div className="overflow-hidden">
+                  <div className="min-h-0 overflow-hidden">
                     <p className="text-xs sm:text-sm text-zinc-400 font-normal leading-relaxed pb-5 sm:pb-6 pt-1">
                       {faq.a}
                     </p>
@@ -1028,7 +1028,7 @@ export default function WebFluxHomePage() {
       {/* ==================================================
           7. CONTACT SECTION (#contact)
           ================================================== */}
-      <section id="contact" className="scroll-mt-28 reveal-on-scroll pb-24 sm:pb-16">
+      <section id="contact" className="scroll-mt-28 reveal-on-scroll pb-36 sm:pb-20">
         <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-14">
           <div className="pill-badge mb-3 sm:mb-4">
             <span>✦ Direct Channel &bull; Start Your Project</span>
@@ -1048,7 +1048,7 @@ export default function WebFluxHomePage() {
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-8 items-start">
           {/* Direct Channels Card */}
-          <div className="lg:col-span-5 bento-card p-4 sm:p-7 space-y-4 sm:space-y-6 w-full overflow-hidden">
+          <div className="lg:col-span-5 bento-card p-4 sm:p-7 space-y-4 sm:space-y-6 w-full">
             <div>
               <h3 className="text-lg sm:text-xl font-heading font-bold text-white">
                 Engineering Desk
@@ -1090,7 +1090,7 @@ export default function WebFluxHomePage() {
                   <div className="text-[9px] sm:text-[10px] font-mono uppercase text-zinc-500">
                     Primary Email
                   </div>
-                  <div className="text-xs sm:text-sm font-semibold text-white group-hover:text-zinc-200 transition-colors truncate break-all sm:break-normal">
+                  <div className="text-xs sm:text-sm font-semibold text-white group-hover:text-zinc-200 transition-colors break-all">
                     shreyanshsinghal08@gmail.com
                   </div>
                 </div>
@@ -1128,7 +1128,7 @@ export default function WebFluxHomePage() {
           </div>
 
           {/* Contact Inquiry Form Card */}
-          <div className="lg:col-span-7 bento-card p-4 sm:p-7 w-full overflow-hidden">
+          <div className="lg:col-span-7 bento-card p-4 sm:p-7 w-full">
             {formSubmitted ? (
               <div className="p-6 sm:p-8 text-center space-y-4">
                 <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-white/10 border border-white/30 flex items-center justify-center text-white mx-auto shadow-lg">
@@ -1255,6 +1255,7 @@ export default function WebFluxHomePage() {
           </div>
         </div>
       </section>
+      <div className="h-16 sm:h-0 w-full pointer-events-none" aria-hidden="true" />
     </div>
   );
 }

@@ -85,7 +85,7 @@ export default function FloatingNav() {
 
       {/* 1. FLOATING MENU POPOVER WRAPPER: Sits cleanly above MENU button */}
       <div
-        className={`fixed bottom-48 right-8 z-[999] flex flex-col items-end gap-2.5 transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] select-none ${
+        className={`fixed bottom-48 right-5 sm:right-8 z-[999] flex flex-col items-end gap-2.5 transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] select-none ${
           isOpen
             ? 'opacity-100 pointer-events-auto translate-y-0 scale-100 visible'
             : 'opacity-0 pointer-events-none translate-y-6 scale-95 invisible'
@@ -94,7 +94,7 @@ export default function FloatingNav() {
       >
         {/* COMPACT FROSTED GLASS CARD (Zero horizontal bleeding, strictly vertical stack) */}
         <div
-          className="w-64 sm:w-72 rounded-[20px] p-4 sm:p-5 flex flex-col gap-2 origin-bottom-right"
+          className="w-[calc(100vw-2.5rem)] max-w-xs sm:w-72 rounded-[20px] p-4 sm:p-5 flex flex-col gap-2 origin-bottom-right"
           style={{
             background: 'rgba(10, 15, 30, 0.75)',
             backdropFilter: 'blur(25px)',
@@ -162,13 +162,13 @@ export default function FloatingNav() {
         </div>
       </div>
 
-      {/* 2. CIRCULAR COMPASS TOGGLE BUTTON: fixed bottom-28 right-8 z-[1000] */}
+      {/* 2. CIRCULAR COMPASS TOGGLE BUTTON: fixed bottom-28 right-5 sm:right-8 z-[1000] */}
       <button
         type="button"
         onClick={() => setIsOpen(!isOpen)}
         aria-label={isOpen ? 'Close menu' : 'Open menu'}
         aria-expanded={isOpen}
-        className="fixed bottom-28 right-8 z-[1000] group w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-[#050505]/95 backdrop-blur-2xl border border-white/20 hover:border-cyan-400/60 text-white flex items-center justify-center shadow-[0_20px_50px_rgba(0,0,0,0.95),inset_0_1px_0_rgba(255,255,255,0.15)] hover:scale-105 active:scale-95 transition-all duration-300 cursor-pointer focus:outline-none select-none"
+        className="fixed bottom-28 right-5 sm:right-8 z-[1000] group w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-[#050505]/95 backdrop-blur-2xl border border-white/20 hover:border-cyan-400/60 text-white flex items-center justify-center shadow-[0_20px_50px_rgba(0,0,0,0.95),inset_0_1px_0_rgba(255,255,255,0.15)] hover:scale-105 active:scale-95 transition-all duration-300 cursor-pointer focus:outline-none select-none"
       >
         {/* Breathing cyan pulse ring */}
         <span className="absolute -inset-1 rounded-full border border-cyan-400/40 animate-pulse pointer-events-none" />
@@ -199,13 +199,13 @@ export default function FloatingNav() {
         </div>
       </button>
 
-      {/* 3. SLEEK FROSTED GLASS WHATSAPP BUTTON: fixed bottom-8 right-8 z-[998] */}
+      {/* 3. SLEEK FROSTED GLASS WHATSAPP BUTTON: fixed bottom-8 right-5 sm:right-8 z-[998] */}
       <a
         href="https://wa.me/918302589297"
         target="_blank"
         rel="noopener noreferrer"
         aria-label="Direct WhatsApp Consultation"
-        className="fixed bottom-8 right-8 z-[998] group flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 rounded-full transition-all duration-300 hover:scale-105 active:scale-95 select-none hover:shadow-[0_0_20px_rgba(16,185,129,0.35)]"
+        className="fixed bottom-8 right-5 sm:right-8 z-[998] group flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 rounded-full transition-all duration-300 hover:scale-105 active:scale-95 select-none hover:shadow-[0_0_20px_rgba(16,185,129,0.35)]"
         style={{
           background: 'rgba(10, 15, 30, 0.65)',
           backdropFilter: 'blur(20px)',
