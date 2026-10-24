@@ -517,44 +517,30 @@
             z-index: 30;
             display: flex;
             align-items: center;
-            gap: 0.75rem;
         }
         .nav-scripting-pill {
             display: inline-flex;
             align-items: center;
-            gap: 8px;
-            padding: 9px 18px;
+            gap: 6px;
+            padding: 6px 14px;
             border-radius: 9999px;
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
+            background: rgba(255, 255, 255, 0.06);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             border: 1px solid rgba(255, 255, 255, 0.15);
-            color: #FFFFFF !important;
+            color: #E2E8F0 !important;
             text-decoration: none;
-            font-size: 13px;
+            font-size: 12px;
             font-weight: 600;
-            letter-spacing: 0.01em;
+            letter-spacing: 0.03em;
             font-family: 'Inter', sans-serif;
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
         }
         .nav-scripting-pill:hover {
             background: rgba(255, 255, 255, 0.12);
-            border-color: rgba(34, 211, 238, 0.5);
-            color: #22d3ee !important;
-            transform: translateY(-1px) scale(1.02);
-            box-shadow: 0 0 20px rgba(34, 211, 238, 0.25);
-        }
-        .nav-scripting-pill .pill-badge-mini {
-            background: #22d3ee;
-            color: #000000;
-            font-size: 9px;
-            font-weight: 800;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            padding: 2px 7px;
-            border-radius: 9999px;
-            font-family: monospace;
+            border-color: rgba(255, 255, 255, 0.35);
+            color: #FFFFFF !important;
+            transform: translateY(-1px);
         }
         @media (max-width: 640px) {
             .header-nav-actions {
@@ -566,12 +552,8 @@
                 left: 1.25rem;
             }
             .nav-scripting-pill {
-                padding: 6px 12px;
+                padding: 5px 11px;
                 font-size: 11px;
-                gap: 6px;
-            }
-            .nav-scripting-pill .pill-badge-mini {
-                display: none;
             }
         }
 
@@ -1936,8 +1918,7 @@
     <!-- Header Right Navigation Link -->
     <div class="header-nav-actions">
         <a href="scripting.html" class="nav-scripting-pill">
-            <span class="pill-badge-mini">NEW</span>
-            <span>Scripting Packages</span>
+            <span>Scripting</span>
             <i class="fas fa-arrow-up-right-from-square" style="font-size: 10px; opacity: 0.75;"></i>
         </a>
     </div>
@@ -2510,7 +2491,7 @@
                         <li><a href="#services">Services</a></li>
                         <li><a href="#portfolio">Portfolio</a></li>
                         <li><a href="#pricing">Pricing</a></li>
-                        <li><a href="scripting.html">Scripting Packages</a></li>
+                        <li><a href="scripting.html">Scripting</a></li>
                     </ul>
                 </div>
                 <div class="footer-col">
@@ -2564,8 +2545,8 @@
             <i class="fas fa-arrow-right" style="font-size: 11px; opacity: 0.5;"></i>
         </a>
         <a href="scripting.html">
-            <span><strong class="floating-menu-num" style="color: #22d3ee;">05</strong>Scripting Packages</span>
-            <i class="fas fa-arrow-up-right-from-square" style="font-size: 11px; color: #22d3ee; opacity: 0.85;"></i>
+            <span><strong class="floating-menu-num">05</strong>Scripting</span>
+            <i class="fas fa-arrow-right" style="font-size: 11px; opacity: 0.5;"></i>
         </a>
         <a href="#faq" onclick="toggleFloatingMenu()">
             <span><strong class="floating-menu-num">06</strong>FAQ</span>
