@@ -1,0 +1,1221 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth overflow-x-hidden">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>Content Scripting Services | Words that hook. Scripts that convert.</title>
+  
+  <!-- Inter Font from Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS via CDN with Dark Mode Class support -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', '"Segoe UI"', 'Roboto', 'sans-serif'],
+          },
+          colors: {
+            apple: {
+              white: '#FFFFFF',
+              greyBg: '#F5F5F7',
+              border: '#E5E5EA',
+              dark: '#1D1D1F',
+              muted: '#86868B',
+              blue: '#0071E3',
+              blueHover: '#0077ED',
+              blueActive: '#0062C4',
+              obsidian: '#0A0A0B',
+              darkCard: '#141416',
+              darkBorder: '#2C2C2E',
+              darkMuted: '#A1A1A6',
+            }
+          }
+        }
+      }
+    };
+  </script>
+
+  <style>
+    /* Strict Mobile-First & Horizontal Overflow Protection */
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+    html, body {
+      width: 100%;
+      max-width: 100vw;
+      overflow-x: hidden;
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    /* Hanging Drop Animation for Hero Letters */
+    @keyframes hangingDrop {
+      0% {
+        opacity: 0;
+        transform: translateY(-75px) rotate(8deg) scale(0.92);
+      }
+      38% {
+        opacity: 1;
+        transform: translateY(12px) rotate(-4deg) scale(1.02);
+      }
+      62% {
+        transform: translateY(-5px) rotate(2deg) scale(0.99);
+      }
+      82% {
+        transform: translateY(2px) rotate(-0.6deg) scale(1);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0) rotate(0deg) scale(1);
+      }
+    }
+
+    @keyframes hangingDropAlt {
+      0% {
+        opacity: 0;
+        transform: translateY(-75px) rotate(-8deg) scale(0.92);
+      }
+      38% {
+        opacity: 1;
+        transform: translateY(12px) rotate(4deg) scale(1.02);
+      }
+      62% {
+        transform: translateY(-5px) rotate(-2deg) scale(0.99);
+      }
+      82% {
+        transform: translateY(2px) rotate(0.6deg) scale(1);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0) rotate(0deg) scale(1);
+      }
+    }
+
+    .hanging-letter {
+      display: inline-block;
+      transform-origin: 50% -20px;
+      opacity: 0;
+      animation: hangingDrop 0.9s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+      will-change: transform, opacity;
+    }
+    .hanging-letter.alt-swing {
+      animation-name: hangingDropAlt;
+    }
+
+    /* Random Direction Slide-In Styles for Pricing Cards */
+    .card-enter-left {
+      opacity: 0;
+      transform: translateX(-60px);
+      transition: opacity 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.15),
+                  transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.15);
+      will-change: transform, opacity;
+    }
+    .card-enter-top {
+      opacity: 0;
+      transform: translateY(-60px);
+      transition: opacity 0.85s cubic-bezier(0.34, 1.56, 0.64, 1),
+                  transform 0.85s cubic-bezier(0.34, 1.56, 0.64, 1);
+      will-change: transform, opacity;
+    }
+    .card-enter-right {
+      opacity: 0;
+      transform: translateX(60px);
+      transition: opacity 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.15),
+                  transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.15);
+      will-change: transform, opacity;
+    }
+
+    /* On Mobile (< 1024px): Adapt entrance to pure vertical to prevent horizontal scroll bleed */
+    @media (max-width: 1023px) {
+      .card-enter-left, .card-enter-right {
+        transform: translateY(35px) !important;
+      }
+      .card-enter-top {
+        transform: translateY(-35px) !important;
+      }
+    }
+
+    .card-entered {
+      opacity: 1 !important;
+      transform: translate3d(0, 0, 0) !important;
+    }
+    .card-settled {
+      opacity: 1;
+      transform: translate3d(0, 0, 0);
+    }
+
+    /* 3D Card Tilt - Desktop Only */
+    @media (min-width: 1024px) and (hover: hover) and (pointer: fine) {
+      .pricing-card {
+        transition: transform 0.25s cubic-bezier(0.2, 0, 0, 1), box-shadow 0.3s ease;
+        transform-style: preserve-3d;
+        will-change: transform;
+      }
+    }
+
+    /* Price Glow on Hover */
+    .count-price {
+      transition: text-shadow 0.35s ease, color 0.3s ease;
+    }
+    .pricing-card:hover .count-price {
+      text-shadow: 0 0 22px rgba(0, 113, 227, 0.55), 0 0 40px rgba(0, 113, 227, 0.25);
+      color: #0071E3;
+    }
+
+    /* Cut-Out Reveal Animation for Headings */
+    .cutout-wrapper {
+      position: relative;
+      display: inline-block;
+      overflow: hidden;
+      padding: 0 4px;
+    }
+    .cutout-text {
+      opacity: 0;
+      transition: opacity 0.05s ease;
+    }
+    .cutout-text.is-visible {
+      opacity: 1;
+    }
+    .cutout-bar {
+      position: absolute;
+      top: -2px;
+      bottom: -2px;
+      left: 0;
+      width: 0%;
+      background-color: #1D1D1F;
+      z-index: 10;
+      pointer-events: none;
+    }
+    html.dark .cutout-bar {
+      background-color: #F5F5F7;
+    }
+    .cutout-bar.animating {
+      animation: cutoutWipe 0.9s cubic-bezier(0.77, 0, 0.175, 1) forwards;
+    }
+    @keyframes cutoutWipe {
+      0% { left: 0; width: 0%; }
+      50% { left: 0; width: 100%; }
+      100% { left: 100%; width: 0%; }
+    }
+
+    /* Elastic Bounce for Badges */
+    .elastic-badge {
+      opacity: 0;
+      transform: scale(0.3);
+      transition: opacity 0.7s cubic-bezier(0.34, 1.56, 0.64, 1),
+                  transform 0.7s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .elastic-badge.is-bounced {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    /* General Scroll Fade */
+    .scroll-fade-up {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1), transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .scroll-fade-up.is-revealed {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Staggered Items & Animated Checkmarks */
+    .stagger-item {
+      opacity: 0;
+      transform: translateY(6px);
+      transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1), transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .stagger-item.revealed {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .checkmark-pop {
+      transform: scale(0);
+      opacity: 0;
+      transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s ease;
+    }
+    .stagger-item.revealed .checkmark-pop {
+      transform: scale(1);
+      opacity: 1;
+    }
+
+    /* Word Slide Up Effect for Section 2 Headline */
+    .word-mask {
+      display: inline-block;
+      overflow: hidden;
+      vertical-align: bottom;
+      padding-bottom: 0.08em;
+    }
+    .word-slide-item {
+      display: inline-block;
+      transform: translateY(115%);
+      opacity: 0;
+      transition: transform 0.65s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.65s ease;
+    }
+    .word-slide-item.revealed {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    /* Button Ripple Effect */
+    .ripple-wave {
+      position: absolute;
+      border-radius: 50%;
+      transform: scale(0);
+      animation: rippleEffect 0.6s linear;
+      background-color: rgba(255, 255, 255, 0.4);
+      pointer-events: none;
+    }
+    .dark-ripple .ripple-wave {
+      background-color: rgba(0, 113, 227, 0.35);
+    }
+    @keyframes rippleEffect {
+      to {
+        transform: scale(4);
+        opacity: 0;
+      }
+    }
+
+    /* WhatsApp Pulse Glow */
+    @keyframes waPulse {
+      0% {
+        box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.6);
+      }
+      70% {
+        box-shadow: 0 0 0 16px rgba(37, 211, 102, 0);
+      }
+      100% {
+        box-shadow: 0 0 0 0 rgba(37, 211, 102, 0);
+      }
+    }
+    .wa-button-glow {
+      animation: waPulse 2.5s infinite cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* Minimal Scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #D2D2D7;
+      border-radius: 3px;
+    }
+    html.dark ::-webkit-scrollbar-thumb {
+      background: #3A3A3C;
+    }
+  </style>
+
+  <!-- Prevent theme flicker on page load -->
+  <script>
+    if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  </script>
+</head>
+<body class="bg-[#FFFFFF] dark:bg-[#0A0A0B] text-[#1D1D1F] dark:text-[#F5F5F7] selection:bg-[#0071E3] selection:text-white flex flex-col min-h-screen overflow-x-hidden w-full relative transition-colors duration-300">
+
+  <!-- SCROLL PROGRESS INDICATOR (Top edge Apple-blue line) -->
+  <div id="scroll-progress" class="fixed top-0 left-0 h-[2.5px] bg-[#0071E3] z-50 pointer-events-none transition-all duration-75" style="width: 0%;"></div>
+
+  <!-- CURSOR BLUR DOT (Desktop Only) -->
+  <div id="cursor-blur" class="fixed w-9 h-9 rounded-full bg-[#0071E3]/20 dark:bg-[#0071E3]/35 blur-[13px] pointer-events-none z-[990] -translate-x-1/2 -translate-y-1/2 transition-opacity duration-300 opacity-0 hidden lg:block"></div>
+
+  <!-- APPLE MINIMAL TOP NAVIGATION -->
+  <header class="sticky top-0 z-40 w-full bg-white/80 dark:bg-[#0A0A0B]/80 backdrop-blur-md border-b border-[#E5E5EA]/80 dark:border-[#2C2C2E]/80 transition-colors duration-300">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 h-12 flex items-center justify-between text-sm">
+      <a href="#" class="font-semibold tracking-tight text-[#1D1D1F] dark:text-[#F5F5F7] hover:opacity-80 transition-opacity flex items-center gap-2">
+        <span class="w-2.5 h-2.5 rounded-full bg-[#1D1D1F] dark:bg-[#F5F5F7]"></span>
+        <span>Content Scripting</span>
+      </a>
+      
+      <div class="flex items-center space-x-4 sm:space-x-5">
+        <nav class="flex items-center space-x-4 sm:space-x-5">
+          <a href="index.html" class="text-xs text-[#86868B] dark:text-[#A1A1A6] hover:text-[#1D1D1F] dark:hover:text-[#F5F5F7] transition-colors font-medium">← Main Studio</a>
+          <a href="#packages" class="text-xs text-[#86868B] dark:text-[#A1A1A6] hover:text-[#1D1D1F] dark:hover:text-[#F5F5F7] transition-colors font-medium">Packages</a>
+          <a href="#why-us" class="text-xs text-[#86868B] dark:text-[#A1A1A6] hover:text-[#1D1D1F] dark:hover:text-[#F5F5F7] transition-colors font-medium hidden sm:inline-block">Why Us</a>
+          <a href="#faq" class="text-xs text-[#86868B] dark:text-[#A1A1A6] hover:text-[#1D1D1F] dark:hover:text-[#F5F5F7] transition-colors font-medium">FAQ</a>
+        </nav>
+
+        <!-- APPLE STYLE SUN/MOON DARK MODE TOGGLE BUTTON -->
+        <button id="theme-toggle" type="button" aria-label="Toggle Dark Mode" class="w-8 h-8 rounded-full flex items-center justify-center text-[#1D1D1F] dark:text-[#F5F5F7] bg-[#F5F5F7] dark:bg-[#1C1C1E] hover:bg-[#E5E5EA] dark:hover:bg-[#2C2C2E] border border-[#E5E5EA] dark:border-[#2C2C2E] transition-all duration-200 focus:outline-none">
+          <!-- Sun SVG (shown in Dark mode) -->
+          <svg id="theme-icon-sun" class="w-4 h-4 hidden dark:block fill-current text-amber-400" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zM2 13h2c.55 0 1-.45 1-1s-.45-1-1-1H2c-.55 0-1 .45-1 1s.45 1 1 1zm18 0h2c.55 0 1-.45 1-1s-.45-1-1-1h-2c-.55 0-1 .45-1 1s.45 1 1 1zM11 2v2c0 .55.45 1 1 1s1-.45 1-1V2c0-.55-.45-1-1-1s-1 .45-1 1zm0 18v2c0 .55.45 1 1 1s1-.45 1-1v-2c0-.55-.45-1-1-1s-1 .45-1 1zM5.99 4.58c-.39-.39-1.03-.39-1.41 0s-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0s.39-1.03 0-1.41L5.99 4.58zm12.37 12.37c-.39-.39-1.03-.39-1.41 0s-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0s.39-1.03 0-1.41l-1.06-1.06zm1.06-10.96c.39-.39.39-1.03 0-1.41s-1.03-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06zM7.05 18.36c.39-.39.39-1.03 0-1.41s-1.03-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06z"/>
+          </svg>
+          <!-- Moon SVG (shown in Light mode) -->
+          <svg id="theme-icon-moon" class="w-4 h-4 block dark:hidden fill-current text-[#1D1D1F]" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12.3 2a10 10 0 0 0-.19 14 10 10 0 0 0 11.63 2.18A1 1 0 0 0 23.5 17a10 10 0 0 1-11.43-11.4A1 1 0 0 0 11 4.5a9.7 9.7 0 0 0 1.3-2.5z"/>
+          </svg>
+        </button>
+
+        <a href="https://wa.me/918302589297?text=Hi!%20I%20want%20to%20know%20more%20about%20your%20scripting%20packages." target="_blank" rel="noopener noreferrer" class="magnetic-btn ripple-btn text-xs bg-[#0071E3] text-white px-3.5 py-1.5 rounded-full font-medium hover:bg-[#0077ED] active:scale-[0.98] transition-all duration-150 inline-block">
+          Inquire
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main class="flex-grow w-full overflow-x-hidden">
+    
+    <!-- ========================================== -->
+    <!-- SECTION 1: HERO SECTION                    -->
+    <!-- ========================================== -->
+    <section class="relative bg-[#FFFFFF] dark:bg-[#0A0A0B] pt-20 pb-16 md:pt-32 md:pb-28 px-4 sm:px-6 text-center w-full overflow-hidden transition-colors duration-300">
+      <div class="max-w-4xl mx-auto w-full">
+        
+        <!-- Category Badge -->
+        <div class="scroll-fade-up inline-block mb-3 md:mb-4">
+          <span class="text-[11px] md:text-xs font-semibold tracking-wider text-[#86868B] dark:text-[#A1A1A6] uppercase">Content Script Writing</span>
+        </div>
+
+        <!-- Headline with Hanging Drop Animation -->
+        <h1 id="hero-headline" aria-label="Words that hook. Scripts that convert." class="text-4xl md:text-6xl font-bold text-[#1D1D1F] dark:text-[#F5F5F7] tracking-tight leading-[1.12] max-w-3xl mx-auto select-none min-h-[2.4em] flex flex-col justify-center items-center px-2">
+          <span class="hero-line block">Words that hook.</span>
+          <span class="hero-line block text-[#1D1D1F]/90 dark:text-[#F5F5F7]/90">Scripts that convert.</span>
+        </h1>
+
+        <!-- Subheadline -->
+        <p id="hero-subheadline" class="scroll-fade-up text-base sm:text-lg md:text-xl text-[#86868B] dark:text-[#A1A1A6] font-normal leading-relaxed max-w-xl mx-auto mt-4 md:mt-6 px-4">
+          High-retention scripts for Reels, Shorts, and brand storytelling.
+        </p>
+
+        <!-- CTA Button with Ripple -->
+        <div id="hero-cta-box" class="scroll-fade-up mt-8 md:mt-9">
+          <a href="#packages" class="magnetic-btn ripple-btn inline-flex items-center justify-center bg-[#0071E3] text-white text-sm sm:text-base font-medium px-7 py-3 md:px-8 md:py-3.5 rounded-full hover:bg-[#0077ED] active:scale-[0.98] transition-all duration-200">
+            Explore Packages
+          </a>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- SECTION 2: PACKAGES SECTION (3-Card Grid)  -->
+    <!-- ========================================== -->
+    <section id="packages" class="bg-[#FFFFFF] dark:bg-[#0A0A0B] py-16 md:py-28 w-full border-t border-[#E5E5EA] dark:border-[#2C2C2E] overflow-hidden transition-colors duration-300">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 md:px-8 w-full">
+        
+        <!-- Section Title (Word-by-Word Slide Up) & Subtitle -->
+        <div class="text-center max-w-2xl mx-auto mb-12 md:mb-16">
+          <h2 id="packages-title" class="text-3xl md:text-5xl font-semibold tracking-tight text-[#1D1D1F] dark:text-[#F5F5F7]">
+            <span class="word-mask"><span class="word-slide-item">Choose</span></span>
+            <span class="word-mask"><span class="word-slide-item">your</span></span>
+            <span class="word-mask"><span class="word-slide-item">growth</span></span>
+            <span class="word-mask"><span class="word-slide-item">plan.</span></span>
+          </h2>
+          <p class="scroll-fade-up text-sm sm:text-base text-[#86868B] dark:text-[#A1A1A6] mt-3">
+            Introductory pricing for new clients. Limited slots available each month.
+          </p>
+        </div>
+
+        <!-- 3-Card Grid: STRICTLY grid-cols-1 on mobile, lg:grid-cols-3 on desktop -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 w-full items-stretch">
+          
+          <!-- CARD 1: Starter Pack -->
+          <div id="card-1" class="card-enter-left pricing-card bg-[#F5F5F7] dark:bg-[#141416] rounded-2xl p-7 md:p-8 flex flex-col justify-between border border-transparent dark:border-[#2C2C2E] w-full box-border transition-colors duration-300">
+            <div class="flex-grow">
+              <div class="text-xs font-semibold uppercase tracking-wider text-[#86868B] dark:text-[#A1A1A6] mb-2">
+                For Quick Testing
+              </div>
+              <h3 class="text-2xl font-semibold text-[#1D1D1F] dark:text-[#F5F5F7] tracking-tight">
+                Starter Pack
+              </h3>
+              <div class="mt-4 flex items-baseline gap-2">
+                <span class="text-base md:text-lg text-[#86868B] dark:text-[#A1A1A6] line-through font-normal">₹1,200</span>
+                <span id="price-card-1" class="count-price text-3xl md:text-4xl lg:text-5xl font-bold text-[#1D1D1F] dark:text-[#F5F5F7] tracking-tight" data-target="699">
+                  ₹699
+                </span>
+              </div>
+              <p class="text-xs text-[#86868B] dark:text-[#A1A1A6] mt-1 font-medium">Single script batch • Quick launch</p>
+
+              <div class="h-px bg-[#E5E5EA] dark:bg-[#2C2C2E] w-full my-6"></div>
+
+              <ul class="card-features space-y-3.5 text-sm text-[#1D1D1F] dark:text-[#F5F5F7]">
+                <li class="stagger-item flex items-start gap-3">
+                  <svg class="checkmark-pop w-4 h-4 text-[#1D1D1F] dark:text-[#F5F5F7] mt-0.5 shrink-0" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"></path>
+                  </svg>
+                  <span>2 High-Retention Scripts (30-60 sec)</span>
+                </li>
+                <li class="stagger-item flex items-start gap-3">
+                  <svg class="checkmark-pop w-4 h-4 text-[#1D1D1F] dark:text-[#F5F5F7] mt-0.5 shrink-0" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"></path>
+                  </svg>
+                  <span>1 Viral Hook Formula</span>
+                </li>
+                <li class="stagger-item flex items-start gap-3">
+                  <svg class="checkmark-pop w-4 h-4 text-[#1D1D1F] dark:text-[#F5F5F7] mt-0.5 shrink-0" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"></path>
+                  </svg>
+                  <span>Strong CTA</span>
+                </li>
+                <li class="stagger-item flex items-start gap-3">
+                  <svg class="checkmark-pop w-4 h-4 text-[#1D1D1F] dark:text-[#F5F5F7] mt-0.5 shrink-0" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"></path>
+                  </svg>
+                  <span>1 Revision</span>
+                </li>
+                <li class="stagger-item flex items-start gap-3">
+                  <svg class="checkmark-pop w-4 h-4 text-[#1D1D1F] dark:text-[#F5F5F7] mt-0.5 shrink-0" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"></path>
+                  </svg>
+                  <span class="text-[#86868B] dark:text-[#A1A1A6]">24-36h Delivery</span>
+                </li>
+              </ul>
+            </div>
+
+            <!-- Neatly Pushed to Bottom -->
+            <div class="mt-8 pt-2">
+              <a href="https://wa.me/918302589297?text=Hi!%20I%20am%20interested%20in%20the%20Starter%20Pack%20(%E2%82%B9699)." target="_blank" rel="noopener noreferrer" class="magnetic-btn ripple-btn dark-ripple w-full block text-center py-3 px-5 rounded-full border border-[#1D1D1F]/25 dark:border-[#F5F5F7]/30 text-[#1D1D1F] dark:text-[#F5F5F7] font-medium text-sm hover:border-[#1D1D1F] dark:hover:border-white hover:bg-[#1D1D1F]/5 dark:hover:bg-white/10 active:scale-[0.98] transition-all duration-200">
+                Get Started
+              </a>
+            </div>
+          </div>
+
+          <!-- CARD 2: Creator Growth ⭐ (Most Popular, Thin Blue Border) -->
+          <div id="card-2" class="card-enter-top pricing-card bg-[#F5F5F7] dark:bg-[#141416] rounded-2xl p-7 md:p-8 flex flex-col justify-between border border-[#0071E3] relative w-full box-border shadow-sm transition-colors duration-300">
+            <div class="flex-grow">
+              <div class="flex items-center justify-between mb-2">
+                <span class="text-xs font-semibold uppercase tracking-wider text-[#0071E3]">
+                  Most Popular
+                </span>
+                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-medium bg-[#0071E3]/10 text-[#0071E3]">
+                  Recommended
+                </span>
+              </div>
+              <h3 class="text-2xl font-semibold text-[#1D1D1F] dark:text-[#F5F5F7] tracking-tight">
+                Creator Growth
+              </h3>
+              <div class="mt-4 flex items-baseline gap-2">
+                <span class="text-base md:text-lg text-[#86868B] dark:text-[#A1A1A6] line-through font-normal">₹3,200</span>
+                <span id="price-card-2" class="count-price text-3xl md:text-4xl lg:text-5xl font-bold text-[#1D1D1F] dark:text-[#F5F5F7] tracking-tight" data-target="1899">
+                  ₹1,899
+                </span>
+              </div>
+              <p class="text-xs text-[#86868B] dark:text-[#A1A1A6] mt-1 font-medium">Most chosen by scaling creators</p>
+
+              <div class="h-px bg-[#E5E5EA] dark:bg-[#2C2C2E] w-full my-6"></div>
+
+              <ul class="card-features space-y-3.5 text-sm text-[#1D1D1F] dark:text-[#F5F5F7]">
+                <li class="stagger-item flex items-start gap-3">
+                  <svg class="checkmark-pop w-4 h-4 text-[#0071E3] mt-0.5 shrink-0" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"></path>
+                  </svg>
+                  <span class="font-medium">6 Short Scripts OR 1 Long Script (3-5 min)</span>
+                </li>
+                <li class="stagger-item flex items-start gap-3">
+                  <svg class="checkmark-pop w-4 h-4 text-[#0071E3] mt-0.5 shrink-0" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"></path>
+                  </svg>
+                  <span>2 Hook Variations</span>
+                </li>
+                <li class="stagger-item flex items-start gap-3">
+                  <svg class="checkmark-pop w-4 h-4 text-[#0071E3] mt-0.5 shrink-0" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"></path>
+                  </svg>
+                  <span>Audience Research</span>
+                </li>
+                <li class="stagger-item flex items-start gap-3">
+                  <svg class="checkmark-pop w-4 h-4 text-[#0071E3] mt-0.5 shrink-0" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"></path>
+                  </svg>
+                  <span>SEO Titles</span>
+                </li>
+                <li class="stagger-item flex items-start gap-3">
+                  <svg class="checkmark-pop w-4 h-4 text-[#0071E3] mt-0.5 shrink-0" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"></path>
+                  </svg>
+                  <span>2 Revisions</span>
+                </li>
+                <li class="stagger-item flex items-start gap-3">
+                  <svg class="checkmark-pop w-4 h-4 text-[#0071E3] mt-0.5 shrink-0" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"></path>
+                  </svg>
+                  <span class="text-[#86868B] dark:text-[#A1A1A6]">2-3 Days Delivery</span>
+                </li>
+              </ul>
+
+              <div class="mt-5 p-3 rounded-xl bg-white dark:bg-[#1C1C1E] border border-[#0071E3]/20 dark:border-[#0071E3]/35 flex items-center gap-2 text-xs text-[#1D1D1F] dark:text-[#F5F5F7]">
+                <span class="font-semibold text-[#0071E3]">Bonus:</span>
+                <span>Free Extra Hook Pack (3 Hooks)</span>
+              </div>
+            </div>
+
+            <!-- Neatly Pushed to Bottom -->
+            <div class="mt-8 pt-2">
+              <a href="https://wa.me/918302589297?text=Hi!%20I%20am%20interested%20in%20the%20Creator%20Growth%20pack%20(%E2%82%B91%2C899)." target="_blank" rel="noopener noreferrer" class="magnetic-btn ripple-btn w-full block text-center py-3 px-5 rounded-full bg-[#0071E3] text-white font-medium text-sm hover:bg-[#0077ED] active:scale-[0.98] transition-all duration-200 shadow-sm">
+                Choose Growth
+              </a>
+            </div>
+          </div>
+
+          <!-- CARD 3: Brand Authority -->
+          <div id="card-3" class="card-enter-right pricing-card bg-[#F5F5F7] dark:bg-[#141416] rounded-2xl p-7 md:p-8 flex flex-col justify-between border border-transparent dark:border-[#2C2C2E] w-full box-border transition-colors duration-300">
+            <div class="flex-grow">
+              <div class="text-xs font-semibold uppercase tracking-wider text-[#86868B] dark:text-[#A1A1A6] mb-2">
+                Full Content Batching
+              </div>
+              <h3 class="text-2xl font-semibold text-[#1D1D1F] dark:text-[#F5F5F7] tracking-tight">
+                Brand Authority
+              </h3>
+              <div class="mt-4 flex items-baseline gap-2">
+                <span class="text-base md:text-lg text-[#86868B] dark:text-[#A1A1A6] line-through font-normal">₹6,500</span>
+                <span id="price-card-3" class="count-price text-3xl md:text-4xl lg:text-5xl font-bold text-[#1D1D1F] dark:text-[#F5F5F7] tracking-tight" data-target="3499">
+                  ₹3,499
+                </span>
+              </div>
+              <p class="text-xs text-[#86868B] dark:text-[#A1A1A6] mt-1 font-medium">Complete organic batching</p>
+
+              <div class="h-px bg-[#E5E5EA] dark:bg-[#2C2C2E] w-full my-6"></div>
+
+              <ul class="card-features space-y-3.5 text-sm text-[#1D1D1F] dark:text-[#F5F5F7]">
+                <li class="stagger-item flex items-start gap-3">
+                  <svg class="checkmark-pop w-4 h-4 text-[#1D1D1F] dark:text-[#F5F5F7] mt-0.5 shrink-0" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"></path>
+                  </svg>
+                  <span class="font-medium">12 Short Scripts OR 1 Long Script</span>
+                </li>
+                <li class="stagger-item flex items-start gap-3">
+                  <svg class="checkmark-pop w-4 h-4 text-[#1D1D1F] dark:text-[#F5F5F7] mt-0.5 shrink-0" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"></path>
+                  </svg>
+                  <span>3 Hook Options</span>
+                </li>
+                <li class="stagger-item flex items-start gap-3">
+                  <svg class="checkmark-pop w-4 h-4 text-[#1D1D1F] dark:text-[#F5F5F7] mt-0.5 shrink-0" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"></path>
+                  </svg>
+                  <span>Competitor Research</span>
+                </li>
+                <li class="stagger-item flex items-start gap-3">
+                  <svg class="checkmark-pop w-4 h-4 text-[#1D1D1F] dark:text-[#F5F5F7] mt-0.5 shrink-0" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"></path>
+                  </svg>
+                  <span>SEO</span>
+                </li>
+                <li class="stagger-item flex items-start gap-3">
+                  <svg class="checkmark-pop w-4 h-4 text-[#1D1D1F] dark:text-[#F5F5F7] mt-0.5 shrink-0" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"></path>
+                  </svg>
+                  <span class="font-medium text-[#1D1D1F] dark:text-[#F5F5F7]">Unlimited Revisions</span>
+                </li>
+                <li class="stagger-item flex items-start gap-3">
+                  <svg class="checkmark-pop w-4 h-4 text-[#1D1D1F] dark:text-[#F5F5F7] mt-0.5 shrink-0" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"></path>
+                  </svg>
+                  <span class="text-[#86868B] dark:text-[#A1A1A6]">Priority Delivery</span>
+                </li>
+              </ul>
+            </div>
+
+            <!-- Neatly Pushed to Bottom -->
+            <div class="mt-8 pt-2">
+              <a href="https://wa.me/918302589297?text=Hi!%20I%20am%20interested%20in%20the%20Brand%20Authority%20pack%20(%E2%82%B93%2C499)." target="_blank" rel="noopener noreferrer" class="magnetic-btn ripple-btn dark-ripple w-full block text-center py-3 px-5 rounded-full border border-[#1D1D1F]/25 dark:border-[#F5F5F7]/30 text-[#1D1D1F] dark:text-[#F5F5F7] font-medium text-sm hover:border-[#1D1D1F] dark:hover:border-white hover:bg-[#1D1D1F]/5 dark:hover:bg-white/10 active:scale-[0.98] transition-all duration-200">
+                Go All In
+              </a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- SECTION 3: WHY CHOOSE US (STACKED / ROW)   -->
+    <!-- ========================================== -->
+    <section id="why-us" class="bg-[#F5F5F7] dark:bg-[#141416] py-16 md:py-28 px-4 sm:px-6 w-full overflow-hidden transition-colors duration-300">
+      <div class="max-w-6xl mx-auto w-full">
+        
+        <!-- Section Header with Cut-Out Reveal Animation -->
+        <div class="max-w-2xl mx-auto text-center mb-12 md:mb-16">
+          <span class="scroll-fade-up text-[11px] md:text-xs font-semibold uppercase tracking-wider text-[#86868B] dark:text-[#A1A1A6] block mb-2 md:mb-3">Precision & Structure</span>
+          
+          <div id="cutout-container" class="cutout-wrapper">
+            <h2 id="cutout-title" class="cutout-text text-3xl md:text-5xl font-semibold tracking-tight text-[#1D1D1F] dark:text-[#F5F5F7]">
+              Why creators choose us.
+            </h2>
+            <div id="cutout-mask" class="cutout-bar"></div>
+          </div>
+        </div>
+
+        <!-- 3 Minimal Blocks: stacked on mobile, row on desktop -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10 lg:gap-12 max-w-5xl mx-auto w-full">
+          
+          <!-- Block 1 -->
+          <div class="why-block flex flex-col items-start w-full">
+            <div class="elastic-badge inline-flex items-center justify-center w-10 h-10 rounded-full bg-white dark:bg-[#1C1C1E] text-[#1D1D1F] dark:text-[#F5F5F7] border border-[#E5E5EA] dark:border-[#2C2C2E] text-xs font-semibold tracking-wider mb-3.5 shadow-sm">
+              01
+            </div>
+            <div class="block-content scroll-fade-up">
+              <h3 class="text-xl md:text-2xl font-semibold text-[#1D1D1F] dark:text-[#F5F5F7] tracking-tight mb-2">
+                Hook-First Writing
+              </h3>
+              <p class="text-sm md:text-base text-[#86868B] dark:text-[#A1A1A6] leading-relaxed">
+                Every script opens with a scroll-stopping hook crafted from proven retention formulas.
+              </p>
+            </div>
+          </div>
+
+          <!-- Block 2 -->
+          <div class="why-block flex flex-col items-start w-full">
+            <div class="elastic-badge inline-flex items-center justify-center w-10 h-10 rounded-full bg-white dark:bg-[#1C1C1E] text-[#1D1D1F] dark:text-[#F5F5F7] border border-[#E5E5EA] dark:border-[#2C2C2E] text-xs font-semibold tracking-wider mb-3.5 shadow-sm" style="transition-delay: 120ms;">
+              02
+            </div>
+            <div class="block-content scroll-fade-up" style="transition-delay: 120ms;">
+              <h3 class="text-xl md:text-2xl font-semibold text-[#1D1D1F] dark:text-[#F5F5F7] tracking-tight mb-2">
+                Research-Backed
+              </h3>
+              <p class="text-sm md:text-base text-[#86868B] dark:text-[#A1A1A6] leading-relaxed">
+                Deep audience, tone, and trend research tailored to your specific niche.
+              </p>
+            </div>
+          </div>
+
+          <!-- Block 3 -->
+          <div class="why-block flex flex-col items-start w-full">
+            <div class="elastic-badge inline-flex items-center justify-center w-10 h-10 rounded-full bg-white dark:bg-[#1C1C1E] text-[#1D1D1F] dark:text-[#F5F5F7] border border-[#E5E5EA] dark:border-[#2C2C2E] text-xs font-semibold tracking-wider mb-3.5 shadow-sm" style="transition-delay: 240ms;">
+              03
+            </div>
+            <div class="block-content scroll-fade-up" style="transition-delay: 240ms;">
+              <h3 class="text-xl md:text-2xl font-semibold text-[#1D1D1F] dark:text-[#F5F5F7] tracking-tight mb-2">
+                Fast Delivery
+              </h3>
+              <p class="text-sm md:text-base text-[#86868B] dark:text-[#A1A1A6] leading-relaxed">
+                Guaranteed turnaround timelines so you stay consistent on your posting schedule.
+              </p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- SECTION 4: FAQ ACCORDION SECTION           -->
+    <!-- ========================================== -->
+    <section id="faq" class="bg-[#FFFFFF] dark:bg-[#0A0A0B] py-16 md:py-28 px-4 sm:px-6 w-full border-t border-[#E5E5EA] dark:border-[#2C2C2E] overflow-hidden transition-colors duration-300">
+      <div class="max-w-4xl mx-auto w-full">
+        
+        <!-- Section Header -->
+        <div class="text-center max-w-xl mx-auto mb-12 md:mb-16">
+          <span class="scroll-fade-up text-[11px] md:text-xs font-semibold uppercase tracking-wider text-[#86868B] dark:text-[#A1A1A6] block mb-2">Clarity & Confidence</span>
+          <h2 class="scroll-fade-up text-3xl md:text-5xl font-semibold tracking-tight text-[#1D1D1F] dark:text-[#F5F5F7]">
+            Frequently Asked Questions.
+          </h2>
+          <p class="scroll-fade-up text-sm sm:text-base text-[#86868B] dark:text-[#A1A1A6] mt-3">
+            Everything you need to know about our scriptwriting process.
+          </p>
+        </div>
+
+        <!-- Accordion Container -->
+        <div class="space-y-4 max-w-3xl mx-auto">
+          
+          <!-- FAQ ITEM 1 -->
+          <div class="faq-item rounded-2xl border border-[#E5E5EA] dark:border-[#2C2C2E] bg-[#F5F5F7] dark:bg-[#141416] overflow-hidden transition-all duration-300">
+            <button type="button" class="faq-trigger w-full flex items-center justify-between p-6 sm:p-7 text-left font-medium text-base sm:text-lg text-[#1D1D1F] dark:text-[#F5F5F7] focus:outline-none select-none">
+              <span>How do revisions work?</span>
+              <svg class="faq-icon w-5 h-5 text-[#86868B] dark:text-[#A1A1A6] transition-transform duration-300 shrink-0 ml-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5"></path>
+              </svg>
+            </button>
+            <div class="faq-panel max-h-0 overflow-hidden transition-all duration-300 ease-out opacity-0 px-6 sm:px-7">
+              <p class="pb-6 sm:pb-7 text-sm sm:text-base text-[#86868B] dark:text-[#A1A1A6] leading-relaxed">
+                Every package comes with dedicated revision rounds. After we deliver the initial script batch, we review your line-by-line feedback on tone, phrasing, pacing, and hooks, returning polished refinements within 24 hours until the words match your exact creative voice.
+              </p>
+            </div>
+          </div>
+
+          <!-- FAQ ITEM 2 -->
+          <div class="faq-item rounded-2xl border border-[#E5E5EA] dark:border-[#2C2C2E] bg-[#F5F5F7] dark:bg-[#141416] overflow-hidden transition-all duration-300">
+            <button type="button" class="faq-trigger w-full flex items-center justify-between p-6 sm:p-7 text-left font-medium text-base sm:text-lg text-[#1D1D1F] dark:text-[#F5F5F7] focus:outline-none select-none">
+              <span>What niches do you write for?</span>
+              <svg class="faq-icon w-5 h-5 text-[#86868B] dark:text-[#A1A1A6] transition-transform duration-300 shrink-0 ml-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5"></path>
+              </svg>
+            </button>
+            <div class="faq-panel max-h-0 overflow-hidden transition-all duration-300 ease-out opacity-0 px-6 sm:px-7">
+              <p class="pb-6 sm:pb-7 text-sm sm:text-base text-[#86868B] dark:text-[#A1A1A6] leading-relaxed">
+                We write for founders, personal brands, SaaS products, and creators across tech, personal finance, productivity, business strategy, creator economy, health, and consumer lifestyle. Every script begins with deep audience and competitor research tailored to your specific niche.
+              </p>
+            </div>
+          </div>
+
+          <!-- FAQ ITEM 3 -->
+          <div class="faq-item rounded-2xl border border-[#E5E5EA] dark:border-[#2C2C2E] bg-[#F5F5F7] dark:bg-[#141416] overflow-hidden transition-all duration-300">
+            <button type="button" class="faq-trigger w-full flex items-center justify-between p-6 sm:p-7 text-left font-medium text-base sm:text-lg text-[#1D1D1F] dark:text-[#F5F5F7] focus:outline-none select-none">
+              <span>Do you edit the videos?</span>
+              <svg class="faq-icon w-5 h-5 text-[#86868B] dark:text-[#A1A1A6] transition-transform duration-300 shrink-0 ml-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5"></path>
+              </svg>
+            </button>
+            <div class="faq-panel max-h-0 overflow-hidden transition-all duration-300 ease-out opacity-0 px-6 sm:px-7">
+              <p class="pb-6 sm:pb-7 text-sm sm:text-base text-[#86868B] dark:text-[#A1A1A6] leading-relaxed">
+                No, we strictly specialize in high-retention scriptwriting. You shoot, we write. By directing 100% of our energy toward narrative structure, viral hooks, and word-by-word audience retention, you get scripts engineered to captivate scrollers and drive measurable action.
+              </p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Clean Minimal Footer -->
+  <footer class="bg-[#FFFFFF] dark:bg-[#0A0A0B] border-t border-[#E5E5EA] dark:border-[#2C2C2E] py-8 md:py-10 px-4 sm:px-6 w-full transition-colors duration-300">
+    <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between text-xs text-[#86868B] dark:text-[#A1A1A6] gap-3 text-center sm:text-left">
+      <p>&copy; 2024 Content Scripting Services • Crafted with words that work.</p>
+      <div class="flex items-center space-x-4 text-[#86868B] dark:text-[#A1A1A6]">
+        <span>Pure Script Writing</span>
+        <span class="w-1 h-1 rounded-full bg-[#86868B] dark:bg-[#A1A1A6]"></span>
+        <span>High-Retention Structure</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ======================================================== -->
+  <!-- FLOATING WHATSAPP CTA (DIRECT CHILD OF BODY)             -->
+  <!-- ======================================================== -->
+  <a 
+    href="https://wa.me/918302589297?text=Hi!%20I%20want%20to%20know%20more%20about%20your%20scripting%20packages."
+    target="_blank"
+    rel="noopener noreferrer"
+    aria-label="Chat on WhatsApp"
+    class="fixed bottom-6 right-6 z-[999] bg-[#25D366] hover:bg-[#20b858] text-white p-4 rounded-full shadow-2xl transition-all duration-300 flex items-center justify-center wa-button-glow hover:scale-105 active:scale-95"
+  >
+    <!-- OFFICIAL WHATSAPP VECTOR SVG ICON -->
+    <svg class="w-7 h-7 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+    </svg>
+  </a>
+
+  <!-- ========================================== -->
+  <!-- VANILLA JAVASCRIPT: MICRO-ANIMATIONS CORE   -->
+  <!-- ========================================== -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+
+      const isDesktop = window.matchMedia('(hover: hover) and (pointer: fine)').matches && window.innerWidth >= 1024;
+
+      // -------------------------------------------------------------
+      // 1. DARK / LIGHT MODE TOGGLE (Local Storage Persistent)
+      // -------------------------------------------------------------
+      const themeToggleBtn = document.getElementById('theme-toggle');
+      if (themeToggleBtn) {
+        themeToggleBtn.addEventListener('click', () => {
+          if (document.documentElement.classList.contains('dark')) {
+            document.documentElement.classList.remove('dark');
+            localStorage.theme = 'light';
+          } else {
+            document.documentElement.classList.add('dark');
+            localStorage.theme = 'dark';
+          }
+        });
+      }
+
+      // -------------------------------------------------------------
+      // 2. BUTTON RIPPLE EFFECT (Vanilla JS Circular Expansion)
+      // -------------------------------------------------------------
+      function createRipple(event) {
+        const button = event.currentTarget;
+        const circle = document.createElement("span");
+        const diameter = Math.max(button.clientWidth, button.clientHeight);
+        const radius = diameter / 2;
+
+        const rect = button.getBoundingClientRect();
+        circle.style.width = circle.style.height = `${diameter}px`;
+        circle.style.left = `${event.clientX - rect.left - radius}px`;
+        circle.style.top = `${event.clientY - rect.top - radius}px`;
+        circle.classList.add("ripple-wave");
+
+        const existingRipple = button.getElementsByClassName("ripple-wave")[0];
+        if (existingRipple) {
+          existingRipple.remove();
+        }
+
+        button.appendChild(circle);
+        setTimeout(() => {
+          if (circle.parentNode) circle.remove();
+        }, 600);
+      }
+
+      document.querySelectorAll('.ripple-btn').forEach(btn => {
+        btn.style.position = 'relative';
+        btn.style.overflow = 'hidden';
+        btn.addEventListener('click', createRipple);
+      });
+
+      // -------------------------------------------------------------
+      // 3. FAQ ACCORDION COLLAPSE / EXPAND
+      // -------------------------------------------------------------
+      const faqItems = document.querySelectorAll('.faq-item');
+      faqItems.forEach(item => {
+        const trigger = item.querySelector('.faq-trigger');
+        const panel = item.querySelector('.faq-panel');
+        const icon = item.querySelector('.faq-icon');
+
+        trigger.addEventListener('click', () => {
+          const isOpen = panel.style.maxHeight && panel.style.maxHeight !== '0px';
+
+          // Close other open accordions
+          faqItems.forEach(otherItem => {
+            const otherPanel = otherItem.querySelector('.faq-panel');
+            const otherIcon = otherItem.querySelector('.faq-icon');
+            if (otherPanel !== panel) {
+              otherPanel.style.maxHeight = '0px';
+              otherPanel.style.opacity = '0';
+              if (otherIcon) otherIcon.style.transform = 'rotate(0deg)';
+            }
+          });
+
+          // Toggle current
+          if (isOpen) {
+            panel.style.maxHeight = '0px';
+            panel.style.opacity = '0';
+            if (icon) icon.style.transform = 'rotate(0deg)';
+          } else {
+            panel.style.maxHeight = panel.scrollHeight + 'px';
+            panel.style.opacity = '1';
+            if (icon) icon.style.transform = 'rotate(180deg)';
+          }
+        });
+      });
+
+      // -------------------------------------------------------------
+      // 4. SCROLL PROGRESS BAR (Top edge line)
+      // -------------------------------------------------------------
+      const progressBar = document.getElementById('scroll-progress');
+      function updateScrollProgress() {
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        const progress = scrollHeight > 0 ? (scrollTop / scrollHeight) * 100 : 0;
+        if (progressBar) {
+          progressBar.style.width = progress + '%';
+        }
+      }
+      window.addEventListener('scroll', updateScrollProgress, { passive: true });
+      updateScrollProgress();
+
+      // -------------------------------------------------------------
+      // 5. CURSOR BLUR DOT (Desktop Only)
+      // -------------------------------------------------------------
+      const cursorBlur = document.getElementById('cursor-blur');
+      if (isDesktop && cursorBlur) {
+        let mouseX = -100, mouseY = -100;
+        let curX = -100, curY = -100;
+        let cursorVisible = false;
+
+        window.addEventListener('mousemove', (e) => {
+          mouseX = e.clientX;
+          mouseY = e.clientY;
+          if (!cursorVisible) {
+            cursorVisible = true;
+            cursorBlur.style.opacity = '1';
+          }
+        }, { passive: true });
+
+        window.addEventListener('mouseleave', () => {
+          cursorBlur.style.opacity = '0';
+          cursorVisible = false;
+        });
+
+        function animateCursor() {
+          curX += (mouseX - curX) * 0.16;
+          curY += (mouseY - curY) * 0.16;
+          cursorBlur.style.transform = `translate3d(${curX}px, ${curY}px, 0) translate(-50%, -50%)`;
+          requestAnimationFrame(animateCursor);
+        }
+        requestAnimationFrame(animateCursor);
+      }
+
+      // -------------------------------------------------------------
+      // 6. HANGING LETTERS HERO HEADLINE ANIMATION
+      // -------------------------------------------------------------
+      const heroHeadline = document.getElementById('hero-headline');
+      if (heroHeadline) {
+        const lines = heroHeadline.querySelectorAll('.hero-line');
+        let totalLetterCount = 0;
+
+        lines.forEach(line => {
+          const originalText = line.textContent.trim();
+          line.innerHTML = '';
+
+          const words = originalText.split(/\s+/);
+          words.forEach((word, wordIdx) => {
+            const wordSpan = document.createElement('span');
+            wordSpan.className = 'inline-block whitespace-nowrap';
+
+            for (let i = 0; i < word.length; i++) {
+              const letter = word[i];
+              const span = document.createElement('span');
+              span.className = 'hanging-letter' + (totalLetterCount % 2 === 1 ? ' alt-swing' : '');
+              span.textContent = letter;
+              span.style.animationDelay = `${totalLetterCount * 28 + 40}ms`;
+              wordSpan.appendChild(span);
+              totalLetterCount++;
+            }
+
+            line.appendChild(wordSpan);
+
+            if (wordIdx < words.length - 1) {
+              const space = document.createElement('span');
+              space.className = 'inline-block';
+              space.innerHTML = '&nbsp;';
+              line.appendChild(space);
+            }
+          });
+        });
+
+        const subheadline = document.getElementById('hero-subheadline');
+        const heroCtaBox = document.getElementById('hero-cta-box');
+        const heroFinishDelay = (totalLetterCount * 28) + 360;
+
+        setTimeout(() => {
+          if (subheadline) subheadline.classList.add('is-revealed');
+          if (heroCtaBox) heroCtaBox.classList.add('is-revealed');
+        }, heroFinishDelay);
+      }
+
+      // -------------------------------------------------------------
+      // 7. GENERAL SCROLL FADE OBSERVER
+      // -------------------------------------------------------------
+      const scrollElements = document.querySelectorAll('.scroll-fade-up:not(#hero-subheadline):not(#hero-cta-box)');
+      const fadeObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-revealed');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, {
+        threshold: 0.12,
+        rootMargin: '0px 0px -30px 0px'
+      });
+      scrollElements.forEach(el => fadeObserver.observe(el));
+
+      // -------------------------------------------------------------
+      // 8. WORD-BY-WORD SLIDE UP (Packages Section Headline)
+      // -------------------------------------------------------------
+      const packagesTitle = document.getElementById('packages-title');
+      if (packagesTitle) {
+        const wordSlides = packagesTitle.querySelectorAll('.word-slide-item');
+        const titleObserver = new IntersectionObserver((entries, observer) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              wordSlides.forEach((word, idx) => {
+                setTimeout(() => {
+                  word.classList.add('revealed');
+                }, idx * 90);
+              });
+              observer.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.2 });
+        titleObserver.observe(packagesTitle);
+      }
+
+      // -------------------------------------------------------------
+      // 9. RANDOM SLIDE-IN FOR PRICING CARDS & COUNT-UP PRICES
+      // -------------------------------------------------------------
+      const cards = [
+        document.getElementById('card-1'),
+        document.getElementById('card-2'),
+        document.getElementById('card-3')
+      ];
+
+      cards.forEach(card => {
+        if (!card) return;
+        const priceEl = card.querySelector('.count-price');
+        if (priceEl) priceEl.textContent = '₹0';
+      });
+
+      function triggerCountUp(cardEl) {
+        const priceEl = cardEl.querySelector('.count-price');
+        if (!priceEl || priceEl.dataset.animated) return;
+        priceEl.dataset.animated = 'true';
+
+        const target = parseInt(priceEl.dataset.target, 10);
+        const duration = 1350;
+        let startTime = null;
+
+        function animateNumber(timestamp) {
+          if (!startTime) startTime = timestamp;
+          const elapsed = timestamp - startTime;
+          const progress = Math.min(elapsed / duration, 1);
+          const easeProgress = 1 - Math.pow(1 - progress, 3);
+          const current = Math.floor(easeProgress * target);
+
+          const formatted = current >= 1000 ? current.toLocaleString('en-IN') : current;
+          priceEl.textContent = `₹${formatted}`;
+
+          if (progress < 1) {
+            requestAnimationFrame(animateNumber);
+          } else {
+            const finalVal = target >= 1000 ? target.toLocaleString('en-IN') : target;
+            priceEl.textContent = `₹${finalVal}`;
+          }
+        }
+        requestAnimationFrame(animateNumber);
+      }
+
+      function revealCardFeatures(cardEl) {
+        const items = cardEl.querySelectorAll('.stagger-item');
+        items.forEach((item, index) => {
+          setTimeout(() => {
+            item.classList.add('revealed');
+          }, 180 + index * 80);
+        });
+      }
+
+      const cardObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const cardEl = entry.target;
+            cardEl.classList.add('card-entered');
+            triggerCountUp(cardEl);
+            revealCardFeatures(cardEl);
+
+            setTimeout(() => {
+              cardEl.classList.remove('card-enter-left', 'card-enter-top', 'card-enter-right');
+              cardEl.classList.add('card-settled');
+            }, 900);
+
+            observer.unobserve(cardEl);
+          }
+        });
+      }, {
+        threshold: 0.1,
+        rootMargin: '0px 0px -20px 0px'
+      });
+
+      cards.forEach(card => {
+        if (card) cardObserver.observe(card);
+      });
+
+      // -------------------------------------------------------------
+      // 10. 3D CARD TILT (Desktop Only)
+      // -------------------------------------------------------------
+      if (isDesktop) {
+        cards.forEach(card => {
+          if (!card) return;
+
+          let isHovering = false;
+
+          card.addEventListener('mouseenter', () => {
+            isHovering = true;
+            card.style.transition = 'transform 0.1s ease-out, box-shadow 0.25s ease';
+          });
+
+          card.addEventListener('mousemove', (e) => {
+            if (!isHovering) return;
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+
+            const rotateX = ((centerY - y) / centerY) * 5;
+            const rotateY = ((x - centerX) / centerX) * 5;
+
+            card.style.transform = `perspective(1000px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) translateY(-6px)`;
+            card.style.boxShadow = '0 16px 36px rgba(0, 0, 0, 0.08)';
+          });
+
+          card.addEventListener('mouseleave', () => {
+            isHovering = false;
+            card.style.transition = 'transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease';
+            card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0px)';
+            card.style.boxShadow = 'none';
+          });
+        });
+      }
+
+      // -------------------------------------------------------------
+      // 11. MAGNETIC BUTTON EFFECT (Desktop Only)
+      // -------------------------------------------------------------
+      if (isDesktop) {
+        const magneticButtons = document.querySelectorAll('.magnetic-btn');
+        magneticButtons.forEach(btn => {
+          btn.addEventListener('mousemove', (e) => {
+            const rect = btn.getBoundingClientRect();
+            const centerX = rect.left + rect.width / 2;
+            const centerY = rect.top + rect.height / 2;
+            const deltaX = (e.clientX - centerX) * 0.2;
+            const deltaY = (e.clientY - centerY) * 0.2;
+
+            btn.style.transition = 'transform 0.1s ease-out';
+            btn.style.transform = `translate3d(${deltaX.toFixed(1)}px, ${deltaY.toFixed(1)}px, 0)`;
+          });
+
+          btn.addEventListener('mouseleave', () => {
+            btn.style.transition = 'transform 0.4s cubic-bezier(0.16, 1, 0.3, 1)';
+            btn.style.transform = 'translate3d(0, 0, 0)';
+          });
+        });
+      }
+
+      // -------------------------------------------------------------
+      // 12. CUT-OUT REVEAL (Section 3 Title Wipe)
+      // -------------------------------------------------------------
+      const cutoutContainer = document.getElementById('cutout-container');
+      const cutoutMask = document.getElementById('cutout-mask');
+      const cutoutTitle = document.getElementById('cutout-title');
+
+      if (cutoutContainer && cutoutMask && cutoutTitle) {
+        const cutoutObserver = new IntersectionObserver((entries, observer) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              cutoutMask.classList.add('animating');
+              
+              setTimeout(() => {
+                cutoutTitle.classList.add('is-visible');
+              }, 450);
+
+              setTimeout(() => {
+                cutoutMask.style.display = 'none';
+              }, 920);
+
+              observer.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.2 });
+        cutoutObserver.observe(cutoutContainer);
+      }
+
+      // -------------------------------------------------------------
+      // 13. ELASTIC BOUNCE FOR SECTION 3 ICONS / BADGES
+      // -------------------------------------------------------------
+      const whyBlocks = document.querySelectorAll('.why-block');
+      const whyObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const badge = entry.target.querySelector('.elastic-badge');
+            if (badge) badge.classList.add('is-bounced');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.2 });
+      whyBlocks.forEach(b => whyObserver.observe(b));
+
+    });
+  </script>
+</body>
+</html>

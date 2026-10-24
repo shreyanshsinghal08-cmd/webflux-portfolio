@@ -509,6 +509,72 @@
             animation: softDotPulse 2.4s infinite;
         }
 
+        /* Top Right Navigation Pill */
+        .header-nav-actions {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            z-index: 30;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        .nav-scripting-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 9px 18px;
+            border-radius: 9999px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: #FFFFFF !important;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 0.01em;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+        }
+        .nav-scripting-pill:hover {
+            background: rgba(255, 255, 255, 0.12);
+            border-color: rgba(34, 211, 238, 0.5);
+            color: #22d3ee !important;
+            transform: translateY(-1px) scale(1.02);
+            box-shadow: 0 0 20px rgba(34, 211, 238, 0.25);
+        }
+        .nav-scripting-pill .pill-badge-mini {
+            background: #22d3ee;
+            color: #000000;
+            font-size: 9px;
+            font-weight: 800;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            padding: 2px 7px;
+            border-radius: 9999px;
+            font-family: monospace;
+        }
+        @media (max-width: 640px) {
+            .header-nav-actions {
+                top: 1.25rem;
+                right: 1.25rem;
+            }
+            .header-brand {
+                top: 1.25rem;
+                left: 1.25rem;
+            }
+            .nav-scripting-pill {
+                padding: 6px 12px;
+                font-size: 11px;
+                gap: 6px;
+            }
+            .nav-scripting-pill .pill-badge-mini {
+                display: none;
+            }
+        }
+
         /* Top Pill Badge */
         .pill-badge {
             display: inline-flex;
@@ -1673,6 +1739,7 @@
         .floating-menu-panel.active a:nth-of-type(4) { transition-delay: 120ms; }
         .floating-menu-panel.active a:nth-of-type(5) { transition-delay: 150ms; }
         .floating-menu-panel.active a:nth-of-type(6) { transition-delay: 180ms; }
+        .floating-menu-panel.active a:nth-of-type(7) { transition-delay: 210ms; }
         .floating-menu-panel a:hover {
             background: rgba(255, 255, 255, 0.08);
             color: #22d3ee !important;
@@ -1865,6 +1932,15 @@
             <span>STUDIO</span>
         </div>
     </a>
+
+    <!-- Header Right Navigation Link -->
+    <div class="header-nav-actions">
+        <a href="scripting.html" class="nav-scripting-pill">
+            <span class="pill-badge-mini">NEW</span>
+            <span>Scripting Packages</span>
+            <i class="fas fa-arrow-up-right-from-square" style="font-size: 10px; opacity: 0.75;"></i>
+        </a>
+    </div>
 
     <!-- ==================================================
          1. HERO SECTION (CENTERED, MINIMAL, EXPENSIVE SPACE)
@@ -2434,6 +2510,7 @@
                         <li><a href="#services">Services</a></li>
                         <li><a href="#portfolio">Portfolio</a></li>
                         <li><a href="#pricing">Pricing</a></li>
+                        <li><a href="scripting.html">Scripting Packages</a></li>
                     </ul>
                 </div>
                 <div class="footer-col">
@@ -2468,7 +2545,7 @@
     <div id="floatingMenuPanel" class="floating-menu-panel menu-spring-panel">
         <div class="floating-menu-header">
             <span>WebFlux Menu</span>
-            <span>6 Sections</span>
+            <span>7 Sections</span>
         </div>
         <a href="#about" onclick="toggleFloatingMenu()">
             <span><strong class="floating-menu-num">01</strong>About</span>
@@ -2486,12 +2563,16 @@
             <span><strong class="floating-menu-num">04</strong>Pricing</span>
             <i class="fas fa-arrow-right" style="font-size: 11px; opacity: 0.5;"></i>
         </a>
+        <a href="scripting.html">
+            <span><strong class="floating-menu-num" style="color: #22d3ee;">05</strong>Scripting Packages</span>
+            <i class="fas fa-arrow-up-right-from-square" style="font-size: 11px; color: #22d3ee; opacity: 0.85;"></i>
+        </a>
         <a href="#faq" onclick="toggleFloatingMenu()">
-            <span><strong class="floating-menu-num">05</strong>FAQ</span>
+            <span><strong class="floating-menu-num">06</strong>FAQ</span>
             <i class="fas fa-arrow-right" style="font-size: 11px; opacity: 0.5;"></i>
         </a>
         <a href="#contact" onclick="toggleFloatingMenu()">
-            <span><strong class="floating-menu-num">06</strong>Contact</span>
+            <span><strong class="floating-menu-num">07</strong>Contact</span>
             <i class="fas fa-arrow-right" style="font-size: 11px; opacity: 0.5;"></i>
         </a>
     </div>
